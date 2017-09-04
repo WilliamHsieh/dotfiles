@@ -2,9 +2,12 @@
 
 
 " Auto reload .vimrc after saving
+"{{{
 	autocmd! bufwritepost .vimrc source %
+"}}}
 
 " General
+"{{{
 	set number			" Show line numbers
 	set relativenumber	" Show relativenumber
 	"set showbreak=###	" Wrap-broken line prefix
@@ -24,25 +27,33 @@
 	colo torte			" color theme
 	syntax on
 	filetype plugin on
+"}}}
 
 " Fussy file search
+"{{{
 	set path+=**		" search down into subfolder,also enable tab to complete
 	set wildmenu		" Display all matching files; use * to make it fussy
+"}}}
 
 " Tab
+"{{{
 	set tabstop=4		" Number of spaces per Tab
 	set softtabstop=4	" Number of spaces per Tab(virtual tab width)
 	set smarttab		" Enable smart-tabs
 	set shiftwidth=4	" Number of auto-indent spaces
+"}}}
 
 " Search and replace
+"{{{
 	set showmatch		" Highlight matching brace
 	set hlsearch		" Highlight all search results
 	set smartcase		" Enable smart-case search
 	set gdefault		" Always substitute all matches in a line
 	set ignorecase		" Always case-insensitive
+"}}}
 
 " Hightlight matches when jumping to next
+"{{{
 	hi Search ctermfg=0 ctermbg=124
 	function! HINext(blinktime)
 		" zz
@@ -59,13 +70,17 @@
 	endfunction
 	nmap <silent> n n:call HINext(0.4)<cr>
 	nmap <silent> N N:call HINext(0.4)<cr>
+"}}}
 
 " Cursorline
+"{{{
 	set cursorline
 	hi CursorLine  cterm=NONE ctermbg=237
 	autocmd InsertEnter,InsertLeave * set cursorline!
- 
+ "}}}
+
 " Change cursor in different mode
+"{{{
 	let &t_SI = "\e[6 q"
 	let &t_EI = "\e[2 q"
 	"Other options (replace the number after \e[):
@@ -76,16 +91,22 @@
 	"Ps = 4  -> steady underline.
 	"Ps = 5  -> blinking bar (xterm).
 	"Ps = 6  -> steady bar (xterm).
+"}}}
 
 " Priorty of encoding when opening file
+"{{{
 	filetype indent on
 	set fileencodings=utf-8,utf-16,big5,gb2312,gbk,gb18030,euc-jp,euc-kr,latin1
 	set encoding=utf-8
+"}}}
 
 " Leader key
+"{{{
 	let mapleader = ","
+"}}}
 
 " Mapping
+"{{{
 	imap jj <esc>
 	nnoremap <C-n> <C-n><C-n><C-n><C-n>zz
 	nnoremap <C-p> <C-p><C-p><C-p><C-p>zz
@@ -100,16 +121,22 @@
 	nmap <silent><leader>v :set paste!<CR>:set paste?<CR>
 	nmap <leader><leader> :find ~<CR>
 	nmap ; :
-	
+	cmap <C-a> <home>
+	cmap <C-e> <end>
+	"}}}
+
 " Auto complete
+"{{{
 	"inoremap ( ()<Esc>i
 	"inoremap ) <Esc>la
 	"inoremap " ""<Esc>i
 	"inoremap ' ''<Esc>i
 	"inoremap {{ {}<ESC>i
 	inoremap {<CR> {<CR>}<Esc>ko
+"}}}
 
 " Statusline
+"{{{
 	" show two line of statusline
 	set laststatus=2								
 
@@ -128,12 +155,16 @@
 
 	" Default the statusline to DarkGrey when entering Vim
 	hi statusline guibg=DarkGrey ctermfg=8 guifg=White ctermbg=15
+"}}}
 
 " Make the 81th column stand out
+"{{{
 	hi colorculumn ctermbg=magenta
 	call matchadd('ColorColumn','\%81v',100)
+"}}}
 
 " Info showed on statusline:
+"{{{
 	set statusline=[%{expand('%:p')}]\ 				" path and file name
 	set statusline+=[%{strlen(&fenc)?&fenc:'none'}  " file encoding
 	set statusline+=,\ %{&ff}						" file format
@@ -147,10 +178,10 @@
 	set statusline+=\ ASCII:[%b]\ 					" ASCII code under cursor
 	" set statusline+=\ Buf:%						" Buffer number
 	" set statusline+=\ [0x%B]\						" byte code under cursor
+"}}}
 
-
-" FILE BROWSING:
-"
+" File browsing
+"{{{
 " Tweaks for browsing
 	let g:netrw_banner=0        " disable annoying banner
 	let g:netrw_browse_split=4  " open in prior window
@@ -163,8 +194,14 @@
 " - :edit a folder to open a file browser
 " - <CR>/v/t to open in an h-split/v-split/tab
 " - check |netrw-browse-maps| for more mappings
+"}}}
 
-
-
-
+" Folding
+	"{{{
+	set foldmethod=marker
+	set foldlevel=0
+	set foldnestmax=3
+	" set nofoldenable
+	highlight Folded ctermbg=black ctermfg=240
+	"}}}
 
