@@ -87,9 +87,9 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias vimrc="vim ~/.vimrc"
-alias zshrc="vim ~/.zshrc"
-alias tmuxrc="vim ~/.tmux.conf"
+alias vimrc="vim ~/.dotfile/.vimrc"
+alias zshrc="vim ~/.dotfile/.zshrc"
+alias tmuxrc="vim ~/.dotfile/.tmux.conf"
 alias sshpw="ssh hpw105u@csie0.cs.ccu.edu.tw"
 alias workstation="tmux"
 
