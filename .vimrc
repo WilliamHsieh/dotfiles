@@ -1,6 +1,5 @@
 " ------------------------- My vimrc config ------------------------- "
 
-
 " Auto reload .vimrc after saving
 "{{{
 	autocmd! bufwritepost .vimrc source %
@@ -108,15 +107,16 @@
 " Mapping
 "{{{
 	imap jj <esc>
-	nnoremap <C-n> <C-n><C-n><C-n><C-n>zz
-	nnoremap <C-p> <C-p><C-p><C-p><C-p>zz
+	imap kk <esc>
+	nnoremap <C-j> jjjjjzz
+	nnoremap <C-k> kkkkkzz
 	nmap <leader>/ ^i//<ESC>$
 	nmap <leader>" ^i" <ESC>$
 	nmap <leader># ^i# <ESC>$
 	nmap cmd ^xx$
 	nmap <leader>l :noh<CR>
 	nmap <leader><space> :w<CR>
-	nmap <silent><F9> :w<CR> :!clear && g++ % && echo "--------------- Running ---------------" && ./a.out<CR>
+	nmap <silent><F9> :w<CR> :!clear && g++ % && echo "> Running " && ./a.out<CR>
 	nmap <silent><leader>c :w <CR> :!xclip -i -selection clipboard % <CR><CR>
 	nmap <silent><leader>v :set paste!<CR>:set paste?<CR>
 	nmap <leader><leader> :find ~<CR>
@@ -133,6 +133,12 @@
 	"inoremap ' ''<Esc>i
 	"inoremap {{ {}<ESC>i
 	inoremap {<CR> {<CR>}<Esc>ko
+"}}}
+
+" Make the 81th column stand out
+"{{{
+	hi colorculumn ctermbg=magenta
+	call matchadd('ColorColumn','\%81v',100)
 "}}}
 
 " Statusline
@@ -157,15 +163,9 @@
 	hi statusline guibg=DarkGrey ctermfg=8 guifg=White ctermbg=15
 "}}}
 
-" Make the 81th column stand out
-"{{{
-	hi colorculumn ctermbg=magenta
-	call matchadd('ColorColumn','\%81v',100)
-"}}}
-
 " Info showed on statusline:
 "{{{
-	set statusline=[%{expand('%:p')}]\ 				" path and file name
+	set statusline=[%{expand('%:F')}]\ 				" path and file name
 	set statusline+=[%{strlen(&fenc)?&fenc:'none'}  " file encoding
 	set statusline+=,\ %{&ff}						" file format
 	set statusline+=,\ %{strlen(&filetype)?&filetype:'plain'}]	" filetype
@@ -182,22 +182,23 @@
 
 " File browsing
 "{{{
-" Tweaks for browsing
-	let g:netrw_banner=0        " disable annoying banner
-	let g:netrw_browse_split=4  " open in prior window
-	let g:netrw_altv=1          " open splits to the right
-	let g:netrw_liststyle=3     " tree view
-	let g:netrw_list_hide=netrw_gitignore#Hide()
-	let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
+	" Tweaks for browsing
+		let g:netrw_banner=0        " disable annoying banner
+		let g:netrw_browse_split=4  " open in prior window
+		let g:netrw_altv=1          " open splits to the right
+		let g:netrw_liststyle=3     " tree view
+		let g:netrw_list_hide=netrw_gitignore#Hide()
+		let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
 
-" NOW WE CAN:
-" - :edit a folder to open a file browser
-" - <CR>/v/t to open in an h-split/v-split/tab
-" - check |netrw-browse-maps| for more mappings
+	" NOW WE CAN:
+	" - :edit a folder to open a file browser
+	" - <CR>/v/t to open in an h-split/v-split/tab
+	" - check |netrw-browse-maps| for more mappings
 "}}}
 
 " Folding
 	"{{{
+	" <zf> to create, <zx>||<za> to fold and expand
 	set foldmethod=marker
 	set foldlevel=0
 	set foldnestmax=3
