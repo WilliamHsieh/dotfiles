@@ -94,3 +94,6 @@ alias sshpw="ssh hpw105u@csie0.cs.ccu.edu.tw"
 alias workstation="tmux"
 
 
+if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
+	source /etc/profile.d/vte.sh
+fi

@@ -108,15 +108,16 @@
 "{{{
 	imap jj <esc>
 	imap kk <esc>
-	nnoremap <C-j> jjjjjzz
-	nnoremap <C-k> kkkkkzz
+	nmap <C-j> 4jzz
+	vmap <C-j> 4jzz
+	nmap <C-k> 4kzz
+	vmap <C-k> 4kzz
 	nmap <leader>/ ^i//<ESC>$
 	nmap <leader>" ^i" <ESC>$
 	nmap <leader># ^i# <ESC>$
 	nmap cmd ^xx$
 	nmap <leader>l :noh<CR>
 	nmap <leader><space> :w<CR>
-	nmap <silent><F9> :w<CR> :!clear && g++ % && echo "> Running " && ./a.out<CR>
 	nmap <silent><leader>c :w <CR> :!xclip -i -selection clipboard % <CR><CR>
 	nmap <silent><leader>v :set paste!<CR>:set paste?<CR>
 	nmap <leader><leader> :find ~<CR>
@@ -205,4 +206,10 @@
 	" set nofoldenable
 	highlight Folded ctermbg=black ctermfg=240
 	"}}}
+
+" Compiler option
+"{{{
+	nmap <silent><F9> :w<CR> :!clear && g++ % --std=c++11 -Wall -Wextra -Wshadow && echo "> Running " && ./a.out<CR>
+	nmap <silent><F5> :w<CR> :!clear && g++ % --std=c++11 -Wall -Wextra -Wshadow && echo "> Running " && ./a.out < in<CR>
+"}}}
 
