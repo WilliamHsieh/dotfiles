@@ -8,6 +8,7 @@
 " Compile option
 "{{{
 	nmap <silent><F9> :w<CR> :!clear && echo "> Running" && python3 % <CR>
+	nmap <silent><F5> :w<CR> :!clear && echo "> Running" && python3 % < in<CR>
 "}}}
 
 
