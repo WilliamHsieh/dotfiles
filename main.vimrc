@@ -1,8 +1,8 @@
 
 
-	"+========================+"
-	"| My vimrc configuration |"
-	"+========================+"
+"+========================+"
+"| My vimrc configuration |"
+"+========================+"
 
 
 " Auto Reload .vimrc After Saving
