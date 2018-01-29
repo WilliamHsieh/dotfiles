@@ -22,8 +22,8 @@
 		set textwidth=80	" line wrap (number of cols)
 		set autoindent		" auto-indent new lines
 		set smartindent		" enable smart-indent
-		set cindent			" enable smart-indent with c language
-		" set undolevels=10	" number of undo levels (default = 1000)
+		set history=500
+		set undolevels=500	" number of undo levels (default = 1000)
 		set backspace=2		" backspace behaviour
 		set confirm			" ask confirm instead of block
 		set showcmd			" show the last used command
@@ -35,6 +35,9 @@
 		colo torte			" color theme
 		syntax on
 		filetype plugin on
+		filetype indent on
+		filetype indent plugin on
+		set modeline
 	"}}}
 	" Tab
 	"{{{
@@ -88,7 +91,6 @@
 		"inoremap ' ''<Esc>i
 		"inoremap {{ {}<ESC>i
 		inoremap {<CR> {<CR>}<Esc>ko
-		imap #if #if<CR><CR>#endif<esc>kkA 
 	"}}}
 	" Other stuff
 	"{{{
@@ -118,8 +120,11 @@
 		nmap <leader>l :noh<CR>
 		nmap <leader><space> :w<CR>
 		nmap <leader><leader> :find ~<CR>
-		nmap <silent><leader>c :w <CR> :!xclip -i -selection clipboard % <CR><CR>
-		nmap <silent><leader>v :set paste!<CR>:set paste?<CR>
+		nmap <F8> :w <CR> :!xclip -i -selection clipboard % <CR><CR>
+		set pastetoggle=<F12>
+		vmap <leader>s :sort<CR>
+		vmap > >gv
+		vmap < <gv
 	"}}}
 "}}}
 
@@ -225,11 +230,11 @@
 "}}}
 
 
-" Compiler Option
+" Source Options Based On Filetype
 "{{{
-	nmap <silent><F2> :w<CR> :!clear && gcc % && echo "> Running " && ./a.out<CR>
-	nmap <silent><F5> :w<CR> :!clear && g++ % -static -lm --std=c++11 -Wall -Wextra -Wshadow && echo "> Running " && ./a.out < in<CR>
-	nmap <silent><F9> :w<CR> :!clear && g++ % -static -lm --std=c++11 -Wall -Wextra -Wshadow && echo "> Running " && ./a.out<CR>
+	au filetype python source ~/.dotfile/py.vimrc
+	au BufEnter,BufNew *.c source ~/.dotfile/c.vimrc
+	au BufEnter,BufNew *.cpp source ~/.dotfile/c.vimrc
 "}}}
 
 
