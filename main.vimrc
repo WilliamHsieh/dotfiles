@@ -29,11 +29,6 @@
 		set showcmd			" show the last used command
 		set mouse=n			" mouse control (a == all)
 		set scrolloff=5		" preserve 5 line after scrolling
-		" set t_Co=256		" vim color
-		set term=screen-256color
-		set background=dark " background
-		colo torte			" color theme
-		syntax on
 		filetype plugin on
 		filetype indent on
 		filetype indent plugin on
@@ -58,6 +53,29 @@
 	"{{{
 		set path+=**		" search down into subfolder,also enable tab to complete
 		set wildmenu		" Display all matching files; use * to make it fussy
+	"}}}
+"}}}
+
+
+" Theme && Color
+"{{{
+	" Show syntax highlighting groups && color of word under cursor
+	"{{{
+		nmap <C-S-P> :call <SID>SynStack()<CR>
+		function! <SID>SynStack()
+			if !exists("*synstack")
+				return
+			endif
+			echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")') synIDattr(synIDtrans(synID(line("."), col("."), 1)), "fg")
+		endfunc
+	"}}}
+	" Others
+	"{{{
+		set t_Co=256		" vim color
+		set background=dark " background
+		colo torte			" color theme
+		syntax on
+		hi Identifier cterm=NONE ctermfg=14
 	"}}}
 "}}}
 
@@ -233,8 +251,9 @@
 " Source Options Based On Filetype
 "{{{
 	au filetype python source ~/.dotfile/py.vimrc
-	au BufEnter,BufNew *.c source ~/.dotfile/c.vimrc
-	au BufEnter,BufNew *.cpp source ~/.dotfile/c.vimrc
+	au BufEnter,BufNew *.c* source ~/.dotfile/c.vimrc
+	au BufEnter,BufNew *.c* syn match parens /[{}]/ | hi parens ctermfg=red
+	" au BufEnter,BufNew *.c* syn match blocks /[()]/ | hi blocks ctermfg=3
 "}}}
 
 

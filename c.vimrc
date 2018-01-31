@@ -1,8 +1,8 @@
 
 
-	"+=====================+"
-	"| Configuration for c |"
-	"+=====================+"
+"+=====================+"
+"| Configuration for c |"
+"+=====================+"
 
 
 " Compile option
@@ -12,10 +12,14 @@
 	nmap <silent><F9> :w<CR> :!clear && g++ % -static -lm --std=c++11 -Wall -Wextra -Wshadow && echo "> Running " && ./a.out<CR>
 "}}}
 
-
-" General
+" Tweak
 "{{{
 	set cindent		"enable smart indent in c language
+	" hi Number ctermfg=183
+	hi cConstant ctermfg=177
+	hi cStructure ctermfg=216
+	" hi cStatement ctermfg=216
+	hi MatchParen ctermbg=4
 "}}}
 
 
