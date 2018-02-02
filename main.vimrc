@@ -91,12 +91,25 @@
 	set foldlevel=0
 	set foldnestmax=3
 	" set nofoldenable
-	highlight Folded ctermbg=black ctermfg=240
+	hi Folded ctermbg=black ctermfg=240
 "}}}
 
 
 " Mapping
 "{{{
+	" Toggle Comment
+	"{{{
+		vmap <silent> <C-c> :call ToggleComment()<cr>
+		nmap <silent> <C-c> :call ToggleComment()<cr>
+
+		function! ToggleComment()
+			if matchstr(getline(line(".")),'^\s*\"\ .*$') == ''
+				:execute 's:^:" :'
+			else
+				:execute 's:^\s*" ::'
+			endif
+		endfunction
+	"}}}
 	" Auto complete
 	"{{{
 		"inoremap ( ()<Esc>i

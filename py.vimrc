@@ -11,11 +11,13 @@
 	nmap <silent><F5> :w<CR> :!clear && echo "> Running" && python3 % < in<CR>
 "}}}
 
+
 " Tweak
 "{{{
 	hi pythonBuiltin cterm=NONE ctermfg=121
 	hi pythonStatement ctermfg=14
 "}}}
+
 
 " Comment
 "{{{
@@ -30,5 +32,36 @@
 		endif
 	endfunction
 "}}}
+
+
+" Folding method
+"{{{
+	" folding markdown
+	function! MarkdownFolds()
+		let thisline = getline (v:lnum)
+		if match (thisline, '^###') >= 0
+			return '>3'
+		elseif match (thisline, '^##') >= 0
+			return '>2'
+		elseif match (thisline, '^#') >= 0
+			return '>1'
+		else
+			return '='
+		endif
+	endfunction
+	
+	setlocal foldmethod=expr
+	setlocal foldexpr=MarkdownFolds()
+
+	" text display on folding
+	function! MarkdownFoldText()
+		let foldsize = (v:foldend-v:foldstart)
+		return getline(v:foldstart). ' ('.foldsize.' lines)'
+	endfunction
+
+	setlocal foldtext=MarkdownFoldText()
+"}}}
+
+
 
 
