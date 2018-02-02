@@ -29,10 +29,10 @@
 		set showcmd			" show the last used command
 		set mouse=n			" mouse control (a == all)
 		set scrolloff=5		" preserve 5 line after scrolling
+		set modeline
 		filetype plugin on
 		filetype indent on
 		filetype indent plugin on
-		set modeline
 	"}}}
 	" Tab
 	"{{{
@@ -54,37 +54,33 @@
 		set path+=**		" search down into subfolder,also enable tab to complete
 		set wildmenu		" Display all matching files; use * to make it fussy
 	"}}}
-"}}}
-
-
-" Theme && Color
-"{{{
-	" Show syntax highlighting groups && color of word under cursor
+	" Theme && Color
 	"{{{
-		nmap <C-S-P> :call <SID>SynStack()<CR>
-		function! <SID>SynStack()
-			if !exists("*synstack")
-				return
-			endif
-			echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")') synIDattr(synIDtrans(synID(line("."), col("."), 1)), "fg")
-		endfunc
-	"}}}
-	" Others
+		" Show syntax highlighting groups && color of word under cursor
+		"{{{
+			nmap <C-S-P> :call <SID>SynStack()<CR>
+			function! <SID>SynStack()
+				if !exists("*synstack")
+					return
+				endif
+				echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")') synIDattr(synIDtrans(synID(line("."), col("."), 1)), "fg")
+			endfunc
+			"}}}
+		" Others
+		"{{{
+			set t_Co=256		" vim color
+			set background=dark " background
+			colo torte			" color theme
+			syntax on
+			hi Identifier cterm=NONE ctermfg=14
+			"}}}
+		"}}}
+	" Priorty Of Encoding When Opening File
 	"{{{
-		set t_Co=256		" vim color
-		set background=dark " background
-		colo torte			" color theme
-		syntax on
-		hi Identifier cterm=NONE ctermfg=14
+		filetype indent on
+		set fileencodings=utf-8,utf-16,big5,gb2312,gbk,gb18030,euc-jp,euc-kr,latin1
+		set encoding=utf-8
 	"}}}
-"}}}
-
-
-" Priorty Of Encoding When Opening File
-"{{{
-	filetype indent on
-	set fileencodings=utf-8,utf-16,big5,gb2312,gbk,gb18030,euc-jp,euc-kr,latin1
-	set encoding=utf-8
 "}}}
 
 
@@ -125,12 +121,6 @@
 		nmap <C-k> 4kzz
 		vmap <C-k> 4kzz
 
-		" Comment
-		nmap <leader>/ ^i//<ESC>$
-		nmap <leader>" ^i" <ESC>$
-		nmap <leader># ^i# <ESC>$
-		nmap cmd ^xx$
-
 		" Useful short cut
 		nmap ; :
 		cmap <C-a> <home>
@@ -141,8 +131,8 @@
 		nmap <F8> :w <CR> :!xclip -i -selection clipboard % <CR><CR>
 		set pastetoggle=<F12>
 		vmap <leader>s :sort<CR>
-		vmap > >gv
-		vmap < <gv
+		" vmap > >gv
+		" vmap < <gv
 	"}}}
 "}}}
 
@@ -248,7 +238,7 @@
 "}}}
 
 
-" Source Options Based On Filetype
+" Based On Filetype
 "{{{
 	au filetype python source ~/.dotfile/py.vimrc
 	au BufEnter,BufNew *.c* source ~/.dotfile/c.vimrc
