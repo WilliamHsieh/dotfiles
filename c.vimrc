@@ -7,7 +7,7 @@
 
 " Compile option
 "{{{
-	nmap <silent><F2> :w<CR> :!clear && gcc % && echo "> Running " && ./a.out<CR>
+	nmap <silent><F2> :w<CR> :!clear && g++ -g % && echo "> Compiled with Debug info ... "<CR>
 	nmap <silent><F5> :w<CR> :!clear && g++ % -static -lm --std=c++11 -Wall -Wextra -Wshadow && echo "> Running " && ./a.out < in<CR>
 	nmap <silent><F9> :w<CR> :!clear && g++ % -static -lm --std=c++11 -Wall -Wextra -Wshadow && echo "> Running " && ./a.out<CR>
 "}}}
@@ -44,11 +44,11 @@
 	" folding markdown
 	function! MarkdownFolds()
 		let thisline = getline (v:lnum)
-		if match (thisline, '^// ###') >= 0
+		if match (thisline, '^////') >= 0
 			return '>3'
-		elseif match (thisline, '^// ##') >= 0
+		elseif match (thisline, '^///') >= 0
 			return '>2'
-		elseif match (thisline, '^// #') >= 0
+		elseif match (thisline, '^//') >= 0
 			return '>1'
 		else
 			return '='

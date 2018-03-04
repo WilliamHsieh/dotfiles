@@ -14,8 +14,11 @@
 
 " Tweak
 "{{{
+" 	hi pythonInclude ctermfg=141
 	hi pythonBuiltin cterm=NONE ctermfg=121
-	hi pythonStatement ctermfg=14
+	hi pythonStatement ctermfg=13
+	hi pythonComment ctermfg=242
+	hi pythonFunction ctermfg=172
 "}}}
 
 
