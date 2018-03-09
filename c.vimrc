@@ -8,7 +8,7 @@
 " Compile option
 "{{{
 	set makeprg=g++\ -o\ %<\ %\ -static\ -lm\ --std=c++11\ -Wall\ -Wextra\ -Wshadow 
-	nmap <silent><F2> :w<CR> :!clear && g++ -g % && echo "> Compiled with Debug info ... "<CR>
+	nmap <silent><F2> :w<CR> :!clear && g++ -g --std=c++11 % && echo "> Compiled with Debug info ... "<CR>
 	nmap <silent><F5> :w<CR> :!clear && g++ % -static -lm --std=c++11 -Wall -Wextra -Wshadow && echo "> Running " && ./a.out < in<CR>
 	nmap <silent><F9> :w<CR> :!clear && g++ % -static -lm --std=c++11 -Wall -Wextra -Wshadow && echo "> Running " && ./a.out<CR>
 "}}}
