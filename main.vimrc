@@ -253,6 +253,7 @@
 
 " Based On Filetype
 "{{{
+	au filetype java source ~/.dotfile/java.vimrc
 	au filetype python source ~/.dotfile/py.vimrc
 	au BufEnter,BufNew *.c* source ~/.dotfile/c.vimrc
 	au BufEnter,BufNew *.c* syn match parens /[{}]/ | hi parens ctermfg=red
