@@ -97,7 +97,8 @@
 	alias vimrc="vim ~/.dotfile/main.vimrc"
 	alias zshrc="vim ~/.dotfile/.zshrc"
 	alias tmuxrc="vim ~/.dotfile/.tmux.conf"
-	alias sshpw="ssh hpw105u@csie0.cs.ccu.edu.tw"
+	alias sshcsie1="ssh hpw105u@csie1.cs.ccu.edu.tw"
+	alias sshlinux="ssh hpw105u@linux.cs.ccu.edu.tw"
 	alias workstation="tmux"
 # }}}
 

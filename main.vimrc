@@ -141,8 +141,8 @@
 		nmap <leader>l :noh<CR>
 		nmap <leader><space> :w<CR>
 		nmap <leader><leader> :find ~<CR>
-		nmap <F8> :w <CR> :!xclip -i -selection clipboard % <CR><CR>
-		set pastetoggle=<F12>
+		set pastetoggle=<F8>
+		nmap <F12> :w <CR> :!xclip -i -selection clipboard % <CR><CR>
 		vmap <leader>s :sort<CR>
 		" vmap > >gv
 		" vmap < <gv

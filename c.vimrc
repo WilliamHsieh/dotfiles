@@ -9,6 +9,10 @@
 "{{{
 	set makeprg=g++\ -o\ %<\ %\ -static\ -lm\ --std=c++11\ -Wall\ -Wextra\ -Wshadow 
 	nmap <silent><F2> :w<CR> :!clear && g++ -g --std=c++11 % && echo "> Compiled with Debug info ... "<CR>
+	nmap <silent><F4> :w<CR> :!qmake-qt4 -project && qmake-qt4 && make && ./app <CR>
+" 	nmap <silent><F4> :w<CR> :!qmake-qt4 -project && qmake-qt4 && make <CR>
+" 	nmap <silent><F4> :w<CR> :!qmake-qt4 -project && qmake-qt4 && make && ./${PWD##*/} <CR>
+" 	nmap <silent><F4> :w<CR> :!qmake-qt4 -project && qmake-qt4 && make && ./fnamemodify(getcwd(), ':t') <CR>
 	nmap <silent><F5> :w<CR> :!clear && g++ % -static -lm --std=c++11 -Wall -Wextra -Wshadow && echo "> Running " && ./a.out < in<CR>
 	nmap <silent><F9> :w<CR> :!clear && g++ % -static -lm --std=c++11 -Wall -Wextra -Wshadow && echo "> Running " && ./a.out<CR>
 "}}}
@@ -16,6 +20,7 @@
 
 " Tweak
 "{{{
+	set autochdir	"change the working directory to the directory of the file you opened"
 	set cindent		"enable smart indent in c language
 	hi cConstant ctermfg = 14
 	hi cStructure ctermfg = 216
@@ -45,11 +50,11 @@
 	" folding markdown
 	function! MarkdownFolds()
 		let thisline = getline (v:lnum)
-		if match (thisline, '^////') >= 0
+		if match (thisline, '^// ###') >= 0
 			return '>3'
-		elseif match (thisline, '^///') >= 0
+		elseif match (thisline, '^// ##') >= 0
 			return '>2'
-		elseif match (thisline, '^//') >= 0
+		elseif match (thisline, '^// #') >= 0
 			return '>1'
 		else
 			return '='

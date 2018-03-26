@@ -17,9 +17,9 @@
 "{{{
 " 	hi pythonInclude ctermfg=141
 	hi pythonBuiltin cterm=NONE ctermfg=121
-	hi pythonStatement ctermfg=13
+	hi pythonStatement ctermfg=121
 	hi pythonComment ctermfg=242
-	hi pythonFunction ctermfg=172
+	hi pythonFunction ctermfg=14
 "}}}
 
 
@@ -43,11 +43,11 @@
 	" folding markdown
 	function! MarkdownFolds()
 		let thisline = getline (v:lnum)
-		if match (thisline, '^###') >= 0
+		if match (thisline, '^####') >= 0
 			return '>3'
-		elseif match (thisline, '^##') >= 0
+		elseif match (thisline, '^###') >= 0
 			return '>2'
-		elseif match (thisline, '^#') >= 0
+		elseif match (thisline, '^##') >= 0
 			return '>1'
 		else
 			return '='
