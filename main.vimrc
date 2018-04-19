@@ -262,6 +262,7 @@
 	au filetype python source ~/.dotfile/py.vimrc
 	au filetype cpp source ~/.dotfile/c.vimrc
 	au filetype c source ~/.dotfile/c.vimrc
+	au filetype sql source ~/.dotfile/sql.vimrc
 	au BufEnter,BufNew *.c* syn match parens /[{}]/ | hi parens ctermfg=red
 " 	au BufEnter,BufNew *.c* source ~/.dotfile/c.vimrc
 " 	au BufEnter,BufNew *.c* syn match blocks /[()]/ | hi blocks ctermfg=3
