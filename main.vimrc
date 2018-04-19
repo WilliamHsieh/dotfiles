@@ -113,7 +113,7 @@
 	" Copy to clipboard
 	"{{{
 		nmap <F12> :w <CR> :!xclip -i -selection clipboard % <CR><CR>
-		vmap <F12> :'<,'>w !xclip<CR>
+		vmap <F12> :'<,'>w !xclip<CR><CR>
 		nmap <silent><leader>c :call system('xclip', @0)<CR>
 	"}}}
 	" Auto complete
