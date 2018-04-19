@@ -19,7 +19,7 @@
 	hi pythonBuiltin cterm=NONE ctermfg=121
 	hi pythonStatement ctermfg=121
 	hi pythonComment ctermfg=242
-	hi pythonFunction ctermfg=14
+	hi pythonFunction ctermfg=12
 "}}}
 
 

@@ -110,6 +110,12 @@
 			endif
 		endfunction
 	"}}}
+	" Copy to clipboard
+	"{{{
+		nmap <F12> :w <CR> :!xclip -i -selection clipboard % <CR><CR>
+		vmap <F12> :'<,'>w !xclip<CR>
+		nmap <silent><leader>c :call system('xclip', @0)<CR>
+	"}}}
 	" Auto complete
 	"{{{
 		"inoremap ( ()<Esc>i
@@ -142,7 +148,6 @@
 		nmap <leader><space> :w<CR>
 		nmap <leader><leader> :find ~<CR>
 		set pastetoggle=<F8>
-		nmap <F12> :w <CR> :!xclip -i -selection clipboard % <CR><CR>
 		vmap <leader>s :sort<CR>
 		" vmap > >gv
 		" vmap < <gv
@@ -255,9 +260,11 @@
 "{{{
 	au filetype java source ~/.dotfile/java.vimrc
 	au filetype python source ~/.dotfile/py.vimrc
-	au BufEnter,BufNew *.c* source ~/.dotfile/c.vimrc
+	au filetype cpp source ~/.dotfile/c.vimrc
+	au filetype c source ~/.dotfile/c.vimrc
 	au BufEnter,BufNew *.c* syn match parens /[{}]/ | hi parens ctermfg=red
-	" au BufEnter,BufNew *.c* syn match blocks /[()]/ | hi blocks ctermfg=3
+" 	au BufEnter,BufNew *.c* source ~/.dotfile/c.vimrc
+" 	au BufEnter,BufNew *.c* syn match blocks /[()]/ | hi blocks ctermfg=3
 "}}}
 
 
