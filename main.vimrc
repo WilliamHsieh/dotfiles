@@ -5,14 +5,12 @@
 "+========================+"
 
 
-" Auto Reload .vimrc After Saving
-"{{{
-	autocmd! bufwritepost .vimrc source %
-"}}}
-
-
 " General
 "{{{
+	" Auto Reload .vimrc After Saving
+	"{{{
+		autocmd! bufwritepost .vimrc source %
+	"}}}
 	" Basic
 	"{{{
 		set number			" show line numbers
@@ -91,7 +89,7 @@
 	set foldlevel=0
 	set foldnestmax=3
 	" set nofoldenable
-	hi Folded ctermbg=black ctermfg=240
+	hi Folded ctermbg=black ctermfg=241
 "}}}
 
 
@@ -263,7 +261,6 @@
 	au filetype cpp source ~/.dotfile/c.vimrc
 	au filetype c source ~/.dotfile/c.vimrc
 	au filetype sql source ~/.dotfile/sql.vimrc
-	au BufEnter,BufNew *.c* syn match parens /[{}]/ | hi parens ctermfg=red
 " 	au BufEnter,BufNew *.c* source ~/.dotfile/c.vimrc
 " 	au BufEnter,BufNew *.c* syn match blocks /[()]/ | hi blocks ctermfg=3
 "}}}

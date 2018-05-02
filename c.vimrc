@@ -9,7 +9,7 @@
 "{{{
 " 	set makeprg=g++\ -o\ %<\ %\ -static\ -lm\ --std=c++11\ -Wall\ -Wextra\ -Wshadow 
 " 	nmap <silent><F2> :w<CR> :!clear && g++ -g --std=c++11 % && echo "> Compiled with Debug info ... "<CR>
-	nmap <silent><F2> :w<CR> :!clear && g++ --std=c++14 main.cpp account.cpp user.cpp transaction.cpp global.cpp&& echo "> Running " && ./a.out<CR>
+	nmap <silent><F2> :w<CR> :!clear && g++ main.cpp bag.cpp && echo "> Running " && ./a.out<CR>
 	nmap <silent><F4> :w<CR> :!qmake-qt4 -project && qmake-qt4 && make && ./app <CR>
 " 	nmap <silent><F4> :w<CR> :!qmake-qt4 -project && qmake-qt4 && make && ./${PWD##*/} <CR>
 " 	nmap <silent><F4> :w<CR> :!qmake-qt4 -project && qmake-qt4 && make && ./fnamemodify(getcwd(), ':t') <CR>
@@ -20,6 +20,7 @@
 
 " Tweak
 "{{{
+	syn match parens /[{}]/ | hi parens ctermfg=red
 	set autochdir	"change the working directory to the directory of the file you opened"
 	set cindent		"enable smart indent in c language
 	hi cConstant ctermfg = 14
@@ -63,11 +64,23 @@
 	
 	setlocal foldmethod=expr
 	setlocal foldexpr=MarkdownFolds()
+"}}}
 
-" text display on folding
+
+" Text display on folding
+"{{{
 	function! MarkdownFoldText()
+		let thisline = getline(v:foldstart)
 		let foldsize = (v:foldend-v:foldstart)
-		return getline(v:foldstart). ' ('.foldsize.' lines) '
+		if match (thisline, '^// ###') >= 0
+			return '    '. '    '. getline(v:foldstart). ' ('.foldsize.' lines) '
+		elseif match (thisline, '^// ##') >= 0
+			return '    '. getline(v:foldstart). ' ('.foldsize.' lines) '
+		elseif match (thisline, '^// #') >= 0
+			return getline(v:foldstart). ' ('.foldsize.' lines) '
+		else
+			return getline(v:foldstart). ' ('.foldsize.' lines) '
+		endif
 	endfunction
 
 	setlocal foldtext=MarkdownFoldText()
