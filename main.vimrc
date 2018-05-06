@@ -145,7 +145,7 @@
 		nmap <leader>l :noh<CR>
 		nmap <leader><space> :w<CR>
 		nmap <leader><leader> :find ~<CR>
-		set pastetoggle=<F8>
+		set pastetoggle=<F12>
 		vmap <leader>s :sort<CR>
 		" vmap > >gv
 		" vmap < <gv

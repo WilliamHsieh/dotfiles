@@ -17,9 +17,14 @@
 "{{{
 " 	hi pythonInclude ctermfg=141
 	hi pythonBuiltin cterm=NONE ctermfg=121
-	hi pythonStatement ctermfg=121
+	hi pythonStatement ctermfg=11
 	hi pythonComment ctermfg=242
-	hi pythonFunction ctermfg=12
+	hi pythonFunction ctermfg=121
+	hi pythonConditional ctermfg=216
+	hi pythonRepeat ctermfg=216
+	hi pythonOperator ctermfg=216
+
+
 "}}}
 
 
