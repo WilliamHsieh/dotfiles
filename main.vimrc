@@ -130,7 +130,7 @@
 
 		" Esc
 		imap jj <esc>
-		imap kk <esc>
+" 		imap kk <esc>
 
 		" Moving the cursor
 		nmap <C-j> 4jzz
