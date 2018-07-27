@@ -1,5 +1,5 @@
 # William's dotfiles
-![Screenshot of my setup](https://raw.githubusercontent.com/williamhsieh/.dotfile/pic.png)
+![Screenshot of my setup](https://raw.githubusercontent.com/WilliamHsieh/.dotfile/master/pic.png?token=AWIZPTai5AQxo4AEYrKoArGOwTdQ7imSks5bZI-RwA%3D%3D)
 
 ## Installation
 **Warning:** These are my configuration for zsh, tmux, and vim. Before you fork this repository, be sure to review the code in advance. Don't blindly use my setting unless you know what that entails. __Use at your own risk!__
@@ -13,7 +13,7 @@ $ git clone "http://github.com/williamhsieh/.dotfile" && ./.dotfile/init
 
 ## Feedback
 
-Suggestions/improvements [welcome!](https://github.com/mathiasbynens/dotfiles/issues)!
+Suggestions/improvements [welcome!](https://github.com/williamhsieh/.dotfiles/issues)!
 
 ## Author
 * [William Hsieh](https://github.com/williamhsieh/) 
