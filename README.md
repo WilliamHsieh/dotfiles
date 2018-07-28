@@ -1,5 +1,5 @@
 # William's dotfiles
-![Screenshot of my setup](https://raw.githubusercontent.com/WilliamHsieh/.dotfile/master/pic.png?token=AWIZPTai5AQxo4AEYrKoArGOwTdQ7imSks5bZI-RwA%3D%3D)
+![Screenshot of my setup](https://raw.githubusercontent.com/WilliamHsieh/.dotfile/master/img.png?token=AWIZPQsLlj_tELRFbf5zG-rAWEWg3F6Qks5bZQ50wA%3D%3D)
 
 ## Installation
 **Warning:** These are my configuration for zsh, tmux, and vim. Before you fork this repository, be sure to review the code in advance. Don't blindly use my setting unless you know what that entails. ___Use at your own risk!___
