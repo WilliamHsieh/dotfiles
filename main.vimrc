@@ -54,6 +54,18 @@
 	"}}}
 	" Theme && Color
 	"{{{
+		" Settings
+		"{{{
+			set t_Co=256			" vim color
+			set background=dark		" background
+			colo torte				" color theme
+" 			colo material			" color theme
+			syntax enable
+			hi LineNr ctermfg=30
+			hi CursorLineNr ctermfg=30
+			hi Identifier cterm=none ctermfg=14
+			hi VertSplit cterm=none ctermfg=bg ctermbg=237
+			"}}}
 		" Show syntax highlighting groups && color of word under cursor
 		"{{{
 			nmap <C-S-P> :call <SID>SynStack()<CR>
@@ -63,14 +75,6 @@
 				endif
 				echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")') synIDattr(synIDtrans(synID(line("."), col("."), 1)), "fg")
 			endfunc
-			"}}}
-		" Others
-		"{{{
-			set t_Co=256		" vim color
-			set background=dark " background
-			colo torte			" color theme
-			syntax on
-			hi Identifier cterm=NONE ctermfg=14
 			"}}}
 		"}}}
 	" Priorty Of Encoding When Opening File
@@ -138,13 +142,19 @@
 		nmap <C-k> 4kzz
 		vmap <C-k> 4kzz
 
+		" Navigate between splits
+		nmap <C-h> <C-w><C-h>
+		nmap <C-l> <C-w><C-l>
+
 		" Useful short cut
 		nmap ; :
+		imap <C-a> <home>
+		imap <C-e> <end>
 		cmap <C-a> <home>
 		cmap <C-e> <end>
 		nmap <leader>l :noh<CR>
 		nmap <leader><space> :w<CR>
-		nmap <leader><leader> :find ~<CR>
+		nmap <leader><leader> :Vexplore<CR>
 		set pastetoggle=<F12>
 		vmap <leader>s :sort<CR>
 		" vmap > >gv
@@ -240,11 +250,19 @@
 	"{{{
 		" Tweaks for browsing
 		let g:netrw_banner=0        " disable annoying banner
+		let g:netrw_liststyle=3     " tree view
 		let g:netrw_browse_split=4  " open in prior window
 		let g:netrw_altv=1          " open splits to the right
-		let g:netrw_liststyle=3     " tree view
-		let g:netrw_list_hide=netrw_gitignore#Hide()
-		let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
+		let g:netrw_winsize = 16	" the percentage of the size
+		let g:netrw_preview = 1		" use 'p' to preview the file in netRW
+" 		let g:netrw_list_hide=netrw_gitignore#Hide()
+" 		let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
+
+		" open netrw automatically
+" 		augroup ProjectDrawer
+" 			autocmd!
+" 			autocmd VimEnter * :Vexplore
+" 		augroup END
 
 		" NOW WE CAN:
 		" - :edit a folder to open a file browser
