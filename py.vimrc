@@ -15,15 +15,19 @@
 
 " Tweak
 "{{{
-" 	hi pythonInclude ctermfg=141
+	hi pythonImport ctermfg=1
 	hi pythonBuiltin cterm=NONE ctermfg=121
 	hi pythonStatement ctermfg=11
 	hi pythonComment ctermfg=242
 	hi pythonFunction ctermfg=121
-	hi pythonConditional ctermfg=216
 	hi pythonRepeat ctermfg=216
-	hi pythonOperator ctermfg=216
+	hi pythonOperator ctermfg=3
+	hi pythonConditional ctermfg=216
 
+	" so that I won't type the stupid semicolon
+	imap ; <nop>
+
+" let python_highlight_all = 1
 
 "}}}
 
@@ -34,10 +38,10 @@
 	nmap <silent> <C-c> :call ToggleComment()<cr>
 
 	function! ToggleComment()
-		if matchstr(getline(line(".")),'^\s*\#.*$') == ''
-			:execute "s:^:#:"
+		if matchstr(getline(line(".")),'^\s*\#\ .*$') == ''
+			:execute "s:^:# :"
 		else
-			:execute "s:^\s*#::"
+			:execute "s:^\s*# ::"
 		endif
 	endfunction
 "}}}
