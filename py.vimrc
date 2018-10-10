@@ -68,8 +68,17 @@
 
 	" text display on folding
 	function! MarkdownFoldText()
+		let thisline = getline (v:foldstart)
 		let foldsize = (v:foldend-v:foldstart)
-		return getline(v:foldstart). ' ('.foldsize.' lines)'
+		if match (thisline, '^####') >= 0
+			return '    '. '    '. getline(v:foldstart). ' ('.foldsize.' lines)'
+		elseif match (thisline, '^###') >= 0
+			return '    '. getline(v:foldstart). ' ('.foldsize.' lines)'
+		elseif match (thisline, '^##') >= 0
+			return getline(v:foldstart). ' ('.foldsize.' lines)'
+		else
+			return getline(v:foldstart). ' ('.foldsize.' lines)'
+		endif
 	endfunction
 
 	setlocal foldtext=MarkdownFoldText()
