@@ -148,7 +148,7 @@
 
 		" Useful short cut
 		nmap ; :
-		imap <C-a> <home>
+		imap <C-a> <esc>^i
 		imap <C-e> <end>
 		cmap <C-a> <home>
 		cmap <C-e> <end>
@@ -279,6 +279,7 @@
 	au filetype cpp source ~/.dotfile/c.vimrc
 	au filetype c source ~/.dotfile/c.vimrc
 	au filetype sql source ~/.dotfile/sql.vimrc
+	au filetype asm source ~/.dotfile/asm.vimrc
 " 	au BufEnter,BufNew *.c* source ~/.dotfile/c.vimrc
 " 	au BufEnter,BufNew *.c* syn match blocks /[()]/ | hi blocks ctermfg=3
 "}}}
