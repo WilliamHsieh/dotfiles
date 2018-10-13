@@ -1,8 +1,8 @@
 
 
-"+=================================+"
-"| Configuration for MIPs-assembly |"
-"+=================================+"
+"+==========================+"
+"| Configuration for matlab |"
+"+==========================+"
 
 
 " Compile option
@@ -21,10 +21,10 @@
 	nmap <silent> <C-c> :call ToggleComment()<cr>
 
 	function! ToggleComment()
-		if matchstr(getline(line(".")),'^\s*\#\ .*$') == ''
-			:execute "s:^:# :"
+		if matchstr(getline(line(".")),'^\s*\%\ .*$') == ''
+			:execute "s:^:% :"
 		else
-			:execute "s:^\s*# ::"
+			:execute "s:^\s*% ::"
 		endif
 	endfunction
 "}}}
@@ -35,11 +35,11 @@
 	" folding markdown
 	function! MarkdownFolds()
 		let thisline = getline (v:lnum)
-		if match (thisline, '^####') >= 0
+		if match (thisline, '^%%%%') >= 0
 			return '>3'
-		elseif match (thisline, '^###') >= 0
+		elseif match (thisline, '^%%%') >= 0
 			return '>2'
-		elseif match (thisline, '^##') >= 0
+		elseif match (thisline, '^%%') >= 0
 			return '>1'
 		else
 			return '='
@@ -53,11 +53,11 @@
 	function! MarkdownFoldText()
 		let thisline = getline (v:foldstart)
 		let foldsize = (v:foldend-v:foldstart)
-		if match (thisline, '^####') >= 0
+		if match (thisline, '^%%%%') >= 0
 			return '    '. '    '. getline(v:foldstart). ' ('.foldsize.' lines)'
-		elseif match (thisline, '^###') >= 0
+		elseif match (thisline, '^%%%') >= 0
 			return '    '. getline(v:foldstart). ' ('.foldsize.' lines)'
-		elseif match (thisline, '^##') >= 0
+		elseif match (thisline, '^%%') >= 0
 			return getline(v:foldstart). ' ('.foldsize.' lines)'
 		else
 			return getline(v:foldstart). ' ('.foldsize.' lines)'
