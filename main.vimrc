@@ -1,8 +1,8 @@
 
-
 "+========================+"
 "| My vimrc configuration |"
 "+========================+"
+" @TODO: add the surrond method
 
 
 " General
@@ -152,11 +152,13 @@
 		imap <C-e> <end>
 		cmap <C-a> <home>
 		cmap <C-e> <end>
+		nmap <S-k> k<S-j>
 		nmap <leader>l :noh<CR>
 		nmap <leader><space> :w<CR>
 		nmap <leader><leader> :Vexplore<CR>
 		set pastetoggle=<F12>
 		vmap <leader>s :sort<CR>
+		nmap <C-f> /
 		" vmap > >gv
 		" vmap < <gv
 	"}}}
@@ -281,6 +283,7 @@
 	au filetype sql		source ~/.dotfile/sql.vimrc
 	au filetype asm		source ~/.dotfile/asm.vimrc
 	au filetype matlab	source ~/.dotfile/matlab.vimrc
+	au filetype verilog	source ~/.dotfile/verilog.vimrc
 " 	au BufEnter,BufNew *.c* source ~/.dotfile/c.vimrc
 " 	au BufEnter,BufNew *.c* syn match blocks /[()]/ | hi blocks ctermfg=3
 "}}}
