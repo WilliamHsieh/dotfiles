@@ -2,8 +2,10 @@
 "+========================+"
 "| My vimrc configuration |"
 "+========================+"
-" @TODO: add the surrond method
 
+" @TODO: add the surrond method
+" @TODO: bulk rename in vim(ranger.vim)
+" @TODO: compile in a new tab (or anywhere else, eg: bottom)
 
 " General
 "{{{
@@ -200,7 +202,7 @@
 			set statusline+=\ %r							" read only flag
 			set statusline+=\ %=							" align left
 			set statusline+=Line:%l/%L[%p%%]				" line X of Y [percent of file]
-			" set statusline+=\ Col:%c						" current column
+			set statusline+=\ Col:[%c]						" current column
 			set statusline+=\ ASCII:[%b]\ 					" ASCII code under cursor
 			" set statusline+=\ Buf:%						" Buffer number
 			" set statusline+=\ [0x%B]\						" byte code under cursor
@@ -284,6 +286,7 @@
 	au filetype asm		source ~/.dotfile/asm.vimrc
 	au filetype matlab	source ~/.dotfile/matlab.vimrc
 	au filetype verilog	source ~/.dotfile/verilog.vimrc
+	au filetype make	source ~/.dotfile/asm.vimrc
 " 	au BufEnter,BufNew *.c* source ~/.dotfile/c.vimrc
 " 	au BufEnter,BufNew *.c* syn match blocks /[()]/ | hi blocks ctermfg=3
 "}}}
