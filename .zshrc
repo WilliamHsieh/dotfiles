@@ -115,4 +115,7 @@
 	case $(uname -a) in
 		*Microsoft*) unsetopt BG_NICE ;;
 	esac
+
+	# make sure the cursor is constantly block
+	echo -ne "\e[2 q"
 # }}}
