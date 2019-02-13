@@ -4,16 +4,13 @@
 ![Screenshot of my setup](src/img.png)
 
 ## Installation
-**Warning:** Before you fork this repository, be sure to review the code in advance. Don't blindly use my setting unless you know what that entails. **Use at your own risk!**
+**Warning:** Before you fork this repository, be sure to review the code in advance. Don't blindly use my setting unless you know what that entails. ***Use at your own risk!***
 
-### oh-my-zsh
-If you don't have **oh-my-zsh** installed, follow the instruction [here](https://github.com/robbyrussell/oh-my-zsh).
-
-### xclip
-It's the tool I used to copy content from vim buffer to clipboard. Install if needed.
+* If you don't have ```oh-my-zsh``` installed, follow the instruction [here](https://github.com/robbyrussell/oh-my-zsh).
+* ```xclip``` the tool I used to copy content from vim buffer to clipboard. Install if needed.
 
 ### Using Git and the init script
-Make sure to backup your previous settings (*.vimrc*, *.zshrc*, *.tmux.conf*), the **init** process will overwrite those files.
+Make sure to backup your previous settings (```.vimrc```, ```.zshrc```, ```.tmux.conf```), the ```init``` process will overwrite those files.
 
 ```
 $ cd && git clone "http://github.com/williamhsieh/.dotfile" && ./.dotfile/init
