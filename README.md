@@ -1,40 +1,37 @@
-# William's dotfiles
-![Screenshot of my setup](https://raw.githubusercontent.com/WilliamHsieh/.dotfile/master/img.png?token=AWIZPQsLlj_tELRFbf5zG-rAWEWg3F6Qks5bZQ50wA%3D%3D)
+# Dotfiles
+> These are my configuration for zsh, tmux, and vim.
+
+![Screenshot of my setup](src/img.png)
 
 ## Installation
-**Warning:** These are my configuration for zsh, tmux, and vim. Before you fork this repository, be sure to review the code in advance. Don't blindly use my setting unless you know what that entails. ___Use at your own risk!___
+**Warning:** Before you fork this repository, be sure to review the code in advance. Don't blindly use my setting unless you know what that entails. **Use at your own risk!**
 
 ### oh-my-zsh
-If you haven't install oh-my-zsh yet, follow the instruction
-[here](https://github.com/robbyrussell/oh-my-zsh)
+If you don't have **oh-my-zsh** installed, follow the instruction [here](https://github.com/robbyrussell/oh-my-zsh).
 
-Install it with either `curl` or `wget`.
+### xclip
+It's the tool I used to copy content from vim buffer to clipboard. Install if needed.
 
-**via curl**
-```
-# sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-```
-
-**via wget**
-```
-# sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
-```
-
-### Using git
-You can clone the repository anywhere you want, but do it before you backup your previous settings (eg: .vimrc, .zshrc...), the process will overwrite those files.
+### Using Git and the init script
+Make sure to backup your previous settings (*.vimrc*, *.zshrc*, *.tmux.conf*), the **init** process will overwrite those files.
 
 ```
-# git clone "http://github.com/williamhsieh/.dotfile" && ./.dotfile/init
+$ cd && git clone "http://github.com/williamhsieh/.dotfile" && ./.dotfile/init
 ```
 
 ## Feedback
 
 Suggestions/improvements [welcome](https://github.com/WilliamHsieh/.dotfile/issues)!
 
-## Author
-* [William Hsieh](https://github.com/williamhsieh/) 
+## About me
+* [William Hsieh](https://github.com/williamhsieh/)
+* [YouTube](https://www.youtube.com/playlist?list=PL9_ICC0aO5tjEbqj4ivBFsafBx8Rw74fg): A series of vim tutorial.
 
-## Thanks to…
-
+## Acknowledgements
+Inspiration and code was taken from many sources, including:
+* [Maxin Cardamom](https://github.com/changemewtf/no_plugins)
+* [Damian Conway](http://damian.conway.org/About_us/Bio_formal.html) and his [vim configuration](https://github.com/thoughtstream/Damian-Conway-s-Vim-Setup)
+* [Nick Nisi](https://nicknisi.com/) and his [presentation](https://github.com/nicknisi/vim-workshop)
+* [Hermann Vocke](https://www.hamvocke.com/) and his [dotfiles repository](https://github.com/hamvocke/dotfiles)
 * [Mathias Bynens](https://mathiasbynens.be/) and his [dotfiles repository](https://github.com/mathiasbynens/dotfiles/)
-* Anyone who  [made a helpful suggestion](https://github.com/mathiasbynens/dotfiles/issues)
+* Anyone who  [made a helpful suggestion](https://github.com/WilliamHsieh/.dotfile/issues)
