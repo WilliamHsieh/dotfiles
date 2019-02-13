@@ -3,7 +3,7 @@
 "| My vimrc configuration |"
 "+========================+"
 
-" @TODO: add the surrond method
+" @TODO: add the surrond method (ex: ys<, cs", ds', viwS[, etc)
 " @TODO: bulk rename in vim(ranger.vim)
 " @TODO: compile in a new tab (or anywhere else, eg: bottom)
 
@@ -278,17 +278,16 @@
 
 " Based On Filetype
 "{{{
-	au filetype java	source ~/.dotfile/java.vimrc
-	au filetype python	source ~/.dotfile/py.vimrc
-	au filetype cpp		source ~/.dotfile/c.vimrc
-	au filetype c		source ~/.dotfile/c.vimrc
-	au filetype sql		source ~/.dotfile/sql.vimrc
-	au filetype asm		source ~/.dotfile/asm.vimrc
-	au filetype matlab	source ~/.dotfile/matlab.vimrc
-	au filetype verilog	source ~/.dotfile/verilog.vimrc
-	au filetype make	source ~/.dotfile/asm.vimrc
+	au filetype java	source ~/.dotfile/vim/java.vimrc
+	au filetype python	source ~/.dotfile/vim/py.vimrc
+	au filetype cpp		source ~/.dotfile/vim/c.vimrc
+	au filetype c		source ~/.dotfile/vim/c.vimrc
+	au filetype sql		source ~/.dotfile/vim/sql.vimrc
+	au filetype asm		source ~/.dotfile/vim/asm.vimrc
+	au filetype matlab	source ~/.dotfile/vim/matlab.vimrc
+	au filetype verilog	source ~/.dotfile/vim/verilog.vimrc
+	au filetype make	source ~/.dotfile/vim/asm.vimrc
 " 	au BufEnter,BufNew *.c* source ~/.dotfile/c.vimrc
-" 	au BufEnter,BufNew *.c* syn match blocks /[()]/ | hi blocks ctermfg=3
 "}}}
 
 
