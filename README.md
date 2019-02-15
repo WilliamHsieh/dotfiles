@@ -1,19 +1,19 @@
 # My dotfiles
-> These are my configuration for zsh, tmux, and vim.
+> These are my configuration for vim, zsh, and tmux.
 
 ![Screenshot of my setup](src/img.png)
 
 ## Getting Started
 ### Prerequisites
-**Disclaimer:** Be sure to review the code in advance. Don't blindly use my setting unless you know what that entails. ***Use at your own risk!***
+**Disclaimer:** These dotfiles work best on macOS and Linux, sometimes it's a bit funky in WSL.
 
 * ```oh-my-zsh``` should be installed. If not pre-installed, follow the instruction [here](https://github.com/robbyrussell/oh-my-zsh).
 * ```xclip``` is the tool I used to copy content from vim buffer to clipboard. Install if needed.
 * ```git``` should be installed
 
 ### Basic Installation
-The repository will be cloned into **~dotfiles** by the following command via ```git```. 
-* the **init** process will backup the existing dotfiles to **~dotfiles_backup** for you
+The repository will be cloned into ```~/dotfiles``` by the following command via ```git```. 
+* the ```init.sh``` process will backup the existing dotfiles to ```~/dotfiles_backup``` for you
 * execute ```chmod +x init.sh``` if permission denied
 
 ```
