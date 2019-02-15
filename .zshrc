@@ -34,7 +34,7 @@
 	# DISABLE_LS_COLORS="true"
 
 	# Uncomment the following line to disable auto-setting terminal title.
-	# DISABLE_AUTO_TITLE="true"
+	DISABLE_AUTO_TITLE="true"
 
 	# Uncomment the following line to enable command auto-correction.
 	# ENABLE_CORRECTION="true"
@@ -94,28 +94,17 @@
 # {{{
 	# alias zshconfig="mate ~/.zshrc"
 	# alias ohmyzsh="mate ~/.oh-my-zsh"
-	alias vimrc="vim ~/.dotfile/main.vimrc"
-	alias zshrc="vim ~/.dotfile/.zshrc"
-	alias tmuxrc="vim ~/.dotfile/.tmux.conf"
+	alias vimrc="vim ~/dotfiles/main.vimrc"
+	alias zshrc="vim ~/dotfiles/.zshrc"
+	alias tmuxrc="vim ~/dotfiles/.tmux.conf"
 	alias sshcsie1="ssh hpw105u@csie1.cs.ccu.edu.tw"
 	alias sshlinux="ssh hpw105u@linux.cs.ccu.edu.tw"
-	alias workstation="tmux"
 	alias pythonServer="python3 -m http.server"
 	alias phpServer="php -S 127.0.0.1:8000"
 # }}}
 
 # Others
 # {{{
-	if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
-		source /etc/profile.d/vte.sh
-	fi
-
-	# _z_precmd:1: nice(5) failed: operation not permitted
-	# fix the above problem
-	case $(uname -a) in
-		*Microsoft*) unsetopt BG_NICE ;;
-	esac
-
 	# make sure the cursor is constantly block
 	echo -ne "\e[2 q"
 # }}}

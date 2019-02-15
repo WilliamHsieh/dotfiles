@@ -1,11 +1,9 @@
 
+
 "+========================+"
 "| My vimrc configuration |"
 "+========================+"
 
-" @TODO: add the surrond method (ex: ys<, cs", ds', viwS[, etc)
-" @TODO: bulk rename in vim(ranger.vim)
-" @TODO: compile in a new tab (or anywhere else, eg: bottom)
 
 " General
 "{{{
@@ -278,16 +276,24 @@
 
 " Based On Filetype
 "{{{
-	au filetype java	source ~/.dotfile/vim/java.vimrc
-	au filetype python	source ~/.dotfile/vim/py.vimrc
-	au filetype cpp		source ~/.dotfile/vim/c.vimrc
-	au filetype c		source ~/.dotfile/vim/c.vimrc
-	au filetype sql		source ~/.dotfile/vim/sql.vimrc
-	au filetype asm		source ~/.dotfile/vim/asm.vimrc
-	au filetype matlab	source ~/.dotfile/vim/matlab.vimrc
-	au filetype verilog	source ~/.dotfile/vim/verilog.vimrc
-	au filetype make	source ~/.dotfile/vim/asm.vimrc
-" 	au BufEnter,BufNew *.c* source ~/.dotfile/c.vimrc
+	au filetype java	source ~/dotfiles/src/java.vimrc
+	au filetype python	source ~/dotfiles/src/py.vimrc
+	au filetype cpp		source ~/dotfiles/src/c.vimrc
+	au filetype c		source ~/dotfiles/src/c.vimrc
+	au filetype sql		source ~/dotfiles/src/sql.vimrc
+	au filetype asm		source ~/dotfiles/src/asm.vimrc
+	au filetype matlab	source ~/dotfiles/src/matlab.vimrc
+	au filetype verilog	source ~/dotfiles/src/verilog.vimrc
+	au filetype make	source ~/dotfiles/src/asm.vimrc
+" 	au BufEnter,BufNew *.c* source ~/dotfiles/c.vimrc
+"}}}
+
+
+" TODO
+"{{{
+" 	1. add the surrond method (ex: ys<, cs", ds', viwS[, etc)
+" 	2. bulk rename in vim(ranger.vim)
+" 	3. compile in a new tab (or anywhere else, eg: bottom)
 "}}}
 
 
