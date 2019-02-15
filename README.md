@@ -13,16 +13,16 @@
 
 ### Basic Installation
 The repository will be cloned into ```~/dotfiles``` by the following command via ```git```. 
-* the ```init.sh``` process will backup the existing dotfiles to ```~/dotfiles_backup``` for you
+* the ```init.sh``` process will backup the existing dotfiles to ```~/dotfiles_backup```
 * execute ```chmod +x init.sh``` if permission denied
 
 ```
-$ git clone "http://github.com/williamhsieh/.dotfile" ~/dotfiles && ~/dotfiles/init.sh
+$ git clone "http://github.com/williamhsieh/dotfiles" ~/dotfiles && ~/dotfiles/init.sh
 ```
 
 ## Feedback
 
-Suggestions/improvements [welcome](https://github.com/WilliamHsieh/.dotfile/issues)!
+Comments and suggestions are [welcome](https://github.com/WilliamHsieh/dotfiles/issues)!
 
 ## About me
 * [William Hsieh](https://github.com/williamhsieh/)
@@ -35,4 +35,4 @@ Inspiration and code was taken from many sources, including:
 * [Nick Nisi](https://nicknisi.com/) and his [presentation](https://github.com/nicknisi/vim-workshop)
 * [Hermann Vocke](https://www.hamvocke.com/) and his [dotfiles repository](https://github.com/hamvocke/dotfiles)
 * [Mathias Bynens](https://mathiasbynens.be/) and his [dotfiles repository](https://github.com/mathiasbynens/dotfiles/)
-* Anyone who  [made a helpful suggestion](https://github.com/WilliamHsieh/.dotfile/issues)
+* Anyone who  [made a helpful suggestion](https://github.com/WilliamHsieh/dotfiles/issues)
