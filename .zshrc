@@ -94,7 +94,7 @@
 # {{{
 	# alias zshconfig="mate ~/.zshrc"
 	# alias ohmyzsh="mate ~/.oh-my-zsh"
-	alias vimrc="vim ~/dotfiles/main.vimrc"
+	alias vimrc="vim ~/dotfiles/.vimrc"
 	alias zshrc="vim ~/dotfiles/.zshrc"
 	alias tmuxrc="vim ~/dotfiles/.tmux.conf"
 	alias sshcsie1="ssh hpw105u@csie1.cs.ccu.edu.tw"

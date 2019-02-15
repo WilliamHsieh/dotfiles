@@ -15,7 +15,7 @@ function init() {
 	done
 
 	echo ""
-	echo "source ~/dotfiles/main.vimrc" > ~/.vimrc
+	echo "source ~/dotfiles/.vimrc" > ~/.vimrc
 	echo "------- .vimrc updated. -------"
 
 	echo "source ~/dotfiles/.zshrc" > ~/.zshrc
