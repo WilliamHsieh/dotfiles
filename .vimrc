@@ -43,6 +43,7 @@
 	"{{{
 		set showmatch		" Highlight matching brace
 		set hlsearch		" Highlight all search results
+		set incsearch		" Highlight result while searching
 		set smartcase		" Enable smart-case search
 		set gdefault		" Always substitute all matches in a line
 		set ignorecase		" Always case-insensitive
