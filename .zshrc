@@ -97,8 +97,6 @@
 	alias vimrc="vim ~/dotfiles/.vimrc"
 	alias zshrc="vim ~/dotfiles/.zshrc"
 	alias tmuxrc="vim ~/dotfiles/.tmux.conf"
-	alias sshcsie1="ssh hpw105u@csie1.cs.ccu.edu.tw"
-	alias sshlinux="ssh hpw105u@linux.cs.ccu.edu.tw"
 	alias pythonServer="python3 -m http.server"
 	alias phpServer="php -S 127.0.0.1:8000"
 # }}}
