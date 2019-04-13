@@ -160,6 +160,7 @@
 		set pastetoggle=<F12>
 		vmap <leader>s :sort<CR>
 		nmap <C-f> /
+		nmap <silent><F2> :!clear && make<CR>
 		" vmap > >gv
 		" vmap < <gv
 	"}}}
