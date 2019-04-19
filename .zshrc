@@ -3,18 +3,17 @@
 #| My zsh configuration |#
 #+======================+#
 
-# Options
+# Default options
 # {{{
 	# If you come from bash you might have to change your $PATH.
 	# export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 	# Path to your oh-my-zsh installation.
-	  export ZSH=~/.oh-my-zsh
+	export ZSH=~/.oh-my-zsh
 
 	# Set name of the theme to load. Optionally, if you set this to "random"
 	# it'll load a random theme each time that oh-my-zsh is loaded.
 	# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-# 	ZSH_THEME="af-magic"
 	ZSH_THEME="steeef"
 
 	# Uncomment the following line to use case-sensitive completion.
@@ -28,7 +27,7 @@
 	# DISABLE_AUTO_UPDATE="true"
 
 	# Uncomment the following line to change how often to auto-update (in days).
-	# export UPDATE_ZSH_DAYS=13
+	export UPDATE_ZSH_DAYS=30
 
 	# Uncomment the following line to disable colors in ls.
 	# DISABLE_LS_COLORS="true"
@@ -59,15 +58,9 @@
 	# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 	# Example format: plugins=(rails git textmate ruby lighthouse)
 	# Add wisely, as too many plugins slow down shell startup.
-	plugins=(git extract z cp d)
+	plugins=(git extract z cp)
 
 	source $ZSH/oh-my-zsh.sh
-
-
-	# enable vim mode
-	bindkey -v
-
-	# User configuration
 
 	# export MANPATH="/usr/local/man:$MANPATH"
 
@@ -86,22 +79,19 @@
 
 	# ssh
 	# export SSH_KEY_PATH="~/.ssh/rsa_id"
-
-	# Set personal aliases, overriding those provided by oh-my-zsh libs,
-	# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-	# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-	# For a full list of active aliases, run `alias`.
-	#
 # }}}
 
 # Aliases
 # {{{
-	# alias zshconfig="mate ~/.zshrc"
-	# alias ohmyzsh="mate ~/.oh-my-zsh"
-	alias vimrc="vim ~/dotfiles/.vimrc"
-	alias zshrc="vim ~/dotfiles/.zshrc"
-	alias tmuxrc="vim ~/dotfiles/.tmux.conf"
+	# Set personal aliases, overriding those provided by oh-my-zsh libs,
+	# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+	# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+	# For a full list of active aliases, run `alias`.
+
 	alias rm="rm -i"
+	alias vimconfig="vim ~/dotfiles/.vimrc"
+	alias zshconfig="vim ~/dotfiles/.zshrc"
+	alias tmuxconfig="vim ~/dotfiles/.tmux.conf"
 	alias pythonServer="python3 -m http.server"
 	alias phpServer="php -S 127.0.0.1:8000"
 	alias kaggle="~/.local/bin/kaggle"
@@ -113,7 +103,10 @@
 	# make sure the cursor is constantly block
 	echo -ne "\e[2 q"
 
-	# display xserver
+	# enable vim mode
+	bindkey -v
+
+	# xserver
 	export DISPLAY=:0.0
 	export LIBGL_ALWAYS_INDIRECT=1
 # }}}
