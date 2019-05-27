@@ -104,7 +104,7 @@
 	echo -ne "\e[2 q"
 
 	# enable vim mode
-	bindkey -v
+	# bindkey -v
 
 	# xserver
 	export DISPLAY=:0.0
