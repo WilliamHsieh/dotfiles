@@ -115,7 +115,7 @@
 	"}}}
 	" Copy to clipboard
 	"{{{
-		nmap <F12> :w <CR> :!xclip -i -selection clipboard % <CR><CR>
+		nmap <F12> :up <CR> :!xclip -i -selection clipboard % <CR><CR>
 		vmap <F12> :'<,'>w !xclip<CR><CR>
 		nmap <silent><leader>c :call system('xclip', @0)<CR>
 	"}}}
@@ -155,12 +155,12 @@
 		cmap <C-e> <end>
 		nmap <S-k> k<S-j>
 		nmap <leader>l :noh<CR>
-		nmap <leader><space> :w<CR>
+		nmap <leader><space> :up<CR>
 		nmap <leader><leader> :Vexplore<CR>
 		set pastetoggle=<F12>
 		vmap <leader>s :sort<CR>
 		nmap <C-f> /
-		nmap <silent><F2> :!clear && make<CR>
+		nmap <silent><F2> :up<CR> :!clear && make<CR>
 		" vmap > >gv
 		" vmap < <gv
 	"}}}
@@ -287,6 +287,7 @@
 	au filetype matlab	source ~/dotfiles/src/matlab.vimrc
 	au filetype verilog	source ~/dotfiles/src/verilog.vimrc
 	au filetype make	source ~/dotfiles/src/asm.vimrc
+	au filetype pccts	source ~/dotfiles/src/c.vimrc
 " 	au BufEnter,BufNew *.c* source ~/dotfiles/c.vimrc
 "}}}
 
@@ -296,6 +297,8 @@
 " 	1. add the surrond method (ex: ys<, cs", ds', viwS[, etc)
 " 	2. bulk rename in vim(ranger.vim)
 " 	3. compile in a new tab (or anywhere else, eg: bottom)
+" 	4. fix the 'after compiling, cursor move forward' problem
+" 	5. stop changing line automatically
 "}}}
 
 

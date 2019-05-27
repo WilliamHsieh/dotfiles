@@ -8,14 +8,14 @@
 " Compile option
 "{{{
 " 	set makeprg=g++\ -o\ %<\ %\ -static\ -lm\ --std=c++11\ -Wall\ -Wextra\ -Wshadow 
-" 	nmap <silent><F2> :w<CR> :!clear && g++ -g --std=c++11 % && echo "> Compiled with Debug info ... "<CR>
-" 	nmap <silent><F2> :w<CR> :!clear && make && echo "> Running " && ./a.out<CR>
-	nmap <silent><F2> :w<CR> :!clear && make<CR>
-" 	nmap <silent><F4> :w<CR> :!qmake-qt4 -project && qmake-qt4 && make && ./app <CR>
-" 	nmap <silent><F4> :w<CR> :!qmake-qt4 -project && qmake-qt4 && make && ./${PWD##*/} <CR>
-" 	nmap <silent><F4> :w<CR> :!qmake-qt4 -project && qmake-qt4 && make && ./fnamemodify(getcwd(), ':t') <CR>
-	nmap <silent><F5> :w<CR> :!clear && g++ % -static -lm --std=c++11 -Wall -Wextra -Wshadow && echo "> Running " && ./a.out < in<CR>
-	nmap <silent><F9> :w<CR> :!clear && g++ % -static -lm --std=c++11 -Wall -Wextra -Wshadow && echo "> Running " && ./a.out<CR>
+" 	nmap <silent><F2> :up<CR> :!clear && g++ -g --std=c++11 % && echo "> Compiled with Debug info ... "<CR>
+" 	nmap <silent><F2> :up<CR> :!clear && make && echo "> Running " && ./a.out<CR>
+	nmap <silent><F2> :up<CR> :!clear && make<CR>
+" 	nmap <silent><F4> :up<CR> :!qmake-qt4 -project && qmake-qt4 && make && ./app <CR>
+" 	nmap <silent><F4> :up<CR> :!qmake-qt4 -project && qmake-qt4 && make && ./${PWD##*/} <CR>
+" 	nmap <silent><F4> :up<CR> :!qmake-qt4 -project && qmake-qt4 && make && ./fnamemodify(getcwd(), ':t') <CR>
+	nmap <silent><F5> :up<CR> :!clear && g++ % -static -lm --std=c++11 -Wall -Wextra -Wshadow && echo "> Running " && ./a.out < in<CR>
+	nmap <silent><F9> :up<CR> :!clear && g++ % -static -lm --std=c++11 -Wall -Wextra -Wshadow && echo "> Running " && ./a.out<CR>
 "}}}
 
 
