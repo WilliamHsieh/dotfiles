@@ -8,6 +8,7 @@
 
 * ```oh-my-zsh``` should be installed. If not pre-installed, follow the instruction [here](https://github.com/robbyrussell/oh-my-zsh).
 * ```xclip``` is the tool I used to copy content from vim buffer to clipboard. Install if needed.
+* ```git```
 
 ### Basic Installation
 The repository will be cloned into ```~/dotfiles``` by executing the following command via ```git```. 

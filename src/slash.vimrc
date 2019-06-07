@@ -1,18 +1,8 @@
 
 
-"+===========================+"
-"| Configuration for verilog |"
-"+===========================+"
-
-
-" Compile option
-"{{{
-"}}}
-
-
-" Tweak
-"{{{
-"}}}
+"+=================================+"
+"| Configuration for slash comment |"
+"+=================================+"
 
 
 " Toggle Comment
@@ -48,11 +38,8 @@
 	
 	setlocal foldmethod=expr
 	setlocal foldexpr=MarkdownFolds()
-"}}}
 
-
-" Text display on folding
-"{{{
+	" Text display on folding
 	function! MarkdownFoldText()
 		let thisline = getline(v:foldstart)
 		let foldsize = (v:foldend-v:foldstart)

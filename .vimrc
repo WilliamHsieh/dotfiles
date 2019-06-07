@@ -16,6 +16,7 @@
 		set number			" show line numbers
 		set relativenumber	" show relativenumber
 		" set showbreak=###	" wrap-broken line prefix
+		set nowrap			" wrap line which is too long
 		set nocompatible	" set not compatible with vi
 		set textwidth=80	" line wrap (number of cols)
 		set autoindent		" auto-indent new lines
@@ -100,19 +101,6 @@
 
 " Mapping
 "{{{
-	" Toggle Comment
-	"{{{
-		vmap <silent> <C-c> :call ToggleComment()<cr>
-		nmap <silent> <C-c> :call ToggleComment()<cr>
-
-		function! ToggleComment()
-			if matchstr(getline(line(".")),'^\s*\"\ .*$') == ''
-				:execute 's:^:" :'
-			else
-				:execute 's:^\s*" ::'
-			endif
-		endfunction
-	"}}}
 	" Copy to clipboard
 	"{{{
 		nmap <F12> :up <CR> :!xclip -i -selection clipboard % <CR><CR>
@@ -278,16 +266,20 @@
 
 " Based On Filetype
 "{{{
+	au filetype asm		source ~/dotfiles/src/sharp.vimrc
+	au filetype make	source ~/dotfiles/src/sharp.vimrc
+
+	au filetype vim		source ~/dotfiles/src/quote.vimrc
+
+	au filetype verilog	source ~/dotfiles/src/slash.vimrc
+	au filetype pccts	source ~/dotfiles/src/slash.vimrc
+
 	au filetype java	source ~/dotfiles/src/java.vimrc
 	au filetype python	source ~/dotfiles/src/py.vimrc
-	au filetype cpp		source ~/dotfiles/src/c.vimrc
 	au filetype c		source ~/dotfiles/src/c.vimrc
+	au filetype cpp		source ~/dotfiles/src/c.vimrc
 	au filetype sql		source ~/dotfiles/src/sql.vimrc
-	au filetype asm		source ~/dotfiles/src/asm.vimrc
 	au filetype matlab	source ~/dotfiles/src/matlab.vimrc
-	au filetype verilog	source ~/dotfiles/src/verilog.vimrc
-	au filetype make	source ~/dotfiles/src/asm.vimrc
-	au filetype pccts	source ~/dotfiles/src/c.vimrc
 " 	au BufEnter,BufNew *.c* source ~/dotfiles/c.vimrc
 "}}}
 
@@ -297,8 +289,9 @@
 " 	1. add the surrond method (ex: ys<, cs", ds', viwS[, etc)
 " 	2. bulk rename in vim(ranger.vim)
 " 	3. compile in a new tab (or anywhere else, eg: bottom)
-" 	4. fix the 'after compiling, cursor move forward' problem
-" 	5. stop changing line automatically
+" 	4. stop changing line automatically
+" 	5. find out what is causing vim status bar white, which is causing everything unreadable
+" 	6. terminal bell in zsh (without going to tmux)
 "}}}
 
 

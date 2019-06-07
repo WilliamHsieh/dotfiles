@@ -1,18 +1,8 @@
 
 
 "+=================================+"
-"| Configuration for MIPs-assembly |"
+"| Configuration for sharp comment |"
 "+=================================+"
-
-
-" Compile option
-"{{{
-"}}}
-
-
-" Tweak
-"{{{
-"}}}
 
 
 " Comment

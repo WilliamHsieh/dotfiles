@@ -12,13 +12,6 @@
 
 " Tweak
 "{{{
-" 	set autochdir	"change the working directory to the directory of the file you opened
-" 	set cindent		"enable smart indent in c language
-" 	hi cConstant ctermfg = 14
-" 	hi cStructure ctermfg = 216
-" 	hi MatchParen ctermbg = 4
-	" hi Number ctermfg = 183
-	" hi cStatement ctermfg = 216
 "}}}
 
 
@@ -56,7 +49,7 @@
 	setlocal foldmethod=expr
 	setlocal foldexpr=MarkdownFolds()
 
-" text display on folding
+	" text display on folding
 	function! MarkdownFoldText()
 		let foldsize = (v:foldend-v:foldstart)
 		return getline(v:foldstart). ' ('.foldsize.' lines) '
