@@ -7,9 +7,8 @@
 
 " Compile option
 "{{{
-	set makeprg=python3\ -o\ %<\ %
-	nmap <silent><F9> :w<CR> :!clear && echo "> Running" && python3 % <CR>
-	nmap <silent><F5> :w<CR> :!clear && echo "> Running" && python3 % < in<CR>
+	nmap <silent><F9> :w<CR>:!clear && echo "> Running" && python3 % <CR>
+	nmap <silent><F5> :w<CR>:!clear && echo "> Running" && python3 % < in<CR>
 "}}}
 
 
@@ -26,6 +25,7 @@
 
 	" so that I won't type the stupid semicolon
 	imap ; <nop>
+	source ~/dotfiles/src/sharp.vimrc
 
 " let python_highlight_all = 1
 
