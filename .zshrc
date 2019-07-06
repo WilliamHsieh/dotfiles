@@ -96,6 +96,12 @@
 	alias phpServer="php -S 127.0.0.1:8000"
 	alias kaggle="~/.local/bin/kaggle"
 	alias cmd="cmd.exe"
+	alias open="explorer.exe"
+
+	# golang setup
+	export GOROOT=/usr/local/go
+	export GOPATH=$HOME/golang
+	export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 # }}}
 
 # Others

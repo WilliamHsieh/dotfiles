@@ -5,6 +5,19 @@
 "+========================+"
 
 
+" TODO
+"{{{
+" 	1. add the surrond method (ex: ys<, cs", ds', viwS[, etc)
+" 	2. bulk rename in vim(ranger.vim)
+" 	3. compile in a new tab (or anywhere else, eg: bottom)
+" 	4. stop changing line automatically
+" 	5. find out what is causing vim status bar white, which is causing everything unreadable
+" 	6. terminal bell in zsh (without going to tmux)
+" 	7. change each file extension tweak to function call
+" 	8. disable capslock (or map it to esc)
+"}}}
+
+
 " General
 "{{{
 	" Auto Reload .vimrc After Saving
@@ -103,17 +116,12 @@
 "{{{
 	" Copy to clipboard
 	"{{{
-		nmap <F12> :up <CR> :!xclip -i -selection clipboard % <CR><CR>
+		nmap <F12> :up<CR>:!xclip -i -selection clipboard % <CR><CR>
 		vmap <F12> :'<,'>w !xclip<CR><CR>
 		nmap <silent><leader>c :call system('xclip', @0)<CR>
 	"}}}
 	" Auto complete
 	"{{{
-		"inoremap ( ()<Esc>i
-		"inoremap ) <Esc>la
-		"inoremap " ""<Esc>i
-		"inoremap ' ''<Esc>i
-		"inoremap {{ {}<ESC>i
 		inoremap {<CR> {<CR>}<Esc>ko
 	"}}}
 	" Other stuff
@@ -123,7 +131,7 @@
 
 		" Esc
 		imap jj <esc>
-" 		imap kk <esc>
+		imap kk <esc>
 
 		" Moving the cursor
 		nmap <C-j> 4jzz
@@ -141,14 +149,17 @@
 		imap <C-e> <end>
 		cmap <C-a> <home>
 		cmap <C-e> <end>
+
 		nmap <S-k> k<S-j>
+		nmap Y y$
+
 		nmap <leader>l :noh<CR>
 		nmap <leader><space> :up<CR>
 		nmap <leader><leader> :Vexplore<CR>
 		set pastetoggle=<F12>
 		vmap <leader>s :sort<CR>
 		nmap <C-f> /
-		nmap <silent><F2> :up<CR> :!clear && make<CR>
+		nmap <silent><F2> :up<CR>:!clear && make<CR>
 		" vmap > >gv
 		" vmap < <gv
 	"}}}
@@ -167,7 +178,7 @@
 		" Change cursor in different mode
 		let &t_SI = "\e[6 q"
 		let &t_EI = "\e[2 q"
-		"Other options (replace the number after \e[):
+		" Other options (replace the number after \e[):
 		"Ps = 0  -> blinking block.
 		"Ps = 1  -> blinking block (default).
 		"Ps = 2  -> steady block.
@@ -280,18 +291,8 @@
 	au filetype cpp		source ~/dotfiles/src/c.vimrc
 	au filetype sql		source ~/dotfiles/src/sql.vimrc
 	au filetype matlab	source ~/dotfiles/src/matlab.vimrc
+	au filetype go		source ~/dotfiles/src/go.vimrc
 " 	au BufEnter,BufNew *.c* source ~/dotfiles/c.vimrc
-"}}}
-
-
-" TODO
-"{{{
-" 	1. add the surrond method (ex: ys<, cs", ds', viwS[, etc)
-" 	2. bulk rename in vim(ranger.vim)
-" 	3. compile in a new tab (or anywhere else, eg: bottom)
-" 	4. stop changing line automatically
-" 	5. find out what is causing vim status bar white, which is causing everything unreadable
-" 	6. terminal bell in zsh (without going to tmux)
 "}}}
 
 
