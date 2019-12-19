@@ -14,8 +14,6 @@
 
 " Tweak
 "{{{
-	" so that I won't type the stupid semicolon
-	imap ; <nop>
 	source ~/dotfiles/src/slash.vimrc
 	syn match parens /[{}]/ | hi parens ctermfg=red
 "}}}
