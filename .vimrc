@@ -15,6 +15,8 @@
 " 	6. terminal bell in zsh (without going to tmux)
 " 	7. change each file extension tweak to function call
 " 	8. disable capslock (or map it to esc)
+" 	9. show the space and tab in the end of each line
+" 	10. combine all filetype config (currently they're all over the place)
 "}}}
 
 
@@ -94,8 +96,7 @@
 		"}}}
 	" Priorty Of Encoding When Opening File
 	"{{{
-		filetype indent on
-		set fileencodings=utf-8,utf-16,big5,gb2312,gbk,gb18030,euc-jp,euc-kr,latin1
+		set fileencodings=utf-8,big5,utf-16,gb2312,gbk,gb18030,euc-jp,euc-kr,latin1
 		set encoding=utf-8
 	"}}}
 "}}}
@@ -103,7 +104,7 @@
 
 " Folding
 "{{{
-	" <zf> to create, <zx>||<za> to fold and expand
+	" <zf> to create, <zx> <za> to fold and expand
 	set foldmethod=marker
 	set foldlevel=0
 	set foldnestmax=3
@@ -116,6 +117,7 @@
 "{{{
 	" Copy to clipboard
 	"{{{
+		set pastetoggle=<F12>
 		nmap <F12> :up<CR>:!xclip -i -selection clipboard % <CR><CR>
 		vmap <F12> :'<,'>w !xclip<CR><CR>
 		nmap <silent><leader>c :call system('xclip', @0)<CR>
@@ -128,6 +130,10 @@
 	"{{{
 		" Leader key
 		let mapleader = ","
+		nmap <leader>l :noh<CR>
+		nmap <leader><space> :up<CR>
+		nmap <leader><leader> :Vexplore<CR>
+		vmap <leader>s :sort<CR>
 
 		" Esc
 		imap jj <esc>
@@ -149,17 +155,10 @@
 		imap <C-e> <end>
 		cmap <C-a> <home>
 		cmap <C-e> <end>
-
-		nmap <S-k> k<S-j>
-		nmap Y y$
-
-		nmap <leader>l :noh<CR>
-		nmap <leader><space> :up<CR>
-		nmap <leader><leader> :Vexplore<CR>
-		set pastetoggle=<F12>
-		vmap <leader>s :sort<CR>
 		nmap <C-f> /
 		nmap <silent><F2> :up<CR>:!clear && make<CR>
+		nmap <S-k> k<S-j>
+		nmap Y y$
 		" vmap > >gv
 		" vmap < <gv
 	"}}}
@@ -225,7 +224,7 @@
 			hi statusline guibg=DarkGrey ctermfg=8 guifg=White ctermbg=15
 		"}}}
 	"}}}
-	" Hightlight matches when jumping to next
+	" Blink search matches
 	"{{{
 		hi Search ctermfg=0 ctermbg=124
 		function! HINext(blinktime)
@@ -241,13 +240,14 @@
 				exec 'sleep' . float2nr(a:blinktime / (2*blinks) * 600) . 'm'
 			endfor
 		endfunction
-		nmap <silent> n n:call HINext(0.4)<cr>
-		nmap <silent> N N:call HINext(0.4)<cr>
+		nmap <silent> n n:call HINext(0.15)<cr>
+		nmap <silent> N N:call HINext(0.15)<cr>
 	"}}}
 	" Make the 81th column stand out
 	"{{{
 		hi colorculumn ctermbg=magenta
-		call matchadd('ColorColumn','\%81v',100)
+		call matchadd('ColorColumn', '\%81v', -1)
+		" -1 means that any search highlighting will override the match highlighting
 	"}}}
 	" File browsing
 	"{{{
