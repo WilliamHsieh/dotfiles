@@ -9,12 +9,9 @@
 "{{{
 "	1. add the surrond method (ex: ys<, cs", ds', viwS[, etc)
 "	2. bulk rename in vim(ranger.vim)
-"	3. compile in a new tab (or anywhere else, eg: bottom)
-"	4. stop changing line automatically
-"	5. terminal bell in zsh (without going to tmux)
-"	6. change each file extension tweak to function call
-"	7. combine all filetype config (currently they're all over the place)
-"	8. Osc52Yank
+"	3. compile in a new tab (or anywhere else, eg: tmux vsplit)
+"	4. terminal bell in zsh (without going to tmux)
+"	5. Osc52Yank
 "}}}
 
 
@@ -43,6 +40,7 @@
 		set mouse=n			" mouse control (a == all)
 		set scrolloff=5		" preserve 5 line after scrolling
 		set modeline
+		set autochdir	"change the working directory to the directory of the file you opened"
 		filetype plugin on
 		filetype indent on
 		filetype indent plugin on
@@ -123,17 +121,17 @@
 		" -1 means that any search highlighting will override the match highlighting
 	"}}}
 
-	" Highlight trailing spaces | spaces before tabs | extra spaces
+	" Highlight trailing spaces | spaces before tabs
 	"{{{
 		hi ExtraWhitespace cterm=underline ctermbg=NONE ctermfg=yellow
 		au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-		au InsertLeave * match ExtraWhitespace /\s\+$\| \+\ze\t\|  \+/
+		au InsertLeave * match ExtraWhitespace /\s\+$\| \+\ze\t/
 	"}}}
 
 	" Tab bar color
 	"{{{
-		hi TabLineSel cterm=NONE ctermbg=gray ctermfg=black
-		hi TabLine cterm=NONE ctermbg=black ctermfg=white
+		hi TabLineSel cterm=NONE ctermbg=8 ctermfg=white
+		hi TabLine cterm=NONE ctermbg=black ctermfg=darkgray
 		hi TabLineFill ctermfg=black
 	"}}}
 
@@ -152,28 +150,6 @@
 
 " Mapping
 "{{{
-	" Copy to clipboard
-	"{{{
-		set pastetoggle=<F12>
-		nmap <silent><F12> :!cat % \|clip.exe<CR><CR>:echo 'copy "'.@%.'" to clipboard!'<CR>
-		vmap <F12> :'<,'>w !clip.exe<CR><CR>:echo "copy to clipboard!"<CR>
-		nmap <silent><leader>y :call system('clip.exe', @0)<CR>:echo "copy to clipboard!"<CR>
-
-		" the `xclip` way
-		"nmap <F12> :up<CR>:!xclip -i -selection clipboard % <CR><CR>
-		"vmap <F12> :'<,'>w !xclip<CR><CR>
-		"nmap <silent><leader>c :call system('xclip', @0)<CR>
-
-		function! Osc52Yank()
-			let buffer=system('base64 -w0', @0)
-			let buffer='\ePtmux;\e\e]52;c;'.buffer.'\x07\e\\'
-			let pane_tty=system("tmux list-panes -F '#{pane_active} #{pane_tty}' | awk '$1==1 { print $2 }'")
-			"let pane_tty='/dev/pts/3'
-			silent exe "!echo -ne ".shellescape(buffer)." > ".shellescape(pane_tty)
-		endfunction
-		"nnoremap <leader>y :call Osc52Yank()<CR>
-	"}}}
-
 	" Auto complete
 	"{{{
 		inoremap {<CR> {<CR>}<Esc>ko
@@ -234,7 +210,7 @@
 			set statusline=[%{expand('%:F')}]\ 				" path and file name
 			set statusline+=[%{strlen(&fenc)?&fenc:'none'}  " file encoding
 			set statusline+=,\ %{&ff}						" file format
-			set statusline+=,\ %{strlen(&filetype)?&filetype:'plain'}]	" filetype
+			set statusline+=,\ %{strlen(&ft)?&ft:'plain'}]	" filetype
 			set statusline+=\ %m							" modified flag
 			set statusline+=\ %h							" help file flag
 			set statusline+=\ %r							" read only flag
@@ -313,27 +289,146 @@
 		" - <CR>/v/t to open in an h-split/v-split/tab
 		" - check |netrw-browse-maps| for more mappings
 	"}}}
+
+	" Warning message
+	"{{{
+		function! EchoMsg(msg)
+			echohl WarningMsg
+			echo a:msg
+			echohl None
+		endfunction
+	"}}}
+
+	" Copy to clipboard
+	"{{{
+		set pastetoggle=<F12>
+		nmap <silent><F12> :!cat % \|clip.exe<CR><CR>:call EchoMsg('File '.'"'.@%.'" copied to clipboard!')<CR>
+		vmap <F12> :'<,'>w !clip.exe<CR><CR>:call EchoMsg('Copied to clipboard!')<CR>
+		nmap <silent><leader>y :call system('clip.exe', @0)<CR>:call EchoMsg('Copied to clipboard!')<CR>
+
+		" the `xclip` way
+		"nmap <F12> :up<CR>:!xclip -i -selection clipboard % <CR><CR>
+		"vmap <F12> :'<,'>w !xclip<CR><CR>
+		"nmap <silent><leader>c :call system('xclip', @0)<CR>
+
+		function! Osc52Yank()
+			let buffer=system('base64 -w0', @0)
+			let buffer='\ePtmux;\e\e]52;c;'.buffer.'\x07\e\\'
+			let pane_tty=system("tmux list-panes -F '#{pane_active} #{pane_tty}' | awk '$1==1 { print $2 }'")
+			"let pane_tty='/dev/pts/3'
+			silent exe "!echo -ne ".shellescape(buffer)." > ".shellescape(pane_tty)
+		endfunction
+		"nnoremap <leader>y :call Osc52Yank()<CR>
+	"}}}
 "}}}
 
 
 " Based On Filetype
 "{{{
-	au filetype asm		source ~/dotfiles/src/sharp.vimrc
-	au filetype make	source ~/dotfiles/src/sharp.vimrc
+	" Folding method
+	"{{{
+		" Custom folding expression
+		"{{{
+			function! CustomFoldExpr(cmt)
+				let thisline = getline (v:lnum)
+				let tmp = a:cmt
+				if a:cmt == '//'
+					let tmp = tmp.' '
+				endif
+				if thisline =~ '\v^\s*$'	"empty line
+					return '-1'
+				elseif thisline =~ '^'.tmp.'###'
+					return '>3'
+				elseif thisline =~ '^'.tmp.'##'
+					return '>2'
+				elseif thisline =~ '^'.tmp.'#'
+					return '>1'
+				else
+					return '='
+				endif
+			endfunction
+		"}}}
 
-	au filetype vim		source ~/dotfiles/src/quote.vimrc
+		" Custom folding text
+		"{{{
+			function! CustomFoldText(cmt)
+				let thisline = getline (v:foldstart)
+				let foldsize = (v:foldend-v:foldstart)
+				let tmp = a:cmt
+				if a:cmt == '//'
+					let tmp = tmp.' '
+				endif
+				if thisline =~ '^'.tmp.'###'
+					return '    '. '    '. getline(v:foldstart). ' ('.foldsize.' lines)'
+				elseif thisline =~ '^'.tmp.'##'
+					return '    '. getline(v:foldstart). ' ('.foldsize.' lines)'
+				elseif thisline =~ '^'.tmp.'#'
+					return getline(v:foldstart). ' ('.foldsize.' lines)'
+				else
+					return getline(v:foldstart). ' ('.foldsize.' lines)'
+				endif
+			endfunction
+		"}}}
 
-	au filetype verilog	source ~/dotfiles/src/slash.vimrc
-	au filetype pccts	source ~/dotfiles/src/slash.vimrc
+		" Custom folding based on filetype
+		"{{{
+		function! CustomFolding()
+			setlocal foldmethod=expr
+			if &ft == 'c' || &ft == 'cpp' || &ft == 'rust' || &ft == 'go'
+				setlocal foldexpr=CustomFoldExpr('//')
+				setlocal foldtext=CustomFoldText('//')
+			elseif &ft == 'python'
+				setlocal foldexpr=CustomFoldExpr('#')
+				setlocal foldtext=CustomFoldText('#')
+			endif
+		endfunction
+		"}}}
+	"}}}
 
-	au filetype java	source ~/dotfiles/src/java.vimrc
-	au filetype python	source ~/dotfiles/src/py.vimrc
-	au filetype c		source ~/dotfiles/src/c.vimrc
-	au filetype cpp		source ~/dotfiles/src/c.vimrc
-	au filetype sql		source ~/dotfiles/src/sql.vimrc
-	au filetype matlab	source ~/dotfiles/src/matlab.vimrc
-	au filetype go		source ~/dotfiles/src/go.vimrc
-	au filetype rust	source ~/dotfiles/src/rust.vimrc
+	" Toggle comment
+	"{{{
+		function! ToggleComment(cmt)
+			if matchstr(getline(line(".")),'^\s*'.a:cmt.'.*$') == ''
+				:execute 's:^:'.a:cmt.':'
+			else
+				:execute 's:^\s*'.a:cmt.'::'
+			endif
+		endfunction
+	"}}}
+
+	" Handle different types
+	"{{{
+		function! HandleFiletypes()
+			if &ft == 'vim'
+				map <silent> <C-c> :call ToggleComment('" ')<cr>
+			elseif &ft == 'c' || &ft == 'cpp'
+				set cindent		"enable smart indent in c language
+				map <silent> <C-c> :call ToggleComment('//')<cr>
+				nmap <silent><F5> :up<CR>:!clear && g++ % -static -lm --std=c++11 -Wall -Wextra -Wshadow && echo "> Running " && ./a.out < in<CR>
+				nmap <silent><F9> :up<CR>:!clear && g++ % -static -lm --std=c++11 -Wall -Wextra -Wshadow && echo "> Running " && ./a.out<CR>
+				call CustomFolding()
+			elseif &ft == 'rust'
+				map <silent> <C-c> :call ToggleComment('//')<cr>
+				nmap <silent><F9> :up<CR>:!clear && rustc % && ./%<<CR>
+				nmap <silent><F5> :up<CR>:!clear && cargo run < in<CR>
+				call CustomFolding()
+			elseif &ft == 'go'
+				map <silent> <C-c> :call ToggleComment('//')<cr>
+				nmap <silent><F5> :up<CR>:!clear && echo "> Running " && go run % < in<CR>
+				nmap <silent><F9> :up<CR>:!clear && echo "> Running " && go run %<CR>
+				call CustomFolding()
+				syn match parens /[{}]/ | hi parens ctermfg=red
+			elseif &ft == 'python' || &ft == 'make'
+				map <silent> <C-c> :call ToggleComment('# ')<cr>
+				call CustomFolding()
+			elseif &ft == 'java'
+				map <silent> <C-c> :call ToggleComment('//')<cr>
+				nmap <silent><F5> :up<CR>:!clear && javac % && echo "> Running " && java -cp "%:p:h" "%:t:r" < in<CR>
+				nmap <silent><F9> :up<CR>:!clear && javac % && echo "> Running " && java -cp "%:p:h" "%:t:r"<CR>
+			endif
+		endfunction
+		au filetype * call HandleFiletypes()
+	"}}}
 "}}}
 
 
