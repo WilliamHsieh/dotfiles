@@ -12,9 +12,9 @@
 
 	function! ToggleComment()
 		if matchstr(getline(line(".")),'^\s*\"\ .*$') == ''
-			:execute "s:^:" :"
+			:execute 's:^:" :'
 		else
-			:execute "s:^\s*" ::"
+			:execute 's:^\s*" ::'
 		endif
 	endfunction
 "}}}
