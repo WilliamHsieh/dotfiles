@@ -388,10 +388,13 @@
 	" Toggle comment
 	"{{{
 		function! ToggleComment(cmt)
-			if matchstr(getline(line(".")),'^\s*'.a:cmt.'.*$') == ''
-				:execute 's:^:'.a:cmt.':'
-			else
-				:execute 's:^\s*'.a:cmt.'::'
+			let line = getline('.')
+			if line =~ '[^\s]'
+				if matchstr(line, '^\s*'.a:cmt.'.*$') == ''
+					exec "normal! mqI".a:cmt."\<esc>`q"
+				else
+					exec 's:'.a:cmt.'::'
+				endif
 			endif
 		endfunction
 	"}}}
@@ -403,17 +406,18 @@
 				map <silent> <C-c> :call ToggleComment('" ')<cr>
 			elseif &ft == 'c' || &ft == 'cpp'
 				set cindent		"enable smart indent in c language
-				map <silent> <C-c> :call ToggleComment('//')<cr>
+				map <silent> <C-c> :call ToggleComment('// ')<cr>
 				nmap <silent><F5> :up<CR>:!clear && g++ % -static -lm --std=c++11 -Wall -Wextra -Wshadow && echo "> Running " && ./a.out < in<CR>
 				nmap <silent><F9> :up<CR>:!clear && g++ % -static -lm --std=c++11 -Wall -Wextra -Wshadow && echo "> Running " && ./a.out<CR>
 				call CustomFolding()
 			elseif &ft == 'rust'
-				map <silent> <C-c> :call ToggleComment('//')<cr>
+				" TODO: format file after save
+				map <silent> <C-c> :call ToggleComment('// ')<cr>
 				nmap <silent><F9> :up<CR>:!clear && rustc % && ./%<<CR>
 				nmap <silent><F5> :up<CR>:!clear && cargo run < in<CR>
 				call CustomFolding()
 			elseif &ft == 'go'
-				map <silent> <C-c> :call ToggleComment('//')<cr>
+				map <silent> <C-c> :call ToggleComment('// ')<cr>
 				nmap <silent><F5> :up<CR>:!clear && echo "> Running " && go run % < in<CR>
 				nmap <silent><F9> :up<CR>:!clear && echo "> Running " && go run %<CR>
 				call CustomFolding()
@@ -422,7 +426,7 @@
 				map <silent> <C-c> :call ToggleComment('# ')<cr>
 				call CustomFolding()
 			elseif &ft == 'java'
-				map <silent> <C-c> :call ToggleComment('//')<cr>
+				map <silent> <C-c> :call ToggleComment('// ')<cr>
 				nmap <silent><F5> :up<CR>:!clear && javac % && echo "> Running " && java -cp "%:p:h" "%:t:r" < in<CR>
 				nmap <silent><F9> :up<CR>:!clear && javac % && echo "> Running " && java -cp "%:p:h" "%:t:r"<CR>
 			endif
