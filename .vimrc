@@ -12,6 +12,9 @@
 "	3. compile in a new tab (or anywhere else, eg: tmux vsplit)
 "	4. terminal bell in zsh (without going to tmux)
 "	5. Osc52Yank
+"	6. add augroup to deal with different platform
+"	7. change leader key to space
+"	8. map <leader><leader> to `:e #` (which is equivalent to <C-^>)
 "}}}
 
 
@@ -94,6 +97,7 @@
 
 		" Change cursor in different mode
 		let &t_EI = "\e[2 q"	"normal mode
+		let &t_SR = "\e[4 q"	"replace mode
 		let &t_SI = "\e[6 q"	"insert mode
 		" Other options (replace the number after \e[):
 		"Ps = 0 -> blinking block.
@@ -302,9 +306,12 @@
 	" Copy to clipboard
 	"{{{
 		set pastetoggle=<F12>
-		nmap <silent><F12> :!cat % \|clip.exe<CR><CR>:call EchoMsg('File '.'"'.@%.'" copied to clipboard!')<CR>
+		nmap <F12> :w !clip.exe<CR><CR>:call EchoMsg('File "'.@%.'" copied to clipboard!')<CR>
 		vmap <F12> :'<,'>w !clip.exe<CR><CR>:call EchoMsg('Copied to clipboard!')<CR>
-		nmap <silent><leader>y :call system('clip.exe', @0)<CR>:call EchoMsg('Copied to clipboard!')<CR>
+		nmap <leader>y :call system('clip.exe', @0)<CR>:call EchoMsg('Copied to clipboard!')<CR>
+		if exists('$TMUX')
+			vmap <leader>c :'<,'>w !tmux load-buffer -<CR><CR>:call EchoMsg('Copied to tmux!')<CR>
+		endif
 
 		" the `xclip` way
 		"nmap <F12> :up<CR>:!xclip -i -selection clipboard % <CR><CR>
@@ -314,9 +321,9 @@
 		function! Osc52Yank()
 			let buffer=system('base64 -w0', @0)
 			let buffer='\ePtmux;\e\e]52;c;'.buffer.'\x07\e\\'
-			let pane_tty=system("tmux list-panes -F '#{pane_active} #{pane_tty}' | awk '$1==1 { print $2 }'")
-			"let pane_tty='/dev/pts/3'
-			silent exe "!echo -ne ".shellescape(buffer)." > ".shellescape(pane_tty)
+			" let pane_tty=system("tmux list-panes -F '#{pane_active} #{pane_tty}' | awk '$1==1 { print $2 }'")
+			let pane_tty='/dev/pts/4'
+			exe "!echo -ne ".shellescape(buffer)." > ".shellescape(pane_tty)
 		endfunction
 		"nnoremap <leader>y :call Osc52Yank()<CR>
 	"}}}
