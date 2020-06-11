@@ -332,7 +332,7 @@
 
 " Based On Filetype
 "{{{
-	" Folding method
+	" Folding
 	"{{{
 		" Custom folding expression
 		"{{{
@@ -377,67 +377,74 @@
 			endfunction
 		"}}}
 
-		" Custom folding based on filetype
+		" Folding based on filetype
 		"{{{
-		function! CustomFolding()
-			setlocal foldmethod=expr
-			if &ft == 'c' || &ft == 'cpp' || &ft == 'rust' || &ft == 'go'
-				setlocal foldexpr=CustomFoldExpr('//')
-				setlocal foldtext=CustomFoldText('//')
-			elseif &ft == 'python'
-				setlocal foldexpr=CustomFoldExpr('#')
-				setlocal foldtext=CustomFoldText('#')
-			endif
-		endfunction
+			function! CustomFolding()
+				if &ft == 'c' || &ft == 'cpp' || &ft == 'rust' || &ft == 'go'
+					setlocal foldmethod=expr
+					setlocal foldexpr=CustomFoldExpr('//')
+					setlocal foldtext=CustomFoldText('//')
+				elseif &ft == 'python'
+					setlocal foldmethod=expr
+					setlocal foldexpr=CustomFoldExpr('#')
+					setlocal foldtext=CustomFoldText('#')
+				endif
+			endfunction
 		"}}}
 	"}}}
 
-	" Toggle comment
+	" Commenting
 	"{{{
-		function! ToggleComment(cmt)
-			let line = getline('.')
-			if line =~ '[^\s]'
-				if matchstr(line, '^\s*'.a:cmt.'.*$') == ''
-					exec "normal! mqI".a:cmt."\<esc>`q"
-				else
-					exec 's:'.a:cmt.'::'
+		" Toggle comment method
+		"{{{
+			function! ToggleCommentMethod(cmt)
+				let line = getline('.')
+				if line =~ '[^\s]'
+					if matchstr(line, '^\s*'.a:cmt.'.*$') == ''
+						exec "normal! mqI".a:cmt."\<esc>`q"
+					else
+						exec 's:'.a:cmt.'::'
+					endif
 				endif
-			endif
-		endfunction
+			endfunction
+		"}}}
+
+		" Comment based on filetype
+		"{{{
+			function! ToggleComment()
+				if &ft == 'c' || &ft == 'cpp' || &ft == 'rust' || &ft == 'go'
+					nmap <silent> <C-c> :call ToggleCommentMethod('// ')<cr>
+				elseif &ft == 'python'
+					nmap <silent> <C-c> :call ToggleCommentMethod('# ')<cr>
+				elseif &ft == 'vim'
+					nmap <silent> <C-c> :call ToggleCommentMethod('" ')<cr>
+				endif
+			endfunction
+		"}}}
 	"}}}
 
-	" Handle different types
+	" Handle config for various filetypes
 	"{{{
 		function! HandleFiletypes()
-			if &ft == 'vim'
-				map <silent> <C-c> :call ToggleComment('" ')<cr>
-			elseif &ft == 'c' || &ft == 'cpp'
+			if &ft == 'c' || &ft == 'cpp'
 				set cindent		"enable smart indent in c language
-				map <silent> <C-c> :call ToggleComment('// ')<cr>
 				nmap <silent><F5> :up<CR>:!clear && g++ % -static -lm --std=c++11 -Wall -Wextra -Wshadow && echo "> Running " && ./a.out < in<CR>
 				nmap <silent><F9> :up<CR>:!clear && g++ % -static -lm --std=c++11 -Wall -Wextra -Wshadow && echo "> Running " && ./a.out<CR>
-				call CustomFolding()
 			elseif &ft == 'rust'
 				" TODO: format file after save
-				map <silent> <C-c> :call ToggleComment('// ')<cr>
-				nmap <silent><F9> :up<CR>:!clear && rustc % && ./%<<CR>
-				nmap <silent><F5> :up<CR>:!clear && cargo run < in<CR>
-				call CustomFolding()
+				nmap <silent><F9> :up<CR>:!clear && rustc % && echo "> Running" && ./%<<CR>
+				nmap <silent><F5> :up<CR>:!clear && rustc % && echo "> Running" && ./%< < in<CR>
 			elseif &ft == 'go'
-				map <silent> <C-c> :call ToggleComment('// ')<cr>
 				nmap <silent><F5> :up<CR>:!clear && echo "> Running " && go run % < in<CR>
 				nmap <silent><F9> :up<CR>:!clear && echo "> Running " && go run %<CR>
-				call CustomFolding()
 				syn match parens /[{}]/ | hi parens ctermfg=red
-			elseif &ft == 'python' || &ft == 'make'
-				map <silent> <C-c> :call ToggleComment('# ')<cr>
-				call CustomFolding()
 			elseif &ft == 'java'
-				map <silent> <C-c> :call ToggleComment('// ')<cr>
 				nmap <silent><F5> :up<CR>:!clear && javac % && echo "> Running " && java -cp "%:p:h" "%:t:r" < in<CR>
 				nmap <silent><F9> :up<CR>:!clear && javac % && echo "> Running " && java -cp "%:p:h" "%:t:r"<CR>
 			endif
 		endfunction
+		au filetype * call CustomFolding()
+		au filetype * call ToggleComment()
 		au filetype * call HandleFiletypes()
 	"}}}
 "}}}

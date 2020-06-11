@@ -4,9 +4,9 @@
 
 ## Getting Started
 ### Prerequisites
-**Disclaimer:** These dotfiles work best on macOS and Linux, it's a bit funky in WSL. **Use at your own risk!**
+**Disclaimer:** These dotfiles work best on WSL. **Use at your own risk!**
 
-* ```oh-my-zsh``` should be installed. If not pre-installed, follow the instruction [here](https://github.com/robbyrussell/oh-my-zsh).
+* I'm using ```zsh```, and ```oh-my-zsh``` is recommended. Installed it by following the [instruction](https://github.com/robbyrussell/oh-my-zsh).
 * ```xclip``` is the tool I used to copy content from vim buffer to clipboard. Install if needed.
 * ```git```
 
