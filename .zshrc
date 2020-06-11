@@ -99,9 +99,9 @@
 	alias open="explorer.exe"
 
 	# golang setup
-	export GOROOT=/usr/local/go
-	export GOPATH=$HOME/golang
-	export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+	# export GOROOT=/usr/local/go
+	# export GOPATH=$HOME/golang
+	# export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 # }}}
 
 # Others
