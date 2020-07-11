@@ -1,11 +1,11 @@
 #!/bin/bash
 
-function init() {
+function backup() {
 	backup_dir=~/dotfiles_backup
 	files=".vimrc .zshrc .tmux.conf"
 
 	mkdir -p $backup_dir
-	printf "\n\n"
+	printf "\n"
 
 	for file in $files; do
 		if [ -f ~/$file ]; then
@@ -26,11 +26,22 @@ function init() {
 	printf "\ndone.\n"
 }
 
-read -p "Existing dotfiles will be moved to '~/dotfiles_backup'.
-Do you want to start the process?  (y/n) " -n 1;	
+if [ $# == 0 ]; then
+	read -p "Existing dotfiles will be moved to '~/dotfiles_backup'.
+Do you want to start the process?  (y/n) " -n 1;
 
-if [[ $REPLY =~ ^[Yy]$ ]]; then			
-	init;
+	if [[ $REPLY =~ ^[Yy]$ ]]; then
+		echo ""
+		backup;
+	elif [[ $REPLY =~ ^[Nn]$ ]]; then
+		printf "\n\n----- terminated -----\n\n"
+	else
+		printf "\n\n----- unknown command -----\n\n"
+	fi
 else
-	echo "----- terminated. -----"
+	if [[ "$1" == "-y" ]]; then
+		backup;
+	else
+		printf "\n\n----- unknown command -----\n\n"
+	fi
 fi;
