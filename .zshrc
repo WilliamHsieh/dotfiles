@@ -113,6 +113,7 @@
 	# bindkey -v
 
 	# xserver
-	export DISPLAY=:0.0
+	# export DISPLAY=:0.0
+	export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0	# Set up for wsl2
 	export LIBGL_ALWAYS_INDIRECT=1
 # }}}
