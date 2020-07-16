@@ -470,10 +470,20 @@
 				nmap <silent><F9> :up<CR>:!clear && javac % && echo "> Running " && java -cp "%:p:h" "%:t:r"<CR>
 			endif
 		endfunction
-		au filetype * call CustomFolding()
-		au filetype * call ToggleComment()
-		au filetype * call HandleFiletypes()
 	"}}}
+
+	" Initial setup after loading vim
+	"{{{
+		augroup Init
+			autocmd!
+			au VimEnter * call CustomFolding()
+			au VimEnter * call ToggleComment()
+			au VimEnter * call HandleFiletypes()
+			au VimEnter * call ClipboardBehavior()
+		augroup END
+	"}}}
+"}}}
+
 
 " Notes
 "{{{
