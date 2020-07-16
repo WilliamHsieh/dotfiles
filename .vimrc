@@ -474,6 +474,19 @@
 		au filetype * call ToggleComment()
 		au filetype * call HandleFiletypes()
 	"}}}
+
+" Notes
+"{{{
+"	1. m for mark, 'to jump to the mark(ex: mq, 'q)
+"	2. gv to re-select previous visual selection
+"	3. `{` and `}` to jump to next/previous empty line
+"	4. `ZZ` to save and quit
+"	5. `gn` to select the Highlight text(ex: cgn to change the highlight word,
+"		and use `.` to replace the next match)
+"	6. `gi` jump to the last insert position
+"	7. `:cw` to open quickfix window
+"	8. `C-w o` close all splits, but current one
+"	9. `gf` go to file under cursor, `gj` `gk` is like j, k in wrap line
 "}}}
 
 
