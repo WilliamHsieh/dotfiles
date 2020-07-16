@@ -425,9 +425,10 @@
 				let line = getline('.')
 				if line =~ '[^\s]'
 					if matchstr(line, '^\s*'.a:cmt.'.*$') == ''
-						exec "normal! mqI".a:cmt."\<esc>`q"
+						" exec 'normal! mqI'.a:cmt.'\<esc>`q'
+						exec 'normal! 0i'.a:cmt
 					else
-						exec 's:'.a:cmt.'::'
+						exec 's:'.a:cmt.'::g'
 					endif
 				endif
 			endfunction
@@ -437,11 +438,12 @@
 		"{{{
 			function! ToggleComment()
 				if &ft == 'c' || &ft == 'cpp' || &ft == 'rust' || &ft == 'go'
-					nmap <silent> <C-c> :call ToggleCommentMethod('// ')<cr>
-				elseif &ft == 'python'
-					nmap <silent> <C-c> :call ToggleCommentMethod('# ')<cr>
+					" `//` or `// `
+					map <silent> <C-c> :call ToggleCommentMethod('// ')<cr>
+				elseif &ft == 'python' || &ft == 'make'
+					map <silent> <C-c> :call ToggleCommentMethod('# ')<cr>
 				elseif &ft == 'vim'
-					nmap <silent> <C-c> :call ToggleCommentMethod('" ')<cr>
+					map <silent> <C-c> :call ToggleCommentMethod('" ')<cr>
 				endif
 			endfunction
 		"}}}
