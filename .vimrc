@@ -9,12 +9,10 @@
 "{{{
 "	1. add the surrond method (ex: ys<, cs", ds', viwS[, etc)
 "	2. bulk rename in vim(ranger.vim)
-"	3. compile in a new tab (or anywhere else, eg: tmux vsplit)
-"	4. terminal bell in zsh (without going to tmux)
-"	5. Osc52Yank
-"	6. add augroup to deal with different platform
-"	7. change leader key to space
-"	8. map <leader><leader> to `:e #` (which is equivalent to <C-^>)
+"	3. terminal bell in zsh (without going to tmux)
+"	4. Osc52Yank
+"	5. blink the yank text
+"	6. clipboard behavior depend on OS(not quite)
 "}}}
 
 
@@ -22,14 +20,14 @@
 "{{{
 	" Auto Reload .vimrc After Saving
 	"{{{
-		autocmd! bufwritepost .vimrc source %
+		" add `nested` keyword to allow other autocommands to be triggered by this event
+		autocmd! bufwritepost .vimrc nested source %
 	"}}}
 
 	" Basic
 	"{{{
 		set number			" show line numbers
 		set relativenumber	" show relativenumber
-		" set showbreak=###	" wrap-broken line prefix
 		set nowrap			" wrap line which is too long
 		set nocompatible	" set not compatible with vi
 		set textwidth=80	" line wrap (number of cols)
@@ -41,9 +39,9 @@
 		set confirm			" ask confirm instead of block
 		set showcmd			" show the last used command
 		set mouse=n			" mouse control (a == all)
-		set scrolloff=5		" preserve 5 line after scrolling
+		set scrolloff=3		" preserve 5 line after scrolling
 		set modeline
-		set autochdir	"change the working directory to the directory of the file you opened"
+		set autochdir		" change the working directory to the directory of the file you opened
 		filetype plugin on
 		filetype indent on
 		filetype indent plugin on
@@ -282,10 +280,10 @@
 " 		let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
 
 		" open netrw automatically
-" 		augroup ProjectDrawer
-" 			autocmd!
-" 			autocmd VimEnter * :Vexplore
-" 		augroup END
+"		augroup ProjectDrawer
+"			autocmd!
+"			autocmd VimEnter * :Vexplore
+"		augroup END
 
 		" NOW WE CAN:
 		" - :edit a folder to open a file browser
