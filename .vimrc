@@ -454,17 +454,18 @@
 		function! HandleFiletypes()
 			if &ft == 'c' || &ft == 'cpp'
 				set cindent		"enable smart indent in c language
-				nmap <silent><F5> :up<CR>:!clear && g++ % -static -lm --std=c++11 -Wall -Wextra -Wshadow && echo "> Running " && ./a.out < in<CR>
-				nmap <silent><F9> :up<CR>:!clear && g++ % -static -lm --std=c++11 -Wall -Wextra -Wshadow && echo "> Running " && ./a.out<CR>
+				nmap <silent><F5> :up<CR>:!clear && g++ % -lm --std=c++14 -Wall -Wextra -Wshadow && echo "> Running " && ./a.out < in<CR>
+				nmap <silent><F9> :up<CR>:!clear && g++ % -lm --std=c++14 -Wall -Wextra -Wshadow && echo "> Running " && ./a.out<CR>
 			elseif &ft == 'rust'
 				" TODO: format file after save
-				nmap <silent><F9> :up<CR>:!clear && rustc % && echo "> Running" && ./%<<CR>
 				nmap <silent><F5> :up<CR>:!clear && rustc % && echo "> Running" && ./%< < in<CR>
+				nmap <silent><F9> :up<CR>:!clear && rustc % && echo "> Running" && ./%<<CR>
+				set errorformat=\ -->\ src/%f:%l:%c		"for quickfix
 			elseif &ft == 'go'
 				nmap <silent><F5> :up<CR>:!clear && echo "> Running " && go run % < in<CR>
 				nmap <silent><F9> :up<CR>:!clear && echo "> Running " && go run %<CR>
-				syn match parens /[{}]/ | hi parens ctermfg=red
 			elseif &ft == 'java'
+				syn match parens /[{}]/ | hi parens ctermfg=red
 				nmap <silent><F5> :up<CR>:!clear && javac % && echo "> Running " && java -cp "%:p:h" "%:t:r" < in<CR>
 				nmap <silent><F9> :up<CR>:!clear && javac % && echo "> Running " && java -cp "%:p:h" "%:t:r"<CR>
 			endif
