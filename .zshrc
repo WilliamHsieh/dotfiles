@@ -95,8 +95,12 @@
 	alias pythonServer="python3 -m http.server"
 	alias phpServer="php -S 127.0.0.1:8000"
 	alias kaggle="~/.local/bin/kaggle"
-	alias cmd="cmd.exe"
-	alias open="explorer.exe"
+
+	# based on platform
+	if uname -r | grep -i -q 'microsoft' ; then
+		alias cmd="cmd.exe"
+		alias open="explorer.exe"
+	fi
 
 	# golang setup
 	# export GOROOT=/usr/local/go
