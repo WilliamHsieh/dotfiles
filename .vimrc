@@ -123,15 +123,6 @@
 		"Ps = 6 -> steady bar (xterm).
 	"}}}
 
-	" Folding
-	"{{{
-		" <zf> to create, <zx> <za> to fold and expand
-		set foldmethod=marker
-		set foldlevel=0
-		set foldnestmax=3
-		hi Folded ctermbg=black ctermfg=241
-	"}}}
-
 	" Make the 81th column stand out
 	"{{{
 		hi ColorColumn80 ctermbg=magenta ctermfg=black
@@ -390,15 +381,20 @@
 
 		" Folding based on filetype
 		"{{{
+		" <zf> to create, <zx> <za> to fold and expand
 			function! CustomFolding()
+				set foldlevel=0
+				set foldnestmax=3
 				if &ft == 'c' || &ft == 'cpp' || &ft == 'rust' || &ft == 'go'
-					setlocal foldmethod=expr
-					setlocal foldexpr=CustomFoldExpr('//')
-					setlocal foldtext=CustomFoldText('//')
+					set foldmethod=expr
+					set foldexpr=CustomFoldExpr('//')
+					set foldtext=CustomFoldText('//')
 				elseif &ft == 'python'
-					setlocal foldmethod=expr
-					setlocal foldexpr=CustomFoldExpr('#')
-					setlocal foldtext=CustomFoldText('#')
+					set foldmethod=expr
+					set foldexpr=CustomFoldExpr('#')
+					set foldtext=CustomFoldText('#')
+				else
+					set foldmethod=marker
 				endif
 			endfunction
 		"}}}
