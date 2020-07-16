@@ -304,18 +304,38 @@
 
 	" Copy to clipboard
 	"{{{
-		set pastetoggle=<F12>
-		nmap <F12> :w !clip.exe<CR><CR>:call EchoMsg('File "'.@%.'" copied to clipboard!')<CR>
-		vmap <F12> :'<,'>w !clip.exe<CR><CR>:call EchoMsg('Copied to clipboard!')<CR>
-		nmap <leader>y :call system('clip.exe', @0)<CR>:call EchoMsg('Copied to clipboard!')<CR>
-		if exists('$TMUX')
-			vmap <leader>c :'<,'>w !tmux load-buffer -<CR><CR>:call EchoMsg('Copied to tmux!')<CR>
-		endif
+		function! GetPlatform()
+			let uname = substitute(system('uname'),'\n','','')
+			if uname == 'Linux'
+				let lines = readfile("/proc/version")
+				if lines[0] =~ "Microsoft"
+					return 'wsl'
+				endif
+			elseif uname == 'Darwin'
+				return 'mac'
+			else
+				return 'linux'
+			endif
+		endfunction
 
-		" the `xclip` way
-		"nmap <F12> :up<CR>:!xclip -i -selection clipboard % <CR><CR>
-		"vmap <F12> :'<,'>w !xclip<CR><CR>
-		"nmap <silent><leader>c :call system('xclip', @0)<CR>
+		function! ClipboardBehavior()
+			let platform = GetPlatform()
+			if platform == 'wsl'
+				nmap <F12> :w !clip.exe<CR><CR>:call EchoMsg('File "'.@%.'" copied to clipboard!')<CR>
+				vmap <F12> :'<,'>w !clip.exe<CR><CR>:call EchoMsg('Copied to clipboard!')<CR>
+			elseif platform == 'mac'
+				nmap <F12> :w !pbcopy<CR><CR>:call EchoMsg('File "'.@%.'" copied to clipboard!')<CR>
+				vmap <F12> :'<,'>w !pbcopy<CR><CR>:call EchoMsg('Copied to clipboard!')<CR>
+			else
+				nmap <F12> :up<CR>:!xclip -i -selection clipboard %<CR><CR>:call EchoMsg('File "'.@%.'" copied to clipboard!')<CR>
+				vmap <F12> :'<,'>w !xclip<CR><CR>:call EchoMsg('Copied to clipboard!')<CR>
+			endif
+		endfunction
+
+		set pastetoggle=<F12>
+		if exists('$TMUX')
+			vmap <leader>y :'<,'>w !tmux load-buffer -<CR><CR>:call EchoMsg('Copied to tmux!')<CR>
+		endif
 
 		function! Osc52Yank()
 			let buffer=system('base64 -w0', @0)
