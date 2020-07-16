@@ -179,19 +179,18 @@
 		imap kk <esc>
 
 		" Moving the cursor
-		imap <C-h> <left>
 		imap <C-j> <down>
 		imap <C-k> <up>
-		imap <C-l> <right>
 		nmap <C-j> 4jzz
 		vmap <C-j> 4jzz
 		nmap <C-k> 4kzz
 		vmap <C-k> 4kzz
 
-		" Navigate between splits/tabs
-		nmap <C-h> <C-w><C-h>
-		nmap <C-l> <C-w><C-l>
+		" Navigate between tabs
 		nmap gc :tabnew<CR>
+
+		" switch between resent buffer, which is equivalent to <C-^>
+		nmap <space><space> :e #<CR>
 
 		" Useful short cut
 		nmap ; :
@@ -203,8 +202,6 @@
 		nmap <silent><F2> :up<CR>:!clear && make<CR>
 		nmap <S-k> k<S-j>
 		nmap Y y$
-		" vmap > >gv
-		" vmap < <gv
 	"}}}
 "}}}
 
