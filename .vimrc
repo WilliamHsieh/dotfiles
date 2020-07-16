@@ -77,21 +77,35 @@
 
 " Color
 "{{{
-	" Theme
+	" Theme & stuff
 	"{{{
 		set t_Co=256			" vim color
 		set background=dark		" background
-		colo peachpuff
 		syntax enable
-		hi VertSplit cterm=none ctermfg=0 ctermbg=237
+
+		" modified theme
+		function! MyHighlights() abort
+			set cursorline
+			hi CursorLine cterm=NONE ctermbg=237
+			hi CursorLineNr cterm=none
+
+			hi Folded ctermbg=black ctermfg=241
+			hi VertSplit cterm=none ctermfg=0 ctermbg=237
+
+			hi statusline ctermfg=8 ctermbg=15
+		endfunction
+
+		" color scheme
+		augroup MyColors
+			autocmd!
+			autocmd ColorScheme * call MyHighlights()
+		augroup END
+		colo peachpuff
 	"}}}
 
 	" Cursor
 	"{{{
 		" Cursorline
-		set cursorline
-		hi CursorLine cterm=NONE ctermbg=237
-		au ColorScheme * hi CursorLine cterm=NONE ctermbg=237
 		au InsertEnter * set nocursorline
 		au InsertLeave * set cursorline
 
@@ -120,7 +134,7 @@
 
 	" Make the 81th column stand out
 	"{{{
-		hi ColorColumn80 ctermbg=magenta
+		hi ColorColumn80 ctermbg=magenta ctermfg=black
 		call matchadd('ColorColumn80', '\%81v', -1)
 		" -1 means that any search highlighting will override the match highlighting
 	"}}}
@@ -238,9 +252,6 @@
 			endfunction
 			au InsertEnter * call InsertStatuslineColor(v:insertmode)
 			au InsertLeave * hi statusline ctermfg=8 ctermbg=15
-
-			" Default the statusline to DarkGrey when entering Vim
-			hi statusline ctermfg=8 ctermbg=15
 		"}}}
 	"}}}
 
