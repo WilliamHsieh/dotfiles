@@ -75,28 +75,49 @@
 
 " Color
 "{{{
+	" Modified theme
+	"{{{
+		function! MyHighlights() abort
+			" cursorline color
+			set cursorline
+			hi CursorLine cterm=NONE ctermbg=237
+			hi CursorLineNr cterm=none
+
+			" statusline color
+			hi NormalStatusColor ctermfg=15 ctermbg=8 cterm=none
+			hi! link statusline NormalStatusColor
+
+			" tab bar color
+			hi TabLineSel cterm=NONE ctermbg=8 ctermfg=white
+			hi TabLine cterm=NONE ctermbg=black ctermfg=darkgray
+			hi TabLineFill ctermfg=black
+
+			" others
+			hi Search ctermfg=0 ctermbg=124
+			hi Folded ctermbg=black ctermfg=241
+			hi VertSplit cterm=none ctermfg=0 ctermbg=237
+		endfunction
+
+		function! InsertStatuslineColor(mode)
+			if a:mode == 'i'
+				hi statusline ctermfg=0 ctermbg=2 cterm=none
+			elseif a:mode == 'r'
+				hi statusline ctermfg=0 ctermbg=1 cterm=none
+			endif
+		endfunction
+	"}}}
+
 	" Theme & stuff
 	"{{{
 		set t_Co=256			" vim color
 		set background=dark		" background
 		syntax enable
 
-		" modified theme
-		function! MyHighlights() abort
-			set cursorline
-			hi CursorLine cterm=NONE ctermbg=237
-			hi CursorLineNr cterm=none
-
-			hi Folded ctermbg=black ctermfg=241
-			hi VertSplit cterm=none ctermfg=0 ctermbg=237
-
-			hi statusline ctermfg=8 ctermbg=15
-		endfunction
-
-		" color scheme
-		augroup MyColors
+		augroup Theme
 			autocmd!
-			autocmd ColorScheme * call MyHighlights()
+			au ColorScheme * call MyHighlights()
+			au InsertEnter * call InsertStatuslineColor(v:insertmode)
+			au InsertLeave * hi! link statusline NormalStatusColor
 		augroup END
 		colo peachpuff
 	"}}}
@@ -133,13 +154,6 @@
 		hi ExtraWhitespace cterm=underline ctermbg=NONE ctermfg=yellow
 		au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 		au InsertLeave * match ExtraWhitespace /\s\+$\| \+\ze\t/
-	"}}}
-
-	" Tab bar color
-	"{{{
-		hi TabLineSel cterm=NONE ctermbg=8 ctermfg=white
-		hi TabLine cterm=NONE ctermbg=black ctermfg=darkgray
-		hi TabLineFill ctermfg=black
 	"}}}
 
 	" Show syntax highlighting groups && color of word under cursor
@@ -208,42 +222,23 @@
 "{{{
 	" Statusline
 	"{{{
-		" Info showed on statusline
-		"{{{
-			set laststatus=2								" show two statusline
-			set statusline=[%{expand('%:F')}]\ 				" path and file name
-			set statusline+=[%{strlen(&fenc)?&fenc:'none'}  " file encoding
-			set statusline+=,\ %{&ff}						" file format
-			set statusline+=,\ %{strlen(&ft)?&ft:'plain'}]	" filetype
-			set statusline+=\ %m							" modified flag
-			set statusline+=\ %h							" help file flag
-			set statusline+=\ %r							" read only flag
-			set statusline+=\ %=							" align left
-			set statusline+=Line:%l/%L[%p%%]				" line X of Y [percent of file]
-			set statusline+=\ Col:[%c]						" current column
-			set statusline+=\ ASCII:[%b]\ 					" ASCII code under cursor
-			" set statusline+=\ Buf:%						" Buffer number
-			" set statusline+=\ [0x%B]\						" byte code under cursor
-		"}}}
-
-		" Change the color of statusline
-		"{{{
-			" Different color in different mode
-			function! InsertStatuslineColor(mode)
-				if a:mode == 'i'
-					hi statusline ctermfg=2 ctermbg=0
-				elseif a:mode == 'r'
-					hi statusline ctermfg=1 ctermbg=0
-				endif
-			endfunction
-			au InsertEnter * call InsertStatuslineColor(v:insertmode)
-			au InsertLeave * hi statusline ctermfg=8 ctermbg=15
-		"}}}
+		set laststatus=2								" show two statusline
+		set statusline=[%{expand('%:F')}]\ 				" path and file name
+		set statusline+=[%{strlen(&fenc)?&fenc:'none'}  " file encoding
+		set statusline+=,\ %{&ff}						" file format
+		set statusline+=,\ %{strlen(&ft)?&ft:'plain'}]	" filetype
+		set statusline+=\ %m							" modified flag
+		set statusline+=\ %h							" help file flag
+		set statusline+=\ %r							" read only flag
+		set statusline+=\ %=							" align left
+		set statusline+=Line:%l/%L[%p%%]				" line X of Y [percent of file]
+		set statusline+=\ Col:[%c]						" current column
+		set statusline+=\ ASCII:[%b]					" ASCII code under cursor
+" 		set statusline+=\ Buf:[%n]						" Buffer number
 	"}}}
 
 	" Blink search matches
 	"{{{
-		hi Search ctermfg=0 ctermbg=124
 		function! HINext(blinktime)
 			" zz
 			let target_pat = '\c\%#'.@/
@@ -278,12 +273,6 @@
 		let g:netrw_preview = 1		" use 'p' to preview the file in netRW
 " 		let g:netrw_list_hide=netrw_gitignore#Hide()
 " 		let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
-
-		" open netrw automatically
-"		augroup ProjectDrawer
-"			autocmd!
-"			autocmd VimEnter * :Vexplore
-"		augroup END
 
 		" NOW WE CAN:
 		" - :edit a folder to open a file browser
