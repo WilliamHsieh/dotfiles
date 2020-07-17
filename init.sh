@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# backup old config files
 function backup() {
 	backup_dir=~/dotfiles_backup
 	files=".vimrc .zshrc .tmux.conf"
@@ -26,6 +27,7 @@ function backup() {
 	printf "\ndone.\n"
 }
 
+# cli args
 if [ $# == 0 ]; then
 	read -p "Existing dotfiles will be moved to '~/dotfiles_backup'.
 Do you want to start the process?  (y/n) " -n 1;
