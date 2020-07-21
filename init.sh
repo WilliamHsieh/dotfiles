@@ -1,37 +1,36 @@
-#!/bin/bash
+#!/bin/sh
 
-# backup old config files
+# backup old config files && create symlink
 function backup() {
 	backup_dir=~/dotfiles_backup
 	files=".vimrc .zshrc .tmux.conf"
 
-	mkdir -p $backup_dir
 	printf "\n"
-
 	for file in $files; do
 		if [ -f ~/$file ]; then
 			echo "Moving existing $file from ~ to $backup_dir"
+			mkdir -p $backup_dir
 			mv ~/$file $backup_dir
 		fi
 	done
+	printf "\n"
 
-	echo ""
-	echo "source ~/dotfiles/.vimrc" > ~/.vimrc
+	ln -s ~/dotfiles/.vimrc ~/.vimrc
 	echo "------- .vimrc updated. -------"
 
-	echo "source ~/dotfiles/.zshrc" > ~/.zshrc
+	ln -s ~/dotfiles/.zshrc ~/.zshrc
 	echo "------- .zshrc updated. -------"
 
-	echo "source ~/dotfiles/.tmux.conf" > ~/.tmux.conf
+	ln -s ~/dotfiles/.tmux.conf ~/.tmux.conf
 	echo "----- .tmux.conf updated. -----"
-	printf "\ndone.\n"
+
+	printf "\ndone.\n\n"
 }
 
 # cli args
 if [ $# == 0 ]; then
 	read -p "Existing dotfiles will be moved to '~/dotfiles_backup'.
 Do you want to start the process?  (y/n) " -n 1;
-
 	if [[ $REPLY =~ ^[Yy]$ ]]; then
 		echo ""
 		backup;
