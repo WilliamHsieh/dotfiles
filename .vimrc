@@ -441,6 +441,7 @@
 				set cindent		"enable smart indent in c language
 				nmap <silent><F5> :up<CR>:!clear && g++ % -lm --std=c++14 -Wall -Wextra -Wshadow && echo "> Running " && ./a.out < in<CR>
 				nmap <silent><F9> :up<CR>:!clear && g++ % -lm --std=c++14 -Wall -Wextra -Wshadow && echo "> Running " && ./a.out<CR>
+				syn match parens /[{}]/ | hi parens ctermfg=red
 			elseif &ft == 'rust'
 				" TODO: format file after save
 				nmap <silent><F5> :up<CR>:!clear && rustc % && echo "> Running" && ./%< < in<CR>
@@ -450,7 +451,6 @@
 				nmap <silent><F5> :up<CR>:!clear && echo "> Running " && go run % < in<CR>
 				nmap <silent><F9> :up<CR>:!clear && echo "> Running " && go run %<CR>
 			elseif &ft == 'java'
-				syn match parens /[{}]/ | hi parens ctermfg=red
 				nmap <silent><F5> :up<CR>:!clear && javac % && echo "> Running " && java -cp "%:p:h" "%:t:r" < in<CR>
 				nmap <silent><F9> :up<CR>:!clear && javac % && echo "> Running " && java -cp "%:p:h" "%:t:r"<CR>
 			endif
@@ -482,6 +482,8 @@
 "	7. `:cw` to open quickfix window
 "	8. `C-w o` close all splits, but current one
 "	9. `gf` go to file under cursor, `gj` `gk` is like j, k in wrap line
+"	10. :mksession or :mks can store current vim buffer(& tabs) into
+"		Session.vim, and can be reload using `vim -S Session.vim`
 "}}}
 
 
