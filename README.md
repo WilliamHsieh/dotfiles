@@ -5,11 +5,10 @@ These are my configuration for vim, zsh, and tmux.
 
 ## Getting Started
 ### Prerequisites
-**Disclaimer:** These dotfiles work best on WSL2. **Use at your own risk!**
+**Disclaimer:** These dotfiles work best on WSL2 and mac. **Use at your own risk!**
 
-* I'm using ```zsh```, and ```oh-my-zsh``` is recommended. Installed it by following the [instruction](https://github.com/robbyrussell/oh-my-zsh).
-* ```xclip``` is the tool I used to copy content from vim/tmux buffer to clipboard. Install if needed.
-* ```git```
+* I'm using ```zsh```, and ```oh-my-zsh``` is recommended. Follow the instruction [here](https://github.com/robbyrussell/oh-my-zsh).
+* ```tmux``` version >= 2.9. Since [tmux v2.9](https://github.com/tmux/tmux/issues/1721) update decided to mess up all the existing config.
 
 ### Basic Installation
 The repository will be cloned into ```~/dotfiles``` by executing the following command via ```git```.
@@ -33,5 +32,5 @@ Inspiration and code were taken from many sources, including:
 * [Nick Nisi](https://nicknisi.com/) and his [presentation](https://github.com/nicknisi/vim-workshop)
 * [Hermann Vocke](https://www.hamvocke.com/) and his [dotfiles repository](https://github.com/hamvocke/dotfiles)
 * [Mathias Bynens](https://mathiasbynens.be/) and his [dotfiles repository](https://github.com/mathiasbynens/dotfiles/)
-* Anyone who  [made a helpful suggestion](https://github.com/WilliamHsieh/dotfiles/issues)
+* Anyone who made a helpful [suggestion](https://github.com/WilliamHsieh/dotfiles/issues)
 
