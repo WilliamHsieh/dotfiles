@@ -393,7 +393,7 @@
 					set foldmethod=expr
 					set foldexpr=CustomFoldExpr('//')
 					set foldtext=CustomFoldText('//')
-				elseif &ft == 'python'
+				elseif &ft == 'python' || &ft == 'make'
 					set foldmethod=expr
 					set foldexpr=CustomFoldExpr('#')
 					set foldtext=CustomFoldText('#')
@@ -453,6 +453,9 @@
 			elseif &ft == 'java'
 				nmap <silent><F5> :up<CR>:!clear && javac % && echo "> Running " && java -cp "%:p:h" "%:t:r" < in<CR>
 				nmap <silent><F9> :up<CR>:!clear && javac % && echo "> Running " && java -cp "%:p:h" "%:t:r"<CR>
+			elseif &ft == 'python'
+				nmap <silent><F5> :up<CR>:!clear && python3 % < in<CR>
+				nmap <silent><F9> :up<CR>:!clear && python3 %<CR>
 			endif
 		endfunction
 	"}}}
