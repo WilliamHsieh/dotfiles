@@ -439,8 +439,8 @@
 		function! HandleFiletypes()
 			if &ft == 'c' || &ft == 'cpp'
 				set cindent		"enable smart indent in c language
-				nmap <silent><F5> :up<CR>:!clear && g++ % -lm --std=c++14 -Wall -Wextra -Wshadow && echo "> Running " && ./a.out < in<CR>
-				nmap <silent><F9> :up<CR>:!clear && g++ % -lm --std=c++14 -Wall -Wextra -Wshadow && echo "> Running " && ./a.out<CR>
+				nmap <silent><F5> :up<CR>:!clear && g++ % -lm --std=c++17 -Wall -Wextra -Wshadow && echo "> Running " && ./a.out < in<CR>
+				nmap <silent><F9> :up<CR>:!clear && g++ % -lm --std=c++17 -Wall -Wextra -Wshadow && echo "> Running " && ./a.out<CR>
 				syn match parens /[{}]/ | hi parens ctermfg=red
 			elseif &ft == 'rust'
 				" TODO: format file after save
