@@ -8,7 +8,7 @@ These are my configuration for vim, zsh, and tmux.
 **Disclaimer:** These dotfiles work best on WSL2 and mac. **Use at your own risk!**
 
 * I'm using ```zsh```, and ```oh-my-zsh``` is recommended. Follow the instruction [here](https://github.com/robbyrussell/oh-my-zsh).
-* ```tmux``` version >= 2.9. Since [tmux v2.9](https://github.com/tmux/tmux/issues/1721) update decided to mess up all the existing config.
+* ```tmux``` version >= 2.9. Since [tmux v2.9](https://github.com/tmux/tmux/issues/1689) update decided to mess up all the existing config.
 
 ### Basic Installation
 The repository will be cloned into ```~/dotfiles``` by executing the following command via ```git```.
