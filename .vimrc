@@ -130,7 +130,7 @@
 
 		" Change cursor in different mode
 		let &t_EI = "\e[2 q"	"normal mode
-		let &t_SR = "\e[4 q"	"replace mode
+		"let &t_SR = "\e[4 q"	"replace mode TODO: only if terminal support
 		let &t_SI = "\e[6 q"	"insert mode
 		" Other options (replace the number after \e[):
 		"Ps = 0 -> blinking block.
