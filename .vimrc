@@ -487,6 +487,8 @@
 "	9. `gf` go to file under cursor, `gj` `gk` is like j, k in wrap line
 "	10. :mksession or :mks can store current vim buffer(& tabs) into
 "		Session.vim, and can be reload using `vim -S Session.vim`
+"	11. using visual mode to select block of text, and type `:normal` and append
+"		normal command, ex: `:'<,'>normal ^dW`
 "}}}
 
 
