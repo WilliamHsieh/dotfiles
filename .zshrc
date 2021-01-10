@@ -6,7 +6,7 @@
 # Default options
 # {{{
 	# If you come from bash you might have to change your $PATH.
-	# export PATH=$HOME/bin:/usr/local/bin:$PATH
+	export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 	# Path to your oh-my-zsh installation.
 	export ZSH=~/.oh-my-zsh
@@ -97,15 +97,12 @@
 	alias kaggle="~/.local/bin/kaggle"
 
 	# based on platform
-	if uname -r | grep -i -q 'microsoft' ; then
+	if uname -r | grep -i -q 'microsoft'; then
 		alias cmd="cmd.exe"
 		alias open="explorer.exe"
+		alias pbcopy="clip.exe"
+		alias pbpaste="powershell.exe Get-Clipboard"
 	fi
-
-	# golang setup
-	# export GOROOT=/usr/local/go
-	# export GOPATH=$HOME/golang
-	# export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 # }}}
 
 # Others
@@ -113,11 +110,9 @@
 	# make sure the cursor is constantly block
 	echo -ne "\e[2 q"
 
-	# enable vim mode
-	# bindkey -v
-
-	# xserver
-	# export DISPLAY=:0.0
-	export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0	# Set up for wsl2
-	export LIBGL_ALWAYS_INDIRECT=1
+	# export DISPLAY for wsl2
+	if uname -r | grep -i -q 'microsoft'; then
+		export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0
+		export LIBGL_ALWAYS_INDIRECT=1
+	fi
 # }}}
