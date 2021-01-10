@@ -108,7 +108,12 @@
 # Others
 # {{{
 	# make sure the cursor is constantly block
-	echo -ne "\e[2 q"
+	cursor_shape="\e[2 q"
+	if [ -n "$TMUX" ]; then
+		echo -ne "\ePtmux;\e$cursor_shape\e\\"
+	else
+		echo -ne $cursor_shape
+	fi
 
 	# export DISPLAY for wsl2
 	if uname -r | grep -i -q 'microsoft'; then

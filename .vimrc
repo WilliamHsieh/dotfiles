@@ -129,10 +129,18 @@
 		au InsertLeave * set cursorline
 
 		" Change cursor in different mode
-		let &t_EI = "\e[2 q"	"normal mode
-		"let &t_SR = "\e[4 q"	"replace mode TODO: only if terminal support
-		let &t_SI = "\e[6 q"	"insert mode
-		" Other options (replace the number after \e[):
+		if exists('$TMUX')
+			let &t_EI = "\<Esc>Ptmux;\<Esc>\e[2 q\<Esc>\\"
+			let &t_SR = "\<Esc>Ptmux;\<Esc>\e[4 q\<Esc>\\"
+			let &t_SI = "\<Esc>Ptmux;\<Esc>\e[6 q\<Esc>\\"
+		else
+			let &t_EI = "\e[2 q"	"normal mode
+			let &t_SR = "\e[4 q"	"replace mode TODO: only some terminal support
+			let &t_SI = "\e[6 q"	"insert mode
+		endif
+		"ref: https://unix.stackexchange.com/questions/553227/how-to-enable-underlines-and-other-formattings-on-a-color-tty
+
+		"Other options (replace the number after \e[):
 		"Ps = 0 -> blinking block.
 		"Ps = 1 -> blinking block (default).
 		"Ps = 2 -> steady block.
@@ -205,7 +213,7 @@
 		nmap <space><space> :e #<CR>
 
 		" Useful short cut
-		nmap ; :
+		" nmap ; :
 		imap <C-a> <esc>^i
 		imap <C-e> <end>
 		cmap <C-a> <home>
@@ -489,6 +497,7 @@
 "		Session.vim, and can be reload using `vim -S Session.vim`
 "	11. using visual mode to select block of text, and type `:normal` and append
 "		normal command, ex: `:'<,'>normal ^dW`
+"	12. `q:, q/, q?` open command-line window with the credit option.
 "}}}
 
 
