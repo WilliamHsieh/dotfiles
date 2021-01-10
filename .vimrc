@@ -13,6 +13,7 @@
 "	4. Osc52Yank
 "	5. blink the yank text
 "	6. clipboard behavior depend on OS(not quite)
+"	7. support for true color (https://lotabout.me/2018/true-color-for-tmux-and-vim/)
 "}}}
 
 
