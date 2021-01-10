@@ -132,11 +132,10 @@
 		" Change cursor in different mode
 		if exists('$TMUX')
 			let &t_EI = "\<Esc>Ptmux;\<Esc>\e[2 q\<Esc>\\"
-			let &t_SR = "\<Esc>Ptmux;\<Esc>\e[4 q\<Esc>\\"
 			let &t_SI = "\<Esc>Ptmux;\<Esc>\e[6 q\<Esc>\\"
 		else
 			let &t_EI = "\e[2 q"	"normal mode
-			let &t_SR = "\e[4 q"	"replace mode TODO: only some terminal support
+			"let &t_SR = "\e[4 q"	"replace mode TODO: only some terminal support
 			let &t_SI = "\e[6 q"	"insert mode
 		endif
 		"ref: https://unix.stackexchange.com/questions/553227/how-to-enable-underlines-and-other-formattings-on-a-color-tty
