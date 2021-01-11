@@ -8,12 +8,12 @@
 " TODO
 "{{{
 "	1. add the surrond method (ex: ys<, cs", ds', viwS[, etc)
-"	2. bulk rename in vim(ranger.vim)
+"	2. bulk rename in vim (ranger.vim)
 "	3. terminal bell in zsh (without going to tmux)
 "	4. Osc52Yank
 "	5. blink the yank text
-"	6. clipboard behavior depend on OS(not quite)
-"	7. support for true color (https://lotabout.me/2018/true-color-for-tmux-and-vim/)
+"	6. clipboard behavior (linux && sync with remote machine)
+"	7. support for true color within vim (https://lotabout.me/2018/true-color-for-tmux-and-vim/)
 "}}}
 
 
@@ -486,23 +486,38 @@
 "}}}
 
 
-" Notes
+" NOTE:
 "{{{
-"	1. m for mark, 'to jump to the mark(ex: mq, 'q)
-"	2. gv to re-select previous visual selection
-"	3. `{` and `}` to jump to next/previous empty line
-"	4. `ZZ` to save and quit
-"	5. `gn` to select the Highlight text(ex: cgn to change the highlight word,
-"		and use `.` to replace the next match)
-"	6. `gi` jump to the last insert position
-"	7. `:cw` to open quickfix window
-"	8. `C-w o` close all splits, but current one
-"	9. `gf` go to file under cursor, `gj` `gk` is like j, k in wrap line
-"	10. :mksession or :mks can store current vim buffer(& tabs) into
-"		Session.vim, and can be reload using `vim -S Session.vim`
-"	11. using visual mode to select block of text, and type `:normal` and append
-"		normal command, ex: `:'<,'>normal ^dW`
-"	12. `q:, q/, q?` open command-line window with the credit option.
+	" Normal mode
+	"{{{
+	"	1. m for mark, `'` to jump to the mark (ex: mq, 'q)
+	"	2. `gv` to re-select previous visual selection
+	"	3. `{` and `}` to jump to next/previous empty line
+	"	4. `ZZ` to save and quit
+	"	5. `gn` to select next highlight text (ex: `cgn` to change the next
+	"		highlight word, and use `.` to replace the next match)
+	"	6. `gi` start insert mode on last insert position
+	"	7. `C-w o` close all splits, but current one
+	"	8. `gf` go to file under cursor, `gj` `gk` is like j, k in wrap line
+	"	9. `!!` in normal mode will insert external command on cursor position
+	"	10. `q:, q/, q?` open command-line window with the credit option.
+	"}}}
+
+	" Command mode
+	"{{{
+	"	1. :cw to open quickfix window
+	"	2. :mksession or :mks can store current vim buffer (& tabs) into
+	"		Session.vim, and can be reload using `vim -S Session.vim`
+	"	3. select text with visual mode, then type :normal to append
+	"		normal command, (ex: `:'<,'>normal ^dW`)
+	"	4. :ab can set word for abbreviation, ex: `:ab la ls -la`
+	"	5. when writing to read only file, use `:w !sudo tee %`
+	"}}}
+
+	" Other notes
+	"{{{
+	"	NOTE:, TODO, FIXME, are default keywords
+	"}}}
 "}}}
 
 
