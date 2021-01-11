@@ -93,6 +93,12 @@
 			hi TabLine cterm=NONE ctermbg=black ctermfg=darkgray
 			hi TabLineFill ctermfg=black
 
+			" parentheses color
+			if &ft == 'c' || &ft == 'cpp'
+				syn match parens /[{}]/ | hi parens ctermfg=red
+			endif
+			hi MatchParen cterm=none ctermbg=magenta ctermfg=black
+
 			" others
 			hi Search ctermfg=0 ctermbg=124
 			hi Folded ctermbg=black ctermfg=241
@@ -442,14 +448,13 @@
 		"}}}
 	"}}}
 
-	" Handle config for various filetypes
+	" Compiling and running for various filetypes
 	"{{{
 		function! HandleFiletypes()
 			if &ft == 'c' || &ft == 'cpp'
 				set cindent		"enable smart indent in c language
 				nmap <silent><F5> :up<CR>:!clear && g++ % -lm --std=c++17 -Wall -Wextra -Wshadow && echo "> Running " && ./a.out < in<CR>
 				nmap <silent><F9> :up<CR>:!clear && g++ % -lm --std=c++17 -Wall -Wextra -Wshadow && echo "> Running " && ./a.out<CR>
-				syn match parens /[{}]/ | hi parens ctermfg=red
 			elseif &ft == 'rust'
 				" TODO: format file after save
 				nmap <silent><F5> :up<CR>:!clear && rustc % && echo "> Running" && ./%< < in<CR>
