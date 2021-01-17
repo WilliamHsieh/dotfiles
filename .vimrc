@@ -308,15 +308,14 @@
 	"{{{
 		function! GetPlatform()
 			let uname = substitute(system('uname'),'\n','','')
-			if uname == 'Linux'
-				let lines = readfile("/proc/version")
-				if lines[0] =~ "Microsoft"
-					return 'wsl'
-				endif
+			if system("uname -r | grep -i microsoft") != ""
+				return 'wsl'
+			elseif uname == 'Linux'
+				return 'linux'
 			elseif uname == 'Darwin'
 				return 'mac'
 			else
-				return 'linux'
+				return 'unknown'
 			endif
 		endfunction
 
