@@ -10,10 +10,7 @@
 "	1. add the surrond method (ex: ys<, cs", ds', viwS[, etc)
 "	2. bulk rename in vim (ranger.vim)
 "	3. terminal bell in zsh (without going to tmux)
-"	4. Osc52Yank
-"	5. blink the yank text
-"	6. clipboard behavior (linux && sync with remote machine)
-"	7. support for true color within vim (https://lotabout.me/2018/true-color-for-tmux-and-vim/)
+"	4. blink the yank text (https://github.com/machakann/vim-highlightedyank/)
 "}}}
 
 
@@ -40,9 +37,10 @@
 		set confirm			" ask confirm instead of block
 		set showcmd			" show the last used command
 		set mouse=n			" mouse control (a == all)
-		set scrolloff=3		" preserve 5 line after scrolling
+		set scrolloff=5		" preserve 5 line after scrolling
 		set modeline
 		set autochdir		" change the working directory to the directory of the file you opened
+		set hidden			" able to change to another buffer without saving
 		filetype plugin on
 		filetype indent on
 		filetype indent plugin on
@@ -52,8 +50,9 @@
 	"{{{
 		set tabstop=4		" Number of spaces per Tab
 		set softtabstop=4	" Number of spaces per Tab(virtual tab width)
-		set smarttab		" Enable smart-tabs
 		set shiftwidth=4	" Number of auto-indent spaces
+		set smarttab		" Enable smart-tabs
+		set shiftround		" Round indent to multiple of 'shiftwidth'
 	"}}}
 
 	" Search and replace
@@ -97,20 +96,16 @@
 			if &ft == 'c' || &ft == 'cpp'
 				syn match parens /[{}]/ | hi parens ctermfg=red
 			endif
+
+			" matched parenthesis color
 			hi MatchParen cterm=none ctermbg=magenta ctermfg=black
 
 			" others
 			hi Search ctermfg=0 ctermbg=124
 			hi Folded ctermbg=black ctermfg=241
 			hi VertSplit cterm=none ctermfg=0 ctermbg=237
-		endfunction
-
-		function! InsertStatuslineColor(mode)
-			if a:mode == 'i'
-				hi statusline ctermfg=0 ctermbg=2 cterm=none
-			elseif a:mode == 'r'
-				hi statusline ctermfg=0 ctermbg=1 cterm=none
-			endif
+			hi Visual ctermbg=black cterm=reverse
+			hi ExtraWhitespace cterm=underline ctermbg=NONE ctermfg=yellow
 		endfunction
 	"}}}
 
@@ -120,21 +115,34 @@
 		set background=dark		" background
 		syntax enable
 
+		function! InsertStatusColor(mode)
+			if a:mode == 'i'
+				hi statusline ctermfg=0 ctermbg=2 cterm=none
+			elseif a:mode == 'r'
+				hi statusline ctermfg=0 ctermbg=1 cterm=none
+			endif
+		endfunction
+
 		augroup Theme
 			autocmd!
-			au ColorScheme * call MyHighlights()
-			au InsertEnter * call InsertStatuslineColor(v:insertmode)
+			au VimEnter,ColorScheme * call MyHighlights()
+			au InsertEnter * call InsertStatusColor(v:insertmode)
 			au InsertLeave * hi! link statusline NormalStatusColor
+
+			" Highlight trailing spaces | spaces before tabs
+			au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+			au InsertLeave * match ExtraWhitespace /\s\+$\| \+\ze\t/
+
+			" Cursorline
+			au InsertEnter * set nocursorline
+			au InsertLeave * set cursorline
 		augroup END
+
 		colo peachpuff
 	"}}}
 
 	" Cursor
 	"{{{
-		" Cursorline
-		au InsertEnter * set nocursorline
-		au InsertLeave * set cursorline
-
 		" Change cursor in different mode
 		if exists('$TMUX')
 			let &t_EI = "\<Esc>Ptmux;\<Esc>\e[2 q\<Esc>\\"
@@ -243,8 +251,8 @@
 	" Statusline
 	"{{{
 		set laststatus=2								" show two statusline
-		set statusline=[%{expand('%:F')}]\ 				" path and file name
-		set statusline+=[%{strlen(&fenc)?&fenc:'none'}  " file encoding
+		set statusline=[%{expand('%:F')}]\ [			" path and file name
+		set statusline+=%{strlen(&fenc)?&fenc:'none'}	" file encoding
 		set statusline+=,\ %{&ff}						" file format
 		set statusline+=,\ %{strlen(&ft)?&ft:'plain'}]	" filetype
 		set statusline+=\ %m							" modified flag
@@ -508,6 +516,8 @@
 	"	8. `gf` go to file under cursor, `gj` `gk` is like j, k in wrap line
 	"	9. `!!` in normal mode will insert external command on cursor position
 	"	10. `q:, q/, q?` open command-line window with the credit option.
+	"	11. `<S-k>` get help on the word under cursor, eq to `:h <word>`
+	"	12. `;` `,` search for character forward and backward
 	"}}}
 
 	" Command mode
@@ -519,11 +529,14 @@
 	"		normal command, (ex: `:'<,'>normal ^dW`)
 	"	4. :ab can set word for abbreviation, ex: `:ab la ls -la`
 	"	5. when writing to read only file, use `:w !sudo tee %`
+	"	6. :digraphs are used to enter characters that normally cannot be entered by an ordinary keyboard
 	"}}}
 
 	" Other notes
 	"{{{
 	"	NOTE:, TODO, FIXME, are default keywords
+	"	`o` in visual mode will go to other end of highlighted test
+	"	set virtualedit
 	"}}}
 "}}}
 
