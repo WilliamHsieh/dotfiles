@@ -102,6 +102,32 @@
 		alias open="explorer.exe"
 		alias pbcopy="clip.exe"
 		alias pbpaste="powershell.exe Get-Clipboard"
+	elif uname | grep -i -q 'Linux'; then
+		function pbcopy() {
+			# get data either from stdin or from file
+			buf=$(cat "$@")
+			buflen=$( printf %s "$buf" | wc -c )
+
+			# warn if exceeds maxlen
+			maxlen=74994
+			if [ "$buflen" -gt "$maxlen" ]; then
+				printf "input is %d bytes too long" "$(( buflen - maxlen ))" >&2
+			fi
+
+			# build up OSC 52 ANSI escape sequence
+			seq="\033]52;c;$( printf %s "$buf" | base64 -w0 )\a"
+			seq="\033Ptmux;\033$seq\033\\"
+
+			# print sequence based on enviornment
+			if [[ ! -z "${SSH_TTY}" ]]; then
+				printf "$seq" > "$SSH_TTY"
+			elif [[ ! -z "${TMUX}" ]]; then
+				pane_active_tty=$(tmux list-panes -F "#{pane_active} #{pane_tty}" | awk '$1=="1" { print $2 }')
+				printf "$seq" > "$pane_active_tty"
+			else
+				printf "$seq"
+			fi
+		}
 	fi
 # }}}
 

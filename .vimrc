@@ -297,6 +297,7 @@
 	" Warning message
 	"{{{
 		function! EchoMsg(msg)
+			redraw
 			echohl WarningMsg
 			echo a:msg
 			echohl None
@@ -319,33 +320,34 @@
 			endif
 		endfunction
 
+		function! Osc52Yank(msg)
+			let buffer=system('base64 -w0', @0)
+			let buffer='\ePtmux;\e\e]52;c;'.buffer.'\a\e\\'
+			if exists("$SSH_TTY")
+				exe "!printf ".shellescape(buffer)." > $SSH_TTY"
+			elseif exists("$TMUX")
+				let pane_tty=system("tmux list-panes -F '#{pane_active} #{pane_tty}' | awk '$1==1 { print $2 }'")
+				exe "!printf ".shellescape(buffer)." > ".pane_tty
+			else
+				exe "!printf ".shellescape(buffer)
+			endif
+			call EchoMsg(a:msg)
+		endfunction
+
 		function! ClipboardBehavior()
 			let platform = GetPlatform()
 			if platform == 'wsl'
 				nmap <F12> :w !clip.exe<CR><CR>:call EchoMsg('File "'.@%.'" copied to clipboard!')<CR>
-				vmap <F12> :'<,'>w !clip.exe<CR><CR>:call EchoMsg('Copied to clipboard!')<CR>
 			elseif platform == 'mac'
 				nmap <F12> :w !pbcopy<CR><CR>:call EchoMsg('File "'.@%.'" copied to clipboard!')<CR>
-				vmap <F12> :'<,'>w !pbcopy<CR><CR>:call EchoMsg('Copied to clipboard!')<CR>
 			else
-				nmap <F12> :up<CR>:!xclip -i -selection clipboard %<CR><CR>:call EchoMsg('File "'.@%.'" copied to clipboard!')<CR>
-				vmap <F12> :'<,'>w !xclip<CR><CR>:call EchoMsg('Copied to clipboard!')<CR>
+				nmap <F12> :%y<CR>:call Osc52Yank('[OSC] File "'.@%.'" copied to clipboard!')<CR><CR>
 			endif
+			vmap <F12> y:call Osc52Yank('[OSC] Copied to clipboard!')<CR><CR>
 		endfunction
 
 		set pastetoggle=<F12>
-		if exists('$TMUX')
-			vmap <leader>y :'<,'>w !tmux load-buffer -<CR><CR>:call EchoMsg('Copied to tmux!')<CR>
-		endif
-
-		function! Osc52Yank()
-			let buffer=system('base64 -w0', @0)
-			let buffer='\ePtmux;\e\e]52;c;'.buffer.'\x07\e\\'
-			" let pane_tty=system("tmux list-panes -F '#{pane_active} #{pane_tty}' | awk '$1==1 { print $2 }'")
-			let pane_tty='/dev/pts/4'
-			exe "!echo -ne ".shellescape(buffer)." > ".shellescape(pane_tty)
-		endfunction
-		"nnoremap <leader>y :call Osc52Yank()<CR>
+		nnoremap <silent><leader>y :call Osc52Yank('[OSC] Copied to clipboard!')<CR><CR>
 	"}}}
 "}}}
 
