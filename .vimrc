@@ -158,16 +158,18 @@
 
 	" Make the 81th column stand out
 	"{{{
-		hi ColorColumn80 ctermbg=magenta ctermfg=black
-		call matchadd('ColorColumn80', '\%81v', -1)
+		hi ColorColumn cterm=none ctermbg=magenta ctermfg=black
+		call matchadd('ColorColumn', '\%81v', -1)
 		" -1 means that any search highlighting will override the match highlighting
 	"}}}
 
-	" Highlight trailing spaces | spaces before tabs
+	" Enable true color
 	"{{{
-		hi ExtraWhitespace cterm=underline ctermbg=NONE ctermfg=yellow
-		au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-		au InsertLeave * match ExtraWhitespace /\s\+$\| \+\ze\t/
+		if exists('+termguicolors')
+			"let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+			"let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+			"set termguicolors
+		endif
 	"}}}
 
 	" Show syntax highlighting groups && color of word under cursor
@@ -198,7 +200,7 @@
 		nmap <leader><space> :up<CR>
 		nmap <leader><leader> :Vexplore<CR>
 		vmap <leader>s :sort<CR>
-		nmap <leader>r :source ~/.vimrc<CR>
+		nmap <leader>r :source ~/.vimrc<CR>:call EchoMsg('[vimrc] reloaded')<CR>
 
 		" Esc
 		imap jj <esc>
@@ -211,6 +213,10 @@
 		vmap <C-j> 4jzz
 		nmap <C-k> 4kzz
 		vmap <C-k> 4kzz
+
+		" move line
+		vmap H :m '<-2<CR>gv=gv
+		vmap L :m '>+1<CR>gv=gv
 
 		" Navigate between tabs
 		nmap gc :tabnew<CR>
@@ -226,7 +232,7 @@
 		cmap <C-e> <end>
 		nmap <C-f> /
 		nmap <silent><F2> :up<CR>:!clear && make<CR>
-		nmap <S-k> k<S-j>
+		"nmap <S-k> k<S-j>
 		nmap Y y$
 	"}}}
 "}}}
