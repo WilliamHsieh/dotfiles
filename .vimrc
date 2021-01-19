@@ -311,7 +311,7 @@
 	" Warning message
 	"{{{
 		function! EchoMsg(msg)
-			redraw
+			redraw!
 			echohl WarningMsg
 			echo a:msg
 			echohl None
@@ -334,15 +334,15 @@
 		endfunction
 
 		function! Osc52Yank(msg)
-			let buffer=system('base64 -w0', @0)
+			let buffer=system('base64 | tr -d "\r\n"', @0)
 			let buffer='\ePtmux;\e\e]52;c;'.buffer.'\a\e\\'
 			if exists("$SSH_TTY")
-				exe "!printf ".shellescape(buffer)." > $SSH_TTY"
+				silent exe "!printf ".shellescape(buffer)." > $SSH_TTY"
 			elseif exists("$TMUX")
 				let pane_tty=system("tmux list-panes -F '#{pane_active} #{pane_tty}' | awk '$1==1 { print $2 }'")
-				exe "!printf ".shellescape(buffer)." > ".pane_tty
+				silent exe "!printf ".shellescape(buffer)." > ".pane_tty
 			else
-				exe "!printf ".shellescape(buffer)
+				silent exe "!printf ".shellescape(buffer)
 			endif
 			call EchoMsg(a:msg)
 		endfunction
@@ -350,17 +350,19 @@
 		function! ClipboardBehavior()
 			let platform = GetPlatform()
 			if platform == 'wsl'
-				nmap <F12> :w !clip.exe<CR><CR>:call EchoMsg('File "'.@%.'" copied to clipboard!')<CR>
+				nmap <silent><F12> :silent w !clip.exe<CR>:call EchoMsg('File "'.@%.'" copied to clipboard!')<CR>
 			elseif platform == 'mac'
-				nmap <F12> :w !pbcopy<CR><CR>:call EchoMsg('File "'.@%.'" copied to clipboard!')<CR>
+				nmap <silent><F12> :silent w !pbcopy<CR>:call EchoMsg('File "'.@%.'" copied to clipboard!')<CR>
+			elseif platform == 'linux'
+				nmap <silent><F12> :%y<CR>:call Osc52Yank('[OSC] File "'.@%.'" copied to clipboard!')<CR>
 			else
-				nmap <F12> :%y<CR>:call Osc52Yank('[OSC] File "'.@%.'" copied to clipboard!')<CR><CR>
+				nmap <silent><F12> :call EchoMsg('unknown platform')<CR>
 			endif
-			vmap <F12> y:call Osc52Yank('[OSC] Copied to clipboard!')<CR><CR>
+			vmap <silent><F12> y:call Osc52Yank('[OSC] Copied to clipboard!')<CR>
 		endfunction
 
 		set pastetoggle=<F12>
-		nnoremap <silent><leader>y :call Osc52Yank('[OSC] Copied to clipboard!')<CR><CR>
+		nnoremap <silent><leader>y :call Osc52Yank('[OSC] Copied to clipboard!')<CR>
 	"}}}
 "}}}
 
