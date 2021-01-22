@@ -11,6 +11,8 @@
 "	2. bulk rename in vim (ranger.vim)
 "	3. terminal bell in zsh (without going to tmux)
 "	4. blink the yank text (https://github.com/machakann/vim-highlightedyank/)
+"	5. actually reload all useful stuff after <leader>r
+"	6. using :checktime to update when gained focus(need autoread)
 "}}}
 
 
@@ -98,7 +100,7 @@
 			endif
 
 			" matched parenthesis color
-			hi MatchParen cterm=none ctermbg=magenta ctermfg=black
+			hi MatchParen ctermfg=white
 
 			" others
 			hi Search ctermfg=0 ctermbg=124
@@ -354,7 +356,7 @@
 			elseif platform == 'mac'
 				nmap <silent><F12> :silent w !pbcopy<CR>:call EchoMsg('File "'.@%.'" copied to clipboard!')<CR>
 			elseif platform == 'linux'
-				nmap <silent><F12> :%y<CR>:call Osc52Yank('[OSC] File "'.@%.'" copied to clipboard!')<CR>
+				nmap <silent><F12> :silent %y<CR>:call Osc52Yank('[OSC] File "'.@%.'" copied to clipboard!')<CR>
 			else
 				nmap <silent><F12> :call EchoMsg('unknown platform')<CR>
 			endif
@@ -532,6 +534,7 @@
 	"	4. :ab can set word for abbreviation, ex: `:ab la ls -la`
 	"	5. when writing to read only file, use `:w !sudo tee %`
 	"	6. :digraphs are used to enter characters that normally cannot be entered by an ordinary keyboard
+	"	7. :browse show all resent edits
 	"}}}
 
 	" Other notes
@@ -539,6 +542,7 @@
 	"	NOTE:, TODO, FIXME, are default keywords
 	"	`o` in visual mode will go to other end of highlighted test
 	"	set virtualedit
+	"	`=~` does a pattern match of the right operand (as a pattern) inside the left
 	"}}}
 "}}}
 
