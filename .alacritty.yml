@@ -49,6 +49,10 @@ key_bindings:
   - { key: C, mods: Control|Shift, action: Copy }
   - { key: V, mods: Control|Shift, action: Paste }
   - { key: N, mods: Control|Shift, action: SpawnNewInstance }
+  - { key: W, mods: Control|Shift, action: Quit }
+  - { key: T, mods: Control|Shift, chars: "\eT" }
+  - { key: Tab, mods: Control, chars: "\e)" }
+  - { key: Tab, mods: Control|Shift, chars: "\e(" }
 
   # Windows
   - { key: Left, mods: Alt, chars: "\e[1~" } # Home
