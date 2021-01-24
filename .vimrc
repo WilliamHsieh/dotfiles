@@ -13,6 +13,7 @@
 "	4. blink the yank text (https://github.com/machakann/vim-highlightedyank/)
 "	5. actually reload all useful stuff after <leader>r
 "	6. using :checktime to update when gained focus(need autoread)
+"	7. changing leader to <space>
 "}}}
 
 
@@ -30,7 +31,6 @@
 		set relativenumber	" show relativenumber
 		set nowrap			" wrap line which is too long
 		set nocompatible	" set not compatible with vi
-		set textwidth=80	" line wrap (number of cols)
 		set autoindent		" auto-indent new lines
 		set smartindent		" enable smart-indent
 		set history=500
@@ -537,11 +537,16 @@
 	"	7. :browse show all resent edits
 	"}}}
 
+	" Visual mode
+	"{{{
+	"	1. `o` in visual mode will go to other end of highlighted test
+	"	2. set virtualedit
+	"	3. `!` in visual mode will pipe selected text to external command
+	"}}}
+
 	" Other notes
 	"{{{
 	"	NOTE:, TODO, FIXME, are default keywords
-	"	`o` in visual mode will go to other end of highlighted test
-	"	set virtualedit
 	"	`=~` does a pattern match of the right operand (as a pattern) inside the left
 	"}}}
 "}}}
