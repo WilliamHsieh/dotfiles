@@ -49,10 +49,16 @@ key_bindings:
   - { key: C, mods: Control|Shift, action: Copy }
   - { key: V, mods: Control|Shift, action: Paste }
   - { key: N, mods: Control|Shift, action: SpawnNewInstance }
-  - { key: Left, mods: Control, chars: "\x1bb" } # one word left
-  - { key: Right, mods: Control, chars: "\x1bf" } # one word right
-  - { key: H, mods: Command, chars: "\x1bh" } # M-h
-  - { key: J, mods: Command, chars: "\x1bj" } # M-j
-  - { key: K, mods: Command, chars: "\x1bk" } # M-k
-  - { key: L, mods: Command, chars: "\x1bl" } # M-l
+
+  # Windows
+  - { key: Left, mods: Alt, chars: "\e[1~" } # Home
+  - { key: Right, mods: Alt, chars: "\e[4~" } # End
+
+  # Mac
+  - { key: B, mods: Command, chars: "\eb" } # one word left
+  - { key: F, mods: Command, chars: "\ef" } # one word right
+  - { key: H, mods: Command, chars: "\eh" } # M-h
+  - { key: J, mods: Command, chars: "\ej" } # M-j
+  - { key: K, mods: Command, chars: "\ek" } # M-k
+  - { key: L, mods: Command, chars: "\el" } # M-l
 # }}}
