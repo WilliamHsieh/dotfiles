@@ -366,6 +366,22 @@
 		set pastetoggle=<F12>
 		nnoremap <silent><leader>y :call Osc52Yank('[OSC] Copied to clipboard!')<CR>
 	"}}}
+
+	" Seamless navigation between vim and tmux
+	"{{{
+		function! Navigation_vim_tmux(vim_dir)
+			let pre_winid=win_getid()
+			silent exe "wincmd ".a:vim_dir
+			if exists('$TMUX') && pre_winid == win_getid()
+				call system("tmux select-pane -".tr(a:vim_dir, 'hjkl', 'LDUR'))
+			endif
+		endfunction
+
+		nmap <silent><esc>h :call Navigation_vim_tmux("h")<CR>
+		nmap <silent><esc>j :call Navigation_vim_tmux("j")<CR>
+		nmap <silent><esc>k :call Navigation_vim_tmux("k")<CR>
+		nmap <silent><esc>l :call Navigation_vim_tmux("l")<CR>
+	"}}}
 "}}}
 
 
