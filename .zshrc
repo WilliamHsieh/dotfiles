@@ -23,7 +23,7 @@
 
 	# Uncomment the following line to use hyphen-insensitive completion. Case
 	# sensitive completion must be off. _ and - will be interchangeable.
-	# HYPHEN_INSENSITIVE="true"
+	HYPHEN_INSENSITIVE="true"
 
 	# Uncomment the following line to disable bi-weekly auto-update checks.
 	# DISABLE_AUTO_UPDATE="true"
@@ -41,7 +41,7 @@
 	# ENABLE_CORRECTION="true"
 
 	# Uncomment the following line to display red dots whilst waiting for completion.
-	# COMPLETION_WAITING_DOTS="true"
+	COMPLETION_WAITING_DOTS="true"
 
 	# Uncomment the following line if you want to disable marking untracked files
 	# under VCS as dirty. This makes repository status check for large repositories
@@ -60,7 +60,7 @@
 	# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 	# Example format: plugins=(rails git textmate ruby lighthouse)
 	# Add wisely, as too many plugins slow down shell startup.
-	plugins=(git extract z cp docker docker-compose)
+	plugins=(git extract z cp docker docker-compose colored-man-pages gitignore)
 
 	source $ZSH/oh-my-zsh.sh
 
@@ -70,6 +70,7 @@
 	# export LANG=en_US.UTF-8
 
 	# Preferred editor for local and remote sessions
+	export EDITOR='vim'
 	# if [[ -n $SSH_CONNECTION ]]; then
 	#   export EDITOR='vim'
 	# else
@@ -83,6 +84,7 @@
 	# export SSH_KEY_PATH="~/.ssh/rsa_id"
 # }}}
 
+
 # Aliases
 # {{{
 	# Set personal aliases, overriding those provided by oh-my-zsh libs,
@@ -91,9 +93,9 @@
 	# For a full list of active aliases, run `alias`.
 
 	alias rm="rm -i"
-	alias vimconfig="vim ~/dotfiles/.vimrc"
-	alias zshconfig="vim ~/dotfiles/.zshrc"
-	alias tmuxconfig="vim ~/dotfiles/.tmux.conf"
+	alias vimconfig="vim ~/.vimrc"
+	alias zshconfig="vim ~/.zshrc"
+	alias tmuxconfig="vim ~/.tmux.conf"
 	alias pythonServer="python3 -m http.server"
 	alias phpServer="php -S 127.0.0.1:8000"
 	alias kaggle="~/.local/bin/kaggle"
@@ -132,6 +134,7 @@
 		}
 	fi
 # }}}
+
 
 # Others
 # {{{
