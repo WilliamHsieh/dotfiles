@@ -8,8 +8,8 @@ function backup() {
 	printf "\n"
 	for file in $files; do
 		if [ -f ~/$file ]; then
-			echo "Moving existing $file from ~ to $backup_dir"
-			mkdir -p $backup_dir
+			echo "Moving existing $file from '$HOME' to '$backup_dir'"
+			[ -d "$backup_dir" ] || mkdir -p $backup_dir
 			mv ~/$file $backup_dir
 		fi
 	done
