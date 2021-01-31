@@ -346,12 +346,12 @@
 			let buffer=system('base64 | tr -d "\r\n"', @0)
 			let buffer='\ePtmux;\e\e]52;c;'.buffer.'\a\e\\'
 			if exists("$SSH_TTY")
-				silent exe "!printf ".shellescape(buffer)." > $SSH_TTY"
+				call system("printf ".shellescape(buffer)." > $SSH_TTY")
 			elseif exists("$TMUX")
 				let pane_tty=system("tmux list-panes -F '#{pane_active} #{pane_tty}' | awk '$1==1 { print $2 }'")
-				silent exe "!printf ".shellescape(buffer)." > ".pane_tty
+				call system("printf ".shellescape(buffer)." > ".pane_tty)
 			else
-				silent exe "!printf ".shellescape(buffer)
+				call system("printf ".shellescape(buffer))
 			endif
 			call EchoMsg(a:msg)
 		endfunction
