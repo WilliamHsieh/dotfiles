@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # backup old config files && create symlink
 function backup() {
@@ -24,7 +24,7 @@ function backup() {
 	ln -s ~/dotfiles/.tmux.conf ~/.tmux.conf
 	echo "----- .tmux.conf updated. -----"
 
-	printf "\ndone.\n\n"
+	printf "\ndone.\n"
 }
 
 # cli args
@@ -35,14 +35,14 @@ Do you want to start the process?  (y/n) " -n 1;
 		echo ""
 		backup;
 	elif [[ $REPLY =~ ^[Nn]$ ]]; then
-		printf "\n\n----- terminated -----\n\n"
+		printf "\n\n----- terminated -----\n"
 	else
-		printf "\n\n----- unknown command -----\n\n"
+		printf "\n\n----- unknown command -----\n"
 	fi
 else
 	if [[ "$1" == "-y" ]]; then
 		backup;
 	else
-		printf "\n\n----- unknown command -----\n\n"
+		printf "\n----- unknown command -----\n"
 	fi
 fi;
