@@ -11,15 +11,16 @@ window:
   dynamic_padding: true
   padding:
     x: 3
-    y: 3
   decorations: full
 # }}}
+
 
 # Fonts
 # {{{
 font:
   size: 16
 # }}}
+
 
 # Theme
 # {{{
@@ -50,20 +51,17 @@ colors:
     white: '#dcdfe4'
 # }}}
 
+
 # Mappings
 # {{{
 key_bindings:
   - { key: C, mods: Control|Shift, action: Copy }
   - { key: V, mods: Control|Shift, action: Paste }
   - { key: N, mods: Control|Shift, action: SpawnNewInstance }
-  - { key: W, mods: Control|Shift, action: Quit }
-  - { key: T, mods: Control|Shift, chars: "\eT" }
+  - { key: W, mods: Control|Shift, chars: "\eK" }
+  - { key: T, mods: Control|Shift, chars: "\eT\e[21~" }
   - { key: Tab, mods: Control, chars: "\e)" }
   - { key: Tab, mods: Control|Shift, chars: "\e(" }
-
-  # Windows
-  - { key: Left, mods: Alt, chars: "\e[1~" } # Home
-  - { key: Right, mods: Alt, chars: "\e[4~" } # End
 
   # Mac
   - { key: B, mods: Command, chars: "\eb" } # one word left
