@@ -11,9 +11,10 @@
 "	2. bulk rename in vim (ranger.vim)
 "	3. terminal bell in zsh (without going to tmux)
 "	4. blink the yank text (https://github.com/machakann/vim-highlightedyank/)
-"	5. actually reload all useful stuff after <leader>r
+"	5. actually reload all useful stuff after <leader>r (sourcePost)
 "	6. using :checktime to update when gained focus(need autoread)
 "	7. changing leader to <space>
+"	8. SwapExists event (determine what to do and delete)
 "}}}
 
 
@@ -31,30 +32,33 @@
 		set relativenumber	" show relativenumber
 		set nowrap			" wrap line which is too long
 		set nocompatible	" set not compatible with vi
-		set autoindent		" auto-indent new lines
-		set smartindent		" enable smart-indent
 		set history=500
 		set undolevels=500	" number of undo levels (default = 1000)
 		set backspace=2		" backspace behaviour
 		set confirm			" ask confirm instead of block
 		set showcmd			" show the last used command
-		set mouse=n			" mouse control (a == all)
+		set mouse=a			" mouse control (a == all)
+		set ttymouse=sgr	" enable mouse draging
 		set scrolloff=5		" preserve 5 line after scrolling
-		set modeline
+		set modeline		" a number of lines at the beginning and end of the file are checked for modelines.
 		set autochdir		" change the working directory to the directory of the file you opened
 		set hidden			" able to change to another buffer without saving
-		filetype plugin on
-		filetype indent on
-		filetype indent plugin on
+		set ve=block		" Allow virtual editing in Visual block mode.
 	"}}}
 
-	" Tab
+	" Tab and indent
 	"{{{
+		" tab
 		set tabstop=4		" Number of spaces per Tab
 		set softtabstop=4	" Number of spaces per Tab(virtual tab width)
 		set shiftwidth=4	" Number of auto-indent spaces
 		set smarttab		" Enable smart-tabs
 		set shiftround		" Round indent to multiple of 'shiftwidth'
+
+		" indent
+		set autoindent		" auto-indent new lines
+		set smartindent		" enable smart-indent
+		filetype plugin indent on
 	"}}}
 
 	" Search and replace
@@ -127,7 +131,7 @@
 
 		augroup Theme
 			autocmd!
-			au VimEnter,ColorScheme * call MyHighlights()
+			au ColorScheme * call MyHighlights()
 			au InsertEnter * call InsertStatusColor(v:insertmode)
 			au InsertLeave * hi! link statusline NormalStatusColor
 
@@ -320,7 +324,7 @@
 		endfunction
 	"}}}
 
-	" Copy to clipboard
+	" Get current platform
 	"{{{
 		function! GetPlatform()
 			let uname = substitute(system('uname'),'\n','','')
@@ -334,7 +338,10 @@
 				return 'unknown'
 			endif
 		endfunction
+	"}}}
 
+	" Copy to clipboard
+	"{{{
 		function! Osc52Yank(msg)
 			let buffer=system('base64 | tr -d "\r\n"', @0)
 			let buffer='\ePtmux;\e\e]52;c;'.buffer.'\a\e\\'
@@ -512,6 +519,7 @@
 	"{{{
 		augroup Init
 			autocmd!
+			au VimEnter * call MyHighlights()
 			au VimEnter * call CustomFolding()
 			au VimEnter * call ToggleComment()
 			au VimEnter * call HandleFiletypes()
@@ -556,8 +564,7 @@
 	" Visual mode
 	"{{{
 	"	1. `o` in visual mode will go to other end of highlighted test
-	"	2. set virtualedit
-	"	3. `!` in visual mode will pipe selected text to external command
+	"	2. `!` in visual mode will pipe selected text to external command
 	"}}}
 
 	" Other notes
@@ -566,7 +573,3 @@
 	"	`=~` does a pattern match of the right operand (as a pattern) inside the left
 	"}}}
 "}}}
-
-
-
-
