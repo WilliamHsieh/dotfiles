@@ -11,7 +11,7 @@
 	[[ -e ~/.local.zsh ]] && source ~/.local.zsh
 
 	# auto attach/start tmux
-	[ -n "$PS1" ] && [ -z "$TMUX" ] && { tmux new-session -A -s main -c ~ }
+	[ -n "$PS1" ] && [ -z "$TMUX" ] && { tmux new-session -A -s main }
 
 	# If you come from bash you might have to change your $PATH.
 	export PATH=$HOME/bin:/usr/local/bin:$PATH
