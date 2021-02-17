@@ -175,4 +175,20 @@
 			printf "\n";
 		}'
 	}
+
+	# https://gist.github.com/knadh/123bca5cfdae8645db750bfb49cb44b0
+	function preexec() {
+		timer=$(($(date +%s%0N)/1000000))
+	}
+
+	function precmd() {
+		if [ $timer ]; then
+			now=$(($(date +%s%0N)/1000000))
+			elapsed=$(($now-$timer))
+			[[ $elapsed -gt 1000 ]] && msg=$(($elapsed/1000)) || msg="${elapsed}m"
+
+			export RPROMPT="%F{cyan}${msg}s %{$reset_color%}"
+			unset timer
+		fi
+	}
 # }}}
