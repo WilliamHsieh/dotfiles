@@ -567,12 +567,20 @@
 	"	5. when writing to read only file, use `:w !sudo tee %`
 	"	6. :digraphs are used to enter characters that normally cannot be entered by an ordinary keyboard
 	"	7. :browse show all resent edits
+	"	8. :copy, :move for copying moving lines
+	"	9. :g for global command (ex: :g/TODO/copy1)
 	"}}}
 
 	" Visual mode
 	"{{{
 	"	1. `o` in visual mode will go to other end of highlighted test
 	"	2. `!` in visual mode will pipe selected text to external command
+	"}}}
+
+	" Insert mode
+	"{{{
+	"	1. <C-r> follow by register will output the value in register
+	"		(" -> default, 0 -> yank register, / -> search register, = -> expression register)
 	"}}}
 
 	" Other notes
