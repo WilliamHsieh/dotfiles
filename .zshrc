@@ -10,8 +10,8 @@
 	# add ~/.local.zsh to load platform specific settings
 	[[ -e ~/.local.zsh ]] && source ~/.local.zsh
 
-	# auto attach/start tmux
-	[ -n "$PS1" ] && [ -z "$TMUX" ] && { tmux new-session -A -s main }
+	# auto attach to tmux (if exists)
+	[ -n "$PS1" ] && [ -z "$TMUX" ] && $(tmux has-session 2> /dev/null) && tmux a
 
 	# If you come from bash you might have to change your $PATH.
 	export PATH=$HOME/bin:/usr/local/bin:$PATH
