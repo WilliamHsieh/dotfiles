@@ -11,7 +11,6 @@
 "	2. bulk rename in vim (ranger.vim)
 "	3. terminal bell in zsh (without going to tmux)
 "	4. blink the yank text (https://github.com/machakann/vim-highlightedyank/)
-"	5. actually reload all useful stuff after <leader>r (sourcePost)
 "	6. using :checktime to update when gained focus(need autoread)
 "	7. changing leader to <space>
 "	8. SwapExists event (determine what to do and delete)
@@ -23,7 +22,7 @@
 	" Auto Reload .vimrc After Saving
 	"{{{
 		" add `nested` keyword to allow other autocommands to be triggered by this event
-		autocmd! bufwritepost .vimrc nested source %
+		autocmd! bufwritepost .vimrc nested exe "source % | call ReloadVimrc()"
 	"}}}
 
 	" Basic
@@ -214,7 +213,7 @@
 		nmap <leader><space> :up<CR>
 		nmap <leader><leader> :Vexplore<CR>
 		vmap <leader>s :sort<CR>
-		nmap <leader>r :source ~/.vimrc<CR>:call EchoMsg('[vimrc] reloaded')<CR>
+		nmap <leader>r :source ~/.vimrc \| call ReloadVimrc()<CR>
 
 		" Esc
 		imap jj <esc>
@@ -515,14 +514,23 @@
 		endfunction
 	"}}}
 
-	" Initial setup after loading vim
+	" Initial setup && reloading vimrc
 	"{{{
+		function! ReloadVimrc()
+			call MyHighlights()
+			call CustomFolding()
+			call ToggleComment()
+			call HandleFiletypes()
+			call ClipboardBehavior()
+			call EchoMsg('[vimrc] reloaded')
+		endfunction
+
 		augroup Init
 			autocmd!
-			au VimEnter * call MyHighlights()
-			au VimEnter * call CustomFolding()
-			au VimEnter * call ToggleComment()
-			au VimEnter * call HandleFiletypes()
+			au BufEnter * call MyHighlights()
+			au BufEnter * call CustomFolding()
+			au BufEnter * call ToggleComment()
+			au BufEnter * call HandleFiletypes()
 			au VimEnter * call ClipboardBehavior()
 		augroup END
 	"}}}
