@@ -376,9 +376,9 @@
 	" Seamless navigation between vim and tmux
 	"{{{
 		function! Navigation_vim_tmux(vim_dir)
-			let pre_winid=win_getid()
+			let pre_winnr=winnr()
 			silent exe "wincmd ".a:vim_dir
-			if exists('$TMUX') && pre_winid == win_getid()
+			if exists('$TMUX') && pre_winnr == winnr()
 				call system("tmux select-pane -".tr(a:vim_dir, 'hjkl', 'LDUR'))
 			endif
 		endfunction
