@@ -350,7 +350,7 @@
 				let pane_tty=system("tmux list-panes -F '#{pane_active} #{pane_tty}' | awk '$1==1 { print $2 }'")
 				call system("printf ".shellescape(buffer)." > ".pane_tty)
 			else
-				call system("printf ".shellescape(buffer))
+				silent exe "!printf ".shellescape(buffer)
 			endif
 			call EchoMsg(a:msg)
 		endfunction
@@ -440,15 +440,15 @@
 
 		" Folding based on filetype
 		"{{{
-		" <zf> to create, <zx> <za> to fold and expand
+			" <zf> to create, <zx> <za> to fold and expand
+			" set foldlevel=0 "folding level when opening a file
 			function! CustomFolding()
-				set foldlevel=0
 				set foldnestmax=3
 				if &ft == 'c' || &ft == 'cpp' || &ft == 'rust' || &ft == 'go'
 					set foldmethod=expr
 					set foldexpr=CustomFoldExpr('//')
 					set foldtext=CustomFoldText('//')
-				elseif &ft == 'python' || &ft == 'make'
+				elseif &ft == 'python' || &ft == 'make' || &ft == 'sh'
 					set foldmethod=expr
 					set foldexpr=CustomFoldExpr('#')
 					set foldtext=CustomFoldText('#')
@@ -480,7 +480,7 @@
 			function! ToggleComment()
 				if &ft == 'c' || &ft == 'cpp' || &ft == 'rust' || &ft == 'go'
 					map <silent> <C-c> :call ToggleCommentMethod('//')<cr>
-				elseif &ft == 'python' || &ft == 'make'
+				elseif &ft == 'python' || &ft == 'make' || &ft == 'sh'
 					map <silent> <C-c> :call ToggleCommentMethod('# ')<cr>
 				elseif &ft == 'vim'
 					map <silent> <C-c> :call ToggleCommentMethod('" ')<cr>
