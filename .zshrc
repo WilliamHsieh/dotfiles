@@ -7,11 +7,17 @@
 
 # Default options
 # {{{
+	# auto attach to tmux
+	if [ -n "$PS1" ] && [ -z "$TMUX" ]; then
+		if [ -z "$SSH_CONNECTION" ]; then
+			tmux new-session -A -s local
+		else
+			$(tmux has-session 2> /dev/null) && tmux a
+		fi
+	fi
+
 	# add ~/.local.zsh to load platform specific settings
 	[[ -e ~/.local.zsh ]] && source ~/.local.zsh
-
-	# auto attach to tmux (if exists)
-	[ -n "$PS1" ] && [ -z "$TMUX" ] && $(tmux has-session 2> /dev/null) && tmux a
 
 	# If you come from bash you might have to change your $PATH.
 	export PATH=$HOME/bin:/usr/local/bin:$PATH
