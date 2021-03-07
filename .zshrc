@@ -105,10 +105,13 @@
 	# For a full list of active aliases, run `alias`.
 
 	alias rm="rm -i"
+	alias ls='LC_COLLATE=C ls -h --color --group-directories-first'
+
 	alias vimconfig="vim ~/.vimrc"
 	alias zshconfig="vim ~/.zshrc"
 	alias tmuxconfig="vim ~/.tmux.conf"
 	alias alaconfig="vim ~/dotfiles/.alacritty.yml"
+
 	alias pythonServer="python3 -m http.server"
 	alias phpServer="php -S 127.0.0.1:8000"
 	alias kaggle="~/.local/bin/kaggle"
