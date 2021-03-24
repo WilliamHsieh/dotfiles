@@ -383,10 +383,18 @@
 			endif
 		endfunction
 
-		nmap <silent><esc>h :call Navigation_vim_tmux("h")<CR>
-		nmap <silent><esc>j :call Navigation_vim_tmux("j")<CR>
-		nmap <silent><esc>k :call Navigation_vim_tmux("k")<CR>
-		nmap <silent><esc>l :call Navigation_vim_tmux("l")<CR>
+		nmap <silent><M-h> :call Navigation_vim_tmux("h")<CR>
+		nmap <silent><M-j> :call Navigation_vim_tmux("j")<CR>
+		nmap <silent><M-k> :call Navigation_vim_tmux("k")<CR>
+		nmap <silent><M-l> :call Navigation_vim_tmux("l")<CR>
+	"}}}
+
+	" Fix all alt-x mapping
+	"{{{
+		for i in range(97, 122)
+			let c = nr2char(i)
+			exec "map \e".c." <M-".c.">"
+		endfor
 	"}}}
 "}}}
 
@@ -554,6 +562,7 @@
 	"	10. `q:, q/, q?` open command-line window with the credit option.
 	"	11. `<S-k>` get help on the word under cursor, eq to `:h <word>`
 	"	12. `;` `,` search for character forward and backward
+	"	13. <C-w> |, <C-w> _, <C-w> = in combination to achieve zoom in split
 	"}}}
 
 	" Command mode
@@ -580,7 +589,11 @@
 	" Insert mode
 	"{{{
 	"	1. <C-r> follow by register will output the value in register
-	"		(" -> default, 0 -> yank register, / -> search register, = -> expression register)
+	"		" -> default
+	"		0 -> yank register
+	"		/ -> search register
+	"		= -> expression register
+	"		% -> filename
 	"}}}
 
 	" Other notes
