@@ -148,6 +148,9 @@
 				printf "$seq"
 			fi
 		}
+	elif uname | grep -i -q 'Darwin'; then
+		alias date="gdate" #brew install coreutils
+		alias ls='LC_COLLATE=C gls -h --color --group-directories-first'
 	fi
 # }}}
 
