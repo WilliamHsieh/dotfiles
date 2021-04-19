@@ -40,7 +40,7 @@
 		set ttymouse=sgr	" enable mouse draging
 		set scrolloff=5		" preserve 5 line after scrolling
 		set modeline		" a number of lines at the beginning and end of the file are checked for modelines.
-		set autochdir		" change the working directory to the directory of the file you opened
+		"set autochdir		" change the working directory to the directory of the file you opened
 		set hidden			" able to change to another buffer without saving
 		set ve=block		" Allow virtual editing in Visual block mode.
 	"}}}
