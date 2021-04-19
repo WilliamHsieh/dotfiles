@@ -344,14 +344,16 @@
 		function! Osc52Yank(msg)
 			let buffer=system('base64 | tr -d "\r\n"', @0)
 			let buffer='\ePtmux;\e\e]52;c;'.buffer.'\a\e\\'
-			if exists("$SSH_TTY")
-				call system("printf ".shellescape(buffer)." > $SSH_TTY")
+			if exists("$SSH_TTY") && exists("$TMUX")
+				let target=system("tmux showenv SSH_TTY | tr -d 'SSH_TTY='")
+			elseif exists("$SSH_TTY")
+				let target="$SSH_TTY"
 			elseif exists("$TMUX")
-				let pane_tty=system("tmux list-panes -F '#{pane_active} #{pane_tty}' | awk '$1==1 { print $2 }'")
-				call system("printf ".shellescape(buffer)." > ".pane_tty)
+				let target=system("tmux list-panes -F '#{pane_active} #{pane_tty}' | awk '$1==1 { print $2 }'")
 			else
-				silent exe "!printf ".shellescape(buffer)
+				let target="$TTY"
 			endif
+			call system("printf ".shellescape(buffer)." > ".target)
 			call EchoMsg(a:msg)
 		endfunction
 
