@@ -22,9 +22,8 @@ font:
 # }}}
 
 
-# Theme
+# Theme (One Half Dark)
 # {{{
-# One Half Dark
 colors:
   primary:
     background: '#282c34'
@@ -41,7 +40,7 @@ colors:
     white: '#dcdfe4'
 
   bright:
-    black:  '#5c6370'
+    black: '#5c6370'
     red: '#e06c75'
     green: '#98c379'
     yellow: '#e5c07b'
@@ -66,6 +65,7 @@ key_bindings:
   # Mac
   - { key: B, mods: Command, chars: "\eb" } # one word left
   - { key: F, mods: Command, chars: "\ef" } # one word right
+  - { key: D, mods: Command, chars: "\ed" } # delete one word right
   - { key: H, mods: Command, chars: "\eh" } # M-h
   - { key: J, mods: Command, chars: "\ej" } # M-j
   - { key: K, mods: Command, chars: "\ek" } # M-k
