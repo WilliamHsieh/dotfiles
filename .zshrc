@@ -9,11 +9,7 @@
 # {{{
 	# auto attach to tmux
 	if [ -n "$PS1" ] && [ -z "$TMUX" ]; then
-		if [ -z "$SSH_CONNECTION" ]; then
-			tmux new-session -A -s local
-		else
-			$(tmux has-session 2> /dev/null) && tmux a
-		fi
+		$(tmux has-session 2> /dev/null) && tmux a
 	fi
 
 	# add ~/.local.zsh to load platform specific settings
