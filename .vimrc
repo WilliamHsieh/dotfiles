@@ -12,7 +12,6 @@
 "	3. terminal bell in zsh (without going to tmux)
 "	4. blink the yank text (https://github.com/machakann/vim-highlightedyank/)
 "	6. using :checktime to update when gained focus(need autoread)
-"	7. changing leader to <space>
 "	8. SwapExists event (determine what to do and delete)
 "}}}
 
@@ -208,7 +207,7 @@
 	" Other stuff
 	"{{{
 		" Leader key
-		let mapleader = ","
+		let mapleader = "`"
 		nmap <leader>l :noh<CR>
 		nmap <leader><space> :up<CR>
 		nmap <leader><leader> :Vexplore<CR>
