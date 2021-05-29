@@ -71,3 +71,9 @@ key_bindings:
   - { key: K, mods: Command, chars: "\ek" } # M-k
   - { key: L, mods: Command, chars: "\el" } # M-l
 # }}}
+
+
+# Notes
+# {{{
+#   1. replace conhost.exe with openconsole.exe for mouse scrolling support
+# }}}

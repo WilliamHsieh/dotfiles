@@ -201,3 +201,9 @@
 		fi
 	}
 # }}}
+
+
+# Notes
+# {{{
+#	Ctrl-x, Ctrl-e open vim as command editor
+# }}}
