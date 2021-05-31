@@ -13,6 +13,8 @@
 "	4. blink the yank text (https://github.com/machakann/vim-highlightedyank/)
 "	6. using :checktime to update when gained focus(need autoread)
 "	8. SwapExists event (determine what to do and delete)
+"	9. can't navigate in vimdiff
+"	10. lower cursorline background priority(ex: TODO)
 "}}}
 
 
@@ -595,6 +597,8 @@
 	"		/ -> search register
 	"		= -> expression register
 	"		% -> filename
+	"	2. <C-y> insert charactor above cursor
+	"	3. <C-v> insert the value of charactor (ex: <C-v>032 will insert a space)
 	"}}}
 
 	" Other notes
