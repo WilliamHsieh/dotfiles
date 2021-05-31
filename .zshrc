@@ -133,7 +133,7 @@
 			# build up OSC 52 ANSI escape sequence
 			seq="\033]52;c;$( printf %s "$buf" | base64 -w0 )\a"
 			seq="\033Ptmux;\033$seq\033\\"
-			[[ ! -z "${SSH_TTY}" ]] && [[ ! -z "${TMUX}" ]] && export $(tmux showenv)
+			[[ ! -z "${SSH_TTY}" ]] && [[ ! -z "${TMUX}" ]] && export $(tmux showenv SSH_TTY)
 
 			# print sequence based on enviornment
 			if [[ ! -z "${SSH_TTY}" ]]; then
