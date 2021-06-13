@@ -102,15 +102,13 @@
 
 	alias rm="rm -i"
 	alias ls='LC_COLLATE=C ls -h --color --group-directories-first'
+	alias pythonServer="python3 -m http.server"
+	alias true_colors="sh ~/dotfiles/scripts.sh true_colors"
 
 	alias vimconfig="vim ~/.vimrc"
 	alias zshconfig="vim ~/.zshrc"
 	alias tmuxconfig="vim ~/.tmux.conf"
 	alias alaconfig="vim ~/dotfiles/.alacritty.yml"
-
-	alias pythonServer="python3 -m http.server"
-	alias phpServer="php -S 127.0.0.1:8000"
-	alias kaggle="~/.local/bin/kaggle"
 
 	# based on platform
 	if uname -r | grep -i -q 'microsoft'; then
@@ -167,23 +165,6 @@
 		export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0
 		export LIBGL_ALWAYS_INDIRECT=1
 	fi
-
-	# Based on: https://gist.github.com/XVilka/8346728
-	function true_colors() {
-		awk -v term_cols="${width:-$(tput cols || echo 80)}" 'BEGIN{
-			s="/\\";
-			for (colnum = 0; colnum<term_cols; colnum++) {
-				r = 255-(colnum*255/term_cols);
-				g = (colnum*510/term_cols);
-				b = (colnum*255/term_cols);
-				if (g>255) g = 510-g;
-				printf "\033[48;2;%d;%d;%dm", r,g,b;
-				printf "\033[38;2;%d;%d;%dm", 255-r,255-g,255-b;
-				printf "%s\033[0m", substr(s,colnum%2+1,1);
-			}
-			printf "\n";
-		}'
-	}
 
 	# https://gist.github.com/knadh/123bca5cfdae8645db750bfb49cb44b0
 	function preexec() {
