@@ -100,7 +100,7 @@
 	alias rm="rm -i"
 	alias ls='LC_COLLATE=C ls -h --color --group-directories-first'
 	alias pythonServer="python3 -m http.server"
-	alias true_colors="sh ~/dotfiles/scripts.sh true_colors"
+	alias true_colors="bash ~/dotfiles/scripts.sh true_colors"
 
 	alias vimconfig="vim ~/.vimrc"
 	alias zshconfig="vim ~/.zshrc"
@@ -114,7 +114,7 @@
 		alias pbcopy="clip.exe"
 		alias pbpaste="powershell.exe Get-Clipboard"
 	elif uname | grep -i -q 'Linux'; then
-		alias pbcopy="sh ~/dotfiles/scripts.sh yank"
+		alias pbcopy="bash ~/dotfiles/scripts.sh yank"
 	elif uname | grep -i -q 'Darwin'; then
 		#brew install coreutils
 		alias date="gdate"

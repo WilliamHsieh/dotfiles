@@ -343,7 +343,7 @@
 	" Copy to clipboard
 	"{{{
 		function! Osc52Yank(msg)
-			let buffer=system('sh ~/dotfiles/scripts.sh yank', @0)
+			let buffer=system('bash ~/dotfiles/scripts.sh yank', @0)
 			call EchoMsg(a:msg)
 		endfunction
 
