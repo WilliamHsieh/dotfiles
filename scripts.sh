@@ -68,18 +68,18 @@ function true_colors() {
 
 ## Yank
 function yank() {
-	buf=$(cat "$@")
-	seq="\033]52;c;$( printf %s "$buf" | base64 -w0 )\a"
-	seq="\033Ptmux;\033$seq\033\\"
-	[[ ! -z "${SSH_TTY}" ]] && [[ ! -z "${TMUX}" ]] && export $(tmux showenv SSH_TTY)
+	seq="$(cat "$@" | base64 -w0)"
+	seq="\ePtmux;\e\e]52;c;$seq\a\e\\"
 
 	if [[ ! -z "${SSH_TTY}" ]]; then
+		[[ ! -z "${TMUX}" ]] && export $(tmux showenv SSH_TTY)
 		printf "$seq" > "$SSH_TTY"
 	elif [[ ! -z "${TMUX}" ]]; then
 		pane_active_tty=$(tmux list-panes -F "#{pane_active} #{pane_tty}" | awk '$1=="1" { print $2 }')
 		printf "$seq" > "$pane_active_tty"
 	else
-		printf "$seq"
+		#TODO: not working
+		printf "$seq" > "$TTY"
 	fi
 }
 
