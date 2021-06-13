@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# backup old config files && create symlink
-function backup() {
+## Backup old config files
+function backup_impl() {
 	backup_dir=~/dotfiles_backup
 	files=".vimrc .zshrc .tmux.conf"
 
@@ -27,22 +27,25 @@ function backup() {
 	printf "\ndone.\n"
 }
 
-# cli args
-if [ $# == 0 ]; then
-	read -p "Existing dotfiles will be moved to '~/dotfiles_backup'.
-Do you want to start the process?  (y/n) " -n 1;
-	if [[ $REPLY =~ ^[Yy]$ ]]; then
-		echo ""
-		backup;
-	elif [[ $REPLY =~ ^[Nn]$ ]]; then
-		printf "\n\n----- terminated -----\n"
+function backup() {
+	if [ $# == 0 ]; then
+		read -p "Existing dotfiles will be moved to '~/dotfiles_backup'.
+Do you want to start the process? (y/n) " -n 1;
+		if [[ $REPLY =~ ^[Yy]$ ]]; then
+			echo ""
+			backup_impl;
+		elif [[ $REPLY =~ ^[Nn]$ ]]; then
+			printf "\n\n----- terminated -----\n"
+		else
+			printf "\n\n----- unknown command -----\n"
+		fi
 	else
-		printf "\n\n----- unknown command -----\n"
+		if [[ "$1" == "-y" ]]; then
+			backup_impl;
+		else
+			printf "\n----- unknown command -----\n"
+		fi
 	fi
-else
-	if [[ "$1" == "-y" ]]; then
-		backup;
-	else
-		printf "\n----- unknown command -----\n"
-	fi
-fi;
+}
+
+"$@"

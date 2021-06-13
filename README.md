@@ -4,18 +4,18 @@ These are my configuration for `vim`, `zsh`, and `tmux`.
 ![screenshot](https://i.imgur.com/1I6as6m.png)
 
 ## Getting Started
-### Prerequisites
 **Disclaimer:** These dotfiles work best on WSL2 and mac. **Use at your own risk!**
-* `awk` should be installed
+
+### Prerequisites
+* `awk` is required.
 * `oh-my-zsh` should be installed. Follow the instruction [here](https://github.com/robbyrussell/oh-my-zsh).
 
 ### Basic Installation
-The repository will be cloned into ```~/dotfiles``` by executing the following command via ```git```.
+* The repository will be cloned into `~/dotfiles` by executing the following command via `git`.
+* The `backup` process in `scripts.sh` will backup the existing configs into `~/dotfiles_backup`.
 ```
-$ git clone "http://github.com/williamhsieh/dotfiles" ~/dotfiles && ~/dotfiles/init.sh
+$ git clone "http://github.com/williamhsieh/dotfiles" ~/dotfiles && sh ~/dotfiles/scripts.sh backup
 ```
-* the ```init.sh``` process will backup the existing dotfiles to ```~/dotfiles_backup```
-* execute ```chmod +x init.sh``` if permission denied
 
 ## Feedback
 Comments and suggestions are [welcome](https://github.com/WilliamHsieh/dotfiles/issues)!
