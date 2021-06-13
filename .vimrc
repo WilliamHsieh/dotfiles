@@ -343,18 +343,7 @@
 	" Copy to clipboard
 	"{{{
 		function! Osc52Yank(msg)
-			let buffer=system('base64 | tr -d "\r\n"', @0)
-			let buffer='\ePtmux;\e\e]52;c;'.buffer.'\a\e\\'
-			if exists("$SSH_TTY") && exists("$TMUX")
-				let target=system("tmux showenv SSH_TTY | tr -d 'SSH_TTY='")
-			elseif exists("$SSH_TTY")
-				let target="$SSH_TTY"
-			elseif exists("$TMUX")
-				let target=system("tmux list-panes -F '#{pane_active} #{pane_tty}' | awk '$1==1 { print $2 }'")
-			else
-				let target="$TTY"
-			endif
-			call system("printf ".shellescape(buffer)." > ".target)
+			let buffer=system('sh ~/dotfiles/scripts.sh yank', @0)
 			call EchoMsg(a:msg)
 		endfunction
 
