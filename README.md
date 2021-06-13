@@ -1,7 +1,7 @@
 # dotfiles
 These are my configuration for `vim`, `zsh`, and `tmux`.
 
-![screenshot](https://i.imgur.com/1I6as6m.png)
+![screenshot](https://i.imgur.com/WUt1zrw.png)
 
 ## Getting Started
 **Disclaimer:** These dotfiles work best on WSL2 and mac. **Use at your own risk!**
