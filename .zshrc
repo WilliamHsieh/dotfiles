@@ -95,11 +95,6 @@
 
 # Aliases
 # {{{
-	# Set personal aliases, overriding those provided by oh-my-zsh libs,
-	# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-	# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-	# For a full list of active aliases, run `alias`.
-
 	alias rm="rm -i"
 	alias ls='LC_COLLATE=C ls -h --color --group-directories-first'
 	alias pythonServer="python3 -m http.server"
@@ -117,34 +112,10 @@
 		alias pbcopy="clip.exe"
 		alias pbpaste="powershell.exe Get-Clipboard"
 	elif uname | grep -i -q 'Linux'; then
-		function pbcopy() {
-			# get data either from stdin or from file
-			buf=$(cat "$@")
-			buflen=$( printf %s "$buf" | wc -c )
-
-			# warn if exceeds maxlen
-			maxlen=74994
-			if [ "$buflen" -gt "$maxlen" ]; then
-				printf "input is %d bytes too long" "$(( buflen - maxlen ))" >&2
-			fi
-
-			# build up OSC 52 ANSI escape sequence
-			seq="\033]52;c;$( printf %s "$buf" | base64 -w0 )\a"
-			seq="\033Ptmux;\033$seq\033\\"
-			[[ ! -z "${SSH_TTY}" ]] && [[ ! -z "${TMUX}" ]] && export $(tmux showenv SSH_TTY)
-
-			# print sequence based on enviornment
-			if [[ ! -z "${SSH_TTY}" ]]; then
-				printf "$seq" > "$SSH_TTY"
-			elif [[ ! -z "${TMUX}" ]]; then
-				pane_active_tty=$(tmux list-panes -F "#{pane_active} #{pane_tty}" | awk '$1=="1" { print $2 }')
-				printf "$seq" > "$pane_active_tty"
-			else
-				printf "$seq"
-			fi
-		}
+		alias pbcopy="sh ~/dotfiles/scripts.sh yank"
 	elif uname | grep -i -q 'Darwin'; then
-		alias date="gdate" #brew install coreutils
+		#brew install coreutils
+		alias date="gdate"
 		alias ls='LC_COLLATE=C gls -h --color --group-directories-first'
 	fi
 # }}}
