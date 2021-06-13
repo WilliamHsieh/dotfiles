@@ -68,7 +68,9 @@
 	# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 	# Example format: plugins=(rails git textmate ruby lighthouse)
 	# Add wisely, as too many plugins slow down shell startup.
-	plugins=(git extract z cp docker docker-compose colored-man-pages gitignore)
+	plugins=(git extract z cp docker colored-man-pages gitignore)
+	zstyle ':completion:*:*:docker:*' option-stacking yes
+	zstyle ':completion:*:*:docker-*:*' option-stacking yes
 
 	source $ZSH/oh-my-zsh.sh
 
