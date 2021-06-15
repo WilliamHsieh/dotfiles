@@ -68,7 +68,7 @@ function true_colors() {
 
 ## Yank
 function yank() {
-	seq="$(cat "$@" | base64 -w0)"
+	seq="$(cat "$@" | base64 | tr -d "\r\n")"
 	seq="\ePtmux;\e\e]52;c;$seq\a\e\\"
 
 	if [[ ! -z "${SSH_TTY}" ]]; then
