@@ -44,6 +44,7 @@
 		"set autochdir		" change the working directory to the directory of the file you opened
 		set hidden			" able to change to another buffer without saving
 		set ve=block		" Allow virtual editing in Visual block mode.
+		set matchpairs+=<:> " include angle bracket in MatchParen
 	"}}}
 
 	" Tab and indent
