@@ -210,20 +210,16 @@
 	" Other stuff
 	"{{{
 		" Leader key
-		let mapleader = "`"
+		let mapleader = " "
 		nmap <leader>l :noh<CR>
-		nmap <leader><space> :up<CR>
-		nmap <leader><leader> :Vexplore<CR>
-		vmap <leader>s :sort<CR>
+		nmap <leader>w :up<CR>
+		nmap <leader>` :Vexplore<CR>
 		nmap <leader>r :source ~/.vimrc \| call ReloadVimrc()<CR>
 
 		" Esc
-		imap jj <esc>
-		imap kk <esc>
+		imap kj <esc>
 
 		" Moving the cursor
-		imap <C-j> <down>
-		imap <C-k> <up>
 		nmap <C-j> 4jzz
 		vmap <C-j> 4jzz
 		nmap <C-k> 4kzz
@@ -237,17 +233,14 @@
 		nmap gc :tabnew<CR>
 
 		" switch between resent buffer, which is equivalent to <C-^>
-		nmap <space><space> :e #<CR>
+		nmap <leader><space> :e #<CR>
 
 		" Useful short cut
-		" nmap ; :
 		imap <C-a> <esc>^i
 		imap <C-e> <end>
 		cmap <C-a> <home>
 		cmap <C-e> <end>
-		nmap <C-f> /
 		nmap <silent><F2> :up<CR>:!clear && make<CR>
-		"nmap <S-k> k<S-j>
 		nmap Y y$
 	"}}}
 "}}}
@@ -581,7 +574,7 @@
 
 	" Insert mode
 	"{{{
-	"	1. <C-r> follow by register will output the value in register
+	"	1. <C-r> follow by register will output the value in register <i_CTRL-R>
 	"		" -> default
 	"		0 -> yank register
 	"		/ -> search register
@@ -589,11 +582,15 @@
 	"		% -> filename
 	"	2. <C-y> insert charactor above cursor
 	"	3. <C-v> insert the value of charactor (ex: <C-v>032 will insert a space)
+	"	4. <C-X> ins-completion <i_CTRL-R>
+	"		<C-F> <C-E> <C-Y> <C-L>
+	"	5. <C-D> <C-T> <C-U>
 	"}}}
 
 	" Other notes
 	"{{{
 	"	NOTE:, TODO, FIXME, are default keywords
 	"	`=~` does a pattern match of the right operand (as a pattern) inside the left
+	"	quickfix, vimgrep
 	"}}}
 "}}}
