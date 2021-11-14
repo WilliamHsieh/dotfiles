@@ -77,6 +77,12 @@
 		set fileencodings=utf-8,big5,utf-16,gb2312,gbk,gb18030,euc-jp,euc-kr,latin1
 		set encoding=utf-8
 	"}}}
+
+	" Termdebug
+	"{{{
+		packadd termdebug
+		let g:termdebug_wide=1
+	"}}}
 "}}}
 
 
@@ -242,6 +248,12 @@
 		cmap <C-e> <end>
 		nmap <silent><F2> :up<CR>:!clear && make<CR>
 		nmap Y y$
+
+		" quickfix
+		nmap ]q :cnext<CR>
+		nmap [q :cprev<CR>
+		nmap ]l :lnext<CR>
+		nmap [l :lprev<CR>
 	"}}}
 "}}}
 
