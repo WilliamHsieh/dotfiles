@@ -249,11 +249,18 @@
 		nmap <silent><F2> :up<CR>:!clear && make<CR>
 		nmap Y y$
 
-		" quickfix
-		nmap ]q :cnext<CR>
+		" jumping
+		nmap <leader>q :copen<CR>
+		nmap <leader>Q :cclose<CR>
 		nmap [q :cprev<CR>
-		nmap ]l :lnext<CR>
+		nmap ]q :cnext<CR>
 		nmap [l :lprev<CR>
+		nmap ]l :lnext<CR>
+		nmap [b :bprev<CR>
+		nmap ]b :bnext<CR>
+
+		" generate ctags
+		nmap <leader>] :!ctags -R .<CR>
 	"}}}
 "}}}
 
