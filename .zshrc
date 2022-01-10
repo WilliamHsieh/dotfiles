@@ -42,12 +42,13 @@
         agkozak/zsh-z \
         felixr/docker-zsh-completion \
         as"completion" https://github.com/felixr/docker-zsh-completion/blob/master/_docker \
-        atload"
-            bindkey -M menuselect 'h' vi-backward-char
-            bindkey -M menuselect 'j' vi-down-line-or-history
-            bindkey -M menuselect 'k' vi-up-line-or-history
-            bindkey -M menuselect 'l' vi-forward-char
-        " OMZL::completion.zsh \
+        atload'
+            bindkey -M menuselect "h" vi-backward-char
+            bindkey -M menuselect "j" vi-down-line-or-history
+            bindkey -M menuselect "k" vi-up-line-or-history
+            bindkey -M menuselect "l" vi-forward-char
+            zstyle ":completion:*" list-colors "${(s.:.)LS_COLORS}"
+        ' OMZL::completion.zsh \
         OMZL::theme-and-appearance.zsh \
         OMZL::key-bindings.zsh \
         OMZL::directories.zsh \
@@ -89,6 +90,8 @@
         export LIBGL_ALWAYS_INDIRECT=1
     elif uname | grep -i -q 'Linux'; then
         alias pbcopy="bash ~/dotfiles/scripts.sh yank"
+    else
+        source <(gdircolors)
     fi
 
     # make sure the cursor is constantly block
