@@ -17,6 +17,7 @@
 "   10. lower cursorline background priority(ex: TODO)
 "   11. navigation should be available in all vim mode
 "   12. <C-c> to <C-/>
+"   13. explorer change open split default
 "}}}
 
 
@@ -79,12 +80,6 @@
     "{{{
         set fileencodings=utf-8,big5,utf-16,gb2312,gbk,gb18030,euc-jp,euc-kr,latin1
         set encoding=utf-8
-    "}}}
-
-    " Termdebug
-    "{{{
-        packadd termdebug
-        let g:termdebug_wide=1
     "}}}
 "}}}
 
@@ -264,6 +259,9 @@
 
         " generate ctags
         nmap <leader>] :!ctags -R .<CR>
+
+        " termdebug
+        nmap <F8> :packadd termdebug<CR>:let g:termdebug_wide=1<CR>:Termdebug<CR>
     "}}}
 "}}}
 
