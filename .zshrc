@@ -38,7 +38,7 @@
     zinit wait lucid light-mode for \
         atinit"zicompinit; zicdreplay" zdharma-continuum/fast-syntax-highlighting \
         atload"_zsh_autosuggest_start" zsh-users/zsh-autosuggestions \
-        blockf atpull'zinit creinstall -q .' zsh-users/zsh-completions \
+        blockf atclone"zinit creinstall -q ." atpull"%atclone" zsh-users/zsh-completions \
         agkozak/zsh-z \
         felixr/docker-zsh-completion \
         as"completion" https://github.com/felixr/docker-zsh-completion/blob/master/_docker \
@@ -57,11 +57,8 @@
         OMZP::extract \
         as="completion" OMZP::extract/_extract \
         as="completion" OMZP::pip/_pip \
-        atclone"pip3 install --user thefuck" atpull"%atclone" OMZP::thefuck #not working
-
-    # TODO: not sure if this is a built in feature (common-aliases.plugin.zsh)
-    # Make zsh know about hosts already accessed by SSH
-    # zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%%[# ]*}//,/ })'
+        atclone"pip3 install --user thefuck; thefuck --alias > init.zsh" \
+            atpull"%atclone" src"init.zsh" OMZP::thefuck
 # }}}
 
 
