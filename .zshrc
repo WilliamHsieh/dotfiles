@@ -98,6 +98,11 @@
     else
         echo -ne $cursor_shape
     fi
+
+    # ring the bell before every command
+    precmd () {
+        echo -ne '\a' #tput bel
+    }
 # }}}
 
 
