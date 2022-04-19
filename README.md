@@ -1,5 +1,5 @@
 # dotfiles
-These are my configuration for `vim`, `zsh`, and `tmux`.
+These are my configuration for `vim`, `nvim`, `zsh`, and `tmux`.
 
 ![screenshot](https://i.imgur.com/WUt1zrw.png)
 
@@ -8,13 +8,14 @@ These are my configuration for `vim`, `zsh`, and `tmux`.
 
 ### Prerequisites
 * `awk` is required.
-* `oh-my-zsh` should be installed. Follow the instruction [here](https://github.com/robbyrussell/oh-my-zsh).
+* `stow` for linking dotfiles. (optional)
 
 ### Basic Installation
 * The repository will be cloned into `~/dotfiles` by executing the following command via `git`.
 * The `backup` process in `scripts.sh` will backup the existing configs into `~/dotfiles_backup`.
 ```
 $ git clone "http://github.com/williamhsieh/dotfiles" ~/dotfiles && sh ~/dotfiles/scripts.sh backup
+$ cd ~/dotfiles && stow */
 ```
 
 ## Feedback
@@ -31,5 +32,7 @@ Inspiration and code were taken from many sources, including:
 * [Nick Nisi](https://nicknisi.com/) and his [presentation](https://github.com/nicknisi/vim-workshop)
 * [Hermann Vocke](https://www.hamvocke.com/) and his [dotfiles repository](https://github.com/hamvocke/dotfiles)
 * [Mathias Bynens](https://mathiasbynens.be/) and his [dotfiles repository](https://github.com/mathiasbynens/dotfiles/)
+* [Michael Peter](https://mijope.de/) and his [nvim configuration](https://github.com/Allaman/nvim)
+* [Christian Chiarulli](https://www.chrisatmachine.com/) and his [nvim configuration](https://github.com/ChristianChiarulli/nvim)
 * Anyone who made a helpful [suggestion](https://github.com/WilliamHsieh/dotfiles/issues)
 

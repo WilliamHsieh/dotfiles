@@ -13,17 +13,6 @@ function backup_impl() {
 			mv ~/$file $backup_dir
 		fi
 	done
-	printf "\n"
-
-	ln -s ~/dotfiles/.vimrc ~/.vimrc
-	echo "------- .vimrc updated. -------"
-
-	ln -s ~/dotfiles/.zshrc ~/.zshrc
-	echo "------- .zshrc updated. -------"
-
-	ln -s ~/dotfiles/.tmux.conf ~/.tmux.conf
-	echo "----- .tmux.conf updated. -----"
-
 	printf "\ndone.\n"
 }
 
