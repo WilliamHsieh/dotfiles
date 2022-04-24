@@ -11,7 +11,6 @@
     [ -n "$PS1" ] && [ -z "$TMUX" ] && $(tmux has-session 2> /dev/null) && tmux a
 
     # zinit
-    [[ -e ~/.local/share/zinit ]] || sh -c "$(curl -fsSL https://git.io/zinit-install)"
     source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
     autoload -Uz _zinit
     (( ${+_comps} )) && _comps[zinit]=_zinit
@@ -22,7 +21,6 @@
     export LC_ALL=C.UTF-8
 
     # prompt
-    [ -x "$(command -v starship)" ] || BIN_DIR="$HOME/.local/bin" sh -c "$(curl -fsSL https://starship.rs/install.sh)"
     source <(starship init zsh --print-full-init)
 
     # load platform specific settings

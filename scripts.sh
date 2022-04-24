@@ -1,5 +1,21 @@
 #!/bin/bash
 
+function install() {
+  ZINIT_DIR=~/.local/share/zinit
+  if [ ! -e "$ZINIT_DIR" ]; then
+    echo "$ZINIT_DIR not found"
+    echo "installing zinit..."
+    sh -c "$(curl -fsSL https://git.io/zinit-install)"
+  fi
+
+  TPM_DIR=~/.tmux/plugins/tpm
+  if [ ! -e "$TPM_DIR" ]; then
+    echo "$TPM_DIR not found"
+    echo "installing tpm..."
+    git clone https://github.com/tmux-plugins/tpm $TPM_DIR
+  fi
+}
+
 ## Backup old config files
 function backup_impl() {
 	backup_dir=~/dotfiles_backup
