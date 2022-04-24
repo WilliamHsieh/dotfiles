@@ -51,14 +51,16 @@
         ' OMZL::completion.zsh \
         OMZL::theme-and-appearance.zsh \
         OMZL::key-bindings.zsh \
-        OMZL::directories.zsh \
+        atload'
+          alias ls="exa"
+          alias ll="exa -lg"
+          alias la="exa -lag"
+        ' OMZL::directories.zsh \
         OMZP::cp \
         OMZP::git \
         OMZP::extract \
         as="completion" OMZP::extract/_extract \
-        as="completion" OMZP::pip/_pip \
-        atclone"pip3 install --user thefuck; thefuck --alias > init.zsh" \
-            atpull"%atclone" src"init.zsh" OMZP::thefuck
+        as="completion" OMZP::pip/_pip
 # }}}
 
 
