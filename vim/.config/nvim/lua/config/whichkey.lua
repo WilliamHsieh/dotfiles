@@ -1,5 +1,4 @@
 local which_key = require("which-key")
-local yank_cmd = "<bar>call system('bash ~/dotfiles/scripts.sh yank', @0)<bar>echo 'copied to clipboard.'<cr>"
 
 which_key.setup {--{{{
   plugins = {
@@ -67,6 +66,16 @@ which_key.setup {--{{{
   },
 }--}}}
 
+local yank = function()--{{{
+  if vim.fn.mode() == 'n' then
+    vim.cmd('%y')
+  else
+    vim.cmd('normal! y')
+  end
+  vim.fn.system('bash ~/dotfiles/scripts.sh yank', vim.fn.getreg('0'))
+  vim.notify("copied to clipboard")
+end--}}}
+
 local opts = {--{{{
   mode = "n", -- NORMAL mode
   prefix = "<leader>",
@@ -82,7 +91,7 @@ local mappings = {--{{{
   ["/"] = { '<cmd>lua require("Comment.api").toggle_current_linewise()<CR>', "Comment" },
   ["R"] = { '<cmd>lua require("renamer").rename()<cr>', "Rename" },
   ["z"] = { "<cmd>ZenMode<cr>", "Zen" },
-  ["y"] = { "<cmd>%y" .. yank_cmd, "copy to clipboard" },
+  ["y"] = { function() yank() end, "copy to clipboard" },
   ["gy"] = "Link",
 
   b = {
@@ -100,26 +109,6 @@ local mappings = {--{{{
     s = { "<cmd>PackerSync<cr>", "Sync" },
     S = { "<cmd>PackerStatus<cr>", "Status" },
     u = { "<cmd>PackerUpdate<cr>", "Update" },
-  },
-
-  r = {
-    name = "Replace",
-    r = { "<cmd>lua require('spectre').open()<cr>", "Replace" },
-    w = { "<cmd>lua require('spectre').open_visual({select_word=true})<cr>", "Replace Word" },
-    f = { "<cmd>lua require('spectre').open_file_search()<cr>", "Replace Buffer" },
-  },
-
-  d = {
-    name = "Debug",
-    b = { "<cmd>lua require'dap'.toggle_breakpoint()<cr>", "Breakpoint" },
-    c = { "<cmd>lua require'dap'.continue()<cr>", "Continue" },
-    i = { "<cmd>lua require'dap'.step_into()<cr>", "Into" },
-    o = { "<cmd>lua require'dap'.step_over()<cr>", "Over" },
-    O = { "<cmd>lua require'dap'.step_out()<cr>", "Out" },
-    r = { "<cmd>lua require'dap'.repl.toggle()<cr>", "Repl" },
-    l = { "<cmd>lua require'dap'.run_last()<cr>", "Last" },
-    u = { "<cmd>lua require'dapui'.toggle()<cr>", "UI" },
-    x = { "<cmd>lua require'dap'.terminate()<cr>", "Exit" },
   },
 
   f = {
@@ -163,15 +152,6 @@ local mappings = {--{{{
       "<cmd>Gitsigns diffthis HEAD<cr>",
       "Diff",
     },
-    G = {
-      name = "Gist",
-      a = { "<cmd>Gist -b -a<cr>", "Create Anon" },
-      d = { "<cmd>Gist -d<cr>", "Delete" },
-      f = { "<cmd>Gist -f<cr>", "Fork" },
-      g = { "<cmd>Gist -b<cr>", "Create" },
-      l = { "<cmd>Gist -l<cr>", "List" },
-      p = { "<cmd>Gist -b -p<cr>", "Create Private" },
-    },
   },
 
   l = {
@@ -205,16 +185,6 @@ local mappings = {--{{{
       "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",
       "Workspace Symbols",
     },
-  },
-
-  s = {
-    name = "Surround",
-    ["."] = { "<cmd>lua require('surround').repeat_last()<cr>", "Repeat" },
-    a = { "<cmd>lua require('surround').surround_add(true)<cr>", "Add" },
-    d = { "<cmd>lua require('surround').surround_delete()<cr>", "Delete" },
-    r = { "<cmd>lua require('surround').surround_replace()<cr>", "Replace" },
-    q = { "<cmd>lua require('surround').toggle_quotes()<cr>", "Quotes" },
-    b = { "<cmd>lua require('surround').toggle_brackets()<cr>", "Brackets" },
   },
 
   S = {
@@ -260,7 +230,7 @@ local vopts = {--{{{
 local vmappings = {--{{{
   ["/"] = { '<ESC><CMD>lua require("Comment.api").toggle_linewise_op(vim.fn.visualmode())<CR>', "Comment" },
   ["s"] = { "<esc><cmd>'<,'>SnipRun<cr>", "Run range" },
-  ["y"] = { "<esc><cmd>'<,'>y" .. yank_cmd, "copy to clipboard" },
+  ["y"] = { function() yank() end, "copy to clipboard" },
 }--}}}
 
 local mopts = {--{{{
