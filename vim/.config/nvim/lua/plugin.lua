@@ -202,6 +202,9 @@ packer.startup(function(use)
     -- config = 'vim.g.markdown_fenced_languages = { "cpp", "bash", "lua", "python" }'
   }
 
+  -- session
+  use { 'tpope/vim-obsession', cmd = "Obsession" }
+
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
   if PACKER_BOOTSTRAP then
