@@ -28,7 +28,7 @@ local options = {
 
   cursorline = true,                       -- highlight the current line
   number = true,                           -- set numbered lines
-  laststatus = 2,
+  laststatus = 3,                          -- global statusline
   relativenumber = false,                  -- set relative numbered lines
   numberwidth = 4,                         -- set number column width to 2 {default 4}
   signcolumn = "yes",                      -- always show the sign column, otherwise it would shift the text each time
@@ -37,6 +37,7 @@ local options = {
   sidescrolloff = 8,
   guifont = "monospace:h17",               -- the font used in graphical neovim applications
   foldmethod = "marker",
+  virtualedit = 'block',
 }
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1

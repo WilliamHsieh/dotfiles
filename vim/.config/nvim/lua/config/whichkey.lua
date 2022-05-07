@@ -1,3 +1,4 @@
+-- TODO: move all keymap to mappings: https://github.com/AstroNvim/AstroNvim/commit/87eada0666f3b5e1a387a7206df3591af2cd6136
 local which_key = require("which-key")
 
 which_key.setup {--{{{
@@ -94,24 +95,33 @@ local mappings = {--{{{
   ["y"] = { function() yank() end, "copy to clipboard" },
   ["gy"] = "Link",
 
-  b = {
+  b = {--{{{
     name = "Buffer",
     b = { "<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false})<cr>", "Buffers" },
     z = { "<cmd>NeoZoomToggle<CR>", "Zoom"},
-    L = { "<cmd>BufferLineMoveNext<CR>", "Move right" },
-    H = { "<cmd>BufferLineMovePrev<CR>", "Move left" },
-  },
+    [">"] = { "<cmd>BufferLineMoveNext<CR>", "Move right" },
+    ["<"] = { "<cmd>BufferLineMovePrev<CR>", "Move left" },
+  },--}}}
 
-  p = {
+  c = {--{{{
+  -- TODO:
+    name = "Compile",
+    C = { function() TOGGLE_FLOAT("./a.out") end, "Compile" },
+    c = { "Compile" },
+    r = { "Compile and run" },
+    m = { "Make" },
+  },--}}}
+
+  p = {--{{{
     name = "Packer",
     c = { "<cmd>PackerCompile<cr>", "Compile" },
     i = { "<cmd>PackerInstall<cr>", "Install" },
     s = { "<cmd>PackerSync<cr>", "Sync" },
     S = { "<cmd>PackerStatus<cr>", "Status" },
     u = { "<cmd>PackerUpdate<cr>", "Update" },
-  },
+  },--}}}
 
-  f = {
+  f = {--{{{
     name = "Find",
     B = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
     c = { "<cmd>Telescope colorscheme<cr>", "Colorscheme" },
@@ -128,9 +138,9 @@ local mappings = {--{{{
     r = { "<cmd>Telescope oldfiles<cr>", "Recent File" },
     k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
     p = { "<cmd>lua require('telescope').extensions.projects.projects()<cr>", "Projects" },
-  },
+  },--}}}
 
-  g = {
+  g = {--{{{
     name = "Git",
     g = { "<cmd>lua _LAZYGIT_TOGGLE()<CR>", "Lazygit" },
     j = { "<cmd>lua require 'gitsigns'.next_hunk()<cr>", "Next Hunk" },
@@ -152,9 +162,9 @@ local mappings = {--{{{
       "<cmd>Gitsigns diffthis HEAD<cr>",
       "Diff",
     },
-  },
+  },--}}}
 
-  l = {
+  l = {--{{{
     name = "LSP",
     a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
     d = { "<cmd>TroubleToggle<cr>", "Diagnostics" },
@@ -174,6 +184,8 @@ local mappings = {--{{{
       "<cmd>lua vim.diagnostic.goto_prev({buffer=0})<cr>",
       "Prev Diagnostic",
     },
+    h = { "<cmd>Lspsaga hover_doc<cr>", "hover doc" },
+    p = { "<cmd>Lspsaga preview_definition<cr>", "preview definition" },
     l = { "<cmd>lua vim.lsp.codelens.run()<cr>", "CodeLens Action" },
     o = { "<cmd>TagbarToggle<cr>", "Outline(tagbar)" },
     O = { "<cmd>SymbolsOutline<cr>", "Outline(SymbolsOutline)" },
@@ -185,9 +197,10 @@ local mappings = {--{{{
       "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",
       "Workspace Symbols",
     },
-  },
+    ['.'] = { function() vim.diagnostic.open_float() end, "Diagnostic under cursor" },
+  },--}}}
 
-  S = {
+  S = {--{{{
     name = "SnipRun",
     c = { "<cmd>SnipClose<cr>", "Close" },
     f = { "<cmd>%SnipRun<cr>", "Run File" },
@@ -196,27 +209,26 @@ local mappings = {--{{{
     r = { "<cmd>SnipReset<cr>", "Reset" },
     t = { "<cmd>SnipRunToggle<cr>", "Toggle" },
     x = { "<cmd>SnipTerminate<cr>", "Terminate" },
-  },
+  },--}}}
 
-  t = {
+  t = {--{{{
     name = "Terminal",
     ["1"] = { ":1ToggleTerm<cr>", "1" },
     ["2"] = { ":2ToggleTerm<cr>", "2" },
     ["3"] = { ":3ToggleTerm<cr>", "3" },
     ["t"] = { "<cmd>ToggleTerm direction=float<cr>", "Float" },
-    ["n"] = { "<cmd>lua TOGGLE_FLOAT('node')<cr>", "Node" },
-    ["h"] = { "<cmd>lua TOGGLE_FLOAT('htop')<cr>", "Htop" },
-    ["u"] = { "<cmd>lua TOGGLE_FLOAT('ncdu')<cr>", "NCDU" },
-    ["p"] = { "<cmd>lua TOGGLE_FLOAT('python3')<cr>", "Python" },
+    ["h"] = { function() TOGGLE_FLOAT('htop') end, "Htop" },
+    ["u"] = { function() TOGGLE_FLOAT('ncdu') end, "NCDU" },
+    ["p"] = { function() TOGGLE_FLOAT('python3') end, "Python" },
     ["-"] = { "<cmd>ToggleTerm size=10 direction=horizontal<cr>", "Horizontal" },
     ["\\"] = { "<cmd>ToggleTerm size=80 direction=vertical<cr>", "Vertical" },
-  },
+  },--}}}
 
-  T = {
+  T = {--{{{
     name = "Treesitter",
     h = { "<cmd>TSHighlightCapturesUnderCursor<cr>", "Highlight" },
     p = { "<cmd>TSPlaygroundToggle<cr>", "Playground" },
-  },
+  },--}}}
 }--}}}
 
 local vopts = {--{{{

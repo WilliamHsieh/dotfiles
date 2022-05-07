@@ -29,6 +29,7 @@ keymap("!", "<C-a>", "<Home>", opts)
 keymap("!", "<C-e>", "<End>", opts)
 
 -- Resize with arrows
+-- TODO: smart split plugin
 keymap("n", "<C-Up>", ":resize -2<CR>", opts)
 keymap("n", "<C-Down>", ":resize +2<CR>", opts)
 keymap("n", "<C-Left>", ":vertical resize -2<CR>", opts)
@@ -51,8 +52,6 @@ keymap('t', 'kj', [[<C-\><C-n>]], opts)
 -- Custom
 keymap("n", "Q", "<cmd>Bdelete<CR>", opts)
 keymap("n", "<F7>", "<cmd>TSHighlightCapturesUnderCursor<cr>", opts)
-keymap("n", "<F8>", "<cmd>TSPlaygroundToggle<cr>", opts)
--- keymap("v", "//", [[y/\V<C-R>=escape(@",'/\')<CR><CR>]], opts) -- TODO: ???
 keymap(
   "n",
   "<C-p>",

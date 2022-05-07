@@ -1,11 +1,10 @@
-require("nvim-treesitter.configs").setup({
-	ensure_installed = "all", -- one of "all" or a list of languages
-	sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
-	ignore_install = { "" }, -- List of parsers to ignore installing
+require("nvim-treesitter.configs").setup {
+	sync_install = false,
+	ensure_installed = "all",
+	ignore_install = { "" },
 	highlight = {
-    -- use_languagetree = true,
-		enable = true, -- false will disable the whole extension
-		additional_vim_regex_highlighting = true,
+		enable = true,
+		additional_vim_regex_highlighting = false,
 	},
 	autopairs = {
 		enable = true,
@@ -30,11 +29,10 @@ require("nvim-treesitter.configs").setup({
 			-- "LawnGreen",
 		},
 		disable = { "html" },
-	},
-	playground = {
-		enable = true,
+    extended_mode = false,
+    max_file_lines = nil,
 	},
   matchup = {
     enable = true,
   },
-})
+}
