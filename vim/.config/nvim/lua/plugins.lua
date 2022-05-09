@@ -229,10 +229,8 @@ packer.startup(function(use)
   use {
     "lewis6991/gitsigns.nvim",
     events = "BufRead",
-    -- disable = not vim.fn.isdirectory(".git/index"),
     config = get_config("gitsigns")
   }
-  use { "f-person/git-blame.nvim", config = get_config("git-blame"), cmd = "GitBlameToggle" }
   use "rhysd/conflict-marker.vim"
 --}}}
 
