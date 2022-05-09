@@ -73,7 +73,7 @@ map("n", "<leader>fp", "<cmd>lua require('telescope').extensions.projects.projec
 -- <leader>g: git{{{
 map("n", "<leader>gj", "<cmd>lua require 'gitsigns'.next_hunk()<cr>", "Next Hunk")
 map("n", "<leader>gk", "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", "Prev Hunk")
-map("n", "<leader>gB", "<cmd>GitBlameToggle<cr>", "Blame")
+map("n", "<leader>gB", "<cmd>:Gitsigns toggle_current_line_blame<cr>", "Blame")
 map("n", "<leader>gp", "<cmd>lua require 'gitsigns'.preview_hunk()<cr>", "Preview Hunk")
 map("n", "<leader>gr", "<cmd>lua require 'gitsigns'.reset_hunk()<cr>", "Reset Hunk")
 map("n", "<leader>gR", "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", "Reset Buffer")
