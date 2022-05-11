@@ -75,7 +75,8 @@ packer.startup(function(use)
   use {
     "nvim-treesitter/nvim-treesitter",
     run = ":TSUpdate",
-    event = { "BufReadPre", "BufNewFile" }, -- TODO: can't make BufRead to work, try module
+    event = { "BufRead", "BufNewFile" },
+    module = "nvim-treesitter",
     cmd = { "TSInstall", "TSInstallInfo", "TSInstallSync", "TSUninstall", "TSUpdate", "TSUpdateSync", "TSDisableAll", "TSEnableAll" },
     config = get_config("treesitter")
   }
