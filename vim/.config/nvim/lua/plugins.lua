@@ -1,5 +1,4 @@
--- TODO: gitsign read arrow
--- Automatically install packer
+-- Automatically install packer{{{
 local install_path = vim.fn.stdpath "data" .. "/site/pack/packer/start/packer.nvim"
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
   PACKER_BOOTSTRAP = vim.fn.system {
@@ -13,26 +12,23 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
   print "Installing packer close and reopen Neovim..."
   vim.cmd [[packadd packer.nvim]]
 end
+--}}}
 
--- Autocommand that reloads neovim whenever you save the plugins.lua file
+-- Autocommand that reloads neovim whenever you save the plugins.lua file{{{
 vim.cmd [[
   augroup packer_user_config
     autocmd!
     autocmd BufWritePost plugins.lua source <afile> | PackerCompile
   augroup end
 ]]
+--}}}
 
--- Use a protected call so we don't error out on first use
+-- packer init{{{
 local status_ok, packer = pcall(require, "packer")
 if not status_ok then
   return
 end
 
-local function get_config(cfg)
-  return string.format('require("config.%s")', cfg)
-end
-
--- Have packer use a popup window
 packer.init {
   display = {
     open_fn = function()
@@ -45,8 +41,13 @@ packer.init {
   },
 }
 
-packer.startup(function(use)
+local function get_config(cfg)
+  return string.format('require("config.%s")', cfg)
+end
+--}}}
 
+-- plugins{{{
+packer.startup(function(use)
   -- basics{{{
   use "wbthomason/packer.nvim"
 
@@ -74,8 +75,7 @@ packer.startup(function(use)
   use {
     "nvim-treesitter/nvim-treesitter",
     run = ":TSUpdate",
-    event = { "BufReadPre" }, -- TODO: can't make BufRead to work
-    -- event = { "BufRead", "BufNewFile" },
+    event = { "BufReadPre", "BufNewFile" }, -- TODO: can't make BufRead to work, try module
     cmd = { "TSInstall", "TSInstallInfo", "TSInstallSync", "TSUninstall", "TSUpdate", "TSUpdateSync", "TSDisableAll", "TSEnableAll" },
     config = get_config("treesitter")
   }
@@ -109,7 +109,11 @@ packer.startup(function(use)
   use {
     "folke/todo-comments.nvim",
     events = "BufRead",
-    config = function() require('todo-comments').setup() end
+    config = function()
+      require('todo-comments').setup {
+        sign_priority = 0
+      }
+    end
   }
   -- highlight word under cursor
   use {
@@ -126,6 +130,7 @@ packer.startup(function(use)
   use {
     "nvim-telescope/telescope.nvim",
     cmd = "Telescope",
+    module = "telescope",
     requires = {
       "nvim-telescope/telescope-ui-select.nvim",
       { "ahmedkhalf/project.nvim", config = get_config("project") },
@@ -150,21 +155,6 @@ packer.startup(function(use)
   }
 --}}}
 
-  -- appearance{{{
-  use "kyazdani42/nvim-web-devicons"
-  use { "kyazdani42/nvim-tree.lua", config = get_config("nvim-tree"), cmd = "NvimTreeToggle" }
-  use { "goolord/alpha-nvim", config = get_config('alpha') }
-  use { "akinsho/bufferline.nvim", config = get_config("bufferline"), requires = "moll/vim-bbye" }
-  use {
-    "nvim-lualine/lualine.nvim",
-    config = get_config("lualine"),
-    events = "BufRead",
-    requires = {
-      "kyazdani42/nvim-web-devicons"
-    },
-  }
---}}}
-
   -- navigation{{{
   use {
     "phaazon/hop.nvim",
@@ -181,7 +171,23 @@ packer.startup(function(use)
   use "marko-cerovac/material.nvim"
   use "shaunsingh/nord.nvim"
   use "catppuccin/nvim"
+  use 'Mofiqul/dracula.nvim'
   use { 'Mofiqul/vscode.nvim', config = get_config('vscode') }
+--}}}
+
+  -- appearance{{{
+  use "kyazdani42/nvim-web-devicons"
+  use { "kyazdani42/nvim-tree.lua", config = get_config("nvim-tree"), cmd = "NvimTreeToggle" }
+  use { "goolord/alpha-nvim", config = get_config('alpha') }
+  use { "akinsho/bufferline.nvim", config = get_config("bufferline"), requires = "moll/vim-bbye" }
+  use {
+    "nvim-lualine/lualine.nvim",
+    config = get_config("lualine"),
+    events = "BufRead",
+    requires = {
+      "kyazdani42/nvim-web-devicons",
+    },
+  }
 --}}}
 
   -- completition{{{
@@ -250,8 +256,11 @@ packer.startup(function(use)
 
   -- others{{{
   use "kevinhwang91/nvim-bqf" -- better quickfix window
-  use { "tversteeg/registers.nvim", config = get_config("registers") }
-  use { "michaelb/sniprun", run = "bash ./install.sh", config = "require('sniprun').setup()"}
+  use { "michaelb/sniprun",
+    run = "bash ./install.sh",
+    -- cmd = { SnipClose, SnipRun, SnipInfo, SnipReplMemoryClean, SnipReset, SnipRunToggle, SnipTerminate, },
+    config = function() require('sniprun').setup() end
+  }
   use { "mbbill/undotree", cmd = "UndotreeToggle" }
   use { 'tpope/vim-obsession', cmd = "Obsession" }
 --}}}
@@ -259,6 +268,7 @@ packer.startup(function(use)
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
   if PACKER_BOOTSTRAP then
-    require("packer").sync()
+    packer.sync()
   end
 end)
+--}}}

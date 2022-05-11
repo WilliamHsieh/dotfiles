@@ -35,6 +35,7 @@ telescope.setup {
         ["<CR>"] = actions.select_default,
         ["<esc>"] = actions.close,
         ["<C-c>"] = actions.close,
+        ["q"] = actions.close,
 
         ["<PageUp>"] = actions.results_scrolling_up,
         ["<PageDown>"] = actions.results_scrolling_down,
