@@ -1,17 +1,17 @@
 -- TODO: using new autocmd api
 vim.cmd [[
-" ExtraWhitespace and cursorline
-hi ExtraWhitespace cterm=underline ctermbg=NONE ctermfg=yellow
-augroup Theme
-  autocmd!
-  " Highlight trailing spaces | spaces before tabs TODO: not working
-  au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-  au InsertLeave * match ExtraWhitespace /\s\+$\| \+\ze\t/
+  " ExtraWhitespace and cursorline
+  hi ExtraWhitespace cterm=underline ctermbg=NONE ctermfg=yellow
+  augroup Theme
+    autocmd!
+    " Highlight trailing spaces | spaces before tabs TODO: not working
+    au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+    au InsertLeave * match ExtraWhitespace /\s\+$\| \+\ze\t/
 
-  " Cursorline
-  au InsertEnter * set nocursorline
-  au InsertLeave * set cursorline
-augroup END
+    " Cursorline
+    au InsertEnter * set nocursorline
+    au InsertLeave * set cursorline
+  augroup END
 
 " *last-position-jump*  >
 autocmd BufRead * autocmd FileType <buffer> ++once
@@ -56,6 +56,14 @@ autocmd BufRead * autocmd FileType <buffer> ++once
 
   autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif
 ]]
+
+vim.cmd [[
+  augroup lspsaga_filetypes
+    autocmd!
+    autocmd FileType LspsagaRename inoremap <buffer><nowait><silent> <C-w> <esc>d0A
+  augroup END
+]]
+
 
 -- Autoformat
 -- augroup _lsp
