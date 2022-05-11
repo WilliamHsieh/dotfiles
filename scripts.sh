@@ -1,5 +1,6 @@
 #!/bin/bash
 
+## Initial install script
 function install() {
   ZINIT_DIR=~/.local/share/zinit
   if [ ! -e "$ZINIT_DIR" ]; then
@@ -72,6 +73,8 @@ function true_colors() {
 }
 
 ## Yank
+# TODO: seems like I might be able to yank even more chars?
+# https://github.com/ojroques/vim-oscyank
 function yank() {
 	seq="$(cat "$@" | base64 | tr -d "\r\n")"
 	seq="\ePtmux;\e\e]52;c;$seq\a\e\\"
