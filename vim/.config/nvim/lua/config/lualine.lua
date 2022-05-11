@@ -1,20 +1,26 @@
-local lualine = require "lualine"
 local icons = require "icons"
+
+local function get_hl(group, prop)
+  local color = vim.api.nvim_get_hl_by_name(group, true)[prop]
+  return string.format("#%06x", color)
+end
+
+local spacer = {
+  function()
+    return " "
+  end,
+  padding = { left = 0, right = 0 },
+}
 
 local diagnostics = {
   "diagnostics",
   sources = { "nvim_diagnostic" },
   sections = { "error", "warn" },
   symbols = { error = icons.diagnostics.Error .. " ", warn = icons.diagnostics.Warning .. " " },
+  -- TODO: add brigt color to this: https://raw.githubusercontent.com/AstroNvim/astronvim.github.io/main/static/img/overview.png
   colored = false,
   update_in_insert = false,
   always_visible = false,
-}
-
-local branch = {
-  "branch",
-  icons_enabled = true,
-  icon = "",
 }
 
 local progress = function()
@@ -23,19 +29,74 @@ local progress = function()
   return current_line .. "/" .. total_lines
 end
 
-lualine.setup {
+local function lsp_progress()
+  local Lsp = vim.lsp.util.get_progress_messages()[1]
+  if not Lsp then
+    return ""
+  end
+
+  local msg = Lsp.message or ""
+  local percentage = Lsp.percentage or 0
+  local title = Lsp.title or ""
+
+  local spinners = { "", "", "" }
+  local success_icon = { "", "", "" }
+
+  local ms = vim.loop.hrtime() / 1000000
+  local frame = math.floor(ms / 120) % #spinners
+
+  if percentage >= 70 then
+    return string.format(" %%<%s %s %s (%s%%%%) ", success_icon[frame + 1], title, msg, percentage)
+  end
+  return string.format(" %%<%s %s %s (%s%%%%) ", spinners[frame + 1], title, msg, percentage)
+end
+
+local function lsp_name()
+  local clients = vim.lsp.buf_get_clients()
+  if next(clients) == nil then
+    return ""
+  end
+
+  local names = {}
+  for _, client in pairs(clients) do
+    if client.name ~= "null-ls" then
+      table.insert(names, client.name)
+    end
+  end
+  return table.concat(names, ", ")
+
+  -- TODO: formatters and linters
+end
+
+local function treesitter_status()
+  local b = vim.api.nvim_get_current_buf()
+  if next(vim.treesitter.highlighter.active[b]) then
+    return "綠TS"
+  end
+  return ""
+end
+
+require("lualine").setup {
   options = {
     icons_enabled = true,
     theme = "auto",
-    component_separators = { left = "", right = "|" },
+    component_separators = { left = "", right = "" },
     section_separators = { left = "", right = "" },
-    disabled_filetypes = { "alpha", "dashboard", "NvimTree", "Outline", "tagbar", "toggleterm" },
+    disabled_filetypes = { "alpha", "NvimTree", "Outline", "tagbar", "toggleterm" },
     always_divide_middle = true,
   },
   sections = {
-    lualine_b = { branch, diagnostics },
-    -- lualine_x = { "encoding", "fileformat", "filetype" },
-    -- lualine_x = { diff, spaces, "encoding", filetype },
+    lualine_b = { 'branch' },
+    lualine_c = { diagnostics, 'filename' },
+    lualine_x = {
+      lsp_progress,
+      {
+        lsp_name,
+        icon = "",
+      },
+      treesitter_status,
+      "filetype",
+    },
     lualine_y = { progress },
     lualine_z = { "progress" },
   },
