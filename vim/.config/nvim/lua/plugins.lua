@@ -192,32 +192,56 @@ packer.startup(function(use)
 --}}}
 
   -- completition{{{
-  use { 'hrsh7th/nvim-cmp',
-    requires = {
-      { "hrsh7th/cmp-buffer" },
-      { "hrsh7th/cmp-path" },
-      { "hrsh7th/cmp-cmdline" },
-      { "saadparwaiz1/cmp_luasnip" },
-      { "hrsh7th/cmp-nvim-lsp" },
-      { "hrsh7th/cmp-emoji" },
-      { "hrsh7th/cmp-nvim-lua" },
-    },
-    config = get_config('cmp')
+  use {
+    "rafamadriz/friendly-snippets",
+    event = {'InsertEnter', 'CmdlineEnter'},
+  }
+  use {
+    "L3MON4D3/LuaSnip",
+    after = "friendly-snippets"
+  }
+  use {
+    'hrsh7th/nvim-cmp',
+    after = "LuaSnip",
+    config = get_config('cmp'),
   }
 
-  -- snippets
-  use "L3MON4D3/LuaSnip"
-  use "rafamadriz/friendly-snippets"
+  -- cmp sources
+  use { "hrsh7th/cmp-buffer", after = "nvim-cmp", }
+  use { "hrsh7th/cmp-cmdline", after = "nvim-cmp" }
+  use { "hrsh7th/cmp-emoji", after = "nvim-cmp" }
+  use { "hrsh7th/cmp-path", after = "nvim-cmp" }
+  use { "hrsh7th/cmp-nvim-lsp", after = "nvim-cmp", }
+  use { "hrsh7th/cmp-nvim-lua", after = "nvim-cmp" }
+  use { "saadparwaiz1/cmp_luasnip", after = "nvim-cmp" }
 --}}}
 
   -- LSP{{{
-  use { "neovim/nvim-lspconfig", config = get_config("lsp") }
-  use { "williamboman/nvim-lsp-installer", cmd = "LspInstallInfo" }
-  use { "jose-elias-alvarez/null-ls.nvim", config = get_config("lsp.null-ls") }
-  use "ray-x/lsp_signature.nvim"
-  use "b0o/SchemaStore.nvim"
-  use { "folke/trouble.nvim", cmd = "TroubleToggle", }
+  use {
+    "neovim/nvim-lspconfig",
+    module = "lspconfig",
+    event = "BufRead",
+    requires = "ray-x/lsp_signature.nvim",
+  }
+  use {
+    "williamboman/nvim-lsp-installer",
+    after = "nvim-lspconfig",
+    config = get_config("lsp")
+  }
+  use {
+    "jose-elias-alvarez/null-ls.nvim",
+    after = "nvim-lspconfig",
+    config = function ()
+      require('null-ls').setup()
+    end
+  }
+
   use "antoinemadec/FixCursorHold.nvim" -- This is needed to fix lsp doc highlight
+  use "b0o/SchemaStore.nvim"
+  use {
+    "folke/trouble.nvim",
+    cmd = "TroubleToggle",
+  }
   use {
     'tami5/lspsaga.nvim',
     cmd = "Lspsaga",
