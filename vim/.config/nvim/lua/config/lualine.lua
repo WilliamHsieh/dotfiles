@@ -1,24 +1,15 @@
 local icons = require "icons"
 
-local function get_hl(group, prop)
-  local color = vim.api.nvim_get_hl_by_name(group, true)[prop]
-  return string.format("#%06x", color)
-end
-
-local spacer = {
-  function()
-    return " "
-  end,
-  padding = { left = 0, right = 0 },
-}
-
 local diagnostics = {
   "diagnostics",
   sources = { "nvim_diagnostic" },
   sections = { "error", "warn" },
   symbols = { error = icons.diagnostics.Error .. " ", warn = icons.diagnostics.Warning .. " " },
-  -- TODO: add brigt color to this: https://raw.githubusercontent.com/AstroNvim/astronvim.github.io/main/static/img/overview.png
-  colored = false,
+  diagnostics_color = {
+    error = 'TSDanger',  -- 'DiagnosticError'
+    warn  = 'TSWarning', -- 'DiagnosticWarn'
+  },
+  colored = true,
   update_in_insert = false,
   always_visible = false,
 }
