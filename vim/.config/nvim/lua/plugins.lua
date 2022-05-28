@@ -203,7 +203,7 @@ packer.startup(function(use)
   }
   use {
     'hrsh7th/nvim-cmp',
-    event = "InsertEnter",
+    event = { "InsertEnter", "CmdlineEnter" },
     config = get_config('cmp'),
   }
 
