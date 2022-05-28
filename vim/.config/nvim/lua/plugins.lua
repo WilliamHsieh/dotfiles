@@ -234,16 +234,23 @@ packer.startup(function(use)
     requires = "ray-x/lsp_signature.nvim",
   }
   use {
-    "williamboman/nvim-lsp-installer",
-    after = "nvim-lspconfig",
-    config = get_config("lsp")
-  }
-  use {
     "jose-elias-alvarez/null-ls.nvim",
     after = "nvim-lspconfig",
     config = function ()
       require('null-ls').setup()
     end
+  }
+  use {
+    'tami5/lspsaga.nvim',
+    after = "nvim-lspconfig",
+    config = function()
+      require('lspsaga').setup()
+    end
+  }
+  use {
+    "williamboman/nvim-lsp-installer",
+    after = "lspsaga.nvim",
+    config = get_config("lsp")
   }
 
   use "antoinemadec/FixCursorHold.nvim" -- This is needed to fix lsp doc highlight
@@ -252,18 +259,18 @@ packer.startup(function(use)
     "folke/trouble.nvim",
     cmd = "TroubleToggle",
   }
-  use {
-    'tami5/lspsaga.nvim',
-    cmd = "Lspsaga",
-    config = function()
-      require('lspsaga').setup()
-    end
-  }
 --}}}
 
   -- tagbar{{{
-  use { "preservim/tagbar", cmd = "TagbarToggle" }
-  use { "simrat39/symbols-outline.nvim", config = get_config("symbol-outline") }
+  use {
+    "preservim/tagbar",
+    cmd = "TagbarToggle"
+  }
+  use {
+    "simrat39/symbols-outline.nvim",
+    after = "nvim-lspconfig",
+    config = get_config("symbol-outline")
+  }
 --}}}
 
   -- Git{{{
