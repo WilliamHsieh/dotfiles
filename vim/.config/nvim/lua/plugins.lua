@@ -194,15 +194,16 @@ packer.startup(function(use)
   -- completition{{{
   use {
     "rafamadriz/friendly-snippets",
-    event = {'InsertEnter', 'CmdlineEnter'},
+    opt = true,
   }
   use {
     "L3MON4D3/LuaSnip",
-    after = "friendly-snippets"
+    module = "luasnip",
+    wants = "friendly-snippets",
   }
   use {
     'hrsh7th/nvim-cmp',
-    after = "LuaSnip",
+    event = "InsertEnter",
     config = get_config('cmp'),
   }
 
