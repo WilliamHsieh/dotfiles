@@ -173,7 +173,16 @@ packer.startup(function(use)
   use "shaunsingh/nord.nvim"
   use "catppuccin/nvim"
   use 'Mofiqul/dracula.nvim'
-  use { 'Mofiqul/vscode.nvim', config = get_config('vscode') }
+  use {
+    'Mofiqul/vscode.nvim',
+    setup = function ()
+      vim.g.vscode_style = "dark"
+      vim.g.vscode_italic_comment = 1
+    end,
+    config = function ()
+      vim.cmd("colorscheme vscode")
+    end,
+  }
 --}}}
 
   -- appearance{{{
