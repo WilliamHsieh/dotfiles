@@ -34,30 +34,24 @@ local options = {
   wrap = false,                            -- display lines as one long line
   scrolloff = 8,                           -- is one of my fav
   sidescrolloff = 8,
-  guifont = "monospace:h17",               -- the font used in graphical neovim applications
   foldmethod = "marker",
   virtualedit = 'block',
   pastetoggle = "<C-y>",
 }
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
-
-vim.opt.shortmess:append "c"
 
 for k, v in pairs(options) do
   vim.opt[k] = v
 end
+vim.opt.shortmess:append "c"
+
+local globals = {
+  netrw_banner = 0,        -- disable banner
+  netrw_liststyle = 3,     -- tree view
+  netrw_bufsettings = 'noma nomod nonu nowrap ro buflisted', -- buflisted, fix bufferline wierdness
+}
+for k, v in pairs(globals) do
+  vim.g[k] = v
+end
 
 vim.cmd "set whichwrap+=<,>,[,],h,l"
 vim.cmd [[set iskeyword+=-]]
-vim.cmd [[set formatoptions-=cro]] -- TODO: this doesn't seem to work
-
--- TODO: folding, compile
--- TODO: disable auto hightlight undercursor word in visual block mode
--- TODO: WhichKey: checking conflicting keymaps
-
--- local status_ok, _ = pcall(vim.cmd, "colorscheme " .. colorscheme)
--- if not status_ok then
---   vim.notify("colorscheme " .. colorscheme .. " not found!")
---   return
--- end
