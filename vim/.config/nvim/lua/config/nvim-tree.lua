@@ -1,44 +1,15 @@
--- each of these are documented in `:help nvim-tree.OPTION_NAME`
-vim.g.nvim_tree_group_empty = 1
-vim.g.nvim_tree_icons = {
-  default = "",
-  symlink = "",
-  git = {
-    unstaged = "M",
-    staged = "S",
-    unmerged = "",
-    renamed = "➜",
-    deleted = "",
-    untracked = "U",
-    ignored = "◌",
-  },
-  folder = {
-    default = "",
-    open = "",
-    empty = "",
-    empty_open = "",
-    symlink = "",
-  },
-}
+local icons = require("icons")
 
 require('nvim-tree').setup {
-  -- TODO: is this the right option?
-  hijack_directories = {
-    enable = false,
-  },
-  ignore_ft_on_setup = {
-    "startify",
-    "dashboard",
-    "alpha",
-  },
+  ignore_ft_on_setup = { "alpha" },
   update_cwd = true,
   diagnostics = {
     enable = true,
     icons = {
-      hint = "",
-      info = "",
-      warning = "",
-      error = "",
+      hint = icons.diagnostics.Hint,
+      info = icons.diagnostics.Information,
+      warning = icons.diagnostics.Warning,
+      error = icons.diagnostics.Error,
     },
   },
   update_focused_file = {
@@ -68,5 +39,30 @@ require('nvim-tree').setup {
     },
     number = false,
     relativenumber = false,
+  },
+  renderer = {
+    group_empty = true,
+    icons = {
+      glyphs = {
+        default = "",
+        symlink = "",
+        git = {
+          unstaged = "M",
+          staged = "S",
+          unmerged = "",
+          renamed = "➜",
+          deleted = "",
+          untracked = "U",
+          ignored = "◌",
+        },
+        folder = {
+          default = "",
+          open = "",
+          empty = "",
+          empty_open = "",
+          symlink = "",
+        },
+      }
+    }
   },
 }
