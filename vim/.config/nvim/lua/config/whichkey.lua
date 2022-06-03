@@ -39,6 +39,7 @@ local mappings = {
   l = { name = "LSP" },
   s = { name = "SnipRun" },
   t = { name = "Terminal" },
+  h = { name = "Hop" },
 }
 
 which_key.register(mappings, opts)

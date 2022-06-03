@@ -55,20 +55,23 @@ map("n", "<leader>pp", "<cmd>PackerProfile<cr>", "Profile")
 --}}}
 
 -- <leader>f: find{{{
-map("n", "<leader>fB", "<cmd>Telescope git_branches<cr>", "Checkout branch")
-map("n", "<leader>fc", "<cmd>Telescope colorscheme<cr>", "Colorscheme")
-map("n", "<leader>fC", "<cmd>Telescope commands<cr>", "Commands")
 map("n", "<leader>ff", "<cmd>Telescope find_files hidden=true<cr>", "Find files")
 map("n", "<leader>fF", "<cmd>Telescope live_grep theme=ivy<cr>", "Find Text")
-map("n", "<leader>fs", "<cmd>HopChar2<cr>", "Hop 2 characters")
-map("n", "<leader>fS", "<cmd>HopWord<cr>", "Hop word")
-map("n", "<leader>ft", "<cmd>TodoTelescope<cr>", "TODOs")
-map("n", "<leader>fh", "<cmd>Telescope help_tags<cr>", "Help")
-map("n", "<leader>fl", "<cmd>Telescope resume<cr>", "Last Search")
-map("n", "<leader>fM", "<cmd>Telescope man_pages<cr>", "Man Pages")
-map("n", "<leader>fr", "<cmd>Telescope oldfiles<cr>", "Recent File")
-map("n", "<leader>fk", "<cmd>Telescope keymaps<cr>", "Keymaps")
+map("n", "<leader>fB", require("telescope.builtin").git_branches, "Checkout branch")
+map("n", "<leader>fc", require("telescope.builtin").colorscheme, "Colorscheme")
+map("n", "<leader>fC", require("telescope.builtin").commands, "Commands")
+map("n", "<leader>fh", require("telescope.builtin").help_tags, "Help")
+map("n", "<leader>fl", require("telescope.builtin").resume, "Last Search")
+map("n", "<leader>fM", require("telescope.builtin").man_pages, "Man Pages")
+map("n", "<leader>fr", require("telescope.builtin").oldfiles, "Recent File")
+map("n", "<leader>fk", require("telescope.builtin").keymaps, "Keymaps")
 map("n", "<leader>fp", require('telescope').extensions.projects.projects, "Projects")
+map("n", "<leader>ft", "<cmd>TodoTelescope<cr>", "TODOs")
+--}}}
+
+-- <leader>h: hop{{{
+map("n", "<leader>hh", "<cmd>HopChar2<cr>", "Hop 2 characters")
+map("n", "<leader>hw", "<cmd>HopWord<cr>", "Hop word")
 --}}}
 
 -- <leader>g: git{{{
@@ -80,9 +83,9 @@ map("n", "<leader>gr", require('gitsigns').reset_hunk, "Reset Hunk")
 map("n", "<leader>gR", require('gitsigns').reset_buffer, "Reset Buffer")
 map("n", "<leader>gs", require('gitsigns').stage_hunk, "Stage Hunk")
 map("n", "<leader>gu", require('gitsigns').undo_stage_hunk, "Undo Stage Hunk")
-map("n", "<leader>go", "<cmd>Telescope git_status<cr>", "git status")
-map("n", "<leader>gb", "<cmd>Telescope git_branches<cr>", "Checkout branch")
-map("n", "<leader>gc", "<cmd>Telescope git_commits<cr>", "Checkout commit")
+map("n", "<leader>go", require("telescope.builtin").git_status, "git status")
+map("n", "<leader>gb", require("telescope.builtin").git_branches, "Checkout branch")
+map("n", "<leader>gc", require("telescope.builtin").git_commits, "Checkout commit")
 map("n", "<leader>gd", "<cmd>Gitsigns diffthis HEAD<cr>", "Diff")
 --}}}
 
@@ -94,7 +97,6 @@ map("n", "gD", vim.lsp.buf.declaration, "go to declaration")
 map("n", "gr", vim.lsp.buf.references, "go to references")
 map("n", "<leader>la", "<cmd>Lspsaga code_action<cr>", "Code Action")
 map("n", "<leader>ld", "<cmd>TroubleToggle<cr>", "Diagnostics")
-map("n", "<leader>lw", "<cmd>Telescope lsp_workspace_diagnostics<cr>", "Workspace Diagnostics")
 map("n", "<leader>lf", vim.lsp.buf.formatting, "Format")
 map("n", "<leader>lF", "<cmd>LspToggleAutoFormat<cr>", "Toggle Autoformat")
 map("n", "<leader>li", "<cmd>LspInfo<cr>", "Info")
@@ -109,8 +111,9 @@ map("n", "<leader>lO", "<cmd>SymbolsOutline<cr>", "Outline(SymbolsOutline)")
 map("n", "<leader>lq", vim.lsp.diagnostic.set_loclist, "Quickfix")
 map("n", "<leader>lr", '<cmd>Lspsaga rename<cr>', "Rename")
 map("n", "<leader>lR", "<cmd>TroubleToggle lsp_references<cr>", "References")
-map("n", "<leader>ls", "<cmd>Telescope lsp_document_symbols<cr>", "Document Symbols")
-map("n", "<leader>lS", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", "Workspace Symbols")
+map("n", "<leader>ls", require("telescope.builtin").lsp_document_symbols, "Document Symbols")
+map("n", "<leader>lS", require("telescope.builtin").lsp_dynamic_workspace_symbols, "Workspace Symbols")
+map("n", "<leader>lw", "<cmd>Telescope lsp_workspace_diagnostics<cr>", "Workspace Diagnostics")
 --}}}
 
 -- <leader>s: sniprun{{{
