@@ -131,11 +131,26 @@ packer.startup(function(use)
     "nvim-telescope/telescope.nvim",
     cmd = "Telescope",
     module = "telescope",
-    requires = {
-      "nvim-telescope/telescope-ui-select.nvim",
-      { "ahmedkhalf/project.nvim", config = get_config("project") },
-    },
-    config = get_config("telescope")
+    wants = "telescope-ui-select.nvim",
+    config = get_config("telescope"),
+  }
+  use {
+    "ahmedkhalf/project.nvim",
+    after = "telescope.nvim",
+    config = get_config("project"),
+  }
+  use {
+    "nvim-telescope/telescope-ui-select.nvim",
+    opt = true,
+  }
+
+  use {
+    "nvim-telescope/telescope-fzf-native.nvim",
+    after = "telescope.nvim",
+    run = "make -j",
+    config = function()
+      require("telescope").load_extension "fzf"
+    end,
   }
 --}}}
 

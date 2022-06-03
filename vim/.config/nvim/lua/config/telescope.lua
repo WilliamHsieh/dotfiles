@@ -1,9 +1,4 @@
-local status_ok, telescope = pcall(require, "telescope")
-if not status_ok then
-  vim.notify("no telescope")
-  return
-end
-
+local telescope = require("telescope")
 local actions = require "telescope.actions"
 local icons = require("icons")
 
@@ -48,12 +43,9 @@ telescope.setup {
   },
   extensions = {
     ["ui-select"] = {
-      require("telescope.themes").get_dropdown {
-        -- previewer = false,
-      },
+      require("telescope.themes").get_dropdown()
     },
   },
 }
 
 telescope.load_extension("ui-select")
-telescope.load_extension('projects')
