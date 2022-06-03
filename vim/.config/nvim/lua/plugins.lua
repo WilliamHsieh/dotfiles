@@ -77,54 +77,53 @@ packer.startup(function(use)
     run = ":TSUpdate",
     event = { "BufRead", "BufNewFile" },
     module = "nvim-treesitter",
+    wants = { "nvim-ts-autotag", "nvim-ts-rainbow", "nvim-ts-context-commentstring" },
     cmd = { "TSInstall", "TSInstallInfo", "TSInstallSync", "TSUninstall", "TSUpdate", "TSUpdateSync", "TSDisableAll", "TSEnableAll" },
     config = get_config("treesitter")
   }
-  use {
-    "JoosepAlviste/nvim-ts-context-commentstring",
-    after = "nvim-treesitter",
-  }
-  use {
-    "p00f/nvim-ts-rainbow",
-    after = "nvim-treesitter",
-  }
-  use {
-    "windwp/nvim-ts-autotag",
-    after = "nvim-treesitter",
-  }
+  use { "windwp/nvim-ts-autotag", opt = true, }
+  use { "p00f/nvim-ts-rainbow", opt = true, }
+  use { "JoosepAlviste/nvim-ts-context-commentstring", opt = true, }
+
   use {
     "windwp/nvim-autopairs",
     after = "nvim-treesitter",
     config = get_config("autopairs"),
   }
+
   use {
     "andymass/vim-matchup",
-    events = "BufRead",
-    config = get_config("matchup")
+    after = "nvim-treesitter",
   }
+
   use {
     "norcalli/nvim-colorizer.lua",
-    events = "BufRead",
+    after = "nvim-treesitter",
     config = get_config("colorizer")
   }
+
   use {
     "folke/todo-comments.nvim",
-    events = "BufRead",
+    after = "nvim-treesitter",
     config = function()
       require('todo-comments').setup {
         sign_priority = 0
       }
     end
   }
-  -- highlight word under cursor
+
   use {
     "RRethy/vim-illuminate",
-    events = "BufRead",
+    after = "nvim-treesitter",
+    module = "illuminate",
     config = "vim.g.Illuminate_ftblacklist = {'alpha', 'NvimTree'}"
   }
 
-  -- indentation
-  use { "lukas-reineke/indent-blankline.nvim", events = "BufRead", config = get_config("indentline") }
+  use {
+    "lukas-reineke/indent-blankline.nvim",
+    after = "nvim-treesitter",
+    config = get_config("indentline")
+  }
 --}}}
 
   -- Telescope{{{
