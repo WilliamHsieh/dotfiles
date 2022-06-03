@@ -1,14 +1,4 @@
--- lsp_signature{{{
-local signature = require("lsp_signature")
-
-local cfg = {
-  doc_lines = 0,
-  floating_window = false,
-}
-signature.setup(cfg)
---}}}
-
--- lsp servers{{{
+-- servers{{{
 require("nvim-lsp-installer").on_server_ready(function(server)
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -19,7 +9,6 @@ require("nvim-lsp-installer").on_server_ready(function(server)
       if client.resolved_capabilities.document_highlight then
         require("illuminate").on_attach(client)
       end
-      signature.on_attach(cfg)
     end,
     capabilities = capabilities,
   }
@@ -33,7 +22,7 @@ require("nvim-lsp-installer").on_server_ready(function(server)
 end)
 --}}}
 
--- setup{{{
+-- settings{{{
 local icons = require "icons"
 local signs = {
   { name = "DiagnosticSignError", text = icons.diagnostics.Error },

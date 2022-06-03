@@ -245,7 +245,6 @@ packer.startup(function(use)
     "neovim/nvim-lspconfig",
     module = "lspconfig",
     event = "BufRead",
-    requires = "ray-x/lsp_signature.nvim",
   }
   use {
     "jose-elias-alvarez/null-ls.nvim",
@@ -254,16 +253,31 @@ packer.startup(function(use)
       require('null-ls').setup()
     end
   }
+
+  use {
+    "ray-x/lsp_signature.nvim",
+    opt = true,
+    config = function()
+      require('lsp_signature').setup {
+        doc_lines = 0,
+        floating_window = false,
+      }
+    end
+  }
   use {
     'tami5/lspsaga.nvim',
-    after = "nvim-lspconfig",
+    opt = true,
     config = function()
-      require('lspsaga').setup()
+      require('lspsaga').setup {
+        use_saga_diagnostic_sign = false,
+        code_action_icon = "",
+      }
     end
   }
   use {
     "williamboman/nvim-lsp-installer",
-    after = "lspsaga.nvim",
+    after = "nvim-lspconfig",
+    wants = { "lsp_signature.nvim", "lspsaga.nvim" },
     config = get_config("lsp")
   }
 
