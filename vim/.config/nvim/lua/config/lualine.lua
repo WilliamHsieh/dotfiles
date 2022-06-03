@@ -5,10 +5,6 @@ local diagnostics = {
   sources = { "nvim_diagnostic" },
   sections = { "error", "warn" },
   symbols = { error = icons.diagnostics.Error .. " ", warn = icons.diagnostics.Warning .. " " },
-  diagnostics_color = {
-    error = 'TSDanger',  -- 'DiagnosticError'
-    warn  = 'TSWarning', -- 'DiagnosticWarn'
-  },
   colored = true,
   update_in_insert = false,
   always_visible = false,
@@ -73,7 +69,7 @@ require("lualine").setup {
     theme = "auto",
     component_separators = { left = "", right = "" },
     section_separators = { left = "", right = "" },
-    disabled_filetypes = { "alpha", "NvimTree", "Outline", "tagbar", "toggleterm" },
+    disabled_filetypes = { "alpha" },
     always_divide_middle = true,
   },
   sections = {
