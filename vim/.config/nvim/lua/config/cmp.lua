@@ -1,5 +1,3 @@
-local cmp = require("cmp");
-local luasnip = require("luasnip");
 require("luasnip/loaders/from_vscode").lazy_load()
 
 local function has_words_before()
@@ -14,51 +12,49 @@ local function remove_leading_chr(s)
   return s:gsub('•', '')
 end
 
+local cmp = require("cmp");
+local luasnip = require("luasnip");
+local mappings = {
+  ['<C-k>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'i', 'c' }),
+  ['<C-j>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 'c' }),
+  ["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { 'i', 'c' }),
+  ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { 'i', 'c' }),
+  ["<C-c>"] = cmp.mapping {
+    i = cmp.mapping.abort(),
+    c = cmp.mapping.close(),
+  },
+  ["<CR>"] = cmp.mapping.confirm { select = false },
+  ["<Tab>"] = cmp.mapping(function(fallback)
+    if cmp.visible() then
+      cmp.select_next_item()
+    elseif luasnip.expandable() then
+      luasnip.expand()
+    elseif luasnip.expand_or_jumpable() then
+      luasnip.expand_or_jump()
+    elseif has_words_before() then
+      cmp.complete()
+    else
+      fallback()
+    end
+  end, { 'i', 'c', 's', }),
+  ["<S-Tab>"] = cmp.mapping(function(fallback)
+    if cmp.visible() then
+      cmp.select_prev_item()
+    elseif luasnip.jumpable(-1) then
+      luasnip.jump(-1)
+    else
+      fallback()
+    end
+  end, { 'i', 'c', 's', }),
+}
+
 cmp.setup {
   snippet = {
     expand = function(args)
       luasnip.lsp_expand(args.body)
     end,
   },
-  mapping = cmp.mapping.preset.insert {
-    ["<C-k>"] = cmp.mapping.select_prev_item(),
-    ["<C-j>"] = cmp.mapping.select_next_item(),
-    ["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
-    ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
-    ["<C-c>"] = cmp.mapping {
-      i = cmp.mapping.abort(),
-      c = cmp.mapping.close(),
-    },
-    ["<CR>"] = cmp.mapping.confirm { select = false },
-    ["<Tab>"] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      elseif luasnip.expandable() then
-        luasnip.expand()
-      elseif luasnip.expand_or_jumpable() then
-        luasnip.expand_or_jump()
-      elseif has_words_before() then
-        cmp.complete()
-      else
-        fallback()
-      end
-    end, {
-      "i",
-      "s",
-    }),
-    ["<S-Tab>"] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      elseif luasnip.jumpable(-1) then
-        luasnip.jump(-1)
-      else
-        fallback()
-      end
-    end, {
-      "i",
-      "s",
-    }),
-  },
+  mapping = mappings,
   formatting = {
     format = function(_, vim_item)
       vim_item.kind = string.format("%s %s", require("icons").kind[vim_item.kind], vim_item.kind)
@@ -89,7 +85,7 @@ cmp.setup {
 }
 
 cmp.setup.cmdline(':', {
-  mapping = cmp.mapping.preset.cmdline(),
+  mapping = mappings,
   sources = {
     { name = "path" },
     { name = "cmdline" },
@@ -97,7 +93,7 @@ cmp.setup.cmdline(':', {
 })
 
 cmp.setup.cmdline('/', {
-  mapping = cmp.mapping.preset.cmdline(),
+  mapping = mappings,
   sources = {
     { name = "buffer" },
   },
