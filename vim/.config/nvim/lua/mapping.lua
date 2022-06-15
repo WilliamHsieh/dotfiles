@@ -114,6 +114,7 @@ map("n", "<leader>lR", "<cmd>TroubleToggle lsp_references<cr>", "References")
 map("n", "<leader>ls", require("telescope.builtin").lsp_document_symbols, "Document Symbols")
 map("n", "<leader>lS", require("telescope.builtin").lsp_dynamic_workspace_symbols, "Workspace Symbols")
 map("n", "<leader>lw", "<cmd>Telescope lsp_workspace_diagnostics<cr>", "Workspace Diagnostics")
+map("n", "<leader>ln", "<cmd>Lspsaga lsp_finder<cr>","Lsp finder (definition, reference)")
 --}}}
 
 -- <leader>s: sniprun{{{

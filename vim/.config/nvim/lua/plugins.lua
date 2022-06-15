@@ -270,7 +270,14 @@ packer.startup(function(use)
     config = function()
       require('lspsaga').setup {
         use_saga_diagnostic_sign = false,
-        code_action_icon = "",
+        finder_action_keys = {
+          open = "<CR>",
+          vsplit = "v",
+          split = "s",
+          quit = "q",
+          scroll_down = "<C-d>",
+          scroll_up = "<C-u>",
+        },
       }
     end
   }
