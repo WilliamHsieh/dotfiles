@@ -1,9 +1,16 @@
--- TODO: smart split plugin
--- FIX: telescope config is not properly loaded: <C-p>
-
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+-- Modes
+--   "n": normal_mode
+--   "i": insert_mode
+--   "v": visual_mode
+--   "x": visual_block_mode
+--   "t": term_mode
+--   "c": command_mode
+--   "!": insert_command_mode
+
+-- helper functions{{{
 local function map(mode, lhs, rhs, desc)
   vim.keymap.set(mode, lhs, rhs, {
     silent = true,
@@ -21,28 +28,67 @@ local function yank()
   vim.notify("copied to clipboard")
 end
 
--- Modes
---   "n": normal_mode
---   "i": insert_mode
---   "v": visual_mode
---   "x": visual_block_mode
---   "t": term_mode
---   "c": command_mode
---   "!": insert_command_mode
+local function terminal(cmd)
+  local Terminal = require("toggleterm.terminal").Terminal
+  Terminal:new({ cmd = cmd, hidden = true }):toggle()
+end
+--}}}
 
 -- <leader>: normal mode{{{
 map("n", "<leader>e", "<cmd>NvimTreeToggle<cr>", "Explorer")
-map("n", "<leader>w", "<cmd>w<CR>", "Save")
+map("n", "<leader>w", "<cmd>up<CR>", "Save")
 map("n", "<leader>q", "<cmd>q<CR>", "Quit")
 map("n", "<leader>/", require("Comment.api").toggle_current_linewise, "Comment")
-map("n", "<leader>z", "<cmd>ZenMode<cr>", "Zen mode")
 map("n", "<leader>y", function() yank() end, "copy to clipboard")
+map("n", "<leader><space>", ":e #<cr>", "swap buffer")
 --}}}
 
 -- <leader>b: buffer{{{
 map("n", "<leader>bb", "<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false})<cr>", "Buffers")
 map("n", "<leader>b>", "<cmd>BufferLineMoveNext<CR>", "Move right")
 map("n", "<leader>b<", "<cmd>BufferLineMovePrev<CR>", "Move left")
+map("n", "<leader>bs", "<cmd>so %|lua vim.notify('Buffer sourced.')<CR>", "Source this buffer")
+map("n", "<leader>bz", "<cmd>ZenMode<cr>", "Zen mode")
+--}}}
+
+-- <leader>c: compile{{{
+local function termexec(cmd)
+  vim.api.nvim_command("write")
+  cmd = 'TermExec cmd="' .. cmd .. '"'
+  vim.api.nvim_command(cmd)
+  vim.api.nvim_command("startinsert")
+end
+
+local function compile()
+  local ft = vim.bo.filetype
+  local fname = " %:t"
+  local cmd = ""
+  if ft == "python" then
+    cmd = "python" .. fname
+  elseif ft == "lua" then
+    cmd = "echo success"
+  elseif ft == "cpp" then
+    cmd = "g++ --std=c++17 -Wall -Wextra -Wshadow -DLOCAL " .. fname .. " && ./a.out"
+  else
+    vim.notify(ft .. " filetype not supported")
+    return
+  end
+  termexec(cmd)
+end
+
+local function make()
+  termexec("make -j")
+end
+
+local function previous_command()
+  vim.notify("todo")
+end
+
+map("n", "<leader>cc", compile, "Compile and run")
+map("n", "<leader>cm", make, "Make")
+map("n", "<leader>cp", previous_command, "Previous command")
+
+-- TODO: remove TODO from whichkey::compile section
 --}}}
 
 -- <leader>p: packer{{{
@@ -55,17 +101,20 @@ map("n", "<leader>pp", "<cmd>PackerProfile<cr>", "Profile")
 --}}}
 
 -- <leader>f: find{{{
+-- telescope
+map("n", "<C-p>", "<cmd>lua require('telescope.builtin').find_files(require('telescope.themes').get_dropdown{previewer = false})<cr>")
+map("n", "<leader>fb", "<cmd>Telescope vim_bookmarks all<cr>", "Bookmarks")
 map("n", "<leader>ff", "<cmd>Telescope find_files hidden=true<cr>", "Find files")
 map("n", "<leader>fF", "<cmd>Telescope live_grep theme=ivy<cr>", "Find Text")
-map("n", "<leader>fB", require("telescope.builtin").git_branches, "Checkout branch")
-map("n", "<leader>fc", require("telescope.builtin").colorscheme, "Colorscheme")
-map("n", "<leader>fC", require("telescope.builtin").commands, "Commands")
-map("n", "<leader>fh", require("telescope.builtin").help_tags, "Help")
-map("n", "<leader>fl", require("telescope.builtin").resume, "Last Search")
-map("n", "<leader>fM", require("telescope.builtin").man_pages, "Man Pages")
-map("n", "<leader>fr", require("telescope.builtin").oldfiles, "Recent File")
-map("n", "<leader>fk", require("telescope.builtin").keymaps, "Keymaps")
-map("n", "<leader>fp", require('telescope').extensions.projects.projects, "Projects")
+map("n", "<leader>fB", "<cmd>Telescope git_branches<cr>", "Checkout branch")
+map("n", "<leader>fc", "<cmd>Telescope colorscheme<cr>", "Colorscheme")
+map("n", "<leader>fC", "<cmd>Telescope commands<cr>", "Commands")
+map("n", "<leader>fh", "<cmd>Telescope help_tags<cr>", "Help")
+map("n", "<leader>fl", "<cmd>Telescope resume<cr>", "Last Search")
+map("n", "<leader>fM", "<cmd>Telescope man_pages<cr>", "Man Pages")
+map("n", "<leader>fr", "<cmd>Telescope oldfiles<cr>", "Recent File")
+map("n", "<leader>fk", "<cmd>Telescope keymaps<cr>", "Keymaps")
+map("n", "<leader>fp", "<cmd>Telescope projects<cr>", "Projects")
 map("n", "<leader>ft", "<cmd>TodoTelescope<cr>", "TODOs")
 --}}}
 
@@ -75,18 +124,20 @@ map("n", "<leader>hw", "<cmd>HopWord<cr>", "Hop word")
 --}}}
 
 -- <leader>g: git{{{
-map("n", "<leader>gj", require('gitsigns').next_hunk, "Next Hunk")
-map("n", "<leader>gk", require('gitsigns').prev_hunk, "Prev Hunk")
-map("n", "<leader>gB", require('gitsigns').toggle_current_line_blame, "Blame")
-map("n", "<leader>gp", require('gitsigns').preview_hunk, "Preview Hunk")
-map("n", "<leader>gr", require('gitsigns').reset_hunk, "Reset Hunk")
-map("n", "<leader>gR", require('gitsigns').reset_buffer, "Reset Buffer")
-map("n", "<leader>gs", require('gitsigns').stage_hunk, "Stage Hunk")
-map("n", "<leader>gu", require('gitsigns').undo_stage_hunk, "Undo Stage Hunk")
-map("n", "<leader>go", require("telescope.builtin").git_status, "git status")
-map("n", "<leader>gb", require("telescope.builtin").git_branches, "Checkout branch")
-map("n", "<leader>gc", require("telescope.builtin").git_commits, "Checkout commit")
+map("n", "<leader>gj", "<cmd>Gitsigns next_hunk<cr>", "Next Hunk")
+map("n", "<leader>gk", "<cmd>Gitsigns prev_hunk<cr>", "Prev Hunk")
+map("n", "<leader>gB", "<cmd>Gitsigns toggle_current_line_blame<cr>", "Blame")
+map("n", "<leader>gp", "<cmd>Gitsigns preview_hunk<cr>", "Preview Hunk")
+map("n", "<leader>gr", "<cmd>Gitsigns reset_hunk<cr>", "Reset Hunk")
+map("n", "<leader>gR", "<cmd>Gitsigns reset_buffer<cr>", "Reset Buffer")
+map("n", "<leader>gs", "<cmd>Gitsigns stage_hunk<cr>", "Stage Hunk")
+map("n", "<leader>gu", "<cmd>Gitsigns undo_stage_hunk<cr>", "Undo Stage Hunk")
+map("n", "<leader>go", "<cmd>Telescope git_status<cr>", "git status")
+map("n", "<leader>gb", "<cmd>Telescope git_branches<cr>", "Checkout branch")
+map("n", "<leader>gc", "<cmd>Telescope git_commits<cr>", "Checkout commit")
 map("n", "<leader>gd", "<cmd>Gitsigns diffthis HEAD<cr>", "Diff")
+map("n", "<leader>gg", function() terminal('lazygit') end, "lazygit")
+map("n", "<leader>gn", "<cmd>NvimTreeRefresh<cr>", "refresh nvim-tree")
 --}}}
 
 -- <leader>l: lsp{{{
@@ -111,8 +162,8 @@ map("n", "<leader>lO", "<cmd>SymbolsOutline<cr>", "Outline(SymbolsOutline)")
 map("n", "<leader>lq", vim.lsp.diagnostic.set_loclist, "Quickfix")
 map("n", "<leader>lr", '<cmd>Lspsaga rename<cr>', "Rename")
 map("n", "<leader>lR", "<cmd>TroubleToggle lsp_references<cr>", "References")
-map("n", "<leader>ls", require("telescope.builtin").lsp_document_symbols, "Document Symbols")
-map("n", "<leader>lS", require("telescope.builtin").lsp_dynamic_workspace_symbols, "Workspace Symbols")
+map("n", "<leader>ls", "<cmd>Telescope lsp_document_symbols<cr>", "Document Symbols")
+map("n", "<leader>lS", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", "Workspace Symbols")
 map("n", "<leader>lw", "<cmd>Telescope lsp_workspace_diagnostics<cr>", "Workspace Diagnostics")
 map("n", "<leader>ln", "<cmd>Lspsaga lsp_finder<cr>","Lsp finder (definition, reference)")
 --}}}
@@ -128,16 +179,15 @@ map("n", "<leader>sx", "<cmd>SnipTerminate<cr>", "Terminate")
 --}}}
 
 -- <leader>t: terminal{{{
-map("n", "<leader>t1", ":1ToggleTerm<cr>", "1")
-map("n", "<leader>t2", ":2ToggleTerm<cr>", "2")
-map("n", "<leader>t3", ":3ToggleTerm<cr>", "3")
-map("n", "<leader>tt", "<cmd>ToggleTerm direction=float<cr>", "Float")
-map("n", "<leader>th", function() TOGGLE_FLOAT('htop') end, "Htop")
-map("n", "<leader>tu", function() TOGGLE_FLOAT('ncdu') end, "NCDU")
-map("n", "<leader>tp", function() TOGGLE_FLOAT('python3') end, "Python")
-map("n", "<leader>tg", function() TOGGLE_FLOAT('lazygit') end, "lazygit")
-map("n", "<leader>t-", "<cmd>ToggleTerm size=10 direction=horizontal<cr>", "Horizontal")
+map('t', '<esc>', [[<C-\><C-n>]])
+map('t', 'kj', [[<C-\><C-n>]])
+
+map("n", [[<leader>tt]], "<cmd>ToggleTerm direction=float<cr>", "Float")
+map("n", [[<leader>t-]], "<cmd>ToggleTerm size=10 direction=horizontal<cr>", "Horizontal")
 map("n", [[<leader>t\]], "<cmd>ToggleTerm size=80 direction=vertical<cr>", "Vertical")
+map("n", "<leader>th", function() terminal('htop') end, "Htop")
+map("n", "<leader>tu", function() terminal('ncdu') end, "NCDU")
+map("n", "<leader>tp", function() terminal('python3') end, "Python")
 --}}}
 
 -- <leader>: visual mode{{{
@@ -159,6 +209,12 @@ map("n", "mx", "<cmd>BookmarkClearAll<cr>", "Clear All")
 -- others{{{
 map("i", "kj", "<ESC>")
 
+-- tmux status bar
+map("n", "<f11>", function() vim.fn.system("tmux set status") end, "Toggle tmux status bar")
+
+-- bulk rename
+map("n", "<leader>r", "<cmd>%s/.*/mv & &/<CR>", "bulk rename")
+
 -- quickfix
 map("n", "]q", "<cmd>cnext<CR>", "quickfix next")
 map("n", "[q", "<cmd>cprev<CR>", "quickfix prev")
@@ -167,25 +223,19 @@ map("n", "[q", "<cmd>cprev<CR>", "quickfix prev")
 map("v", "<S-h>", ":m '<-2<CR>gv=gv")
 map("v", "<S-l>", ":m '>+1<CR>gv=gv")
 
--- terminal
-map('t', '<esc>', [[<C-\><C-n>]])
-map('t', 'kj', [[<C-\><C-n>]])
-
--- telescope
-map("n", "<C-p>", "<cmd>lua require('telescope.builtin').find_files(require('telescope.themes').get_dropdown{previewer = false})<cr>")
-
 -- bufferline
 map("n", "H", "<cmd>BufferLineCyclePrev<CR>")
 map("n", "L", "<cmd>BufferLineCycleNext<CR>")
 map("n", "Q", "<cmd>Bdelete<CR>")
 
 -- navigation
-map("n", "<C-j>", "4jzz")
-map("n", "<C-k>", "4kzz")
-map("v", "<C-j>", "4jzz")
-map("v", "<C-k>", "4kzz")
+map({"n", "v"}, "<C-j>", "4jzz")
+map({"n", "v"}, "<C-k>", "4kzz")
 map("!", "<C-a>", "<Home>")
 map("!", "<C-e>", "<End>")
+map("n", "<leader>u", function() require("cinnamon").setup() end, "activate smooth scrolling") -- TODO: make it toggleable
+
+-- TODO: change into lua function
 vim.cmd [[
   function! Navigation_vim_tmux(vim_dir)
     let pre_winnr=winnr()
