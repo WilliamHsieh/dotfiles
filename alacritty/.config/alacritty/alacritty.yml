@@ -26,11 +26,15 @@ font:
 # {{{
 colors:
   primary:
-    background: '#282c34'
+    background: '#1e1e1e'
     foreground: '#dcdfe4'
 
-  normal:
-    black: '#282c34'
+  cursor:
+    text: '#dcdfe4'
+    cursor: '#dcdfe4'
+
+  normal: &normal_color
+    black: '#1e1e1e'
     red: '#e06c75'
     green: '#98c379'
     yellow: '#e5c07b'
@@ -38,6 +42,8 @@ colors:
     magenta: '#c678dd'
     cyan: '#56b6c2'
     white: '#dcdfe4'
+
+  dim: *normal_color
 
   bright:
     black: '#5c6370'
