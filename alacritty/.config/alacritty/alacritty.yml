@@ -29,10 +29,6 @@ colors:
     background: '#1e1e1e'
     foreground: '#dcdfe4'
 
-  cursor:
-    text: '#dcdfe4'
-    cursor: '#dcdfe4'
-
   normal: &normal_color
     black: '#1e1e1e'
     red: '#e06c75'
