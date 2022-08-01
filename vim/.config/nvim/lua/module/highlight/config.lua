@@ -38,6 +38,9 @@ function config.treesitter()
     matchup = {
       enable = true,
     },
+    playground = {
+      enable = true,
+    },
   }
 end
 
