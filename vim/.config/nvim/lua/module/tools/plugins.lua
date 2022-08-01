@@ -33,7 +33,7 @@ use {
 
 use {
   "MattesGroeger/vim-bookmarks",
-  events = "BufRead",
+  event = "BufRead",
   config = config.bookmark
 }
 
@@ -47,7 +47,7 @@ use {
 
 use {
   "lewis6991/gitsigns.nvim",
-  events = "BufRead",
+  event = "BufRead",
   config = config.gitsigns
 }
 use "rhysd/conflict-marker.vim"
