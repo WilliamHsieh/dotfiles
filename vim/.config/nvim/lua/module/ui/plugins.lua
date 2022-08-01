@@ -28,10 +28,7 @@ use {
 use {
   "kyazdani42/nvim-tree.lua",
   cmd = "NvimTreeToggle",
-  -- config = config.tree
-  config = function ()
-    require('nvim-tree').setup()
-  end
+  config = config.tree
 }
 
 use {
