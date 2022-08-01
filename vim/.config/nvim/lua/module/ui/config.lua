@@ -84,10 +84,11 @@ function config.tree()
       mappings = {
         custom_only = false,
         list = {
+          { key = "?", action = "toggle_help" },
           { key = "l", action = "edit" },
           { key = "h", action = "close_node" },
           { key = "K", action = "toggle_file_info" },
-          { key = "?", action = "toggle_help" },
+          { key = "y", action = "copy" },
           { key = "<C-k>", action = "" },
         },
       },
