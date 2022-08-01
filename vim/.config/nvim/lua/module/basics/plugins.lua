@@ -26,6 +26,8 @@ use {
 -- floating terminal
 use {
   "akinsho/toggleterm.nvim",
+  module = "toggleterm",
+  cmd = "ToggleTerm",
   config = config.toggleterm
 }
 

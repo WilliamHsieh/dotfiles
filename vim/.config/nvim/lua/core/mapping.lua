@@ -182,6 +182,7 @@ map("n", "<leader>sx", "<cmd>SnipTerminate<cr>", "Terminate")
 map('t', '<esc>', [[<C-\><C-n>]])
 map('t', 'kj', [[<C-\><C-n>]])
 
+map("n", [[<c-\>]], "<cmd>ToggleTerm<cr>", "Toggleterm")
 map("n", [[<leader>tt]], "<cmd>ToggleTerm direction=float<cr>", "Float")
 map("n", [[<leader>t-]], "<cmd>ToggleTerm size=10 direction=horizontal<cr>", "Horizontal")
 map("n", [[<leader>t\]], "<cmd>ToggleTerm size=80 direction=vertical<cr>", "Vertical")
