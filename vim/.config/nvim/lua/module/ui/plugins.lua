@@ -13,9 +13,7 @@ use 'Mofiqul/dracula.nvim'
 use 'glepnir/zephyr-nvim'
 use {
   'Mofiqul/vscode.nvim',
-  config = function()
-    vim.cmd("colorscheme vscode")
-  end,
+  config = config.vscode
 }
 
 use "kyazdani42/nvim-web-devicons"

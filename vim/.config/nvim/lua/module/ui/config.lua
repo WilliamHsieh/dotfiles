@@ -1,5 +1,15 @@
 local config = {}
 
+function config.vscode()
+  local c = require("vscode.colors")
+  require("vscode").setup {
+    group_overrides = {
+      cppTSKeyword = { fg = c.vscBlue },
+      cppTSConstMacro = { fg = c.vscPink },
+    }
+  }
+end
+
 function config.alpha()
   local alpha = require "alpha"
   local icons = require "icons"
