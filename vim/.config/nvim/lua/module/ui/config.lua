@@ -6,6 +6,8 @@ function config.vscode()
     group_overrides = {
       cppTSKeyword = { fg = c.vscBlue },
       cppTSConstMacro = { fg = c.vscPink },
+      NvimTreeFolderName = { fg = c.vscBlue },
+      NvimTreeOpenedFolderName = { fg = c.vscBlue },
     }
   }
 end
