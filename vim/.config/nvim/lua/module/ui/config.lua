@@ -234,70 +234,70 @@ function config.feline()
     )
   end
 
-  local vi_mode_component = {
-    provider = function()
-      local mode_alias = {
-        n = 'NORMAL',
-        no = 'NORMAL',
-        i = 'INSERT',
-        v = 'VISUAL',
-        V = 'V-LINE',
-        [''] = 'V-BLOCK',
-        c = 'COMMAND',
-        cv = 'COMMAND',
-        ce = 'COMMAND',
-        R = 'REPLACE',
-        Rv = 'REPLACE',
-        s = 'SELECT',
-        S = 'SELECT',
-        [''] = 'SELECT',
-        t = 'TERMINAL',
-      }
-      return ' ' .. mode_alias[vim.fn.mode()] .. ' '
-    end,
-    hl = { fg = 'bg', bg = 'info', style = 'bold' },
-    right_sep = ' ',
-  }
-
   local function treesitter_status()
     local ts_avail, ts = pcall(require, "nvim-treesitter.parsers")
     return (ts_avail and ts.has_parser()) and "綠TS" or ""
   end
+
+  local vi_mode = require("feline.providers.vi_mode")
+  local vi_mode_color = 'info'
 
   require("feline").setup {
     theme = {
       info = get_hl('DiagnosticInfo').fg,
       warning = get_hl('DiagnosticWarn').fg,
       error = get_hl('DiagnosticError').fg,
-      green = get_hl('TSNote').fg,
     },
     components = {
       active = {
         {
-          vi_mode_component,
-          { provider = 'git_branch' , icon = ' ', right_sep = '  ' },
-          { provider = 'file_info', right_sep = 'slant_right_thin' },
+          {
+            provider = function() return ' ' .. vi_mode.get_vim_mode() .. ' ' end,
+            hl = { fg = 'bg', bg = vi_mode_color, style = 'bold' },
+            right_sep = ' ',
+          },
+          { provider = 'git_branch', icon = ' ', right_sep = '  ', hl = { fg = vi_mode_color } },
+          {
+            provider = {
+              name = 'file_info',
+              opts = {
+                colored_icon = false,
+                type = "unique",
+                file_modified_icon = "[+]"
+              }
+            },
+            icon = '',
+          },
         },
         {
           -- lsp
           { provider = "diagnostic_errors", hl = { fg = 'error' } },
           { provider = "diagnostic_warnings", hl = { fg = 'warning' } },
-          { provider = lsp_progress, left_sep = '  ' },
+          { provider = lsp_progress },
           { provider = 'lsp_client_names', left_sep = '  ', right_sep = ' ' },
 
           -- treesitter
+          { provider = treesitter_status, left_sep = ' ', right_sep = ' ' },
+
+          -- filetype
           {
-            provider = treesitter_status,
-            hl = { fg = 'green' },
-            left_sep = ' ', right_sep = ' '
+            provider = {
+              name = 'file_type',
+              opts = {
+                filetype_icon = true,
+                case = "lowercase",
+              }
+            },
+            left_sep = ' ',
+            right_sep = ' ',
           },
 
           -- position
-          { provider = 'position', left_sep = ' ', right_sep = ' ' },
+          { provider = 'position', left_sep = ' ', right_sep = ' ', hl = { fg = vi_mode_color } },
           { provider = 'line_percentage',
-            hl = { fg = 'bg', bg = 'info', style = 'bold' },
-            left_sep = { str = ' ', hl = { fg = 'bg', bg = 'info' }},
-            right_sep = { str = ' ', hl = { fg = 'bg', bg = 'info' }}
+            hl = { fg = 'bg', bg = vi_mode_color, style = 'bold' },
+            left_sep = { str = ' ', hl = { fg = 'bg', bg = vi_mode_color }},
+            right_sep = { str = ' ', hl = { fg = 'bg', bg = vi_mode_color }}
           },
         }
       },
