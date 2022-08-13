@@ -20,6 +20,7 @@ use "lewis6991/impatient.nvim"
 -- Comment
 use {
   "numToStr/Comment.nvim",
+  module = "Comment",
   config = config.comment
 }
 
