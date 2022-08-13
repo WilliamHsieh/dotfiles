@@ -1,15 +1,12 @@
 local install_path = vim.fn.stdpath "data" .. "/site/pack/packer/start/packer.nvim"
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
+  vim.notify("Installing packer...")
   PACKER_BOOTSTRAP = vim.fn.system {
-    "git",
-    "clone",
-    "--depth",
-    "1",
-    "https://github.com/wbthomason/packer.nvim",
-    install_path,
+    "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path
   }
-  print "Installing packer close and reopen Neovim..."
   vim.cmd [[packadd packer.nvim]]
+elseif IMPATIENT_ERROR then
+  vim.notify('impatient is not setup properly')
 end
 
 require("packer").startup {

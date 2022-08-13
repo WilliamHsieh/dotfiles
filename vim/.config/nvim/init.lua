@@ -1,8 +1,8 @@
 local ok, impatient = pcall(require, "impatient")
-if not ok then
-  vim.notify('impatient is not setup properly')
-else
+if ok then
   impatient.enable_profile()
+else
+  IMPATIENT_ERROR = true
 end
 
 require "core.setting"
