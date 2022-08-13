@@ -36,19 +36,21 @@ end
 
 -- <leader>: normal mode{{{
 map("n", "<leader>e", "<cmd>NvimTreeToggle<cr>", "Explorer")
-map("n", "<leader>w", "<cmd>up<CR>", "Save")
-map("n", "<leader>q", "<cmd>q<CR>", "Quit")
-map("n", "<leader>/", require("Comment.api").toggle_current_linewise, "Comment")
+map("n", "<leader>w", "<cmd>up<cr>", "Save")
+map("n", "<leader>q", "<cmd>q<cr>", "Quit")
+map("n", "<leader>/", function() require("Comment.api").toggle.linewise.current() end, "Comment")
 map("n", "<leader>y", function() yank() end, "copy to clipboard")
 map("n", "<leader><space>", ":e #<cr>", "swap buffer")
 --}}}
 
 -- <leader>b: buffer{{{
-map("n", "<leader>bb", "<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false})<cr>", "Buffers")
-map("n", "<leader>b>", "<cmd>BufferLineMoveNext<CR>", "Move right")
-map("n", "<leader>b<", "<cmd>BufferLineMovePrev<CR>", "Move left")
-map("n", "<leader>bs", "<cmd>so %|lua vim.notify('Buffer sourced.')<CR>", "Source this buffer")
+map("n", "<leader>bb", function() require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false}) end, "Buffers")
+map("n", "<leader>b>", "<cmd>BufferLineMoveNext<cr>", "Move right")
+map("n", "<leader>b<", "<cmd>BufferLineMovePrev<cr>", "Move left")
+map("n", "<leader>bs", "<cmd>so %|lua vim.notify('Buffer sourced.')<cr>", "Source this buffer")
 map("n", "<leader>bz", "<cmd>ZenMode<cr>", "Zen mode")
+map("n", "<leader>br", "<cmd>%s/.*/mv & &/<cr>", "bulk rename")
+map("n", "<leader>bu", function() require("cinnamon").setup() end, "activate smooth scrolling") -- TODO: make it toggleable
 --}}}
 
 -- <leader>c: compile{{{
@@ -68,7 +70,7 @@ local function compile()
   elseif ft == "lua" then
     cmd = "echo success"
   elseif ft == "cpp" then
-    cmd = "g++ --std=c++17 -Wall -Wextra -Wshadow -DLOCAL " .. fname .. " && ./a.out"
+    cmd = "g++ --std=c++17 -O2 -g3 -Wall -Wextra -Wshadow -DLOCAL " .. fname .. " && ./a.out"
   else
     vim.notify(ft .. " filetype not supported")
     return
@@ -102,7 +104,7 @@ map("n", "<leader>pp", "<cmd>PackerProfile<cr>", "Profile")
 
 -- <leader>f: find{{{
 -- telescope
-map("n", "<C-p>", "<cmd>lua require('telescope.builtin').find_files(require('telescope.themes').get_dropdown{previewer = false})<cr>")
+map("n", "<C-p>", function() require('telescope.builtin').find_files(require('telescope.themes').get_dropdown{previewer = false}) end)
 map("n", "<leader>fb", "<cmd>Telescope vim_bookmarks all<cr>", "Bookmarks")
 map("n", "<leader>ff", "<cmd>Telescope find_files hidden=true<cr>", "Find files")
 map("n", "<leader>fF", "<cmd>Telescope live_grep theme=ivy<cr>", "Find Text")
@@ -154,8 +156,8 @@ map("n", "<leader>li", "<cmd>LspInfo<cr>", "Info")
 map("n", "<leader>lI", "<cmd>LspInstallInfo<cr>", "Installer Info")
 -- map("n", "<leader>ll", vim.lsp.codelens.run, "CodeLens Action")
 map("n", "<leader>ll", "<cmd>Lspsaga show_line_diagnostics<cr>", "Hover diagnostics")
-map("n", "<leader>lj", "<cmd>Lspsaga diagnostic_jump_next<CR>", "next diagnostic")
-map("n", "<leader>lk", "<cmd>Lspsaga diagnostic_jump_prev<CR>", "prev diagnostic")
+map("n", "<leader>lj", "<cmd>Lspsaga diagnostic_jump_next<cr>", "next diagnostic")
+map("n", "<leader>lk", "<cmd>Lspsaga diagnostic_jump_prev<cr>", "prev diagnostic")
 map("n", "<leader>lp", "<cmd>Lspsaga preview_definition<cr>", "preview definition")
 map("n", "<leader>lo", "<cmd>TagbarToggle<cr>", "Outline(tagbar)")
 map("n", "<leader>lO", "<cmd>SymbolsOutline<cr>", "Outline(SymbolsOutline)")
@@ -192,7 +194,7 @@ map("n", "<leader>tp", function() terminal('python3') end, "Python")
 --}}}
 
 -- <leader>: visual mode{{{
-map("v", "<leader>/", '<ESC><CMD>lua require("Comment.api").toggle_linewise_op(vim.fn.visualmode())<CR>', "Comment")
+map("v", "<leader>/", '<esc><cmd>lua require("Comment.api").toggle.linewise(vim.fn.visualmode())<cr>', "Comment")
 map("v", "<leader>s", "<esc><cmd>'<,'>SnipRun<cr>", "Run range")
 map("v", "<leader>y", function() yank() end, "copy to clipboard")
 --}}}
@@ -203,38 +205,34 @@ map("n", "mc", "<cmd>BookmarkClear<cr>", "Clear")
 map("n", "mm", "<cmd>BookmarkToggle<cr>", "Toggle")
 map("n", "mn", "<cmd>BookmarkNext<cr>", "Next")
 map("n", "mp", "<cmd>BookmarkPrev<cr>", "Prev")
-map("n", "ms", "<cmd>lua require('telescope').extensions.vim_bookmarks.all({ hide_filename=false, prompt_title=\"bookmarks\", shorten_path=false })<cr>", "Show")
+map("n", "ms", function() require('telescope').extensions.vim_bookmarks.all({ hide_filename=false, prompt_title="bookmarks", shorten_path=false }) end, "Show")
 map("n", "mx", "<cmd>BookmarkClearAll<cr>", "Clear All")
 --}}}
 
 -- others{{{
-map("i", "kj", "<ESC>")
+map("i", "kj", "<esc>")
 
 -- tmux status bar
 map("n", "<f11>", function() vim.fn.system("tmux set status") end, "Toggle tmux status bar")
 
--- bulk rename
-map("n", "<leader>r", "<cmd>%s/.*/mv & &/<CR>", "bulk rename")
-
 -- quickfix
-map("n", "]q", "<cmd>cnext<CR>", "quickfix next")
-map("n", "[q", "<cmd>cprev<CR>", "quickfix prev")
+map("n", "]q", "<cmd>cnext<cr>", "quickfix next")
+map("n", "[q", "<cmd>cprev<cr>", "quickfix prev")
 
 -- Move text up and down
-map("v", "<S-h>", ":m '<-2<CR>gv=gv")
-map("v", "<S-l>", ":m '>+1<CR>gv=gv")
+map("v", "<S-h>", ":m '<-2<cr>gv=gv")
+map("v", "<S-l>", ":m '>+1<cr>gv=gv")
 
 -- bufferline
-map("n", "H", "<cmd>BufferLineCyclePrev<CR>")
-map("n", "L", "<cmd>BufferLineCycleNext<CR>")
-map("n", "Q", "<cmd>Bdelete<CR>")
+map("n", "H", "<cmd>BufferLineCyclePrev<cr>")
+map("n", "L", "<cmd>BufferLineCycleNext<cr>")
+map("n", "Q", "<cmd>Bdelete<cr>")
 
 -- navigation
 map({"n", "v"}, "<C-j>", "4jzz")
 map({"n", "v"}, "<C-k>", "4kzz")
 map("!", "<C-a>", "<Home>")
 map("!", "<C-e>", "<End>")
-map("n", "<leader>u", function() require("cinnamon").setup() end, "activate smooth scrolling") -- TODO: make it toggleable
 
 -- TODO: change into lua function
 vim.cmd [[
@@ -246,9 +244,9 @@ vim.cmd [[
     endif
   endfunction
 
-  nnoremap <silent><M-h> :call Navigation_vim_tmux("h")<CR>
-  nnoremap <silent><M-j> :call Navigation_vim_tmux("j")<CR>
-  nnoremap <silent><M-k> :call Navigation_vim_tmux("k")<CR>
-  nnoremap <silent><M-l> :call Navigation_vim_tmux("l")<CR>
+  nnoremap <silent><M-h> :call Navigation_vim_tmux("h")<cr>
+  nnoremap <silent><M-j> :call Navigation_vim_tmux("j")<cr>
+  nnoremap <silent><M-k> :call Navigation_vim_tmux("k")<cr>
+  nnoremap <silent><M-l> :call Navigation_vim_tmux("l")<cr>
 ]]
 --}}}
