@@ -208,187 +208,98 @@ function config.bufferline()
   }
 end
 
-function config.lualine()
-  local icons = require "icons"
-  local diagnostics = {
-    "diagnostics",
-    sources = { "nvim_diagnostic" },
-    sections = { "error", "warn" },
-    symbols = { error = icons.diagnostics.Error .. " ", warn = icons.diagnostics.Warning .. " " },
-    colored = true,
-    update_in_insert = false,
-    always_visible = false,
-  }
-
-  local progress = function()
-    local current_line = vim.fn.line "."
-    local total_lines = vim.fn.line "$"
-    return current_line .. "/" .. total_lines
-  end
-
-  local function lsp_progress()
-    local Lsp = vim.lsp.util.get_progress_messages()[1]
-    if not Lsp then
-      return ""
-    end
-
-    local spinners = { "", "", "" }
-    local frame = math.floor(vim.loop.hrtime() / 1000000 / 120) % #spinners
-    local title = Lsp.title or ""
-    local msg = Lsp.message or ""
-    local percentage = Lsp.percentage or 0
-
-    return string.format(" %%<%s %s %s (%s%%%%) ", spinners[frame + 1], title, msg, percentage)
-  end
-
-  local function lsp_name()
-    local clients = vim.lsp.buf_get_clients()
-    if next(clients) == nil then
-      return ""
-    end
-
-    local names = {}
-    for _, client in pairs(clients) do
-      if client.name ~= "null-ls" then
-        table.insert(names, client.name)
-      end
-    end
-    return table.concat(names, ", ")
-
-    -- TODO: formatters and linters
-  end
-
-  local function treesitter_status()
-    local b = vim.api.nvim_get_current_buf()
-    if next(vim.treesitter.highlighter.active[b]) then
-      return "綠TS"
-    end
-    return ""
-  end
-
-  require("lualine").setup {
-    options = {
-      icons_enabled = true,
-      theme = "auto",
-      component_separators = { left = "", right = "" },
-      section_separators = { left = "", right = "" },
-      disabled_filetypes = { "alpha" },
-      always_divide_middle = true,
-    },
-    sections = {
-      lualine_b = { 'branch' },
-      lualine_c = { diagnostics, 'filename' },
-      lualine_x = {
-        lsp_progress,
-        {
-          lsp_name,
-          icon = "",
-        },
-        treesitter_status,
-        "filetype",
-      },
-      lualine_y = { progress },
-      lualine_z = { "progress" },
-    },
-    tabline = {},
-    extensions = {"nvim-tree", "toggleterm", "quickfix", "symbols-outline"}
-  }
-end
-
 function config.feline()
-  local icons = require "icons"
-  local function get_hl(group, prop)
-    local color = vim.api.nvim_get_hl_by_name(group, true)[prop]
-    return string.format("#%06x", color)
-  end
-
-  local function spacer(n)
-    return string.rep(" ", n or 1)
-  end
-
-  local diagnostics = {
-    "diagnostics",
-    sources = { "nvim_diagnostic" },
-    sections = { "error", "warn" },
-    symbols = { error = icons.diagnostics.Error .. " ", warn = icons.diagnostics.Warning .. " " },
-    -- TODO: add brigt color to this: https://raw.githubusercontent.com/AstroNvim/astronvim.github.io/main/static/img/overview.png
-    colored = false,
-    update_in_insert = false,
-    always_visible = false,
-  }
-
-  local progress = function()
-    local current_line = vim.fn.line "."
-    local total_lines = vim.fn.line "$"
-    return current_line .. "/" .. total_lines
+  local function get_hl(group)
+    local hl = vim.api.nvim_get_hl_by_name(group, true)
+    local function to_hex(color)
+      return color and string.format("#%06x", color) or ''
+    end
+    return { fg = to_hex(hl.foreground), bg = to_hex(hl.background) }
   end
 
   local function lsp_progress()
-    local Lsp = vim.lsp.util.get_progress_messages()[1]
-    if not Lsp then
+    local lsp = vim.lsp.util.get_progress_messages()[1]
+    if not lsp then
       return ""
     end
 
-    local msg = Lsp.message or ""
-    local percentage = Lsp.percentage or 0
-    local title = Lsp.title or ""
-
     local spinners = { "", "", "" }
-    local success_icon = { "", "", "" }
+    local idx = math.floor(vim.loop.hrtime() / 12e7) % 3 + 1
 
-    local ms = vim.loop.hrtime() / 1000000
-    local frame = math.floor(ms / 120) % #spinners
-
-    if percentage >= 70 then
-      return string.format(" %%<%s %s %s (%s%%%%) ", success_icon[frame + 1], title, msg, percentage)
-    end
-    return string.format(" %%<%s %s %s (%s%%%%) ", spinners[frame + 1], title, msg, percentage)
+    return string.format(" %%<%s %s %s (%s%%%%)",
+      spinners[idx],
+      lsp.title or "",
+      lsp.message or "",
+      lsp.percentage or 0
+    )
   end
 
+  local vi_mode_component = {
+    provider = function()
+      local mode_alias = {
+        n = 'NORMAL',
+        no = 'NORMAL',
+        i = 'INSERT',
+        v = 'VISUAL',
+        V = 'V-LINE',
+        [''] = 'V-BLOCK',
+        c = 'COMMAND',
+        cv = 'COMMAND',
+        ce = 'COMMAND',
+        R = 'REPLACE',
+        Rv = 'REPLACE',
+        s = 'SELECT',
+        S = 'SELECT',
+        [''] = 'SELECT',
+        t = 'TERMINAL',
+      }
+      return ' ' .. mode_alias[vim.fn.mode()] .. ' '
+    end,
+    hl = { fg = 'bg', bg = 'info', style = 'bold' },
+    right_sep = ' ',
+  }
+
   local function treesitter_status()
-    local b = vim.api.nvim_get_current_buf()
-    if next(vim.treesitter.highlighter.active[b]) then
-      return "綠TS"
-    end
-    return ""
+    local ts_avail, ts = pcall(require, "nvim-treesitter.parsers")
+    return (ts_avail and ts.has_parser()) and "綠TS" or ""
   end
 
   require("feline").setup {
+    theme = {
+      info = get_hl('DiagnosticInfo').fg,
+      warning = get_hl('DiagnosticWarn').fg,
+      error = get_hl('DiagnosticError').fg,
+      green = get_hl('TSNote').fg,
+    },
     components = {
       active = {
         {
-          {
-            provider = 'vi_mode',
-            hl = function()
-              return {
-                name = require('feline.providers.vi_mode').get_mode_highlight_name(),
-                fg = require('feline.providers.vi_mode').get_mode_color(),
-                style = 'bold'
-              }
-            end,
-            right_sep = ' ',
-            icon = ''
-          },
-          { provider = "git_branch" },
-          { provider = spacer() },
-          { provider = "diagnostic_errors" },
-          { provider = "diagnostic_warnings" },
-          { provider = "diagnostic_info" },
-          { provider = "diagnostic_hints" },
-          { provider = spacer(2) },
-          { provider = "file_info" },
+          vi_mode_component,
+          { provider = 'git_branch' , icon = ' ', right_sep = '  ' },
+          { provider = 'file_info', right_sep = 'slant_right_thin' },
         },
         {
-          { provider = lsp_progress },
-          { provider = spacer(2) },
-          { provider = "lsp_client_names" },
-          { provider = spacer(2) },
-          { provider = treesitter_status },
-          { provider = spacer(2) },
-          { provider = "line_percentage" },
-          { provider = spacer() },
-          { provider = "scroll_bar" }
-        },
+          -- lsp
+          { provider = "diagnostic_errors", hl = { fg = 'error' } },
+          { provider = "diagnostic_warnings", hl = { fg = 'warning' } },
+          { provider = lsp_progress, left_sep = '  ' },
+          { provider = 'lsp_client_names', left_sep = '  ', right_sep = ' ' },
+
+          -- treesitter
+          {
+            provider = treesitter_status,
+            hl = { fg = 'green' },
+            left_sep = ' ', right_sep = ' '
+          },
+
+          -- position
+          { provider = 'position', left_sep = ' ', right_sep = ' ' },
+          { provider = 'line_percentage',
+            hl = { fg = 'bg', bg = 'info', style = 'bold' },
+            left_sep = { str = ' ', hl = { fg = 'bg', bg = 'info' }},
+            right_sep = { str = ' ', hl = { fg = 'bg', bg = 'info' }}
+          },
+        }
       },
     },
   }

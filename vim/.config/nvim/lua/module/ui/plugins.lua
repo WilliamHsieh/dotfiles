@@ -36,13 +36,9 @@ use {
 }
 
 use {
-  "nvim-lualine/lualine.nvim",
-  config = config.lualine
+  'feline-nvim/feline.nvim',
+  after = "vscode.nvim",
+  config = config.feline
 }
-
--- use {
---   'feline-nvim/feline.nvim',
---   config = config.feline
--- }
 
 return plugins

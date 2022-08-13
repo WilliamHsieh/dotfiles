@@ -37,6 +37,7 @@ local options = {
   foldmethod = "marker",
   virtualedit = 'block',
   pastetoggle = "<C-y>",
+  showmode = false,
 }
 
 for k, v in pairs(options) do
