@@ -245,8 +245,6 @@ function config.feline()
   require("feline").setup {
     theme = {
       info = get_hl('DiagnosticInfo').fg,
-      warning = get_hl('DiagnosticWarn').fg,
-      error = get_hl('DiagnosticError').fg,
     },
     components = {
       active = {
@@ -271,8 +269,8 @@ function config.feline()
         },
         {
           -- lsp
-          { provider = "diagnostic_errors", hl = { fg = 'error' } },
-          { provider = "diagnostic_warnings", hl = { fg = 'warning' } },
+          { provider = "diagnostic_errors", hl = 'DiagnosticError' },
+          { provider = "diagnostic_warnings", hl = 'DiagnosticWarn' },
           { provider = lsp_progress },
           { provider = 'lsp_client_names', left_sep = '  ', right_sep = ' ' },
 
