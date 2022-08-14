@@ -12,9 +12,8 @@ return function()
       show_close_icon = false,
       show_tab_indicators = true,
       separator_style = "thin",
-      enforce_regular_tabs = true,
       always_show_bufferline = true,
-      sort_by = "insert_after_current" -- "insert_at_end"
+      sort_by = "insert_after_current",
     },
     -- from https://github.com/Mofiqul/vscode.nvim
     highlights = {
@@ -57,6 +56,14 @@ return function()
       close_button_visible = {
         fg = { attribute = "fg", highlight = "normal" },
         bg = { attribute = "bg", highlight = "normal" },
+      },
+      duplicate = {
+        fg = { attribute = "fg", highlight = "Normal" },
+        bg = { attribute = "bg", highlight = "StatusLine" },
+      },
+      duplicate_selected = {
+        fg = { attribute = "fg", highlight = "Normal" },
+        bg = { attribute = "bg", highlight = "Normal" },
       },
       modified = {
         bg = { attribute = "bg", highlight = "StatusLine" },
