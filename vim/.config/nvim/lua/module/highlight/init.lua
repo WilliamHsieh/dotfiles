@@ -7,14 +7,21 @@ use {
   run = ":TSUpdate",
   event = { "BufRead", "BufNewFile" },
   module = "nvim-treesitter",
-  wants = { "nvim-ts-autotag", "nvim-ts-rainbow", "nvim-ts-context-commentstring", "playground" },
+  wants = { "nvim-ts-autotag", "nvim-ts-rainbow" },
   cmd = { "TSInstall", "TSInstallInfo", "TSInstallSync", "TSUninstall", "TSUpdate", "TSUpdateSync", "TSDisableAll", "TSEnableAll" },
   config = config.treesitter
 }
 use { "windwp/nvim-ts-autotag", opt = true, }
 use { "p00f/nvim-ts-rainbow", opt = true, }
-use { "JoosepAlviste/nvim-ts-context-commentstring", opt = true, }
-use { "nvim-treesitter/playground", opt = true }
+
+use {
+  "JoosepAlviste/nvim-ts-context-commentstring",
+  module = "ts_context_commentstring",
+}
+use {
+  "nvim-treesitter/playground",
+  cmd = { "TSPlaygroundToggle" , "TSHighlightCapturesUnderCursor" }
+}
 
 use {
   "windwp/nvim-autopairs",
