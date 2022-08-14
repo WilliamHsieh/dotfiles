@@ -38,7 +38,7 @@ use {
 use {
   'feline-nvim/feline.nvim',
   after = "vscode.nvim",
-  config = config.feline
+  config = require("module.ui.feline")
 }
 
 return plugins
