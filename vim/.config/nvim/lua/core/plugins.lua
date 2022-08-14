@@ -11,11 +11,11 @@ end
 
 require("packer").startup {
   function(use)
-    local modules_dir = vim.fn.stdpath("config") .. "/lua/module"
-    local tmp = vim.split(vim.fn.globpath(modules_dir, '*/plugins.lua'), '\n')
+    local module_dir = "/lua/module"
+    local tmp = vim.split(vim.fn.globpath(vim.fn.stdpath("config") .. module_dir, '*'), '\n')
     for _, f in ipairs(tmp) do
-      local module = string.match(f, 'lua/(.+).lua$'):gsub("/", ".")
-      use(require(module))
+      local name = string.match(f, module_dir .. '/(.+)')
+      use(require('module.' .. name))
     end
 
     if PACKER_BOOTSTRAP then
@@ -30,7 +30,7 @@ require("packer").startup {
     },
     profile = {
       enable = true,
-      threshold = 0, -- integer in milliseconds, plugins which load faster than this won't be shown in profile output
+      threshold = 0,
     },
   }
 }
