@@ -32,7 +32,7 @@ use {
 use {
   "akinsho/bufferline.nvim",
   requires = "moll/vim-bbye",
-  config = config.bufferline
+  config = require("module.ui.bufferline")
 }
 
 use {
