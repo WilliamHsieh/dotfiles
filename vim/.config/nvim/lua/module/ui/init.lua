@@ -32,6 +32,7 @@ use {
 use {
   "akinsho/bufferline.nvim",
   requires = "moll/vim-bbye",
+  after = { "nvim-web-devicons", "vscode.nvim" },
   config = require("module.ui.bufferline")
 }
 

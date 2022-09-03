@@ -1,4 +1,45 @@
 return function()
+  local fill = { attribute = "bg", highlight = "TabLineFill" }
+  local gray = { attribute = "fg", highlight = "FoldColumn" }
+  local normal = require("utils").get_hl("Normal")
+
+  -- base: others
+  local base = {
+    fg = gray,
+    bg = fill,
+  }
+
+  -- base_visible: current, no focused
+  local visible = {
+    fg = gray,
+    bg = normal.bg,
+    bold = true,
+  }
+
+  -- base_selected: current, focused
+  local selected = {
+    fg = normal.fg,
+    bg = normal.bg,
+    bold = true,
+  }
+
+  -- modify indicator
+  local modify = {
+    fg = { attribute = "fg", highlight = "String" },
+    bg = normal.bg,
+    bold = true,
+  }
+
+  -- separator
+  local separator_slant = {
+    fg = fill,
+    bg = normal.bg,
+  }
+  local separator_other = {
+    fg = fill,
+    bg = fill,
+  }
+
   require("bufferline").setup {
     options = {
       numbers = "none",
@@ -11,69 +52,26 @@ return function()
       show_buffer_close_icons = true,
       show_close_icon = false,
       show_tab_indicators = true,
-      separator_style = "thin",
+      separator_style = "slant",
       always_show_bufferline = true,
       sort_by = "insert_after_current",
     },
-    -- from https://github.com/Mofiqul/vscode.nvim
     highlights = {
-      fill = {
-        fg = { attribute = "fg", highlight = "Normal" },
-        bg = { attribute = "bg", highlight = "StatusLineNC" },
-      },
-      background = {
-        fg = { attribute = "fg", highlight = "Normal" },
-        bg = { attribute = "bg", highlight = "StatusLine" },
-      },
-      buffer_visible = {
-        fg = { attribute = "fg", highlight = "Normal" },
-        bg = { attribute = "bg", highlight = "Normal" },
-      },
-      buffer_selected = {
-        fg = { attribute = "fg", highlight = "Normal" },
-        bg = { attribute = "bg", highlight = "Normal" },
-      },
-      separator = {
-        fg = { attribute = "bg", highlight = "Normal" },
-        bg = { attribute = "bg", highlight = "StatusLine" },
-      },
-      separator_selected = {
-        fg = { attribute = "fg", highlight = "Special" },
-        bg = { attribute = "bg", highlight = "Normal" },
-      },
-      separator_visible = {
-        fg = { attribute = "fg", highlight = "Normal" },
-        bg = { attribute = "bg", highlight = "StatusLineNC" },
-      },
-      close_button = {
-        fg = { attribute = "fg", highlight = "Normal" },
-        bg = { attribute = "bg", highlight = "StatusLine" },
-      },
-      close_button_selected = {
-        fg = { attribute = "fg", highlight = "normal" },
-        bg = { attribute = "bg", highlight = "normal" },
-      },
-      close_button_visible = {
-        fg = { attribute = "fg", highlight = "normal" },
-        bg = { attribute = "bg", highlight = "normal" },
-      },
-      duplicate = {
-        fg = { attribute = "fg", highlight = "Normal" },
-        bg = { attribute = "bg", highlight = "StatusLine" },
-      },
-      duplicate_selected = {
-        fg = { attribute = "fg", highlight = "Normal" },
-        bg = { attribute = "bg", highlight = "Normal" },
-      },
-      modified = {
-        bg = { attribute = "bg", highlight = "StatusLine" },
-      },
-      modified_visible = {
-        bg = { attribute = "bg", highlight = "normal" },
-      },
-      modified_selected = {
-        bg = { attribute = "bg", highlight = "normal" },
-      },
-    },
+      background = base,
+      buffer_visible = visible,
+      buffer_selected = selected,
+      close_button = base,
+      close_button_selected = selected,
+      close_button_visible = selected,
+      duplicate = base,
+      duplicate_visible = visible,
+      duplicate_selected = selected,
+      modified = base,
+      modified_visible = modify,
+      modified_selected = modify,
+      separator = separator_other,
+      separator_visible = separator_slant,
+      separator_selected = separator_slant,
+    }
   }
 end
