@@ -1,28 +1,31 @@
 local config = {}
 
 function config.lsp()
-  -- servers
-  require("nvim-lsp-installer").on_server_ready(function(server)
-    local capabilities = vim.lsp.protocol.make_client_capabilities()
-    capabilities.textDocument.completion.completionItem.snippetSupport = true
-    capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+  require("mason").setup()
+  require("mason-lspconfig").setup()
+  require("mason-lspconfig").setup_handlers {
+    function(server_name)
+      local capabilities = vim.lsp.protocol.make_client_capabilities()
+      capabilities.textDocument.completion.completionItem.snippetSupport = true
+      capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
-    local opts = {
-      on_attach = function(client)
-        if client.resolved_capabilities.document_highlight then
-          require("illuminate").on_attach(client)
-        end
-      end,
-      capabilities = capabilities,
-    }
+      local opts = {
+        on_attach = function(client)
+          if client.resolved_capabilities.document_highlight then
+            require("illuminate").on_attach(client)
+          end
+        end,
+        capabilities = capabilities,
+      }
 
-    local have_config, server_opts = pcall(require, "module.lsp.server." .. server.name)
-    if have_config then
-      opts = vim.tbl_deep_extend("force", server_opts, opts)
+      local have_config, server_opts = pcall(require, "module.lsp.server." .. server_name)
+      if have_config then
+        opts = vim.tbl_deep_extend("force", server_opts, opts)
+      end
+
+      require("lspconfig")[server_name].setup(opts)
     end
-
-    server:setup(opts)
-  end)
+  }
 
   -- settings
   local icons = require "icons"
@@ -54,14 +57,6 @@ function config.lsp()
       prefix = "",
     },
   }
-
-  vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-    border = "rounded",
-  })
-
-  vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-    border = "rounded",
-  })
 end
 
 function config.outline()
@@ -126,8 +121,7 @@ function config.signature()
 end
 
 function config.lspsaga()
-  require('lspsaga').setup {
-    use_saga_diagnostic_sign = false,
+  require('lspsaga').init_lsp_saga {
     finder_action_keys = {
       open = "<CR>",
       vsplit = "v",

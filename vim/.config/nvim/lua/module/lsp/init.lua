@@ -5,34 +5,28 @@ local config = require("module.lsp.config")
 use {
   "neovim/nvim-lspconfig",
   module = "lspconfig",
-  event = "BufRead",
 }
 
 use {
-  "jose-elias-alvarez/null-ls.nvim",
-  after = "nvim-lspconfig",
-  config = function ()
-    require('null-ls').setup()
-  end
+  "williamboman/mason.nvim",
+  module = "mason",
+}
+
+use {
+  "williamboman/mason-lspconfig.nvim",
+  config = config.lsp
 }
 
 use {
   "ray-x/lsp_signature.nvim",
-  opt = true,
+  after = "nvim-lspconfig",
   config = config.signature
 }
 
 use {
-  'tami5/lspsaga.nvim',
-  opt = true,
+  'glepnir/lspsaga.nvim',
+  cmd = "Lspsaga",
   config = config.lspsaga
-}
-
-use {
-  "williamboman/nvim-lsp-installer",
-  after = "nvim-lspconfig",
-  wants = { "lsp_signature.nvim", "lspsaga.nvim" },
-  config = config.lsp
 }
 
 use "antoinemadec/FixCursorHold.nvim" -- This is needed to fix lsp doc highlight
