@@ -17,10 +17,6 @@ function config.treesitter()
       enable = true,
       enable_autocmd = false,
     },
-    autotag = {
-      enable = true,
-      disable = { "xml" },
-    },
     rainbow = {
       enable = true,
       colors = {
@@ -42,6 +38,10 @@ function config.treesitter()
       enable = true,
     },
   }
+end
+
+function config.autotag()
+  require('nvim-ts-autotag').setup()
 end
 
 function config.autopairs()
@@ -137,6 +137,10 @@ function config.indentline()
       "operation_type",
     },
   }
+end
+
+function config.twilight()
+  require('twilight').setup()
 end
 
 function config.zen()

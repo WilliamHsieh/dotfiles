@@ -7,12 +7,19 @@ use {
   run = ":TSUpdate",
   event = { "BufRead", "BufNewFile" },
   module = "nvim-treesitter",
-  wants = { "nvim-ts-autotag", "nvim-ts-rainbow" },
-  cmd = { "TSInstall", "TSInstallInfo", "TSInstallSync", "TSUninstall", "TSUpdate", "TSUpdateSync", "TSDisableAll", "TSEnableAll" },
+  cmd = "TSUpdate",
   config = config.treesitter
 }
-use { "windwp/nvim-ts-autotag", opt = true, }
-use { "p00f/nvim-ts-rainbow", opt = true, }
+
+use {
+  "p00f/nvim-ts-rainbow",
+  after = "nvim-treesitter",
+}
+
+use {
+  "andymass/vim-matchup", -- TODO: this is SUPPER slow
+  after = "nvim-treesitter",
+}
 
 use {
   "JoosepAlviste/nvim-ts-context-commentstring",
@@ -24,14 +31,15 @@ use {
 }
 
 use {
-  "windwp/nvim-autopairs",
+  "windwp/nvim-ts-autotag",
   after = "nvim-treesitter",
-  config = config.autopairs
+  config = config.autotag
 }
 
 use {
-  "andymass/vim-matchup", -- TODO: this is SUPPER slow
+  "windwp/nvim-autopairs",
   after = "nvim-treesitter",
+  config = config.autopairs
 }
 
 use {
@@ -62,9 +70,7 @@ use {
 use {
   "folke/twilight.nvim",
   cmd = "ZenMode",
-  config = function()
-    require('twilight').setup()
-  end
+  config = config.twilight
 }
 
 use {
