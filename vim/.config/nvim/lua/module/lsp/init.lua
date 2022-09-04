@@ -3,17 +3,11 @@ local use = require("utils").insert_table(plugins)
 local config = require("module.lsp.config")
 
 use {
-  "neovim/nvim-lspconfig",
-  module = "lspconfig",
-}
-
-use {
-  "williamboman/mason.nvim",
-  module = "mason",
-}
-
-use {
   "williamboman/mason-lspconfig.nvim",
+  requires = {
+    "williamboman/mason.nvim",
+    "neovim/nvim-lspconfig",
+  },
   config = config.lsp
 }
 
