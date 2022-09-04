@@ -102,6 +102,7 @@ return function()
   require("feline").setup {
     theme = {
       -- show all highlight groups by sourcing $VIMRUNTIME/syntax/hitest.vim
+      bg = get_hl('Directory').bg,
       red = get_hl('Error').fg,
       orange = get_hl('String').fg,
       yellow = get_hl('Todo').fg,
