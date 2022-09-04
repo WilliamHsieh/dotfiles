@@ -11,6 +11,7 @@ use "nvim-lua/plenary.nvim"
 -- Notification
 use {
   "rcarriga/nvim-notify",
+  after = "vscode.nvim",
   config = config.notify
 }
 
