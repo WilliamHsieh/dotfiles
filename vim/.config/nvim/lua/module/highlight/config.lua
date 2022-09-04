@@ -92,7 +92,7 @@ function config.todo()
 end
 
 function config.illuminate()
-  vim.g.Illuminate_ftblacklist = {'alpha', 'NvimTree'}
+  vim.g.Illuminate_ftblacklist = {'alpha', 'NvimTree', 'toggleterm'}
 end
 
 function config.indentline()
@@ -140,7 +140,7 @@ function config.indentline()
 end
 
 function config.zen()
-  require("zen-mode").setup{
+  require("zen-mode").setup {
     plugins = {
       tmux = {
         enabled = true
