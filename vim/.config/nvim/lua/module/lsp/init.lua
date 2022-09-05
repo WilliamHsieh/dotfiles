@@ -24,13 +24,14 @@ use {
 }
 
 use "antoinemadec/FixCursorHold.nvim" -- This is needed to fix lsp doc highlight
+
 use "b0o/SchemaStore.nvim"
+
 use {
   "folke/trouble.nvim",
   cmd = "TroubleToggle",
 }
 
--- Tagbar
 use {
   "preservim/tagbar",
   cmd = "TagbarToggle"
@@ -39,6 +40,7 @@ use {
 use {
   "simrat39/symbols-outline.nvim",
   after = "nvim-lspconfig",
+  cmd = "SymbolsOutline",
   config = config.outline
 }
 
