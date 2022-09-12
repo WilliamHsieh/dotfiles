@@ -92,7 +92,17 @@ function config.todo()
 end
 
 function config.illuminate()
-  vim.g.Illuminate_ftblacklist = {'alpha', 'NvimTree', 'toggleterm'}
+  require('illuminate').configure {
+    providers = {
+      'lsp',
+      'treesitter',
+    },
+    filetypes_denylist = {
+      'alpha',
+      'NvimTree',
+      'toggleterm',
+    }
+  }
 end
 
 function config.indentline()
