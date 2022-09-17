@@ -55,10 +55,9 @@ map("n", "<leader>bu", function() require("cinnamon").setup() end, "activate smo
 
 -- <leader>c: compile{{{
 local function termexec(cmd)
-  vim.api.nvim_command("write")
-  cmd = 'TermExec cmd="' .. cmd .. '"'
-  vim.api.nvim_command(cmd)
-  vim.api.nvim_command("startinsert")
+  vim.cmd("write")
+  vim.cmd('TermExec cmd="' .. cmd .. '"')
+  vim.cmd("startinsert")
 end
 
 local function compile()

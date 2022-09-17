@@ -36,7 +36,7 @@ use {
 use {
   "akinsho/toggleterm.nvim",
   module = "toggleterm",
-  cmd = "ToggleTerm",
+  cmd = { "ToggleTerm", "TermExec" },
   config = config.toggleterm
 }
 
