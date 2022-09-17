@@ -6,7 +6,9 @@ function config.lsp()
       border = "rounded",
     }
   }
-  require("mason-lspconfig").setup()
+  require("mason-lspconfig").setup {
+    ensure_installed = { "sumneko_lua", "clangd", "pyright" }
+  }
   require("mason-lspconfig").setup_handlers {
     function(server_name)
       local capabilities = vim.lsp.protocol.make_client_capabilities()
