@@ -29,7 +29,10 @@ use {
 }
 
 -- Others
-use "kevinhwang91/nvim-bqf" -- better quickfix window
+use {
+  "kevinhwang91/nvim-bqf",
+  ft = "qf"
+}
 
 use { "michaelb/sniprun",
   run = "bash ./install.sh",
@@ -37,12 +40,19 @@ use { "michaelb/sniprun",
   config = function() require('sniprun').setup() end
 }
 
-use { "mbbill/undotree", cmd = "UndotreeToggle" }
+use {
+  "mbbill/undotree",
+  cmd = "UndotreeToggle"
+}
 
-use { 'tpope/vim-obsession', cmd = "Obsession" }
+use {
+  'tpope/vim-obsession',
+  cmd = "Obsession"
+}
 
 use {
   'declancm/cinnamon.nvim',
+  disable = true
   -- config = function() require('cinnamon').setup() end
 }
 

@@ -25,7 +25,10 @@ use {
 
 use "antoinemadec/FixCursorHold.nvim" -- This is needed to fix lsp doc highlight
 
-use "b0o/SchemaStore.nvim"
+use {
+  "b0o/SchemaStore.nvim",
+  ft = "json"
+}
 
 use {
   "folke/trouble.nvim",
@@ -39,7 +42,6 @@ use {
 
 use {
   "simrat39/symbols-outline.nvim",
-  after = "nvim-lspconfig",
   cmd = "SymbolsOutline",
   config = config.outline
 }
