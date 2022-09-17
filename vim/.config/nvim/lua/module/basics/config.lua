@@ -118,7 +118,17 @@ function config.whichkey()
     h = { name = "Hop" },
   }
 
+  local vopts = {
+    mode = 'v',
+    prefix = '<leader>',
+  }
+
+  local vmappings = {
+    g = { name = "Git" },
+  }
+
   which_key.register(mappings, opts)
+  which_key.register(vmappings, vopts)
 end
 
 return config
