@@ -2,7 +2,14 @@ local plugins = {}
 local use = require("utils").insert_table(plugins)
 local config = require("module.basics.config")
 
-use "wbthomason/packer.nvim"
+-- Plugin manager
+use {
+  "wbthomason/packer.nvim",
+  cmd = { "PackerSync", "PackerCompile", "PackerProfile", "PackerStatus" },
+  config = function()
+    require("core.plugins")
+  end
+}
 
 -- Useful api
 use "nvim-lua/popup.nvim"

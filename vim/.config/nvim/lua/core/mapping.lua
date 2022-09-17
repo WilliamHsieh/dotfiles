@@ -95,10 +95,8 @@ map("n", "<leader>cp", previous_command, "Previous command")
 
 -- <leader>p: packer{{{
 map("n", "<leader>pc", "<cmd>PackerCompile<cr>", "Compile")
-map("n", "<leader>pi", "<cmd>PackerInstall<cr>", "Install")
 map("n", "<leader>ps", "<cmd>PackerSync<cr>", "Sync")
 map("n", "<leader>pS", "<cmd>PackerStatus<cr>", "Status")
-map("n", "<leader>pu", "<cmd>PackerUpdate<cr>", "Update")
 map("n", "<leader>pp", "<cmd>PackerProfile<cr>", "Profile")
 --}}}
 
