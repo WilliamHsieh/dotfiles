@@ -89,8 +89,6 @@ end
 map("n", "<leader>cc", compile, "Compile and run")
 map("n", "<leader>cm", make, "Make")
 map("n", "<leader>cp", previous_command, "Previous command")
-
--- TODO: remove TODO from whichkey::compile section
 --}}}
 
 -- <leader>p: packer{{{
@@ -208,9 +206,6 @@ map("n", "mx", "<cmd>BookmarkClearAll<cr>", "Clear All")
 
 -- others{{{
 map("i", "kj", "<esc>")
-
--- tmux status bar
-map("n", "<f11>", function() vim.fn.system("tmux set status") end, "Toggle tmux status bar")
 
 -- quickfix
 map("n", "]q", "<cmd>cnext<cr>", "quickfix next")

@@ -40,9 +40,10 @@ use {
   config = config.toggleterm
 }
 
--- keymap
+-- Keymap
 use {
   "folke/which-key.nvim",
+  keys = { "<leader>", '"', "'", "g", "m" },
   config = config.whichkey
 }
 
