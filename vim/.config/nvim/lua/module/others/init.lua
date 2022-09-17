@@ -5,28 +5,23 @@ local config = require("module.others.config")
 use {
   "phaazon/hop.nvim",
   cmd = { 'HopChar2', 'HopWord' },
-  config = function()
-    require('hop').setup {
-      -- keys = 'asdghklqwertyuiopzxcvbnmfj' -- default
-      keys = 'awefjio;sdghklqrtyupvbn'
-    }
-  end
+  config = config.hop
 }
 
 -- Markdown
-use {
-  'preservim/vim-markdown',
-  requires = 'godlygeek/tabular',
-  ft = 'markdown',
-  disable = true
-  -- config = 'vim.g.markdown_fenced_languages = { "cpp", "bash", "lua", "python" }'
-}
-use {
-  "iamcco/markdown-preview.nvim",
-  run = "cd app && npm install",
-  ft = "markdown",
-  disable = true
-}
+-- use {
+--   'preservim/vim-markdown',
+--   requires = 'godlygeek/tabular',
+--   ft = 'markdown',
+--   disable = true
+--   -- config = 'vim.g.markdown_fenced_languages = { "cpp", "bash", "lua", "python" }'
+-- }
+-- use {
+--   "iamcco/markdown-preview.nvim",
+--   run = "cd app && npm install",
+--   ft = "markdown",
+--   disable = true
+-- }
 
 -- Others
 use {
