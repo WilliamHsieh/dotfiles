@@ -1,7 +1,7 @@
 return function()
   local fill = { attribute = "bg", highlight = "TabLineFill" }
   local gray = { attribute = "fg", highlight = "FoldColumn" }
-  local normal = require("utils").get_hl("Normal")
+  local normal = require("core.utils").get_hl("Normal")
 
   -- base: others
   local base = {

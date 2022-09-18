@@ -34,7 +34,7 @@ function config.lsp()
   }
 
   -- settings
-  local icons = require "icons"
+  local icons = require "core.icons"
   local signs = {
     { name = "DiagnosticSignError", text = icons.diagnostics.Error },
     { name = "DiagnosticSignWarn", text = icons.diagnostics.Warning },

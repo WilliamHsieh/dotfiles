@@ -58,7 +58,7 @@ function config.cmp()
     mapping = mappings,
     formatting = {
       format = function(_, vim_item)
-        vim_item.kind = string.format("%s %s", require("icons").kind[vim_item.kind], vim_item.kind)
+        vim_item.kind = string.format("%s %s", require("core.icons").kind[vim_item.kind], vim_item.kind)
         vim_item.abbr = remove_leading_chr(vim_item.abbr)
         return vim_item
       end,

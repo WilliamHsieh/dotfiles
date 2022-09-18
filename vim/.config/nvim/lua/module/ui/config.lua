@@ -15,7 +15,7 @@ end
 
 function config.alpha()
   local alpha = require "alpha"
-  local icons = require "icons"
+  local icons = require "core.icons"
   local dashboard = require "alpha.themes.dashboard"
 
   dashboard.section.buttons.val = {
@@ -66,7 +66,7 @@ function config.alpha()
 end
 
 function config.tree()
-  local icons = require "icons"
+  local icons = require "core.icons"
   require('nvim-tree').setup {
     ignore_ft_on_setup = { "alpha" },
     update_cwd = true,

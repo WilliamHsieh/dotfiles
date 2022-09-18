@@ -1,7 +1,7 @@
 local config = {}
 
 function config.notify()
-  local icons = require "icons"
+  local icons = require "core.icons"
   vim.notify = require("notify")
 
   vim.notify.setup {

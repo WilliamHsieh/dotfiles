@@ -1,5 +1,5 @@
 return function()
-  local get_hl = require("utils").get_hl
+  local get_hl = require("core.utils").get_hl
   local vi_mode = require("feline.providers.vi_mode")
 
   local function vi_mode_color(is_bg)

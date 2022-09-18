@@ -3,7 +3,7 @@ local config = {}
 function config.telescope()
   local telescope = require("telescope")
   local actions = require "telescope.actions"
-  local icons = require("icons")
+  local icons = require("core.icons")
 
   telescope.setup {
     defaults = {
@@ -64,7 +64,7 @@ function config.project()
 end
 
 function config.bookmark()
-  local icons = require "icons"
+  local icons = require "core.icons"
   vim.g.bookmark_sign = icons.ui.BookMark
   vim.g.bookmark_annotation_sign = icons.ui.Comment
   vim.g.bookmark_no_default_key_mappings = 1

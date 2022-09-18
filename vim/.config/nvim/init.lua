@@ -18,10 +18,11 @@ if vim.fn.empty(vim.fn.glob(packer_path)) > 0 then
 
   vim.api.nvim_create_autocmd("User", {
     pattern = "PackerComplete",
+    group = "packer_settings",
     callback = function()
       vim.cmd("bw | Bdelete")
       vim.cmd("Alpha")
-      require("packer").loader "nvim-treesitter"
+      require("packer").loader("nvim-treesitter")
     end,
   })
 elseif not impatient_avail then
