@@ -31,11 +31,22 @@ autocmd("FileType", {
     vim.opt_local.buflisted = false
   end
 })
-autocmd("vimresized", {
+autocmd("VimResized", {
   desc = "auto resize",
   pattern = "*",
   group = "general_settings",
   command = "tabdo wincmd ="
+})
+autocmd("BufEnter", {
+  desc = "close nvim-tree if it's the last buffer",
+  pattern = "*",
+  group = "general_settings",
+  nested = true,
+  callback = function()
+    if vim.fn.winnr('$') == 1 and vim.fn.bufname() == 'NvimTree_' .. vim.fn.tabpagenr() then
+      vim.cmd("quit")
+    end
+  end
 })
 
 augroup("packer_settings")
