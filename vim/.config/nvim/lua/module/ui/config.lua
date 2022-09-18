@@ -10,6 +10,7 @@ function config.vscode()
       NvimTreeOpenedFolderName = { fg = c.vscBlue },
     }
   }
+  vim.api.nvim_set_hl(0, 'ExtraWhitespace', { fg = c.vscYellow, bg = "NONE", underline = true })
 end
 
 function config.alpha()

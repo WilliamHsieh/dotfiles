@@ -1,72 +1,88 @@
+local autocmd = vim.api.nvim_create_autocmd
+local augroup = function (name)
+  vim.api.nvim_create_augroup(name, { clear = true })
+end
+
+augroup("general_settings")
+autocmd("FileType", {
+  desc = "filetype settings",
+  pattern = { "qf", "help", "man", "lspinfo", "LspsagaHover" },
+  group = "general_settings",
+  callback = function()
+    vim.keymap.set('n', 'q', '<cmd>close<cr>', { desc = "close buffer" })
+  end
+})
+autocmd("TextYankPost", {
+  desc = "blink highlight text",
+  pattern = "*",
+  group = "general_settings",
+  callback = function()
+    vim.highlight.on_yank {
+      higroup = 'IncSearch',
+      timeout = 200,
+    }
+  end
+})
+autocmd("FileType", {
+  desc = "don't show qf in buffer",
+  pattern = "qf",
+  group = "general_settings",
+  callback = function()
+    vim.opt_local.buflisted = false
+  end
+})
+autocmd("vimresized", {
+  desc = "auto resize",
+  pattern = "*",
+  group = "general_settings",
+  command = "tabdo wincmd ="
+})
+
+augroup("packer_settings")
+autocmd("User", {
+  pattern = "PackerCompileDone",
+  group = "packer_settings",
+  callback = function()
+    vim.notify("packer compiled")
+  end
+})
+
+augroup("alpha_settings")
+autocmd("User", {
+  pattern = "AlphaReady",
+  group = "alpha_settings",
+  callback = function()
+    vim.opt.showtabline = 0
+    vim.opt.laststatus = 0
+    autocmd("BufUnload", {
+      pattern = "<buffer>",
+      group = "alpha_settings",
+      callback = function()
+        vim.opt.showtabline = 2
+        vim.opt.laststatus = 3
+      end
+    })
+  end
+})
+
+augroup("markdown_settings")
+autocmd("FileType", {
+  pattern = "markdown",
+  group = "markdown_settings",
+  callback = function()
+    vim.opt_local.wrap = true
+    vim.opt_local.spell = true
+  end
+})
+
 -- TODO: using new autocmd api
 vim.cmd [[
-  " ExtraWhitespace and cursorline
-  hi ExtraWhitespace cterm=underline ctermbg=NONE ctermfg=yellow
   augroup Theme
     autocmd!
-    " Highlight trailing spaces | spaces before tabs TODO: not working
     au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
     au InsertLeave * match ExtraWhitespace /\s\+$\| \+\ze\t/
 
-    " Cursorline
     au InsertEnter * set nocursorline
     au InsertLeave * set cursorline
   augroup END
-
-" *last-position-jump*  >
-autocmd BufRead * autocmd FileType <buffer> ++once
-\ if &ft !~# 'commit\|rebase' && line("'\"") > 1 && line("'\"") <= line("$") | exe 'normal! g`"' | endif
-
-  augroup _general_settings
-    autocmd!
-    autocmd FileType qf,help,man,lspinfo,LspsagaHover nnoremap <silent> <buffer> q :close<CR> 
-    autocmd TextYankPost * silent!lua require('vim.highlight').on_yank({higroup = 'Visual', timeout = 200}) 
-    autocmd BufWinEnter * :set formatoptions-=cro
-    autocmd FileType qf set nobuflisted
-    autocmd CmdWinEnter * quit
-  augroup end
-
-  augroup _git
-    autocmd!
-    autocmd FileType gitcommit setlocal wrap
-    autocmd FileType gitcommit setlocal spell
-  augroup end
-
-  augroup _markdown
-    autocmd!
-    autocmd FileType markdown setlocal wrap
-    autocmd FileType markdown setlocal spell
-  augroup end
-
-  augroup _auto_resize
-    autocmd!
-    autocmd VimResized * tabdo wincmd = 
-  augroup end
-
-  augroup _alpha
-    autocmd!
-    autocmd User AlphaReady set showtabline=0 | autocmd BufUnload <buffer> set showtabline=2
-    autocmd User AlphaReady set laststatus=0 | autocmd BufUnload <buffer> set laststatus=3
-  augroup end
-
-  augroup illuminate_augroup
-    autocmd!
-    autocmd VimEnter * hi link illuminatedWord LspReferenceText
-  augroup END
-
-  autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif
 ]]
-
-vim.cmd [[
-  augroup lspsaga_filetypes
-    autocmd!
-    autocmd FileType LspsagaRename inoremap <buffer><nowait><silent> <C-w> <esc>d0A
-  augroup END
-]]
-
-
--- Autoformat
--- augroup _lsp
---   autocmd!
---   autocmd BufWritePre * lua vim.lsp.buf.formatting()
--- augroup end
