@@ -1,50 +1,37 @@
-local plugins = {}
-local use = require("utils").insert_table(plugins)
 local config = require("module.basics.config")
 
--- Plugin manager
-use {
-  "wbthomason/packer.nvim",
-  cmd = { "PackerSync", "PackerCompile", "PackerProfile", "PackerStatus" },
-  config = function()
-    require("core.plugins")
-  end
-}
+local plugins = {
+  ["wbthomason/packer.nvim"] = {
+    cmd = { "PackerSync", "PackerCompile", "PackerProfile", "PackerStatus" },
+    config = function()
+      require("core.plugins")
+    end
+  },
 
--- Useful api
-use "nvim-lua/popup.nvim"
-use "nvim-lua/plenary.nvim"
+  ["nvim-lua/popup.nvim"] = {},
+  ["nvim-lua/plenary.nvim"] = {},
+  ["lewis6991/impatient.nvim"] = {},
 
--- Notification
-use {
-  "rcarriga/nvim-notify",
-  after = "vscode.nvim",
-  config = config.notify
-}
+  ["rcarriga/nvim-notify"] = {
+    after = "vscode.nvim",
+    config = config.notify
+  },
 
--- Profiling
-use "lewis6991/impatient.nvim"
+  ["numToStr/Comment.nvim"] = {
+    module = "Comment",
+    config = config.comment
+  },
 
--- Comment
-use {
-  "numToStr/Comment.nvim",
-  module = "Comment",
-  config = config.comment
-}
+  ["akinsho/toggleterm.nvim"] = {
+    module = "toggleterm",
+    cmd = { "ToggleTerm", "TermExec" },
+    config = config.toggleterm
+  },
 
--- floating terminal
-use {
-  "akinsho/toggleterm.nvim",
-  module = "toggleterm",
-  cmd = { "ToggleTerm", "TermExec" },
-  config = config.toggleterm
-}
-
--- Keymap
-use {
-  "folke/which-key.nvim",
-  keys = { "<leader>", '"', "'", "g", "m" },
-  config = config.whichkey
+  ["folke/which-key.nvim"] = {
+    keys = { "<leader>", '"', "'", "g", "m" },
+    config = config.whichkey
+  }
 }
 
 return plugins

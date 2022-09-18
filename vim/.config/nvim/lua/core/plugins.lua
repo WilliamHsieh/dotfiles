@@ -4,7 +4,11 @@ require("packer").startup {
     local tmp = vim.split(vim.fn.globpath(vim.fn.stdpath("config") .. module_dir, '*'), '\n')
     for _, f in ipairs(tmp) do
       local name = string.match(f, module_dir .. '/(.+)')
-      use(require('module.' .. name))
+      local specs = require('module.' .. name)
+      for key, plugin in pairs(specs) do
+        plugin[1] = key
+        use(plugin)
+      end
     end
   end,
   config = {

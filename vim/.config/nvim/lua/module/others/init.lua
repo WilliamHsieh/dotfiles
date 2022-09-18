@@ -1,14 +1,30 @@
-local plugins = {}
-local use = require("utils").insert_table(plugins)
 local config = require("module.others.config")
 
-use {
-  "phaazon/hop.nvim",
-  cmd = { 'HopChar2', 'HopWord' },
-  config = config.hop
+local plugins = {
+  ["phaazon/hop.nvim"] = {
+    cmd = { 'HopChar2', 'HopWord' },
+    config = config.hop
+  },
+
+  ["kevinhwang91/nvim-bqf"] = {
+    ft = "qf"
+  },
+
+  ["michaelb/sniprun"] = {
+    run = "bash ./install.sh",
+    cmd = { "SnipClose", "SnipRun", "SnipInfo", "SnipReplMemoryClean", "SnipReset", "SnipRunToggle", "SnipTerminate", },
+    config = function() require('sniprun').setup() end
+  },
+
+  ["mbbill/undotree"] = {
+    cmd = "UndotreeToggle"
+  },
+
+  ['tpope/vim-obsession'] = {
+    cmd = "Obsession"
+  },
 }
 
--- Markdown
 -- use {
 --   'preservim/vim-markdown',
 --   requires = 'godlygeek/tabular',
@@ -22,33 +38,5 @@ use {
 --   ft = "markdown",
 --   disable = true
 -- }
-
--- Others
-use {
-  "kevinhwang91/nvim-bqf",
-  ft = "qf"
-}
-
-use { "michaelb/sniprun",
-  run = "bash ./install.sh",
-  cmd = { "SnipClose", "SnipRun", "SnipInfo", "SnipReplMemoryClean", "SnipReset", "SnipRunToggle", "SnipTerminate", },
-  config = function() require('sniprun').setup() end
-}
-
-use {
-  "mbbill/undotree",
-  cmd = "UndotreeToggle"
-}
-
-use {
-  'tpope/vim-obsession',
-  cmd = "Obsession"
-}
-
-use {
-  'declancm/cinnamon.nvim',
-  disable = true
-  -- config = function() require('cinnamon').setup() end
-}
 
 return plugins

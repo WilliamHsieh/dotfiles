@@ -1,82 +1,70 @@
-local plugins = {}
-local use = require("utils").insert_table(plugins)
 local config = require("module.highlight.config")
 
-use {
-  "nvim-treesitter/nvim-treesitter",
-  run = ":TSUpdate",
-  event = { "BufRead", "BufNewFile" },
-  module = "nvim-treesitter",
-  cmd = "TSUpdate",
-  config = config.treesitter
-}
+local plugins = {
+  ["nvim-treesitter/nvim-treesitter"] = {
+    run = ":TSUpdate",
+    event = { "BufRead", "BufNewFile" },
+    module = "nvim-treesitter",
+    cmd = "TSUpdate",
+    config = config.treesitter
+  },
 
-use {
-  "p00f/nvim-ts-rainbow",
-  after = "nvim-treesitter",
-}
+  ["p00f/nvim-ts-rainbow"] = {
+    after = "nvim-treesitter",
+  },
 
-use {
-  "andymass/vim-matchup", -- TODO: this is SUPPER slow
-  after = "nvim-treesitter",
-}
+  ["andymass/vim-matchup"] = {
+    after = "nvim-treesitter",
+  },
 
-use {
-  "JoosepAlviste/nvim-ts-context-commentstring",
-  module = "ts_context_commentstring",
-}
-use {
-  "nvim-treesitter/playground",
-  cmd = { "TSPlaygroundToggle" , "TSHighlightCapturesUnderCursor" }
-}
+  ["JoosepAlviste/nvim-ts-context-commentstring"] = {
+    module = "ts_context_commentstring",
+  },
 
-use {
-  "windwp/nvim-ts-autotag",
-  after = "nvim-treesitter",
-  config = config.autotag
-}
+  ["nvim-treesitter/playground"] = {
+    cmd = { "TSPlaygroundToggle" , "TSHighlightCapturesUnderCursor" }
+  },
 
-use {
-  "windwp/nvim-autopairs",
-  after = "nvim-treesitter",
-  config = config.autopairs
-}
+  ["windwp/nvim-ts-autotag"] = {
+    after = "nvim-treesitter",
+    config = config.autotag
+  },
 
-use {
-  "norcalli/nvim-colorizer.lua",
-  after = "nvim-treesitter",
-  config = config.colorizer
-}
+  ["windwp/nvim-autopairs"] = {
+    after = "nvim-treesitter",
+    config = config.autopairs
+  },
 
-use {
-  "folke/todo-comments.nvim",
-  after = "nvim-treesitter",
-  config = config.todo
-}
+  ["norcalli/nvim-colorizer.lua"] = {
+    after = "nvim-treesitter",
+    config = config.colorizer
+  },
 
-use {
-  "RRethy/vim-illuminate",
-  after = "nvim-treesitter",
-  module = "illuminate",
-  config = config.illuminate
-}
+  ["folke/todo-comments.nvim"] = {
+    after = "nvim-treesitter",
+    config = config.todo
+  },
 
-use {
-  "lukas-reineke/indent-blankline.nvim",
-  after = "nvim-treesitter",
-  config = config.indentline
-}
+  ["RRethy/vim-illuminate"] = {
+    after = "nvim-treesitter",
+    module = "illuminate",
+    config = config.illuminate
+  },
 
-use {
-  "folke/twilight.nvim",
-  cmd = "ZenMode",
-  config = config.twilight
-}
+  ["lukas-reineke/indent-blankline.nvim"] = {
+    after = "nvim-treesitter",
+    config = config.indentline
+  },
 
-use {
-  "folke/zen-mode.nvim",
-  after = "twilight.nvim",
-  config = config.zen
+  ["folke/twilight.nvim"] = {
+    cmd = "ZenMode",
+    config = config.twilight
+  },
+
+  ["folke/zen-mode.nvim"] = {
+    after = "twilight.nvim",
+    config = config.zen
+  },
 }
 
 return plugins

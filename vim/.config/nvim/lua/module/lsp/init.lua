@@ -1,49 +1,41 @@
-local plugins = {}
-local use = require("utils").insert_table(plugins)
 local config = require("module.lsp.config")
 
-use {
-  "williamboman/mason-lspconfig.nvim",
-  requires = {
-    "williamboman/mason.nvim",
-    "neovim/nvim-lspconfig",
+local plugins = {
+  ["williamboman/mason-lspconfig.nvim"] = {
+    requires = {
+      "williamboman/mason.nvim",
+      "neovim/nvim-lspconfig",
+      "antoinemadec/FixCursorHold.nvim",
+    },
+    config = config.lsp
   },
-  config = config.lsp
-}
 
-use {
-  "ray-x/lsp_signature.nvim",
-  after = "nvim-lspconfig",
-  config = config.signature
-}
+  ["ray-x/lsp_signature.nvim"] = {
+    after = "nvim-lspconfig",
+    config = config.signature
+  },
 
-use {
-  'glepnir/lspsaga.nvim',
-  cmd = "Lspsaga",
-  config = config.lspsaga
-}
+  ['glepnir/lspsaga.nvim'] = {
+    cmd = "Lspsaga",
+    config = config.lspsaga
+  },
 
-use "antoinemadec/FixCursorHold.nvim" -- This is needed to fix lsp doc highlight
+  ["b0o/SchemaStore.nvim"] = {
+    ft = "json"
+  },
 
-use {
-  "b0o/SchemaStore.nvim",
-  ft = "json"
-}
+  ["folke/trouble.nvim"] = {
+    cmd = "TroubleToggle",
+  },
 
-use {
-  "folke/trouble.nvim",
-  cmd = "TroubleToggle",
-}
+  ["preservim/tagbar"] = {
+    cmd = "TagbarToggle"
+  },
 
-use {
-  "preservim/tagbar",
-  cmd = "TagbarToggle"
-}
-
-use {
-  "simrat39/symbols-outline.nvim",
-  cmd = "SymbolsOutline",
-  config = config.outline
+  ["simrat39/symbols-outline.nvim"] = {
+    cmd = "SymbolsOutline",
+    config = config.outline
+  },
 }
 
 return plugins
