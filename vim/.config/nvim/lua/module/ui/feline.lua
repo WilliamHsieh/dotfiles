@@ -87,9 +87,12 @@ return function()
   }
 
   local position = {
-    provider = 'position',
+    provider = function()
+      local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+      local total = vim.api.nvim_buf_line_count(0)
+      return ' ' .. line .. '/' .. total .. ':' .. col .. ' '
+    end,
     hl = vi_mode_color(false),
-    left_sep = ' ', right_sep = ' ',
   }
 
   local line_percentage = {
