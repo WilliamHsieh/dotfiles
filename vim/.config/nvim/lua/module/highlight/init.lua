@@ -17,6 +17,10 @@ local plugins = {
     after = "nvim-treesitter",
   },
 
+  ["nvim-treesitter/nvim-treesitter-context"] = {
+    after = "nvim-treesitter",
+  },
+
   ["JoosepAlviste/nvim-ts-context-commentstring"] = {
     module = "ts_context_commentstring",
   },
