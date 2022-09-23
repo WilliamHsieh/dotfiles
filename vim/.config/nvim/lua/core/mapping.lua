@@ -113,6 +113,7 @@ map("n", "<leader>fr", "<cmd>Telescope oldfiles<cr>", "Recent File")
 map("n", "<leader>fk", "<cmd>Telescope keymaps<cr>", "Keymaps")
 map("n", "<leader>fp", "<cmd>Telescope projects<cr>", "Projects")
 map("n", "<leader>ft", "<cmd>TodoTelescope<cr>", "TODOs")
+map("n", "<leader>f/", "<cmd>Telescope current_buffer_fuzzy_find<cr>", "Search in current buffer")
 --}}}
 
 -- <leader>h: hop{{{
