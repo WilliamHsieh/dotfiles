@@ -18,7 +18,7 @@ if vim.fn.empty(vim.fn.glob(packer_path)) > 0 then
 
   vim.api.nvim_create_autocmd("User", {
     pattern = "PackerComplete",
-    group = "packer_settings",
+    group = "config_group",
     callback = function()
       vim.cmd("bw | Bdelete")
       vim.cmd("Alpha")

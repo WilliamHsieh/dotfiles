@@ -41,7 +41,6 @@ end
 function config.toggleterm()
   require('toggleterm').setup {
     size = 20,
-    open_mapping = [[<c-\>]],
     hide_numbers = true,
     shade_filetypes = {},
     shade_terminals = true,
@@ -52,6 +51,8 @@ function config.toggleterm()
     direction = "float",
     close_on_exit = true,
     shell = vim.o.shell,
+    auto_scroll = false,
+    persist_mode = true,
     on_stdout = function(term, _, data, _)
       if term:is_open() then return end
       for _, s in pairs(data) do
