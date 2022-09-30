@@ -22,6 +22,7 @@ local plugins = {
 
   ["kyazdani42/nvim-tree.lua"] = {
     cmd = "NvimTreeToggle",
+    module = "nvim-tree",
     config = config.tree
   },
 

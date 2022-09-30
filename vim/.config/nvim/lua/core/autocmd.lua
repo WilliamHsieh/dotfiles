@@ -1,13 +1,10 @@
 local autocmd = vim.api.nvim_create_autocmd
-local augroup = function (name)
-  vim.api.nvim_create_augroup(name, { clear = true })
-end
+vim.api.nvim_create_augroup("config_group", { clear = true })
 
-augroup("general_settings")
 autocmd("FileType", {
   desc = "filetype settings",
   pattern = { "qf", "help", "man", "lspinfo", "LspsagaHover" },
-  group = "general_settings",
+  group = "config_group",
   callback = function()
     vim.keymap.set('n', 'q', '<cmd>close<cr>', { desc = "close buffer" })
   end
@@ -15,7 +12,7 @@ autocmd("FileType", {
 autocmd("TextYankPost", {
   desc = "blink highlight text",
   pattern = "*",
-  group = "general_settings",
+  group = "config_group",
   callback = function()
     vim.highlight.on_yank {
       higroup = 'IncSearch',
@@ -26,7 +23,7 @@ autocmd("TextYankPost", {
 autocmd("FileType", {
   desc = "don't show qf in buffer",
   pattern = "qf",
-  group = "general_settings",
+  group = "config_group",
   callback = function()
     vim.opt_local.buflisted = false
   end
@@ -34,13 +31,13 @@ autocmd("FileType", {
 autocmd("VimResized", {
   desc = "auto resize",
   pattern = "*",
-  group = "general_settings",
+  group = "config_group",
   command = "tabdo wincmd ="
 })
 autocmd("BufEnter", {
   desc = "close nvim-tree if it's the last buffer",
   pattern = "*",
-  group = "general_settings",
+  group = "config_group",
   nested = true,
   callback = function()
     if vim.fn.winnr('$') == 1 and vim.fn.bufname() == 'NvimTree_' .. vim.fn.tabpagenr() then
@@ -49,25 +46,23 @@ autocmd("BufEnter", {
   end
 })
 
-augroup("packer_settings")
 autocmd("User", {
   pattern = "PackerCompileDone",
-  group = "packer_settings",
+  group = "config_group",
   callback = function()
     vim.notify("packer compiled")
   end
 })
 
-augroup("alpha_settings")
 autocmd("User", {
   pattern = "AlphaReady",
-  group = "alpha_settings",
+  group = "config_group",
   callback = function()
     vim.opt.showtabline = 0
     vim.opt.laststatus = 0
     autocmd("BufUnload", {
       pattern = "<buffer>",
-      group = "alpha_settings",
+      group = "config_group",
       callback = function()
         vim.opt.showtabline = 2
         vim.opt.laststatus = 3
@@ -76,13 +71,20 @@ autocmd("User", {
   end
 })
 
-augroup("markdown_settings")
 autocmd("FileType", {
   pattern = "markdown",
-  group = "markdown_settings",
+  group = "config_group",
   callback = function()
     vim.opt_local.wrap = true
     vim.opt_local.spell = true
+  end
+})
+
+vim.api.nvim_create_autocmd({ 'User' }, {
+  pattern = "SessionLoadPost",
+  group = "config_group",
+  callback = function()
+    require("nvim-tree").toggle(false, true)
   end
 })
 
