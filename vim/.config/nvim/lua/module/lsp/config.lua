@@ -17,9 +17,7 @@ function config.lsp()
 
       local opts = {
         on_attach = function(client)
-          if client.resolved_capabilities.document_highlight then
-            require("illuminate").on_attach(client)
-          end
+          require("illuminate").on_attach(client)
         end,
         capabilities = capabilities,
       }
