@@ -5,7 +5,6 @@ local plugins = {
     requires = {
       "williamboman/mason.nvim",
       "neovim/nvim-lspconfig",
-      "antoinemadec/FixCursorHold.nvim",
     },
     config = config.lsp
   },
