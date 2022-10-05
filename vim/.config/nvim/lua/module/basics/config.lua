@@ -40,6 +40,7 @@ end
 
 function config.toggleterm()
   require('toggleterm').setup {
+    open_mapping = [[<c-\>]],
     size = 20,
     hide_numbers = true,
     shade_filetypes = {},

@@ -56,7 +56,7 @@ map("n", "<leader>bu", function() require("cinnamon").setup() end, "activate smo
 -- <leader>c: compile{{{
 local function termexec(cmd)
   vim.cmd("write")
-  vim.cmd(vim.fn.bufnr() .. 'TermExec cmd="' .. cmd .. '"')
+  vim.cmd('TermExec cmd="' .. cmd .. '"')
   vim.cmd("startinsert")
 end
 
@@ -178,16 +178,16 @@ map("n", "<leader>sx", "<cmd>SnipTerminate<cr>", "Terminate")
 -- <leader>t: terminal{{{
 map('t', '<esc>', [[<C-\><C-n>]])
 map('t', 'kj', [[<C-\><C-n>]])
-map('t', [[<c-\>]], "<cmd>ToggleTerm<cr>", "Toggleterm")
+map('n', [[<c-\>]], "<cmd>ToggleTerm<cr>", "Toggleterm")
 
-map("n", [[<c-\>]], function()
+map("n", "<leader>tt", function()
   local cmd = "ToggleTerm"
   if vim.bo.filetype ~= "toggleterm" then
     cmd = vim.fn.bufnr() .. cmd
   end
   vim.cmd(cmd)
-end, "Toggleterm")
-map("n", [[<leader>tt]], "<cmd>ToggleTerm direction=float<cr>", "Float")
+end, "Float terminal for each buffer")
+
 map("n", [[<leader>t-]], "<cmd>ToggleTerm size=10 direction=horizontal<cr>", "Horizontal")
 map("n", [[<leader>t\]], "<cmd>ToggleTerm size=80 direction=vertical<cr>", "Vertical")
 map("n", "<leader>th", function() terminal('htop') end, "Htop")
