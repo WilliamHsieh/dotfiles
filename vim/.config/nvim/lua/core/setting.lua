@@ -46,6 +46,8 @@ end
 vim.opt.shortmess:append "c"
 
 local globals = {
+  loaded = 1,
+  loaded_netrwPlugin = 1,
   netrw_banner = 0,        -- disable banner
   netrw_liststyle = 3,     -- tree view
   netrw_bufsettings = 'noma nomod nonu nowrap ro buflisted', -- buflisted, fix bufferline wierdness
