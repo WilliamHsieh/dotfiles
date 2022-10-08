@@ -17,6 +17,15 @@ function install() {
   fi
 }
 
+function tmux_navigation() {
+	cmd=$(tmux display -p '#{pane_current_command}')
+	if [[ $cmd =~ vim$ ]]; then
+    tmux send-keys "M-$1"
+  else
+    tmux select-pane "-$(echo "$1" | tr "hjkl" "LDUR")"
+  fi
+}
+
 ## Backup old config files
 function backup_impl() {
 	backup_dir=~/dotfiles_backup

@@ -233,19 +233,16 @@ map({"n", "v"}, "<C-k>", "4kzz")
 map("!", "<C-a>", "<Home>")
 map("!", "<C-e>", "<End>")
 
--- TODO: change into lua function
-vim.cmd [[
-  function! Navigation_vim_tmux(vim_dir)
-    let pre_winnr=winnr()
-    silent exe "wincmd ".a:vim_dir
-    if exists('$TMUX') && pre_winnr == winnr()
-      call system("tmux select-pane -".tr(a:vim_dir, 'hjkl', 'LDUR'))
-    endif
-  endfunction
+local function vim_navigation(vim_dir)
+  local pre = vim.fn.winnr()
+  vim.cmd("wincmd " .. vim_dir)
+  if vim.fn.exists('$TMUX') and vim.fn.winnr() == pre then
+    local tmux_dir = vim.fn.tr(vim_dir, 'hjkl', 'LDUR')
+    vim.fn.system { "tmux", "select-pane", "-" .. tmux_dir }
+  end
+end
 
-  nnoremap <silent><M-h> :call Navigation_vim_tmux("h")<cr>
-  nnoremap <silent><M-j> :call Navigation_vim_tmux("j")<cr>
-  nnoremap <silent><M-k> :call Navigation_vim_tmux("k")<cr>
-  nnoremap <silent><M-l> :call Navigation_vim_tmux("l")<cr>
-]]
---}}}
+map("n", '<M-h>', function() vim_navigation('h') end)
+map("n", '<M-j>', function() vim_navigation('j') end)
+map("n", '<M-k>', function() vim_navigation('k') end)
+map("n", '<M-l>', function() vim_navigation('l') end)
