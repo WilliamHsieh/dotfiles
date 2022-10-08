@@ -57,7 +57,6 @@ map("n", "<leader>bu", function() require("cinnamon").setup() end, "activate smo
 local function termexec(cmd)
   vim.cmd("write")
   vim.cmd('TermExec cmd="' .. cmd .. '"')
-  vim.cmd("startinsert")
 end
 
 local function compile()
@@ -188,6 +187,7 @@ map("n", "<leader>tt", function()
   vim.cmd(cmd)
 end, "Float terminal for each buffer")
 
+map("n", [[<leader>tf]], "<cmd>ToggleTerm direction=float<cr>", "Float")
 map("n", [[<leader>t-]], "<cmd>ToggleTerm size=10 direction=horizontal<cr>", "Horizontal")
 map("n", [[<leader>t\]], "<cmd>ToggleTerm size=80 direction=vertical<cr>", "Vertical")
 map("n", "<leader>th", function() terminal('htop') end, "Htop")
