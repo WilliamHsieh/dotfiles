@@ -113,6 +113,12 @@ return function()
       blue = get_hl('Directory').fg,
       purple = get_hl('Keyword').fg,
     },
+    disable = {
+      filetypes = {
+        '^alpha$',
+      },
+    },
+    force_inactive = {},
     components = {
       active = {
         {
@@ -123,7 +129,7 @@ return function()
         {
           { provider = "diagnostic_errors", hl = 'DiagnosticError' },
           { provider = "diagnostic_warnings", hl = 'DiagnosticWarn' },
-          { provider = lsp_progress },
+          { provider = lsp_progress, enabled = function() return not vim.fn.exists("$TMUX") end, left_sep = ' ' },
           { provider = 'lsp_client_names', left_sep = '  ', right_sep = ' ' },
           { provider = treesitter_status, left_sep = ' ', right_sep = ' ' },
           file_type,

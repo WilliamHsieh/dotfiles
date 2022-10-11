@@ -59,13 +59,11 @@ autocmd("User", {
   group = "config_group",
   callback = function()
     vim.opt.showtabline = 0
-    vim.opt.laststatus = 0
     autocmd("BufUnload", {
       pattern = "<buffer>",
       group = "config_group",
       callback = function()
         vim.opt.showtabline = 2
-        vim.opt.laststatus = 3
       end
     })
   end

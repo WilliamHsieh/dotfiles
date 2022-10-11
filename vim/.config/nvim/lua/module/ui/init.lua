@@ -36,6 +36,10 @@ local plugins = {
     after = "vscode.nvim",
     config = require("module.ui.feline")
   },
+
+  ["vimpostor/vim-tpipeline"] = {
+    config = config.tpipeline
+  },
 }
 
 return plugins
