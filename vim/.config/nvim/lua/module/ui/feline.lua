@@ -40,18 +40,6 @@ return function()
     hl = vi_mode_color(false)
   }
 
-  local file_info = {
-    provider = {
-      name = 'file_info',
-      opts = {
-        colored_icon = false,
-        type = "unique",
-        file_modified_icon = "[+]"
-      }
-    },
-    icon = '',
-  }
-
   local function lsp_progress()
     local lsp = vim.lsp.util.get_progress_messages()[1]
     if not lsp then
@@ -74,25 +62,11 @@ return function()
     return (ts_avail and ts.has_parser()) and "綠TS" or ""
   end
 
-  local file_type = {
-    provider = {
-      name = 'file_type',
-      opts = {
-        filetype_icon = true,
-        case = "lowercase",
-      }
-    },
-    left_sep = ' ',
-    right_sep = ' ',
-  }
-
-  local position = {
-    provider = function()
-      local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-      local total = vim.api.nvim_buf_line_count(0)
-      return ' ' .. line .. '/' .. total .. ':' .. col .. ' '
-    end,
+  local hostname = {
+    provider = vim.fn.hostname(),
     hl = vi_mode_color(false),
+    left_sep = { str = ' ' },
+    right_sep = { str = ' ' },
   }
 
   local line_percentage = {
@@ -102,9 +76,11 @@ return function()
     right_sep = { str = ' ', hl = vi_mode_color(true) },
   }
 
-  require("feline").setup {
+  local feline = require("feline")
+
+  -- statusline
+  feline.setup {
     theme = {
-      -- show all highlight groups by sourcing $VIMRUNTIME/syntax/hitest.vim
       bg = get_hl('Directory').bg,
       red = get_hl('Error').fg,
       orange = get_hl('String').fg,
@@ -124,19 +100,68 @@ return function()
         {
           mode,
           git_branch,
-          file_info,
-        },
-        {
           { provider = "diagnostic_errors", hl = 'DiagnosticError' },
           { provider = "diagnostic_warnings", hl = 'DiagnosticWarn' },
+        },
+        {
           { provider = lsp_progress, enabled = function() return not vim.fn.exists("$TMUX") end, left_sep = ' ' },
           { provider = 'lsp_client_names', left_sep = '  ', right_sep = ' ' },
           { provider = treesitter_status, left_sep = ' ', right_sep = ' ' },
-          file_type,
-          position,
+          hostname,
           line_percentage,
         }
       }
+    }
+  }
+
+  -- winbar
+  local file_info = {
+    provider = {
+      name = 'file_info',
+      opts = {
+        type = "unique",
+        file_modified_icon = ""
+      }
+    },
+    hl = {
+      style = 'bold',
+    }
+  }
+
+  local modified_icon = {
+    provider = "●",
+    enabled = function()
+      return vim.bo.modified
+    end,
+    left_sep = ' ',
+    hl = { fg = 'orange' }
+  }
+
+  local winbar = {
+    {
+      file_info,
+      modified_icon,
+      {
+        provider = function()
+          local info = require("nvim-navic").get_location()
+          return #info == 0 and "" or ' > ' .. info
+        end,
+        enabled = function()
+          return require("nvim-navic").is_available()
+        end,
+      },
+    }
+  }
+  feline.winbar.setup {
+    disable = {
+      filetypes = {
+        '^alpha$',
+        '^NvimTree$',
+      },
+    },
+    components = {
+      active = winbar,
+      inactive = winbar,
     }
   }
 end

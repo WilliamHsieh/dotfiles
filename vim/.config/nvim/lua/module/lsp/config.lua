@@ -11,15 +11,14 @@ function config.lsp()
   }
   require("mason-lspconfig").setup_handlers {
     function(server_name)
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
-      capabilities.textDocument.completion.completionItem.snippetSupport = true
-      capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
-
       local opts = {
-        on_attach = function(client)
+        on_attach = function(client, bufnr)
           require("illuminate").on_attach(client)
+          if client.server_capabilities.documentSymbolProvider then
+            require("nvim-navic").attach(client, bufnr)
+          end
         end,
-        capabilities = capabilities,
+        capabilities = require('cmp_nvim_lsp').default_capabilities(),
       }
 
       local have_config, server_opts = pcall(require, "module.lsp.server." .. server_name)
@@ -84,6 +83,12 @@ function config.lspsaga()
       scroll_down = "<C-d>",
       scroll_up = "<C-u>",
     },
+  }
+end
+
+function config.navic()
+  require("nvim-navic").setup {
+    highlight = true,
   }
 end
 

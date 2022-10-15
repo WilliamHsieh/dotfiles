@@ -9,6 +9,11 @@ local plugins = {
     config = config.lsp
   },
 
+  ["SmiteshP/nvim-navic"] = {
+    requires = "neovim/nvim-lspconfig",
+    config = config.navic
+  },
+
   ["ray-x/lsp_signature.nvim"] = {
     after = "nvim-lspconfig",
     config = config.signature
