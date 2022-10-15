@@ -58,12 +58,10 @@ autocmd("User", {
   pattern = "AlphaReady",
   group = "config_group",
   callback = function()
-    vim.opt.showtabline = 0
     autocmd("BufUnload", {
       pattern = "<buffer>",
       group = "config_group",
       callback = function()
-        vim.opt.showtabline = 2
       end
     })
   end

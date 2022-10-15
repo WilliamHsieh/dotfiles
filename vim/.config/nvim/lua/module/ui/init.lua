@@ -29,6 +29,7 @@ local plugins = {
   ["akinsho/bufferline.nvim"] = {
     requires = "moll/vim-bbye",
     after = { "nvim-web-devicons", "vscode.nvim" },
+    disable = true,
     config = require("module.ui.bufferline")
   },
 
