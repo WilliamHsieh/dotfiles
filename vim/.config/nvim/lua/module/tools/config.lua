@@ -7,6 +7,9 @@ function config.telescope()
 
   telescope.setup {
     defaults = {
+      file_ignore_patterns = {
+        ".git/",
+      },
 
       prompt_prefix = icons.ui.Telescope .. " ",
       selection_caret = " ",
@@ -42,6 +45,28 @@ function config.telescope()
 
           ["?"] = actions.which_key,
         },
+      },
+    },
+    pickers = {
+      find_files = {
+        find_command = {
+          'fd',
+          '--type',
+          'file',
+          '--type',
+          'symlink',
+          '--hidden',
+          '--exclude',
+          '.git',
+        }
+      },
+      live_grep = {
+        glob_pattern = {
+          "!.git/"
+        },
+        additional_args = function()
+          return {"--hidden"}
+        end
       },
     },
     extensions = {
