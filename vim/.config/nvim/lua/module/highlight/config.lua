@@ -87,7 +87,7 @@ end
 
 function config.todo()
   require('todo-comments').setup {
-    sign_priority = 0
+    signs = false
   }
 end
 
