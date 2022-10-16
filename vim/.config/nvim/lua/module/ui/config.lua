@@ -29,7 +29,7 @@ function config.alpha()
     dashboard.button("q", icons.diagnostics.Error .. " Quit", ":qa<CR>"),
   }
 
-  dashboard.section.header.val = function()
+  local function get_header()
     -- https://manytools.org/hacker-tools/ascii-banner/
     local banner = {
       "███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗",
@@ -54,11 +54,13 @@ function config.alpha()
     return res
   end
 
-  dashboard.section.footer.val = function()
-    local cnt = #vim.fn.globpath(vim.fn.stdpath "data" .. "/site/pack/packer/start", "*", 0, 1)
-    return cnt .. " plugins loaded"
+  local function get_footer()
+    local v = vim.version()
+    return string.format("NVIM v%d.%d.%d", v.major, v.minor, v.patch)
   end
 
+  dashboard.section.header.val = get_header()
+  dashboard.section.footer.val = get_footer()
   dashboard.section.header.opts.hl = "Include"
   dashboard.section.footer.opts.hl = "Type"
   dashboard.section.buttons.opts.hl = "Keyword"
