@@ -1,12 +1,10 @@
 local config = require("module.tools.config")
 
 local plugins = {
-  -- TODO: searching in symlinks: https://github.com/nvim-telescope/telescope.nvim/issues/394#issuecomment-966285634
   ["nvim-telescope/telescope.nvim"] = {
     cmd = "Telescope",
     module = "telescope",
     ft = "alpha",
-    wants = "telescope-ui-select.nvim",
     config = config.telescope
   },
 
@@ -16,7 +14,10 @@ local plugins = {
   },
 
   ["nvim-telescope/telescope-ui-select.nvim"] = {
-    opt = true,
+    after = "telescope.nvim",
+    config = function()
+      require("telescope").load_extension "ui-select"
+    end,
   },
 
   ["nvim-telescope/telescope-fzf-native.nvim"] = {
@@ -25,18 +26,6 @@ local plugins = {
     config = function()
       require("telescope").load_extension "fzf"
     end,
-  },
-
-  ["MattesGroeger/vim-bookmarks"] = {
-    event = "BufRead",
-    config = config.bookmark
-  },
-
-  ["tom-anders/telescope-vim-bookmarks.nvim"] = {
-    after = { "telescope.nvim", "vim-bookmarks" },
-    config = function()
-      require('telescope').load_extension('vim_bookmarks')
-    end
   },
 
   ["lewis6991/gitsigns.nvim"] = {

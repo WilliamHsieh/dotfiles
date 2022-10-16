@@ -37,6 +37,7 @@ function config.telescope()
           ["<esc>"] = actions.close,
           ["<C-c>"] = actions.close,
           ["q"] = actions.close,
+          ["dd"] = actions.delete_buffer,
 
           ["<PageUp>"] = actions.results_scrolling_up,
           ["<PageDown>"] = actions.results_scrolling_down,
@@ -48,25 +49,26 @@ function config.telescope()
       },
     },
     pickers = {
+      buffers = {
+        theme = "dropdown",
+        previewer = false,
+        -- initial_mode = "normal",
+      },
       find_files = {
-        find_command = {
-          'fd',
-          '--type',
-          'file',
-          '--type',
-          'symlink',
-          '--hidden',
-          '--exclude',
-          '.git',
-        }
+        find_command = { 'fd', '-L', '--type', 'file', '--type', 'symlink', '--hidden', '--exclude', '.git' }
+        -- find_command = { 'rg', '--ignore', '-L', '--hidden', "--files" }
       },
       live_grep = {
+        theme = "ivy",
         glob_pattern = {
           "!.git/"
         },
         additional_args = function()
-          return {"--hidden"}
+          return { "--hidden", "-L" }
         end
+      },
+      colorscheme = {
+        enable_preview = true,
       },
     },
     extensions = {
@@ -75,8 +77,6 @@ function config.telescope()
       },
     },
   }
-
-  telescope.load_extension("ui-select")
 end
 
 function config.project()

@@ -44,7 +44,7 @@ map("n", "<leader><space>", ":e #<cr>", "swap buffer")
 --}}}
 
 -- <leader>b: buffer{{{
-map("n", "<leader>bb", function() require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false}) end, "Buffers")
+map("n", "<leader>bb", "<cmd>Telescope buffers<cr>", "Buffers")
 map("n", "<leader>b>", "<cmd>BufferLineMoveNext<cr>", "Move right")
 map("n", "<leader>b<", "<cmd>BufferLineMovePrev<cr>", "Move left")
 map("n", "<leader>bs", "<cmd>so %|lua vim.notify('Buffer sourced.')<cr>", "Source this buffer")
@@ -98,10 +98,10 @@ map("n", "<leader>pp", "<cmd>PackerProfile<cr>", "Profile")
 
 -- <leader>f: find{{{
 -- telescope
-map("n", "<C-p>", function() require('telescope.builtin').find_files(require('telescope.themes').get_dropdown{previewer = false}) end)
+map("n", "<C-p>", "<cmd>Telescope find_files theme=dropdown previewer=false<cr>")
 map("n", "<leader>fb", "<cmd>Telescope vim_bookmarks all<cr>", "Bookmarks")
-map("n", "<leader>ff", "<cmd>Telescope find_files hidden=true<cr>", "Find files")
-map("n", "<leader>fF", "<cmd>Telescope live_grep theme=ivy<cr>", "Find Text")
+map("n", "<leader>ff", "<cmd>Telescope find_files<cr>", "Find files")
+map("n", "<leader>fF", "<cmd>Telescope live_grep<cr>", "Find Text")
 map("n", "<leader>fB", "<cmd>Telescope git_branches<cr>", "Checkout branch")
 map("n", "<leader>fc", "<cmd>Telescope colorscheme<cr>", "Colorscheme")
 map("n", "<leader>fC", "<cmd>Telescope commands<cr>", "Commands")
