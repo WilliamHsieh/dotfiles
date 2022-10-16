@@ -120,4 +120,18 @@ function config.gitsigns()
   }
 end
 
+function config.neogit()
+  require("neogit").setup {
+    integrations = {
+      diffview = true
+    },
+    mappings = {
+      status = {
+        ['<cr>'] = "Toggle",
+        ['o'] = "GoToFile",
+      }
+    }
+  }
+end
+
 return config

@@ -33,6 +33,15 @@ local plugins = {
     config = config.gitsigns
   },
 
+  ['TimUntersberger/neogit'] = {
+    cmd = "Neogit",
+    requires = {
+      'nvim-lua/plenary.nvim',
+      'sindrets/diffview.nvim',
+    },
+    config = config.neogit
+  },
+
   ["rhysd/conflict-marker.vim"] = {},
 }
 
