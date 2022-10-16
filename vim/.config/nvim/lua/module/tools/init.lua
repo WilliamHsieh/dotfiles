@@ -5,6 +5,7 @@ local plugins = {
   ["nvim-telescope/telescope.nvim"] = {
     cmd = "Telescope",
     module = "telescope",
+    ft = "alpha",
     wants = "telescope-ui-select.nvim",
     config = config.telescope
   },
