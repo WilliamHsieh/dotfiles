@@ -157,6 +157,7 @@ return function()
       filetypes = {
         '^alpha$',
         '^NvimTree$',
+        '^toggleterm$',
       },
     },
     components = {
