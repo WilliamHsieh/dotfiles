@@ -1,43 +1,78 @@
 return function()
-  local get_hl = require("core.utils").get_hl
+  -- TODO: using custom_providers
+  -- local get_hl = require("core.utils").get_hl
   local vi_mode = require("feline.providers.vi_mode")
 
-  local function vi_mode_color(is_bg)
-    return function()
-      local m = vim.fn.mode():sub(1, 1)
-      local color = 'blue'
-      if m == 'R' then
-        color = 'red'
-      elseif m == 'c' then
-        color = 'orange'
-      elseif string.find("sSvV", m) or vi_mode.get_vim_mode() == 'BLOCK' then
-        color = 'yellow'
-      elseif m == 'i' then
-        color = 'green'
-      elseif m == 'r' then
-        color = 'purple'
-      end
-
-      return {
-        name = vi_mode.get_mode_highlight_name(),
-        fg = is_bg and 'bg' or color,
-        bg = is_bg and color or "bg",
-        style = is_bg and "bold" or "NONE"
-      }
+  local function vi_mode_color()
+    local m = vim.fn.mode():sub(1, 1)
+    local color = 'blue'
+    if m == 'R' then
+      color = 'red'
+    elseif m == 'c' then
+      color = 'orange'
+    elseif string.find("sSvV", m) or vi_mode.get_vim_mode() == 'BLOCK' then
+      color = 'peach'
+    elseif m == 'i' then
+      color = 'green'
+    elseif m == 'r' then
+      color = 'purple'
     end
+    return color
   end
 
+  local assets = {
+    left_separator = '',
+    right_separator = '',
+    mode = '',
+    dir = '',
+  }
+
   local mode = {
-    provider = function() return ' ' .. vi_mode.get_vim_mode() .. ' ' end,
-    hl = vi_mode_color(true),
-    right_sep = ' ',
+    provider = function() return vi_mode.get_vim_mode() .. ' ' end,
+    hl = function()
+      return {
+        fg = 'bg',
+        bg = vi_mode_color(),
+        style = 'bold',
+      }
+    end,
+    icon = '  ',
+    right_sep = {
+      str = assets.right_separator,
+      hl = function()
+        return {
+          fg = vi_mode_color(),
+          bg = 'purple',
+        }
+      end,
+    },
+  }
+
+  local cwd = {
+    provider = function()
+      local dir_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
+      return ' ' .. assets.dir .. ' ' .. dir_name .. " "
+    end,
+    hl = {
+			fg = 'bg',
+			bg = 'purple',
+    },
+    right_sep = {
+      str = assets.right_separator .. '  ',
+      hl = {
+        fg = 'purple',
+        bg = 'bg',
+      },
+    },
   }
 
   local git_branch = {
     provider = 'git_branch',
     icon = ' ',
-    right_sep = '  ',
-    hl = vi_mode_color(false)
+    right_sep = ' ',
+    hl = {
+      fg = 'gray'
+    }
   }
 
   local function lsp_progress()
@@ -57,38 +92,110 @@ return function()
     )
   end
 
-  local function treesitter_status()
-    local ts_avail, ts = pcall(require, "nvim-treesitter.parsers")
-    return (ts_avail and ts.has_parser()) and "綠TS" or ""
-  end
-
-  local hostname = {
-    provider = vim.fn.hostname(),
-    hl = vi_mode_color(false),
-    left_sep = { str = ' ' },
-    right_sep = { str = ' ' },
+  local diagnostic_errors = {
+    provider = "diagnostic_errors",
+    hl = {
+      fg = 'red',
+    }
+  }
+  local diagnostic_warnings = {
+    provider = "diagnostic_warnings",
+    hl = {
+      fg = 'yellow',
+    }
   }
 
-  local line_percentage = {
-    provider = 'line_percentage',
-    hl = vi_mode_color(true),
-    left_sep = { str = ' ', hl = vi_mode_color(true) },
-    right_sep = { str = ' ', hl = vi_mode_color(true) },
+  local lsp_client = {
+    provider = 'lsp_client_names',
+    hl = {
+      fg = 'gray',
+    },
+    left_sep = '  ',
+    right_sep = ' '
+  }
+
+  local treesitter_status = {
+    provider = function()
+      local ts_avail, ts = pcall(require, "nvim-treesitter.parsers")
+      return (ts_avail and ts.has_parser()) and "綠TS" or ""
+    end,
+    hl = {
+      fg = 'gray',
+    },
+    left_sep = ' ',
+    right_sep = '  ',
+  }
+
+  local filetype = {
+    provider = {
+      name = 'file_type',
+      opts = {
+        filetype_icon = true,
+        colored_icon = false,
+        case = "lowercase",
+      }
+    },
+    hl = {
+      fg = 'bg',
+      bg = 'red',
+    },
+    right_sep = {
+      str = ' ',
+      hl = {
+        bg = 'red',
+      },
+    },
+    left_sep = {
+      {
+        str = assets.left_separator,
+        hl = {
+          fg = 'red',
+        },
+      },
+      {
+        str = ' ',
+        hl = {
+          bg = 'red',
+        },
+      }
+    },
+  }
+
+  local hostname = {
+    provider = ' ' .. assets.mode .. ' ' .. vim.fn.hostname() .. ' ',
+    hl = {
+      fg = 'bg',
+      bg = 'peach',
+      style = 'bold',
+    },
+    left_sep = {
+      str = assets.left_separator,
+      hl = {
+        fg = 'peach',
+        bg = 'red',
+      },
+    },
+  }
+
+  -- https://github.com/feline-nvim/feline.nvim/blob/master/USAGE.md#themes
+  local colors = require("catppuccin.palettes").get_palette()
+  local catppuccin_theme = {
+    bg = colors.surface0,
+    red = colors.maroon,
+    orange = colors.peach,
+    yellow = colors.yellow,
+    peach = colors.flamingo,
+    green = colors.green,
+    blue = colors.lavender,
+    purple = colors.mauve,
+    gray = colors.overlay1,
   }
 
   local feline = require("feline")
 
   -- statusline
   feline.setup {
-    theme = {
-      bg = get_hl('Directory').bg,
-      red = get_hl('Error').fg,
-      orange = get_hl('String').fg,
-      yellow = get_hl('Todo').fg,
-      green = get_hl('TSNote').fg,
-      blue = get_hl('Directory').fg,
-      purple = get_hl('Keyword').fg,
-    },
+    theme = catppuccin_theme,
     disable = {
       filetypes = {
         '^alpha$',
@@ -99,70 +206,21 @@ return function()
       active = {
         {
           mode,
+          cwd,
           git_branch,
-          { provider = "diagnostic_errors", hl = 'DiagnosticError' },
-          { provider = "diagnostic_warnings", hl = 'DiagnosticWarn' },
+          diagnostic_errors,
+          diagnostic_warnings,
         },
         {
-          { provider = lsp_progress, enabled = function() return not vim.fn.exists("$TMUX") end, left_sep = ' ' },
-          { provider = 'lsp_client_names', left_sep = '  ', right_sep = ' ' },
-          { provider = treesitter_status, left_sep = ' ', right_sep = ' ' },
+          { provider = lsp_progress, enabled = function() return not vim.fn.exists("$TMUX") end },
+        },
+        {
+          lsp_client,
+          treesitter_status,
+          filetype,
           hostname,
-          line_percentage,
         }
       }
-    }
-  }
-
-  -- winbar
-  local file_info = {
-    provider = {
-      name = 'file_info',
-      opts = {
-        type = "unique",
-        file_modified_icon = ""
-      }
-    },
-    hl = {
-      style = 'bold',
-    }
-  }
-
-  local modified_icon = {
-    provider = "●",
-    enabled = function()
-      return vim.bo.modified
-    end,
-    left_sep = ' ',
-    hl = { fg = 'orange' }
-  }
-
-  local winbar = {
-    {
-      file_info,
-      modified_icon,
-      {
-        provider = function()
-          local info = require("nvim-navic").get_location()
-          return #info == 0 and "" or ' > ' .. info
-        end,
-        enabled = function()
-          return require("nvim-navic").is_available()
-        end,
-      },
-    }
-  }
-  feline.winbar.setup {
-    disable = {
-      filetypes = {
-        '^alpha$',
-        '^NvimTree$',
-        '^toggleterm$',
-      },
-    },
-    components = {
-      active = winbar,
-      inactive = winbar,
     }
   }
 end

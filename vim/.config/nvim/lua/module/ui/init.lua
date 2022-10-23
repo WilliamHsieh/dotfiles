@@ -7,11 +7,13 @@ local plugins = {
   ["EdenEast/nightfox.nvim"] = {},
   ["marko-cerovac/material.nvim"] = {},
   ["shaunsingh/nord.nvim"] = {},
-  ["catppuccin/nvim"] = {},
   ["Mofiqul/dracula.nvim"] = {},
   ["glepnir/zephyr-nvim"] = {},
   ['Mofiqul/vscode.nvim'] = {
-    config = config.vscode
+    -- config = config.vscode
+  },
+  ["catppuccin/nvim"] = {
+    config = config.catppuccin
   },
 
   ["kyazdani42/nvim-web-devicons"] = {},
@@ -29,7 +31,6 @@ local plugins = {
   ["akinsho/bufferline.nvim"] = {
     requires = "moll/vim-bbye",
     after = { "nvim-web-devicons", "vscode.nvim" },
-    disable = true,
     config = require("module.ui.bufferline")
   },
 

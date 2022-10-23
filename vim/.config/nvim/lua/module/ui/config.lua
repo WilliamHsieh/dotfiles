@@ -13,6 +13,47 @@ function config.vscode()
   vim.api.nvim_set_hl(0, 'ExtraWhitespace', { fg = c.vscYellow, bg = "NONE", underline = true })
 end
 
+function config.catppuccin()
+  require("catppuccin").setup {
+    flavour = "macchiato",
+    term_colors = true,
+    dim_inactive = {
+      enabled = true,
+    },
+    integrations = {
+      cmp = true,
+      gitsigns = true,
+      hop = true,
+      illuminate = true,
+      leap = true,
+      lsp_saga = true,
+      lsp_trouble = true,
+      markdown = true,
+      mason = true,
+      neogit = true,
+      noice = true,
+      notify = true,
+      nvimtree = true,
+      telescope = true,
+      treesitter = true,
+      treesitter_context = true,
+      which_key = true,
+      indent_blankline = {
+        enabled = true,
+        colored_indent_levels = false,
+      },
+      native_lsp = {
+        enabled = true,
+      },
+      navic = {
+        enabled = false,
+        custom_bg = "NONE",
+      },
+    }
+  }
+  vim.api.nvim_command "colorscheme catppuccin"
+end
+
 function config.alpha()
   local alpha = require "alpha"
   local icons = require "core.icons"

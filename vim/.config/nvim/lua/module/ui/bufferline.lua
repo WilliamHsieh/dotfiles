@@ -56,22 +56,24 @@ return function()
       always_show_bufferline = true,
       sort_by = "insert_after_current",
     },
-    highlights = {
-      background = base,
-      buffer_visible = visible,
-      buffer_selected = selected,
-      close_button = base,
-      close_button_selected = selected,
-      close_button_visible = selected,
-      duplicate = base,
-      duplicate_visible = visible,
-      duplicate_selected = selected,
-      modified = base,
-      modified_visible = modify,
-      modified_selected = modify,
-      separator = separator_other,
-      separator_visible = separator_slant,
-      separator_selected = separator_slant,
-    }
+    highlights = require("catppuccin.groups.integrations.bufferline").get(),
+
+    -- highlights = {
+    --   background = base,
+    --   buffer_visible = visible,
+    --   buffer_selected = selected,
+    --   close_button = base,
+    --   close_button_selected = selected,
+    --   close_button_visible = selected,
+    --   duplicate = base,
+    --   duplicate_visible = visible,
+    --   duplicate_selected = selected,
+    --   modified = base,
+    --   modified_visible = modify,
+    --   modified_selected = modify,
+    --   separator = separator_other,
+    --   separator_visible = separator_slant,
+    --   separator_selected = separator_slant,
+    -- }
   }
 end

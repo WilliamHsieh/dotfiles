@@ -18,7 +18,7 @@ function config.treesitter()
       enable_autocmd = false,
     },
     rainbow = {
-      enable = true,
+      enable = false,
       colors = {
         "Gold",
         "Orchid",

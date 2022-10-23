@@ -6,7 +6,6 @@ local plugins = {
     event = { "BufRead", "BufNewFile" },
     module = "nvim-treesitter",
     cmd = "TSUpdate",
-    commit = "4cccb6f494eb255b32a290d37c35ca12584c74d0",
     config = config.treesitter
   },
 
@@ -17,10 +16,11 @@ local plugins = {
   ["andymass/vim-matchup"] = {
     after = "nvim-treesitter",
     config = function()
-      vim.g.matchup_matchparen_offscreen = {
-        method = 'popup',
-        fullwidth = 1
-      }
+      vim.g.matchup_matchparen_offscreen = {}
+      -- vim.g.matchup_matchparen_offscreen = {
+      --   method = 'popup',
+      --   fullwidth = 1
+      -- }
     end
   },
 
