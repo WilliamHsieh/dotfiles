@@ -13,6 +13,7 @@ local plugins = {
     -- config = config.vscode
   },
   ["catppuccin/nvim"] = {
+    as = "catppuccin",
     config = config.catppuccin
   },
 
