@@ -52,11 +52,10 @@ function config.telescope()
       buffers = {
         theme = "dropdown",
         previewer = false,
-        -- initial_mode = "normal",
       },
       find_files = {
-        find_command = { 'fd', '-L', '--type', 'file', '--type', 'symlink', '--hidden', '--exclude', '.git' }
-        -- find_command = { 'rg', '--ignore', '-L', '--hidden', "--files" }
+        -- find_command = { 'fd', '-L', '--type', 'file', '--type', 'symlink', '--hidden', '--exclude', '.git' }
+        find_command = { 'rg', '--ignore', '-L', '--hidden', "--files" }
       },
       live_grep = {
         theme = "ivy",
@@ -70,6 +69,9 @@ function config.telescope()
       colorscheme = {
         enable_preview = true,
       },
+      git_status = {
+        initial_mode = "normal",
+      }
     },
     extensions = {
       ["ui-select"] = {
