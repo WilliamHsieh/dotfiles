@@ -35,6 +35,12 @@ local plugins = {
     config = require("module.ui.bufferline")
   },
 
+  ["tiagovla/scope.nvim"] = {
+    config = function()
+      require("scope").setup()
+    end
+  },
+
   ['feline-nvim/feline.nvim'] = {
     after = "vscode.nvim",
     config = require("module.ui.feline")
