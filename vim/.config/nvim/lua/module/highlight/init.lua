@@ -16,7 +16,11 @@ local plugins = {
   ["andymass/vim-matchup"] = {
     after = "nvim-treesitter",
     config = function()
-      vim.g.matchup_matchparen_offscreen = {}
+      vim.cmd [[
+        au User MatchupOffscreenEnter let g:sl = g:tpipeline_statusline | let g:tpipeline_statusline = &l:stl
+        au User MatchupOffscreenLeave let g:tpipeline_statusline = g:sl
+      ]]
+      -- vim.g.matchup_matchparen_offscreen = {}
       -- vim.g.matchup_matchparen_offscreen = {
       --   method = 'popup',
       --   fullwidth = 1
