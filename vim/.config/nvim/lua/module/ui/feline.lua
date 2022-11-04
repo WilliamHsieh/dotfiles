@@ -24,7 +24,7 @@ return function()
     left_separator = '',
     right_separator = '',
     mode = '',
-    dir = '',
+    dir = '',
   }
 
   local mode = {
