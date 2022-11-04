@@ -91,14 +91,6 @@
         source <(gdircolors)
     fi
 
-    # make sure the cursor is constantly block
-    cursor_shape="\e[2 q"
-    if [ -n "$TMUX" ]; then
-        echo -ne "\ePtmux;\e$cursor_shape\e\\"
-    else
-        echo -ne $cursor_shape
-    fi
-
     # ring the bell before every command
     precmd () {
         echo -ne '\a' #tput bel
