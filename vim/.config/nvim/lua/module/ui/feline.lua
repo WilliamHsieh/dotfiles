@@ -180,7 +180,7 @@ return function()
   -- https://github.com/feline-nvim/feline.nvim/blob/master/USAGE.md#themes
   local colors = require("catppuccin.palettes").get_palette()
   local catppuccin_theme = {
-    bg = colors.surface0,
+    bg = colors.base,
     red = colors.maroon,
     orange = colors.peach,
     yellow = colors.yellow,
