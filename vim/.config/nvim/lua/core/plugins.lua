@@ -21,5 +21,6 @@ require("packer").startup {
       enable = true,
       threshold = 0,
     },
+    snapshot_path = vim.fn.stdpath("config"),
   }
 }
