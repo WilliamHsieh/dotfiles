@@ -99,7 +99,6 @@ map("n", "<leader>pp", "<cmd>PackerProfile<cr>", "Profile")
 -- <leader>f: find{{{
 -- telescope
 map("n", "<C-p>", "<cmd>Telescope find_files theme=dropdown previewer=false<cr>")
-map("n", "<leader>fb", "<cmd>Telescope vim_bookmarks all<cr>", "Bookmarks")
 map("n", "<leader>ff", "<cmd>Telescope find_files<cr>", "Find files")
 map("n", "<leader>fF", "<cmd>Telescope live_grep<cr>", "Find Text")
 map("n", "<leader>fB", "<cmd>Telescope git_branches<cr>", "Checkout branch")
@@ -199,16 +198,6 @@ map("n", "<leader>tp", function() terminal('python3') end, "Python")
 map("v", "<leader>/", '<esc><cmd>lua require("Comment.api").toggle.linewise(vim.fn.visualmode())<cr>', "Comment")
 map("v", "<leader>s", "<esc><cmd>'<,'>SnipRun<cr>", "Run range")
 map("v", "<leader>y", function() yank() end, "copy to clipboard")
---}}}
-
--- m: mark mappings{{{
-map("n", "ma", "<cmd>BookmarkAnnotate<cr>", "Annotate")
-map("n", "mc", "<cmd>BookmarkClear<cr>", "Clear")
-map("n", "mm", "<cmd>BookmarkToggle<cr>", "Toggle")
-map("n", "mn", "<cmd>BookmarkNext<cr>", "Next")
-map("n", "mp", "<cmd>BookmarkPrev<cr>", "Prev")
-map("n", "ms", function() require('telescope').extensions.vim_bookmarks.all({ hide_filename=false, prompt_title="bookmarks", shorten_path=false }) end, "Show")
-map("n", "mx", "<cmd>BookmarkClearAll<cr>", "Clear All")
 --}}}
 
 -- others{{{

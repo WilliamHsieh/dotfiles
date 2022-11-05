@@ -90,17 +90,6 @@ function config.project()
   require("telescope").load_extension "projects"
 end
 
-function config.bookmark()
-  local icons = require "core.icons"
-  vim.g.bookmark_sign = icons.ui.BookMark
-  vim.g.bookmark_annotation_sign = icons.ui.Comment
-  vim.g.bookmark_no_default_key_mappings = 1
-
-  vim.g.bookmark_center = 1
-  vim.g.bookmark_location_list = 0
-  vim.g.bookmark_disable_ctrlp = 1
-end
-
 function config.gitsigns()
   require("gitsigns").setup {
     signs = {
