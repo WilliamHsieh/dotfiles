@@ -1,6 +1,5 @@
 return function()
   -- TODO: using custom_providers
-  -- local get_hl = require("core.utils").get_hl
   local vi_mode = require("feline.providers.vi_mode")
 
   local function vi_mode_color()
@@ -25,6 +24,7 @@ return function()
     right_separator = '',
     mode = '',
     dir = '',
+    tree = '',
   }
 
   local mode = {
@@ -110,20 +110,20 @@ return function()
     hl = {
       fg = 'gray',
     },
-    left_sep = '  ',
+    left_sep = ' ',
     right_sep = ' '
   }
 
   local treesitter_status = {
     provider = function()
       local ts_avail, ts = pcall(require, "nvim-treesitter.parsers")
-      return (ts_avail and ts.has_parser()) and "綠TS" or ""
+      return (ts_avail and ts.has_parser()) and assets.tree or ""
     end,
     hl = {
-      fg = 'gray',
+      fg = 'green',
     },
     left_sep = ' ',
-    right_sep = '  ',
+    right_sep = ' ',
   }
 
   local filetype = {
@@ -147,7 +147,7 @@ return function()
     },
     left_sep = {
       {
-        str = assets.left_separator,
+        str = ' ' .. assets.left_separator,
         hl = {
           fg = 'red',
         },
@@ -215,8 +215,8 @@ return function()
           { provider = lsp_progress, enabled = function() return not vim.fn.exists("$TMUX") end },
         },
         {
-          lsp_client,
           treesitter_status,
+          lsp_client,
           filetype,
           hostname,
         }
