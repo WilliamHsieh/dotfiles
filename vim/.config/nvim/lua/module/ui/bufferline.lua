@@ -19,6 +19,11 @@ return function()
       separator_style = "slant",
       always_show_bufferline = true,
       sort_by = "insert_after_current",
+      hover = {
+        enabled = true,
+        delay = 100,
+        reveal = { 'close' },
+      },
     },
     highlights = require("catppuccin.groups.integrations.bufferline").get(),
   }

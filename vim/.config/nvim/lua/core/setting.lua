@@ -39,6 +39,7 @@ local options = {
   virtualedit = 'block',
   pastetoggle = "<C-y>",
   showmode = false,
+  mousemoveevent = true,
 }
 
 for k, v in pairs(options) do
