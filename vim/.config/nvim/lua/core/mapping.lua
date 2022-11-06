@@ -55,6 +55,7 @@ map("n", "<leader>bu", function() require("cinnamon").setup() end, "activate smo
 
 -- <leader>c: compile{{{
 local function termexec(cmd)
+  -- NOTE: open=0 won't open terminal
   vim.cmd("write")
   vim.cmd('TermExec cmd="' .. cmd .. '"')
 end
@@ -80,13 +81,9 @@ local function make()
   termexec("make -j")
 end
 
-local function previous_command()
-  vim.notify("todo")
-end
-
 map("n", "<leader>cc", compile, "Compile and run")
 map("n", "<leader>cm", make, "Make")
-map("n", "<leader>cp", previous_command, "Previous command")
+map("n", "<leader>cp", function() termexec("") end, "Previous command")
 --}}}
 
 -- <leader>p: packer{{{
