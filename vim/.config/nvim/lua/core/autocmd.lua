@@ -34,17 +34,6 @@ autocmd("VimResized", {
   group = "config_group",
   command = "tabdo wincmd ="
 })
-autocmd("BufEnter", {
-  desc = "close nvim-tree if it's the last buffer",
-  pattern = "*",
-  group = "config_group",
-  nested = true,
-  callback = function()
-    if vim.fn.winnr('$') == 1 and vim.fn.bufname() == 'NvimTree_' .. vim.fn.tabpagenr() then
-      vim.cmd("quit")
-    end
-  end
-})
 
 autocmd("User", {
   pattern = "PackerCompileDone",
