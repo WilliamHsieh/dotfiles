@@ -13,7 +13,6 @@ local plugins = {
   ["lewis6991/impatient.nvim"] = {},
 
   ["rcarriga/nvim-notify"] = {
-    after = "vscode.nvim",
     config = config.notify
   },
 

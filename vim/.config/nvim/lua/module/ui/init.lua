@@ -9,9 +9,7 @@ local plugins = {
   ["shaunsingh/nord.nvim"] = {},
   ["Mofiqul/dracula.nvim"] = {},
   ["glepnir/zephyr-nvim"] = {},
-  ['Mofiqul/vscode.nvim'] = {
-    -- config = config.vscode
-  },
+  ['Mofiqul/vscode.nvim'] = {},
   ["catppuccin/nvim"] = {
     as = "catppuccin",
     config = config.catppuccin
@@ -31,7 +29,6 @@ local plugins = {
 
   ["akinsho/bufferline.nvim"] = {
     requires = "moll/vim-bbye",
-    after = { "nvim-web-devicons", "vscode.nvim" },
     config = require("module.ui.bufferline")
   },
 
@@ -42,7 +39,6 @@ local plugins = {
   },
 
   ['feline-nvim/feline.nvim'] = {
-    after = "vscode.nvim",
     config = require("module.ui.feline")
   },
 
