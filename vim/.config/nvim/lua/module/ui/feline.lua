@@ -28,7 +28,13 @@ return function()
   }
 
   local mode = {
-    provider = function() return vi_mode.get_vim_mode() .. ' ' end,
+    provider = function()
+      local cur_mode = vi_mode.get_vim_mode()
+      if cur_mode == 'INSERT' and vim.o.paste == true then
+        cur_mode = 'PASTE'
+      end
+      return cur_mode .. ' '
+    end,
     hl = function()
       return {
         fg = 'bg',
