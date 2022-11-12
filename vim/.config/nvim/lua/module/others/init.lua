@@ -24,6 +24,10 @@ local plugins = {
     cmd = "SessionManager",
     config = config.session_manager
   },
+
+  ['declancm/cinnamon.nvim'] = {
+    config = function() require('cinnamon').setup() end
+  }
 }
 
 -- use {
