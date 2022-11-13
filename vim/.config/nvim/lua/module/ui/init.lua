@@ -12,6 +12,7 @@ local plugins = {
   ['Mofiqul/vscode.nvim'] = {},
   ["catppuccin/nvim"] = {
     as = "catppuccin",
+    module = "catppuccin",
     config = config.catppuccin
   },
 
