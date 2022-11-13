@@ -3,7 +3,7 @@ vim.api.nvim_create_augroup("config_group", { clear = true })
 
 autocmd("FileType", {
   desc = "filetype settings",
-  pattern = { "qf", "help", "man", "lspinfo", "LspsagaHover" },
+  pattern = { "qf", "help", "man", "LspsagaHover" },
   group = "config_group",
   callback = function()
     vim.keymap.set('n', 'q', '<cmd>close<cr>', { desc = "close buffer" })
@@ -18,14 +18,6 @@ autocmd("TextYankPost", {
       higroup = 'IncSearch',
       timeout = 200,
     }
-  end
-})
-autocmd("FileType", {
-  desc = "don't show qf in buffer",
-  pattern = "qf",
-  group = "config_group",
-  callback = function()
-    vim.opt_local.buflisted = false
   end
 })
 autocmd("VimResized", {
@@ -55,15 +47,6 @@ autocmd("User", {
         vim.o.showtabline = 2
       end
     })
-  end
-})
-
-autocmd("FileType", {
-  pattern = "markdown",
-  group = "config_group",
-  callback = function()
-    vim.opt_local.wrap = true
-    vim.opt_local.spell = true
   end
 })
 
