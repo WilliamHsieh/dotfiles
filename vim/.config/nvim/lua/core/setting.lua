@@ -36,7 +36,6 @@ local options = {
   sidescrolloff = 8,
   foldmethod = "marker",
   virtualedit = 'block',
-  pastetoggle = "<C-y>",
   showmode = false,
   mousemoveevent = true,
 }
@@ -45,6 +44,7 @@ for k, v in pairs(options) do
   vim.opt[k] = v
 end
 vim.opt.shortmess:append "c"
+vim.opt.whichwrap:append "<,>,[,],h,l"
 
 local globals = {
   loaded_netrw = 1,
@@ -56,5 +56,3 @@ local globals = {
 for k, v in pairs(globals) do
   vim.g[k] = v
 end
-
-vim.cmd "set whichwrap+=<,>,[,],h,l"
