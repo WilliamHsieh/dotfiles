@@ -21,7 +21,6 @@ local plugins = {
   },
 
   ['Shatur/neovim-session-manager'] = {
-    cmd = "SessionManager",
     config = config.session_manager
   },
 
