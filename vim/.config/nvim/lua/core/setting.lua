@@ -56,3 +56,18 @@ local globals = {
 for k, v in pairs(globals) do
   vim.g[k] = v
 end
+
+if vim.fn.exists("$TMUX") == 1 then
+  vim.g.clipboard = {
+    name = 'tmux_buffer',
+    copy = {
+      ['+'] = {'tmux', 'load-buffer', '-'},
+      ['*'] = {'tmux', 'load-buffer', '-'},
+    },
+    paste = {
+      ['+'] = {'tmux', 'save-buffer', '-'},
+      ['*'] = {'tmux', 'save-buffer', '-'},
+    },
+    cache_enabled = 1,
+  }
+end
