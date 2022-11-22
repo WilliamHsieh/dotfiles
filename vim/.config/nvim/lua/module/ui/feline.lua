@@ -218,7 +218,7 @@ return function()
           diagnostic_warnings,
         },
         {
-          { provider = lsp_progress, enabled = function() return not vim.fn.exists("$TMUX") end },
+          { provider = lsp_progress, enabled = function() return vim.fn.exists("$TMUX") == 0 end },
         },
         {
           treesitter_status,
