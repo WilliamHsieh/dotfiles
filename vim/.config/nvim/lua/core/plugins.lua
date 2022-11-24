@@ -22,5 +22,6 @@ require("packer").startup {
       threshold = 0,
     },
     snapshot_path = vim.fn.stdpath("config"),
+    max_jobs = 50,
   }
 }
