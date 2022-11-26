@@ -30,7 +30,7 @@
 
 # Plugins
 # {{{
-    zinit light-mode for OMZL::history.zsh
+    zinit light-mode for OMZL::key-bindings.zsh
 
     # turbo mode
     zinit wait lucid light-mode for \
@@ -48,7 +48,7 @@
             zstyle ":completion:*" list-colors "${(s.:.)LS_COLORS}"
         ' OMZL::completion.zsh \
         OMZL::theme-and-appearance.zsh \
-        OMZL::key-bindings.zsh \
+        OMZL::history.zsh \
         atload'
           alias ls="exa"
           alias ll="exa -lg"
