@@ -72,11 +72,6 @@
     alias pythonServer="python3 -m http.server"
     alias true_colors="bash ~/dotfiles/scripts.sh true_colors"
 
-    alias vimconfig="vim ~/.vimrc"
-    alias zshconfig="vim ~/.zshrc"
-    alias tmuxconfig="vim ~/.tmux.conf"
-    alias alaconfig="vim ~/dotfiles/.alacritty.yml"
-
     # platform specific
     if uname -r | grep -i -q 'microsoft'; then
         alias cmd="cmd.exe"
