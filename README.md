@@ -1,5 +1,5 @@
 # dotfiles
-These are my configuration for `vim`, `nvim`, `zsh`, and `tmux`.
+These are my configuration mainly for `nvim`, `zsh`, and `tmux`.
 
 ![screenshot](https://i.imgur.com/WUt1zrw.png)
 
@@ -7,15 +7,24 @@ These are my configuration for `vim`, `nvim`, `zsh`, and `tmux`.
 **Disclaimer:** These dotfiles work best on WSL2 and mac. **Use at your own risk!**
 
 ### Prerequisites
-* `awk` is required.
-* `stow` for linking dotfiles. (optional)
+- `awk`
+- `node` for language servers
+- `make` for nvim plugin
+- `fd-find` for nvim plugin
+- `fzf` for tmux plugin
+
+### Optional
+- `stow`
+- `exa`
+- `ripgrep`
+- `trash-cli`
 
 ### Basic Installation
 * The repository will be cloned into `~/dotfiles` by executing the following command via `git`.
 * The `backup` process in `scripts.sh` will backup the existing configs into `~/dotfiles_backup`.
 ```
 $ git clone "http://github.com/williamhsieh/dotfiles" ~/dotfiles && sh ~/dotfiles/scripts.sh backup
-$ cd ~/dotfiles && stow */
+$ cd ~/dotfiles && stow */ && bash scripts.sh install
 ```
 
 ## Feedback
@@ -35,4 +44,3 @@ Inspiration and code were taken from many sources, including:
 * [Michael Peter](https://mijope.de/) and his [nvim configuration](https://github.com/Allaman/nvim)
 * [Christian Chiarulli](https://www.chrisatmachine.com/) and his [nvim configuration](https://github.com/ChristianChiarulli/nvim)
 * Anyone who made a helpful [suggestion](https://github.com/WilliamHsieh/dotfiles/issues)
-
