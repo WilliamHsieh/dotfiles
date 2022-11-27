@@ -22,35 +22,9 @@ font:
 # }}}
 
 
-# Theme
+# Theme (catppuccin)
 # {{{
 colors:
-  # One Half Dark
-  # primary:
-  #   background: '#1e1e1e'
-  #   foreground: '#dcdfe4'
-  #
-  # normal: &normal_color
-  #   black: '#1e1e1e'
-  #   red: '#e06c75'
-  #   green: '#98c379'
-  #   yellow: '#e5c07b'
-  #   blue: '#61afef'
-  #   magenta: '#c678dd'
-  #   cyan: '#56b6c2'
-  #   white: '#dcdfe4'
-  #
-  # bright:
-  #   black: '#5c6370'
-  #   red: '#e06c75'
-  #   green: '#98c379'
-  #   yellow: '#e5c07b'
-  #   blue: '#61afef'
-  #   magenta: '#c678dd'
-  #   cyan: '#56b6c2'
-  #   white: '#dcdfe4'
-
-  # Catpuccine
   primary:
     background: "#24273A" # base
     foreground: "#CAD3F5" # text
@@ -119,6 +93,7 @@ colors:
   indexed_colors:
     - { index: 16, color: "#F5A97F" }
     - { index: 17, color: "#F4DBD6" }
+    - { index: 18, color: "#274d7a" }
 # }}}
 
 
