@@ -26,21 +26,11 @@ local plugins = {
 
   ['declancm/cinnamon.nvim'] = {
     config = function() require('cinnamon').setup() end
-  }
-}
+  },
 
--- use {
---   'preservim/vim-markdown',
---   requires = 'godlygeek/tabular',
---   ft = 'markdown',
---   disable = true
---   -- config = 'vim.g.markdown_fenced_languages = { "cpp", "bash", "lua", "python" }'
--- }
--- use {
---   "iamcco/markdown-preview.nvim",
---   run = "cd app && npm install",
---   ft = "markdown",
---   disable = true
--- }
+  ['lervag/vimtex'] = {
+    config = config.vimtex
+  },
+}
 
 return plugins

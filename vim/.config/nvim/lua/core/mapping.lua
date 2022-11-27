@@ -1,5 +1,4 @@
 vim.g.mapleader = " "
-vim.g.maplocalleader = " "
 
 -- Modes
 --   "n": normal_mode
