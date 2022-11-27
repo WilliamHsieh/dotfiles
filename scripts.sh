@@ -15,6 +15,8 @@ function install() {
     echo "installing tpm..."
     git clone https://github.com/tmux-plugins/tpm $TPM_DIR
   fi
+
+  [ -x "$(command -v starship)" ] || BIN_DIR="$HOME/.local/bin" sh -c "$(curl -fsSL https://starship.rs/install.sh)"
 }
 
 function tmux_navigation() {
