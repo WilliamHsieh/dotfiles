@@ -46,6 +46,21 @@ local plugins = {
   ["vimpostor/vim-tpipeline"] = {
     config = config.tpipeline
   },
+
+  ["folke/noice.nvim"] = {
+    requires = {
+      "MunifTanjim/nui.nvim",
+      "rcarriga/nvim-notify",
+    },
+    config = config.noice
+  },
+
+  ["smjonas/inc-rename.nvim"] = {
+    cmd = "IncRename",
+    config = function()
+      require("inc_rename").setup()
+    end,
+  },
 }
 
 return plugins

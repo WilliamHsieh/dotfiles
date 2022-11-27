@@ -17,9 +17,9 @@ function config.catppuccin()
   require("catppuccin").setup {
     flavour = "macchiato",
     term_colors = true,
-    dim_inactive = {
-      enabled = true,
-    },
+    -- dim_inactive = {
+    --   enabled = true,
+    -- },
     integrations = {
       cmp = true,
       gitsigns = true,
@@ -31,7 +31,7 @@ function config.catppuccin()
       markdown = true,
       mason = true,
       neogit = true,
-      noice = true,
+      -- noice = true,
       notify = true,
       nvimtree = true,
       telescope = true,
@@ -51,7 +51,7 @@ function config.catppuccin()
       },
     }
   }
-  vim.api.nvim_command "colorscheme catppuccin"
+  vim.cmd.colorscheme "catppuccin"
 end
 
 function config.alpha()
@@ -146,6 +146,43 @@ function config.tpipeline()
   vim.api.nvim_create_autocmd('DiagnosticChanged', {
     command = "call tpipeline#update()"
   })
+end
+
+function config.noice()
+  require("noice").setup {
+    lsp = {
+      progress = {
+        throttle = 1000 / 2,
+      },
+      hover = {
+        enabled = false,
+      },
+      signature = {
+        enabled = false,
+      },
+      override = {
+        ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+        ["vim.lsp.util.stylize_markdown"] = true,
+        ["cmp.entry.get_documentation"] = true,
+      },
+    },
+
+    presets = {
+      command_palette = true, -- position the cmdline and popupmenu together
+      long_message_to_split = true, -- long messages will be sent to a split
+      inc_rename = true, -- enables an input dialog for inc-rename.nvim
+      lsp_doc_border = true, -- add a border to hover docs and signature help
+    },
+
+    routes = {
+      {
+        view = "notify",
+        filter = { event = "msg_showmode" },
+      },
+    },
+
+    throttle = 1000 / 10,
+  }
 end
 
 return config
