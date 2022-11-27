@@ -27,8 +27,9 @@ local plugins = {
     config = config.toggleterm
   },
 
-  ["folke/which-key.nvim"] = {
-    keys = { "<leader>", '"', "'", "g", "m" },
+  ["williamhsieh/which-key.nvim"] = {
+    module = "which-key",
+    keys = { "<leader>", '"', "'", "g", "m", "z" },
     config = config.whichkey
   }
 }
