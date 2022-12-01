@@ -6,7 +6,7 @@ autocmd("FileType", {
   pattern = { "qf", "help", "man", "LspsagaHover" },
   group = "config_group",
   callback = function()
-    vim.keymap.set('n', 'q', '<cmd>close<cr>', { desc = "close buffer" })
+    vim.keymap.set('n', 'q', '<cmd>close<cr>', { desc = "close buffer", buffer = 0 })
   end
 })
 autocmd("TextYankPost", {
