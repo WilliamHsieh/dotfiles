@@ -49,7 +49,6 @@ map("n", "<leader>b<", "<cmd>BufferLineMovePrev<cr>", "Move left")
 map("n", "<leader>bs", "<cmd>so %|lua vim.notify('Buffer sourced.')<cr>", "Source this buffer")
 map("n", "<leader>bz", "<cmd>ZenMode<cr>", "Zen mode")
 map("n", "<leader>br", "<cmd>%s/.*/mv & &/<cr>", "bulk rename")
-map("n", "<leader>bu", function() require("cinnamon").setup() end, "activate smooth scrolling") -- TODO: make it toggleable
 --}}}
 
 -- <leader>c: compile{{{
@@ -198,6 +197,10 @@ map("v", "<leader>y", function() yank() end, "copy to clipboard")
 
 -- others{{{
 map("i", "kj", "<esc>")
+map("n", "<C-L>", function()
+  require("notify").dismiss()
+	vim.cmd("nohlsearch | diffupdate | normal! <C-L><CR>")
+end)
 
 -- quickfix
 map("n", "]q", "<cmd>cnext<cr>", "quickfix next")
