@@ -16,10 +16,6 @@ end
 function config.catppuccin()
   require("catppuccin").setup {
     flavour = "macchiato",
-    term_colors = true,
-    -- dim_inactive = {
-    --   enabled = true,
-    -- },
     integrations = {
       cmp = true,
       gitsigns = true,
@@ -38,6 +34,7 @@ function config.catppuccin()
       treesitter = true,
       treesitter_context = true,
       which_key = true,
+      symbols_outline = true,
       indent_blankline = {
         enabled = true,
         colored_indent_levels = false,
@@ -176,8 +173,18 @@ function config.noice()
 
     routes = {
       {
+        -- show macro
         view = "notify",
         filter = { event = "msg_showmode" },
+      },
+      {
+        -- don't show written messages
+        filter = {
+          event = "msg_show",
+          kind = "",
+          find = "written",
+        },
+        opts = { skip = true },
       },
     },
 
