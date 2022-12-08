@@ -199,7 +199,7 @@ map("v", "<leader>y", function() yank() end, "copy to clipboard")
 map("i", "kj", "<esc>")
 map("n", "<C-L>", function()
   require("notify").dismiss()
-	vim.cmd("nohlsearch | diffupdate | normal! <C-L><CR>")
+	vim.cmd("nohlsearch | diffupdate | mode")
 end)
 
 -- quickfix
