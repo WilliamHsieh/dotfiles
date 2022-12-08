@@ -132,7 +132,7 @@ map("n", "<leader>gn", "<cmd>NvimTreeRefresh<cr>", "refresh nvim-tree")
 --}}}
 
 -- <leader>l: lsp{{{
-map("n", "K", "<cmd>Lspsaga hover_doc<cr>","hover document")
+map("n", "K", vim.lsp.buf.hover, "hover document")
 map("i", "<C-k>", vim.lsp.buf.signature_help, "signature_help")
 map("n", "gd", vim.lsp.buf.definition, "go to definition")
 map("n", "gD", vim.lsp.buf.declaration, "go to declaration")
