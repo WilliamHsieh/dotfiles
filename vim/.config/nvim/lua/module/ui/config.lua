@@ -140,9 +140,13 @@ function config.tpipeline()
   vim.g.tpipeline_cursormoved = 1
   vim.g.tpipeline_restore = 1
   vim.g.tpipeline_clearstl = 1
-  vim.api.nvim_create_autocmd('DiagnosticChanged', {
-    command = "call tpipeline#update()"
-  })
+  if vim.env.TMUX then
+    vim.api.nvim_create_autocmd('DiagnosticChanged', {
+      desc = "update tpipeline",
+      group = "config_group",
+      command = "call tpipeline#update()"
+    })
+  end
 end
 
 function config.noice()
