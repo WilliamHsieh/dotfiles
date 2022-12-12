@@ -70,9 +70,10 @@ function config.toggleterm()
     float_opts = {
       border = "curved",
       winblend = 0,
-      highlights = {
-        border = "Normal",
-        background = "Normal",
+    },
+    highlights = {
+      FloatBorder = {
+        link = 'FloatBorder'
       },
     },
   }
