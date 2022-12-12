@@ -19,6 +19,8 @@
     export PATH=$HOME/.local/bin:$PATH
     export LANG=en_US.UTF-8
     export LC_ALL=C.UTF-8
+    command -v nvim &> /dev/null && export VISUAL=nvim || export VISUAL=vim
+    export EDITOR="$VISUAL"
 
     # prompt
     source <(starship init zsh --print-full-init)
@@ -73,6 +75,9 @@
     alias pythonServer="python3 -m http.server"
     alias true_colors="bash ~/dotfiles/scripts.sh true_colors"
 
+    # key-bindings
+    bindkey -s "^f" "history | fzf^M"
+
     # platform specific
     if uname -r | grep -i -q 'microsoft'; then
         alias cmd="cmd.exe"
@@ -84,6 +89,7 @@
         export LIBGL_ALWAYS_INDIRECT=1
     elif uname | grep -i -q 'Linux'; then
         alias pbcopy="bash ~/dotfiles/scripts.sh yank"
+        alias open="xdg-open"
     else
         source <(gdircolors)
     fi
