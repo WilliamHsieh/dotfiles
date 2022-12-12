@@ -51,9 +51,10 @@
         ' OMZL::completion.zsh \
         OMZL::theme-and-appearance.zsh \
         atload'
-          alias ls="exa"
-          alias ll="exa -lg"
-          alias la="exa -lag"
+          command -v exa &> /dev/null && alias ls="exa"
+          alias l="ls -l"
+          alias la="ls -lag --icons"
+          alias ll="\ls -Llah"
         ' OMZL::directories.zsh \
         OMZP::cp \
         OMZP::git \
