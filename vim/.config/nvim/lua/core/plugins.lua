@@ -1,13 +1,12 @@
 require("packer").startup {
   function(use)
-    local module_dir = "/lua/module"
-    local tmp = vim.split(vim.fn.globpath(vim.fn.stdpath("config") .. module_dir, '*'), '\n')
-    for _, f in ipairs(tmp) do
-      local name = string.match(f, module_dir .. '/(.+)')
-      local specs = require('module.' .. name)
-      for key, plugin in pairs(specs) do
-        plugin[1] = key
-        use(plugin)
+    for path, type in vim.fs.dir(vim.fn.stdpath("config") .. "/lua/module") do
+      if type == 'directory' then
+        local specs = require('module.' .. path)
+        for key, plugin in pairs(specs) do
+          plugin[1] = key
+          use(plugin)
+        end
       end
     end
   end,
