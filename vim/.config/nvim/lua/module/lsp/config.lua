@@ -13,6 +13,10 @@ function config.lsp()
     function(server_name)
       local opts = {
         on_attach = function(client, bufnr)
+          local opt = { buffer = bufnr }
+          vim.keymap.set("n", "K", vim.lsp.buf.hover, opt)
+          vim.keymap.set("n", "gd", vim.lsp.buf.definition, opt)
+          vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opt)
           require("illuminate").on_attach(client)
           if client.server_capabilities.documentSymbolProvider then
             require("nvim-navic").attach(client, bufnr)
