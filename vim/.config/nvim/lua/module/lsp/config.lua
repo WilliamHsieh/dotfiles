@@ -1,6 +1,7 @@
 local config = {}
 
 function config.lsp()
+  require("neodev").setup()
   require("mason").setup {
     ui = {
       border = "rounded",

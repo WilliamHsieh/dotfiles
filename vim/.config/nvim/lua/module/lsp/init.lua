@@ -5,6 +5,7 @@ local plugins = {
     requires = {
       "williamboman/mason.nvim",
       "neovim/nvim-lspconfig",
+      "folke/neodev.nvim",
     },
     config = config.lsp
   },
