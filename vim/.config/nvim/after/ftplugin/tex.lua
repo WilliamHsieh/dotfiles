@@ -16,6 +16,7 @@ local ok, wk = pcall(require, "which-key")
 if ok then
   wk.register {
     ["<leader>v"] = { name = "Vimtex" },
-    ["<localleader>"] = { name = "Vimtex" },
+    ["<localleader>"] = { name = "LocalLeader" },
+    ["<localleader>l"] = { name = "Vimtex" },
   }
 end
