@@ -20,3 +20,5 @@ if ok then
     ["<localleader>l"] = { name = "Vimtex" },
   }
 end
+
+vim.cmd.TSContextDisable()
