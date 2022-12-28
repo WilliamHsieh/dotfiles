@@ -1,6 +1,13 @@
-local config = {}
+local M = {
+  "williamboman/mason-lspconfig.nvim",
+  dependencies = {
+    "williamboman/mason.nvim",
+    "neovim/nvim-lspconfig",
+    "folke/neodev.nvim",
+  },
+}
 
-function config.lsp()
+function M.config()
   require("neodev").setup()
   require("mason").setup {
     ui = {
@@ -76,28 +83,4 @@ function config.lsp()
   require('lspconfig.ui.windows').default_options.border = 'rounded'
 end
 
-function config.outline()
-  require("symbols-outline").setup()
-end
-
-function config.signature()
-  require('lsp_signature').setup {
-    doc_lines = 0,
-    floating_window = false,
-  }
-end
-
-function config.lspsaga()
-  require('lspsaga').init_lsp_saga {
-    finder_action_keys = {
-      open = "<CR>",
-      vsplit = "v",
-      split = "s",
-      quit = "q",
-      scroll_down = "<C-d>",
-      scroll_up = "<C-u>",
-    },
-  }
-end
-
-return config
+return M

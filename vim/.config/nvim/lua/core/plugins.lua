@@ -1,27 +1,32 @@
-require("packer").startup {
-  function(use)
-    for path, type in vim.fs.dir(vim.fn.stdpath("config") .. "/lua/module") do
-      if type == 'directory' then
-        local specs = require('module.' .. path)
-        for key, plugin in pairs(specs) do
-          plugin[1] = key
-          use(plugin)
-        end
-      end
-    end
-  end,
-  config = {
-    display = {
-      open_fn = function()
-        return require("packer.util").float { border = "rounded" }
-      end,
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system { "git", "clone", "--filter=blob:none", "--single-branch", "https://github.com/folke/lazy.nvim.git", lazypath }
+  -- vim.api.nvim_create_autocmd("User", {
+  --   pattern = "PackerComplete",
+  --   group = "config_group",
+  --   callback = function()
+  --     vim.cmd("bw | Bdelete")
+  --     vim.cmd("Alpha")
+  --     require("packer").loader("nvim-treesitter")
+  --   end,
+  -- })
+end
+vim.opt.runtimepath:prepend(lazypath)
+
+require("lazy").setup("plugins", {
+  install = {
+    colorscheme = { "catppuccin" },
+  },
+  ui = {
+    border = "rounded",
+  },
+  performance = {
+    rtp = {
+      disabled_plugins = {
+        "matchit",
+        "matchparen",
+        "netrwPlugin",
+      },
     },
-    profile = {
-      enable = true,
-      threshold = 0,
-    },
-    snapshot = "packer_snapshot",
-    snapshot_path = vim.fn.stdpath("config"),
-    max_jobs = 50,
-  }
-}
+  },
+})

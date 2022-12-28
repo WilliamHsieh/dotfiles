@@ -52,6 +52,7 @@ local globals = {
   netrw_banner = 0,        -- disable banner
   netrw_liststyle = 3,     -- tree view
   netrw_bufsettings = 'noma nomod nonu nowrap ro buflisted', -- buflisted, fix bufferline wierdness
+  mapleader = " "
 }
 for k, v in pairs(globals) do
   vim.g[k] = v

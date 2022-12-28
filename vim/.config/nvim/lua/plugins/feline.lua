@@ -1,4 +1,8 @@
-return function()
+local M = {
+  'feline-nvim/feline.nvim',
+}
+
+function M.config()
   -- TODO: using custom_providers
   local vi_mode = require("feline.providers.vi_mode")
 
@@ -234,3 +238,5 @@ return function()
     }
   }
 end
+
+return M
