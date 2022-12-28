@@ -108,7 +108,11 @@ function config.illuminate()
       'alpha',
       'NvimTree',
       'toggleterm',
-    }
+    },
+    -- FIX: not working
+    modes_denylist = {
+      "v", "CTRL-V"
+    },
   }
 end
 
