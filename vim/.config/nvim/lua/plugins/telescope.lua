@@ -1,6 +1,26 @@
-local config = {}
+local M = {
+  "nvim-telescope/telescope.nvim",
+  cmd = "Telescope",
+  ft = "alpha",
+  dependencies = {
+    "nvim-telescope/telescope-ui-select.nvim",
+    {
+      "nvim-telescope/telescope-fzf-native.nvim",
+      build = "make",
+    },
+    {
+      "ahmedkhalf/project.nvim",
+      config = function()
+        require("project_nvim").setup {
+          detection_methods = { "pattern" },
+          patterns = { ".git", "_darcs", ".hg", ".bzr", ".svn", "Makefile", "package.json", "CMakeLists.txt" },
+        }
+      end
+    },
+  }
+}
 
-function config.telescope()
+function M.config()
   local telescope = require("telescope")
   local actions = require "telescope.actions"
   local icons = require("core.icons")
@@ -79,52 +99,10 @@ function config.telescope()
       },
     },
   }
+
+  telescope.load_extension "ui-select"
+  telescope.load_extension "fzf"
+  telescope.load_extension "projects"
 end
 
-function config.project()
-  require("project_nvim").setup {
-    detection_methods = { "pattern" },
-    patterns = { ".git", "_darcs", ".hg", ".bzr", ".svn", "Makefile", "package.json", "CMakeLists.txt" },
-  }
-
-  require("telescope").load_extension "projects"
-end
-
-function config.gitsigns()
-  require("gitsigns").setup {
-    signs = {
-      add = { hl = "GitSignsAdd", text = "▎", numhl = "GitSignsAddNr", linehl = "GitSignsAddLn" },
-      change = { hl = "GitSignsChange", text = "▎", numhl = "GitSignsChangeNr", linehl = "GitSignsChangeLn" },
-    },
-    current_line_blame_opts = {
-      virt_text = true,
-      virt_text_pos = "right_align", -- 'eol' | 'overlay' | 'right_align'
-      delay = 0,
-      ignore_whitespace = false,
-    },
-    current_line_blame_formatter_opts = {
-      relative_time = false,
-    },
-    preview_config = {
-      border = "rounded",
-    },
-  }
-end
-
-function config.neogit()
-  require("neogit").setup {
-    disable_commit_confirmation = true,
-    disable_insert_on_commit = false,
-    integrations = {
-      diffview = true
-    },
-    mappings = {
-      status = {
-        ['<cr>'] = "Toggle",
-        ['o'] = "GoToFile",
-      }
-    }
-  }
-end
-
-return config
+return M

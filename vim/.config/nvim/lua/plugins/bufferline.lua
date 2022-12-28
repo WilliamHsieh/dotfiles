@@ -1,4 +1,15 @@
-return function()
+local M = {
+  "akinsho/bufferline.nvim",
+  dependencies = {
+    "moll/vim-bbye",
+    {
+      "tiagovla/scope.nvim",
+      config = true,
+    },
+  }
+}
+
+function M.config()
   require("bufferline").setup {
     options = {
       numbers = "none",
@@ -33,3 +44,5 @@ return function()
     vim.cmd("redrawtabline")
   end))
 end
+
+return M

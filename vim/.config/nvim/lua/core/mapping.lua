@@ -1,5 +1,3 @@
-vim.g.mapleader = " "
-
 -- Modes
 --   "n": normal_mode
 --   "i": insert_mode
@@ -88,7 +86,8 @@ map("n", "<leader>cp", function() termexec("") end, "Previous command")
 map("n", "<leader>pc", "<cmd>PackerCompile<cr>", "Compile")
 map("n", "<leader>ps", "<cmd>PackerSync<cr>", "Sync")
 map("n", "<leader>pS", "<cmd>PackerStatus<cr>", "Status")
-map("n", "<leader>pp", "<cmd>PackerProfile<cr>", "Profile")
+-- map("n", "<leader>pp", "<cmd>PackerProfile<cr>", "Profile")
+map("n", "<leader>pp", "<cmd>Lazy<cr>", "Profile")
 --}}}
 
 -- <leader>f: find{{{
