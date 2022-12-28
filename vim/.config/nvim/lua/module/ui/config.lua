@@ -16,6 +16,11 @@ end
 function config.catppuccin()
   require("catppuccin").setup {
     flavour = "macchiato",
+    custom_highlights = function(colors)
+      return {
+        NormalFloat = { bg = colors.base },
+      }
+    end,
     integrations = {
       cmp = true,
       gitsigns = true,
