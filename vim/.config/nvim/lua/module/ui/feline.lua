@@ -33,6 +33,10 @@ return function()
       if cur_mode == 'INSERT' and vim.o.paste == true then
         cur_mode = 'PASTE'
       end
+      if vim.env.TMUX then
+        cur_mode = "#{?client_prefix,Prefix," .. cur_mode .. "}"
+        -- cur_mode = "#{?client_prefix,Prefix,#{?pane_in_mode,Copy,#{?pane_synchronized,Sync," .. cur_mode .. "}}}"
+      end
       return cur_mode .. ' '
     end,
     hl = function()
