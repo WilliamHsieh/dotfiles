@@ -19,9 +19,6 @@ function config.lsp()
           vim.keymap.set("n", "gd", vim.lsp.buf.definition, opt)
           vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opt)
           require("illuminate").on_attach(client)
-          if client.server_capabilities.documentSymbolProvider then
-            require("nvim-navic").attach(client, bufnr)
-          end
         end,
         capabilities = require('cmp_nvim_lsp').default_capabilities(),
       }
@@ -100,12 +97,6 @@ function config.lspsaga()
       scroll_down = "<C-d>",
       scroll_up = "<C-u>",
     },
-  }
-end
-
-function config.navic()
-  require("nvim-navic").setup {
-    highlight = true,
   }
 end
 

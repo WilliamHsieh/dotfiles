@@ -47,10 +47,6 @@ function config.catppuccin()
       native_lsp = {
         enabled = true,
       },
-      navic = {
-        enabled = false,
-        custom_bg = "NONE",
-      },
     }
   }
   vim.cmd.colorscheme "catppuccin"
