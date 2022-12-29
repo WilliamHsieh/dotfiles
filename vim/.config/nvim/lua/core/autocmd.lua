@@ -28,14 +28,6 @@ autocmd("VimResized", {
 })
 
 autocmd("User", {
-  pattern = "PackerCompileDone",
-  group = "config_group",
-  callback = function()
-    vim.notify("packer compiled")
-  end
-})
-
-autocmd("User", {
   pattern = "AlphaReady",
   group = "config_group",
   callback = function()

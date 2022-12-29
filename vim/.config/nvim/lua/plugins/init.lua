@@ -98,7 +98,7 @@ return {
 
   {
     "michaelb/sniprun",
-    run = "bash ./install.sh",
+    build = "bash ./install.sh",
     cmd = { "SnipClose", "SnipRun", "SnipInfo", "SnipReplMemoryClean", "SnipReset", "SnipRunToggle", "SnipTerminate", },
     config = true,
   },
@@ -110,6 +110,7 @@ return {
 
   {
     'Shatur/neovim-session-manager',
+    event = "VeryLazy",
     config = function()
       require('session_manager').setup {
         autoload_mode = require('session_manager.config').AutoloadMode.Disabled,
@@ -121,5 +122,4 @@ return {
     'declancm/cinnamon.nvim',
     config = true,
   },
-
 }
