@@ -48,7 +48,7 @@ function M.config()
     return string.format("NVIM v%d.%d.%d", v.major, v.minor, v.patch)
   end
 
-  dashboard.section.header.val = get_header()
+  dashboard.section.header.val = get_header
   dashboard.section.footer.val = get_footer()
   dashboard.section.header.opts.hl = "Include"
   dashboard.section.footer.opts.hl = "Type"
