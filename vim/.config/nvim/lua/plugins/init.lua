@@ -58,6 +58,7 @@ return {
   ---------- LSP ----------
   {
     "ray-x/lsp_signature.nvim",
+    event = "BufReadPre",
     config = {
       doc_lines = 0,
       floating_window = false,
