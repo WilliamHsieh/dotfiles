@@ -1,21 +1,10 @@
 local M = {
   "nvim-telescope/telescope.nvim",
   cmd = "Telescope",
-  ft = "alpha",
   dependencies = {
-    "nvim-telescope/telescope-ui-select.nvim",
     {
       "nvim-telescope/telescope-fzf-native.nvim",
       build = "make",
-    },
-    {
-      "ahmedkhalf/project.nvim",
-      config = function()
-        require("project_nvim").setup {
-          detection_methods = { "pattern" },
-          patterns = { ".git", "_darcs", ".hg", ".bzr", ".svn", "Makefile", "package.json", "CMakeLists.txt" },
-        }
-      end
     },
   }
 }
@@ -100,7 +89,6 @@ function M.config()
     },
   }
 
-  telescope.load_extension "ui-select"
   telescope.load_extension "fzf"
   telescope.load_extension "projects"
 end
