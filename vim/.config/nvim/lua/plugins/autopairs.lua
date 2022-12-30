@@ -1,6 +1,6 @@
 local M = {
   "windwp/nvim-autopairs",
-  event = "VeryLazy"
+  lazy = true,
 }
 
 function M.config()
@@ -22,9 +22,6 @@ function M.config()
       highlight = "PmenuSel",
       highlight_grey = "LineNr",
     },
-    pairs_map = { -- FIX: not working
-      ['<'] = '>',
-    }
   }
 end
 
