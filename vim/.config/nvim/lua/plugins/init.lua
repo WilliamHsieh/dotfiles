@@ -103,6 +103,17 @@ return {
   },
 
   {
+    "moll/vim-bbye",
+    cmd = "Bdelete"
+  },
+
+  {
+    "tiagovla/scope.nvim",
+    event = "BufReadPost",
+    config = true,
+  },
+
+  {
     "michaelb/sniprun",
     build = "bash ./install.sh",
     cmd = { "SnipClose", "SnipRun", "SnipInfo", "SnipReplMemoryClean", "SnipReset", "SnipRunToggle", "SnipTerminate", },
@@ -137,7 +148,8 @@ return {
 
   {
     'Shatur/neovim-session-manager',
-    event = "VeryLazy",
+    cmd = "SessionManager",
+    event = "BufReadPost",
     config = function()
       require('session_manager').setup {
         autoload_mode = require('session_manager.config').AutoloadMode.Disabled,
