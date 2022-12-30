@@ -18,7 +18,7 @@ function M.config()
     ensure_installed = { "sumneko_lua", "clangd", "pyright" }
   }
   require("mason-lspconfig").setup_handlers {
-    function(server_name)
+    function(lsp_name)
       local opts = {
         on_attach = function(client, bufnr)
           local opt = { buffer = bufnr }
@@ -30,12 +30,12 @@ function M.config()
         capabilities = require('cmp_nvim_lsp').default_capabilities(),
       }
 
-      local have_config, server_opts = pcall(require, "module.lsp.server." .. server_name)
+      local have_config, lsp_config = pcall(require, "plugins.lsp.server." .. lsp_name)
       if have_config then
-        opts = vim.tbl_deep_extend("force", server_opts, opts)
+        opts = vim.tbl_deep_extend("force", lsp_config, opts)
       end
 
-      require("lspconfig")[server_name].setup(opts)
+      require("lspconfig")[lsp_name].setup(opts)
     end
   }
 

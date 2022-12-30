@@ -55,9 +55,9 @@ return {
     config = true
   },
 
+  ---------- LSP ----------
   {
     "ray-x/lsp_signature.nvim",
-    event = "VeryLazy",
     config = {
       doc_lines = 0,
       floating_window = false,
