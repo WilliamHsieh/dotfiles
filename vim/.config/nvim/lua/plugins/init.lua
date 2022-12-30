@@ -115,6 +115,27 @@ return {
   },
 
   {
+    "nvim-telescope/telescope-ui-select.nvim",
+    config = function()
+      vim.ui.select = function(...)
+        require("telescope").load_extension "ui-select"
+        return vim.ui.select(...)
+      end
+    end
+  },
+
+  {
+    "ahmedkhalf/project.nvim",
+    event = "VeryLazy",
+    config = function()
+      require("project_nvim").setup {
+        detection_methods = { "pattern" },
+        patterns = { ".git", "_darcs", ".hg", ".bzr", ".svn", "Makefile", "package.json", "CMakeLists.txt" },
+      }
+    end
+  },
+
+  {
     'Shatur/neovim-session-manager',
     event = "VeryLazy",
     config = function()

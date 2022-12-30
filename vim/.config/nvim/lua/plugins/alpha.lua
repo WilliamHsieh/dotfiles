@@ -12,7 +12,7 @@ function M.config()
     dashboard.button("r", icons.ui.History .. " Recent files", ":Telescope oldfiles <CR>"),
     dashboard.button("f", icons.documents.Files .. " Find file", ":Telescope find_files <CR>"),
     dashboard.button("F", icons.ui.List .. " Find text", ":Telescope live_grep <CR>"),
-    dashboard.button("p", icons.git.Repo .. " Find project", ":Telescope projects <CR>"),
+    dashboard.button("p", icons.git.Repo .. " Find project", ":Telescope projects theme=dropdown<CR>"),
     dashboard.button("s", icons.misc.Watch .. " Find session", "<cmd>SessionManager load_session<cr>"),
     dashboard.button("c", icons.ui.Gear .. " Config", ":e ~/dotfiles<cr>"),
     dashboard.button("q", icons.diagnostics.Error .. " Quit", ":qa<CR>"),
