@@ -12,11 +12,6 @@ function M.config()
       command = "call tpipeline#update()"
     })
   end
-  -- FIX: lua api
-  vim.cmd [[
-    au User MatchupOffscreenEnter let g:sl = g:tpipeline_statusline | let g:tpipeline_statusline = &l:stl
-    au User MatchupOffscreenLeave let g:tpipeline_statusline = g:sl
-  ]]
 end
 
 return M
