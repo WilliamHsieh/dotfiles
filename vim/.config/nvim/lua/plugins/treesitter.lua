@@ -2,6 +2,7 @@ local M = {
   "nvim-treesitter/nvim-treesitter",
   build = ":TSUpdate",
   event = "BufReadPost",
+  module = false,
   dependencies = {
     "andymass/vim-matchup",
     "windwp/nvim-ts-autotag",
@@ -11,7 +12,7 @@ local M = {
 
 function M.config()
   require("nvim-treesitter.configs").setup {
-    ensure_installed = { "lua", "vim", "markdown", "cpp", "rust" },
+    ensure_installed = { "lua", "vim", "markdown", },
     auto_install = true,
     highlight = {
       enable = true,
@@ -24,16 +25,22 @@ function M.config()
       end,
       additional_vim_regex_highlighting = false,
     },
-    autopairs = {
+    indent = {
       enable = true,
-    },
-    indent = { enable = true, disable = { "python", "css" } },
-    context_commentstring = {
-      enable = true,
-      enable_autocmd = false,
+      disable = { "python", "css" }
     },
     matchup = {
       enable = true,
+    },
+    autotag = {
+      enable = true,
+    },
+    autopairs = {
+      enable = true,
+    },
+    context_commentstring = {
+      enable = true,
+      enable_autocmd = false,
     },
     playground = {
       enable = true,

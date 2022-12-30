@@ -3,9 +3,10 @@ return {
   "nvim-lua/plenary.nvim",
   "nvim-tree/nvim-web-devicons",
 
+  ---------- Treesitter ----------
   {
     "folke/todo-comments.nvim",
-    event = "VeryLazy",
+    event = "BufReadPost",
     config = {
       signs = false
     }
@@ -41,7 +42,10 @@ return {
 
   {
     "nvim-treesitter/nvim-treesitter-context",
-    event = "VeryLazy",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+    },
+    event = "BufReadPost",
     config = true,
   },
 
@@ -92,6 +96,7 @@ return {
     config = true,
   },
 
+  ---------- Others ----------
   {
     "kevinhwang91/nvim-bqf",
     ft = "qf"
