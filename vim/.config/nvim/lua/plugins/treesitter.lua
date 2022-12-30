@@ -89,6 +89,20 @@ function M.config()
       },
     },
   }
+
+  vim.api.nvim_create_autocmd("User", {
+    pattern = "MatchupOffscreenEnter",
+    callback = function()
+      vim.g.sl = vim.g.tpipeline_statusline
+      vim.g.tpipeline_statusline = vim.o.stl
+    end
+  })
+  vim.api.nvim_create_autocmd("User", {
+    pattern = "MatchupOffscreenLeave",
+    callback = function()
+      vim.g.tpipeline_statusline = vim.g.sl
+    end
+  })
 end
 
 return M
