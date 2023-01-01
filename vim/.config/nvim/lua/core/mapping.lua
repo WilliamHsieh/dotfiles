@@ -82,12 +82,9 @@ map("n", "<leader>cm", make, "Make")
 map("n", "<leader>cp", function() termexec("") end, "Previous command")
 --}}}
 
--- <leader>p: packer{{{
-map("n", "<leader>pc", "<cmd>PackerCompile<cr>", "Compile")
-map("n", "<leader>ps", "<cmd>PackerSync<cr>", "Sync")
-map("n", "<leader>pS", "<cmd>PackerStatus<cr>", "Status")
--- map("n", "<leader>pp", "<cmd>PackerProfile<cr>", "Profile")
-map("n", "<leader>pp", "<cmd>Lazy<cr>", "Profile")
+-- <leader>p: plugin{{{
+map("n", "<leader>pp", "<cmd>Lazy<cr>", "Plugin manager (Lazy)")
+map("n", "<leader>ps", "<cmd>StartupTime<cr>", "Startup time")
 --}}}
 
 -- <leader>f: find{{{
