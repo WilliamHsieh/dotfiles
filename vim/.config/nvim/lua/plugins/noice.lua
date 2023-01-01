@@ -9,6 +9,9 @@ local M = {
 
 function M.config()
   require("noice").setup {
+    messages = {
+      view_search = false,
+    },
     lsp = {
       progress = {
         throttle = 1000 / 2,
