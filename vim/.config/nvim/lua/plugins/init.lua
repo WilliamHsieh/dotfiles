@@ -3,10 +3,24 @@ return {
   "nvim-lua/plenary.nvim",
   "nvim-tree/nvim-web-devicons",
 
+  ---------- LazyLoader ----------
+  {
+    "WilliamHsieh/placeholder.nvim",
+    name = "lazyloader",
+    event = { "BufReadPost", "BufNewFile" },
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "neovim/nvim-lspconfig",
+      "lewis6991/gitsigns.nvim",
+      "Shatur/neovim-session-manager",
+      "tiagovla/scope.nvim",
+    },
+  },
+
   ---------- Treesitter ----------
   {
     "folke/todo-comments.nvim",
-    event = "BufReadPost",
+    lazy = true,
     config = {
       signs = false
     }
@@ -41,15 +55,6 @@ return {
   },
 
   {
-    "nvim-treesitter/nvim-treesitter-context",
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-    },
-    event = "BufReadPost",
-    config = true,
-  },
-
-  {
     "simrat39/symbols-outline.nvim",
     cmd = "SymbolsOutline",
     config = true
@@ -58,7 +63,7 @@ return {
   ---------- LSP ----------
   {
     "ray-x/lsp_signature.nvim",
-    event = "BufReadPre",
+    lazy = true,
     config = {
       doc_lines = 0,
       floating_window = false,
@@ -81,16 +86,6 @@ return {
     cmd = "TagbarToggle"
   },
 
-  -- "folke/tokyonight.nvim",
-  -- "rose-pine/neovim",
-  -- "rebelot/kanagawa.nvim",
-  -- "EdenEast/nightfox.nvim",
-  -- "marko-cerovac/material.nvim",
-  -- "shaunsingh/nord.nvim",
-  -- "Mofiqul/dracula.nvim",
-  -- "glepnir/zephyr-nvim",
-  -- 'Mofiqul/vscode.nvim',
-
   {
     "smjonas/inc-rename.nvim",
     cmd = "IncRename",
@@ -110,7 +105,7 @@ return {
 
   {
     "tiagovla/scope.nvim",
-    event = "BufReadPost",
+    lazy = true,
     config = true,
   },
 
@@ -128,7 +123,7 @@ return {
 
   {
     "nvim-telescope/telescope-ui-select.nvim",
-    config = function()
+    init = function()
       vim.ui.select = function(...)
         require("telescope").load_extension "ui-select"
         return vim.ui.select(...)
@@ -141,7 +136,6 @@ return {
     event = "VeryLazy",
     config = function()
       require("project_nvim").setup {
-        detection_methods = { "pattern" },
         patterns = { ".git", "_darcs", ".hg", ".bzr", ".svn", "Makefile", "package.json", "CMakeLists.txt" },
       }
     end
@@ -150,7 +144,6 @@ return {
   {
     'Shatur/neovim-session-manager',
     cmd = "SessionManager",
-    event = "BufReadPost",
     config = function()
       require('session_manager').setup {
         autoload_mode = require('session_manager.config').AutoloadMode.Disabled,

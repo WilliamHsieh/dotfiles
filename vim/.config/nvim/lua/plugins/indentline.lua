@@ -1,9 +1,6 @@
 local M = {
   "lukas-reineke/indent-blankline.nvim",
-  event = "BufReadPost",
-  dependencies = {
-    "nvim-treesitter/nvim-treesitter",
-  },
+  lazy = true,
 }
 
 function M.config()

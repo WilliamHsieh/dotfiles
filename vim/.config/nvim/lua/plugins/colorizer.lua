@@ -1,6 +1,6 @@
 local M = {
   "norcalli/nvim-colorizer.lua",
-  event = "BufReadPost",
+  lazy = true,
 }
 
 function M.config()
