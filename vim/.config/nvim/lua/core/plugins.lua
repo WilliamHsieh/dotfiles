@@ -13,11 +13,24 @@ end
 vim.opt.runtimepath:prepend(lazypath)
 
 require("lazy").setup("plugins", {
-  install = {
-    colorscheme = { "catppuccin" },
-  },
   ui = {
     border = "rounded",
+    icons = {
+      cmd = "⌘",
+      event = "",
+      ft = "",
+      init = "",
+      keys = "",
+      plugin = "",
+      runtime = "",
+      source = "",
+      start = "",
+      task = "✔ ",
+      lazy = "鈴 ",
+    },
+  },
+  change_detection = {
+    notify = false,
   },
   performance = {
     rtp = {
