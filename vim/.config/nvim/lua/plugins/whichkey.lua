@@ -39,7 +39,7 @@ function M.config()
   local mappings = {
     c = { name = "Compile" },
     b = { name = "Buffer" },
-    p = { name = "Packer" },
+    p = { name = "Plugin" },
     f = { name = "Find" },
     g = { name = "Git" },
     l = { name = "LSP" },

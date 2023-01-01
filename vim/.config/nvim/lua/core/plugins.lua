@@ -13,6 +13,9 @@ end
 vim.opt.runtimepath:prepend(lazypath)
 
 require("lazy").setup("plugins", {
+  install = {
+    colorscheme = { "catppuccin", "habamax" },
+  },
   ui = {
     border = "rounded",
     icons = {
