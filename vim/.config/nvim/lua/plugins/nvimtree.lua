@@ -3,6 +3,20 @@ local M = {
   cmd = "NvimTreeToggle",
 }
 
+function M.init()
+  vim.api.nvim_create_augroup("nvim-tree-loader", {})
+  vim.api.nvim_create_autocmd("BufEnter", {
+    group = "nvim-tree-loader",
+    callback = function()
+      local state = vim.loop.fs_stat(vim.fn.expand("%:p"))
+      if state and state.type == "directory" then
+        require("nvim-tree")
+        vim.api.nvim_del_augroup_by_name("nvim-tree-loader")
+      end
+    end
+  })
+end
+
 function M.config()
   require('nvim-tree').setup {
     ignore_ft_on_setup = { "alpha" },
