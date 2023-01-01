@@ -1,12 +1,16 @@
 local M = {
   "nvim-treesitter/nvim-treesitter",
   build = ":TSUpdate",
-  event = "BufReadPost",
   module = false,
+  lazy = true,
   dependencies = {
     "andymass/vim-matchup",
     "windwp/nvim-ts-autotag",
     "nvim-treesitter/nvim-treesitter-textobjects",
+    "nvim-treesitter/nvim-treesitter-context",
+    "folke/todo-comments.nvim",
+    "norcalli/nvim-colorizer.lua",
+    "lukas-reineke/indent-blankline.nvim",
   },
 }
 

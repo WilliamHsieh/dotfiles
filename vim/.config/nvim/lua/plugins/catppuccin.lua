@@ -4,19 +4,6 @@ local M = {
   priority = 1000,
 }
 
-function M.vscode()
-  local c = require("vscode.colors")
-  require("vscode").setup {
-    group_overrides = {
-      cppTSKeyword = { fg = c.vscBlue },
-      cppTSConstMacro = { fg = c.vscPink },
-      NvimTreeFolderName = { fg = c.vscBlue },
-      NvimTreeOpenedFolderName = { fg = c.vscBlue },
-    }
-  }
-  vim.api.nvim_set_hl(0, 'ExtraWhitespace', { fg = c.vscYellow, bg = "NONE", underline = true })
-end
-
 function M.config()
   require("catppuccin").setup {
     flavour = "macchiato",
@@ -36,7 +23,6 @@ function M.config()
       markdown = true,
       mason = true,
       neogit = true,
-      -- noice = true,
       notify = true,
       nvimtree = true,
       telescope = true,
@@ -55,5 +41,28 @@ function M.config()
   }
   vim.cmd.colorscheme "catppuccin"
 end
+
+-- "folke/tokyonight.nvim",
+-- "rose-pine/neovim",
+-- "rebelot/kanagawa.nvim",
+-- "EdenEast/nightfox.nvim",
+-- "marko-cerovac/material.nvim",
+-- "shaunsingh/nord.nvim",
+-- "Mofiqul/dracula.nvim",
+-- "glepnir/zephyr-nvim",
+-- 'Mofiqul/vscode.nvim',
+
+-- function M.vscode()
+--   local c = require("vscode.colors")
+--   require("vscode").setup {
+--     group_overrides = {
+--       cppTSKeyword = { fg = c.vscBlue },
+--       cppTSConstMacro = { fg = c.vscPink },
+--       NvimTreeFolderName = { fg = c.vscBlue },
+--       NvimTreeOpenedFolderName = { fg = c.vscBlue },
+--     }
+--   }
+--   vim.api.nvim_set_hl(0, 'ExtraWhitespace', { fg = c.vscYellow, bg = "NONE", underline = true })
+-- end
 
 return M
