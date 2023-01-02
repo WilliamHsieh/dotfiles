@@ -14,6 +14,7 @@ function M.config()
         HlSearchNear = { link = "CurSearch" },
         HlSearchLens = { link = "Search" },
         HlSearchFloat = { link = "CurSearch" },
+        ExtraWhitespace = { fg = colors.yellow, style = { "underline" } }
       }
     end,
     integrations = {
