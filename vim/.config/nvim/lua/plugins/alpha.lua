@@ -1,9 +1,9 @@
 local M = {
   "goolord/alpha-nvim",
+  priority = 500
 }
 
 function M.config()
-  local alpha = require "alpha"
   local icons = require "core.icons"
   local dashboard = require "alpha.themes.dashboard"
 
@@ -54,7 +54,13 @@ function M.config()
   dashboard.section.footer.opts.hl = "Type"
   dashboard.section.buttons.opts.hl = "Keyword"
 
-  alpha.setup(dashboard.opts)
+  if vim.o.filetype == "lazy" then
+    vim.cmd.close()
+    require("alpha").setup(dashboard.opts)
+    require("lazy").show()
+  else
+    require("alpha").setup(dashboard.opts)
+  end
 end
 
 return M
