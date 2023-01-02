@@ -10,6 +10,7 @@ autocmd("FileType", {
     vim.keymap.set('n', 'q', '<cmd>close<cr>', { desc = "close buffer", buffer = event.buf })
   end
 })
+
 autocmd("TextYankPost", {
   desc = "blink highlight text",
   pattern = "*",
@@ -21,14 +22,17 @@ autocmd("TextYankPost", {
     }
   end
 })
+
 autocmd("VimResized", {
   desc = "auto resize",
   pattern = "*",
   group = "config_group",
   command = "tabdo wincmd ="
 })
+
 autocmd("BufReadPost", {
   desc = "goto previous position",
+  group = "config_group",
   callback = function()
     local mark = vim.api.nvim_buf_get_mark(0, '"')
     local lcount = vim.api.nvim_buf_line_count(0)
@@ -66,14 +70,18 @@ vim.api.nvim_create_autocmd({ 'User' }, {
   end
 })
 
--- TODO: using new autocmd api
-vim.cmd [[
-  augroup Theme
-    autocmd!
-    au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-    au InsertLeave * match ExtraWhitespace /\s\+$\| \+\ze\t/
+vim.api.nvim_create_autocmd("InsertEnter", {
+  group = "config_group",
+  callback = function()
+    vim.cmd.match("ExtraWhitespace", [[/\s\+\%#\@<!$/]])
+    vim.o.cursorline = false
+  end
+})
 
-    au InsertEnter * set nocursorline
-    au InsertLeave * set cursorline
-  augroup END
-]]
+vim.api.nvim_create_autocmd("InsertLeave", {
+  group = "config_group",
+  callback = function()
+    vim.cmd.match("ExtraWhitespace", [[/\s\+$\| \+\ze\t/]])
+    vim.o.cursorline = true
+  end
+})
