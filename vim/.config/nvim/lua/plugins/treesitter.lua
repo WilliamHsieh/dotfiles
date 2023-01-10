@@ -97,8 +97,12 @@ function M.config()
   vim.api.nvim_create_autocmd("User", {
     pattern = "MatchupOffscreenEnter",
     callback = function()
-      vim.g.sl = vim.g.tpipeline_statusline
-      vim.g.tpipeline_statusline = vim.o.stl
+      if not string.find(vim.g.tpipeline_statusline, "matchup") then
+        vim.g.sl = vim.g.tpipeline_statusline
+      end
+      if string.find(vim.o.stl, "matchup") then
+        vim.g.tpipeline_statusline = vim.o.stl
+      end
     end
   })
   vim.api.nvim_create_autocmd("User", {
