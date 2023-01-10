@@ -10,7 +10,11 @@ local M = {
 }
 
 function M.config()
-  require("neodev").setup()
+  require("neodev").setup {
+    library = {
+      plugins = false,
+    }
+  }
   require("mason").setup {
     ui = {
       border = "rounded",
