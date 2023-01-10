@@ -3,7 +3,7 @@ local M = {
   priority = 500
 }
 
-function M.config()
+local function setup()
   local icons = require "core.icons"
   local dashboard = require "alpha.themes.dashboard"
 
@@ -33,33 +33,34 @@ function M.config()
     local content = #banner + 2 * #dashboard.section.buttons.val + 5
     local cnt = vim.fn.max{1, vim.fn.floor((height - content) * 0.4)}
 
-    local res = {}
     for _ = 1, cnt do
-      table.insert(res, "")
+      table.insert(banner, 1, "")
     end
-    for _, v in pairs(banner) do
-      table.insert(res, v)
-    end
-    return res
+    return banner
   end
 
   local function get_footer()
     local v = vim.version()
+    ---@diagnostic disable-next-line: need-check-nil
     return string.format("NVIM v%d.%d.%d", v.major, v.minor, v.patch)
   end
 
-  dashboard.section.header.val = get_header
+  dashboard.section.header.val = get_header()
   dashboard.section.footer.val = get_footer()
   dashboard.section.header.opts.hl = "Include"
   dashboard.section.footer.opts.hl = "Type"
   dashboard.section.buttons.opts.hl = "Keyword"
 
+  require("alpha").setup(dashboard.opts)
+end
+
+function M.config()
   if vim.o.filetype == "lazy" then
     vim.cmd.close()
-    require("alpha").setup(dashboard.opts)
+    setup()
     require("lazy").show()
   else
-    require("alpha").setup(dashboard.opts)
+    setup()
   end
 end
 
