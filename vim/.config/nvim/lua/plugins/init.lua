@@ -117,11 +117,6 @@ return {
   },
 
   {
-    "mbbill/undotree",
-    cmd = "UndotreeToggle"
-  },
-
-  {
     "nvim-telescope/telescope-ui-select.nvim",
     init = function()
       vim.ui.select = function(...)
