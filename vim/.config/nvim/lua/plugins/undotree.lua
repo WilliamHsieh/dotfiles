@@ -4,8 +4,8 @@ local M = {
 
 local function undotree()
   local tmp = vim.g.tpipeline_statusline
-  if tmp:find("undotree") then return end
-  vim.cmd.UndotreeToggle()
+  if tmp and tmp:find("undotree") then return end
+  vim.cmd.UndotreeShow()
   vim.api.nvim_create_autocmd("BufUnload", {
     pattern = "<buffer>",
     once = true,
