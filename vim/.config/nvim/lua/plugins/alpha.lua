@@ -8,14 +8,14 @@ local function setup()
   local dashboard = require "alpha.themes.dashboard"
 
   dashboard.section.buttons.val = {
-    dashboard.button("i", icons.ui.NewFile .. " New file", ":ene <BAR> startinsert <CR>"),
-    dashboard.button("r", icons.ui.History .. " Recent files", ":Telescope oldfiles <CR>"),
-    dashboard.button("f", icons.documents.Files .. " Find file", ":Telescope find_files <CR>"),
-    dashboard.button("F", icons.ui.List .. " Find text", ":Telescope live_grep <CR>"),
-    dashboard.button("p", icons.git.Repo .. " Find project", ":Telescope projects theme=dropdown<CR>"),
-    dashboard.button("s", icons.misc.Watch .. " Find session", "<cmd>SessionManager load_session<cr>"),
-    dashboard.button("c", icons.ui.Gear .. " Config", ":e ~/dotfiles<cr>"),
-    dashboard.button("q", icons.diagnostics.Error .. " Quit", ":qa<CR>"),
+    dashboard.button("i", icons.ui.NewFile .. "  New file", ":ene <BAR> startinsert<CR>"),
+    dashboard.button("r", icons.ui.History .. "  Recent files", ":Telescope oldfiles<CR>"),
+    dashboard.button("f", icons.documents.Files .. "  Find file", ":Telescope find_files<CR>"),
+    dashboard.button("F", icons.ui.List .. "  Find text", ":Telescope live_grep<CR>"),
+    dashboard.button("p", icons.git.Repo .. "  Find project", ":Telescope projects theme=dropdown<CR>"),
+    dashboard.button("s", icons.misc.Watch .. "  Find session", ":SessionManager load_session<CR>"),
+    dashboard.button("c", icons.ui.Gear .. "  Config", ":e ~/dotfiles<CR>"),
+    dashboard.button("q", icons.diagnostics.Error .. "  Quit", ":qa<CR>"),
   }
 
   local function get_header()
