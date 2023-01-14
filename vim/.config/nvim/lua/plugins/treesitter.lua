@@ -94,6 +94,10 @@ function M.config()
     },
   }
 
+  if not vim.g.tpipeline_statusline then
+    return
+  end
+
   vim.api.nvim_create_autocmd("User", {
     pattern = "MatchupOffscreenEnter",
     callback = function()
