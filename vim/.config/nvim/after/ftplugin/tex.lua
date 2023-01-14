@@ -15,4 +15,20 @@ if ok then
   }
 end
 
+vim.api.nvim_create_autocmd("User", {
+  pattern = "VimtexEventViewReverse",
+  group = "config_group",
+  callback = function()
+    vim.api.nvim_create_autocmd("FocusGained", {
+      pattern = "*",
+      once = true,
+      callback = function()
+        vim.defer_fn(function()
+          vim.cmd.normal("yy")
+        end, 100)
+      end
+    })
+  end
+})
+
 vim.cmd.TSContextDisable()
