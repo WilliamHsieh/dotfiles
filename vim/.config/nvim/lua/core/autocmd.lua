@@ -70,6 +70,14 @@ vim.api.nvim_create_autocmd({ 'User' }, {
   end
 })
 
+vim.api.nvim_create_autocmd('User', {
+  pattern = { 'GitSignsUpdate', 'NeogitStatusRefreshed' },
+  group = "config_group",
+  callback = function()
+    pcall(vim.cmd.NvimTreeRefresh)
+  end
+})
+
 vim.api.nvim_create_autocmd("InsertEnter", {
   group = "config_group",
   callback = function()
