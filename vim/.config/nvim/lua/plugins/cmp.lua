@@ -90,9 +90,10 @@ function M.config()
       select = false,
     },
     window = {
-      documentation = {
-        border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
-      },
+      documentation = cmp.config.window.bordered(),
+      completion = cmp.config.window.bordered {
+        col_offset = -1,
+      }
     },
     experimental = {
       ghost_text = true,
@@ -107,7 +108,7 @@ function M.config()
     },
   })
 
-  cmp.setup.cmdline('/', {
+  cmp.setup.cmdline({ '/', '?' }, {
     mapping = mappings,
     sources = {
       { name = "buffer" },
