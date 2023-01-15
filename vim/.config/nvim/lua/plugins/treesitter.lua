@@ -1,7 +1,6 @@
 local M = {
   "nvim-treesitter/nvim-treesitter",
   build = ":TSUpdate",
-  module = false,
   lazy = true,
   dependencies = {
     "andymass/vim-matchup",
@@ -10,7 +9,6 @@ local M = {
     "nvim-treesitter/nvim-treesitter-context",
     "folke/todo-comments.nvim",
     "norcalli/nvim-colorizer.lua",
-    "lukas-reineke/indent-blankline.nvim",
   },
 }
 
