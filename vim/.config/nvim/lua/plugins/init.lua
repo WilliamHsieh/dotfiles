@@ -173,4 +173,9 @@ return {
       calm_down = true,
     }
   },
+
+  {
+    "kylechui/nvim-surround",
+    config = true,
+  },
 }
