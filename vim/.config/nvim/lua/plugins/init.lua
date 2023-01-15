@@ -12,6 +12,7 @@ return {
       "nvim-treesitter/nvim-treesitter",
       "neovim/nvim-lspconfig",
       "lewis6991/gitsigns.nvim",
+      "lukas-reineke/indent-blankline.nvim",
       "Shatur/neovim-session-manager",
       "tiagovla/scope.nvim",
     },
