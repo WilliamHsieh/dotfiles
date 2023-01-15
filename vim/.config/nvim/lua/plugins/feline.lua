@@ -130,8 +130,8 @@ function M.config()
 
   local treesitter_status = {
     provider = function()
-      local ts_avail, ts = pcall(require, "nvim-treesitter.parsers")
-      return (ts_avail and ts.has_parser()) and assets.tree or ""
+      local res = package.loaded['nvim-treesitter'] and require("nvim-treesitter.parsers").has_parser()
+      return res and assets.tree or ""
     end,
     hl = {
       fg = 'green',
