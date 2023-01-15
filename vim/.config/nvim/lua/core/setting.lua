@@ -38,6 +38,7 @@ local options = {
   virtualedit = 'block',
   showmode = false,
   mousemoveevent = true,
+  fixendofline = false,
 }
 
 for k, v in pairs(options) do
