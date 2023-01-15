@@ -68,11 +68,8 @@ function M.config()
     severity_sort = true,
     float = {
       focusable = true,
-      style = "minimal",
       border = "rounded",
       source = "always",
-      header = "",
-      prefix = "",
     },
   }
 
