@@ -1,7 +1,10 @@
 # dotfiles
 These are my configuration mainly for `nvim`, `zsh`, and `tmux`.
 
-![screenshot](https://i.imgur.com/WUt1zrw.png)
+<img width="1440" alt="Screenshot 2023-01-16 at 13 39 33" src="https://user-images.githubusercontent.com/23206205/212606291-498b2c3b-c891-4567-8305-0ad438aad286.png">
+<img width="1440" alt="Screenshot 2023-01-16 at 13 39 41" src="https://user-images.githubusercontent.com/23206205/212606308-24b3b4a8-9ce8-409b-85cb-6b3a1c4a4ce0.png">
+
+
 
 ## Getting Started
 **Disclaimer:** These dotfiles work best on WSL2 and mac. **Use at your own risk!**
