@@ -26,7 +26,7 @@
   "lsp_signature.nvim": { "branch": "master", "commit": "1979f1118e2b38084e7c148f279eed6e9300a342" },
   "lspsaga.nvim": { "branch": "main", "commit": "b7b4777369b441341b2dcd45c738ea4167c11c9e" },
   "mason-lspconfig.nvim": { "branch": "main", "commit": "43c7f402cb9822b61b5dc05bf0b385928df256a6" },
-  "mason.nvim": { "branch": "main", "commit": "8529daa38242091d579ed24f28b35c8b80928e8a" },
+  "mason.nvim": { "branch": "main", "commit": "e50e1940de5a4d840326c8ddee68ed7440555f4f" },
   "neodev.nvim": { "branch": "main", "commit": "fab865c2d9f6b821ddad980252c08ecf5151616a" },
   "neogit": { "branch": "master", "commit": "981207efd10425fef82ca09fa8bd22c3ac3e622d" },
   "neovim-session-manager": { "branch": "master", "commit": "f8c85da390c5d1ad3bfd229ac2ed805c5742263d" },

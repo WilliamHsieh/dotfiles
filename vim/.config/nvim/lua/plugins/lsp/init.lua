@@ -18,6 +18,7 @@ function M.config()
   require("mason").setup {
     ui = {
       border = "rounded",
+      height = 0.8,
     }
   }
   require("mason-lspconfig").setup {
