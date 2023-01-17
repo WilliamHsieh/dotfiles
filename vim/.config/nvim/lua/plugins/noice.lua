@@ -11,11 +11,15 @@ function M.config()
   require("noice").setup {
     messages = {
       view_search = false,
+      view_error = "mini",
+      view_warn = "mini",
+    },
+    commands = {
+      history = {
+        view = "popup",
+      },
     },
     lsp = {
-      progress = {
-        throttle = 1000 / 2,
-      },
       hover = {
         enabled = false,
       },
@@ -28,14 +32,12 @@ function M.config()
         ["cmp.entry.get_documentation"] = true,
       },
     },
-
     presets = {
       command_palette = true, -- position the cmdline and popupmenu together
       long_message_to_split = true, -- long messages will be sent to a split
       inc_rename = true, -- enables an input dialog for inc-rename.nvim
       lsp_doc_border = true, -- add a border to hover docs and signature help
     },
-
     routes = {
       {
         -- show macro
@@ -52,8 +54,6 @@ function M.config()
         opts = { skip = true },
       },
     },
-
-    throttle = 1000 / 10,
   }
 end
 
