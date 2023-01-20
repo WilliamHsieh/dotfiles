@@ -7,6 +7,9 @@ local M = {
 function M.config()
   require("catppuccin").setup {
     flavour = "macchiato",
+    background = {
+      dark = "macchiato"
+    },
     custom_highlights = function(colors)
       return {
         NormalFloat = { bg = colors.base },
@@ -55,19 +58,6 @@ end
 -- "shaunsingh/nord.nvim",
 -- "Mofiqul/dracula.nvim",
 -- "glepnir/zephyr-nvim",
--- 'Mofiqul/vscode.nvim',
-
--- function M.vscode()
---   local c = require("vscode.colors")
---   require("vscode").setup {
---     group_overrides = {
---       cppTSKeyword = { fg = c.vscBlue },
---       cppTSConstMacro = { fg = c.vscPink },
---       NvimTreeFolderName = { fg = c.vscBlue },
---       NvimTreeOpenedFolderName = { fg = c.vscBlue },
---     }
---   }
---   vim.api.nvim_set_hl(0, 'ExtraWhitespace', { fg = c.vscYellow, bg = "NONE", underline = true })
--- end
+-- "Mofiqul/vscode.nvim",
 
 return M
