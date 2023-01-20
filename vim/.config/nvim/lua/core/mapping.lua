@@ -8,11 +8,17 @@
 --   "!": insert_command_mode
 
 -- helper functions{{{
-local function map(mode, lhs, rhs, desc)
-  vim.keymap.set(mode, lhs, rhs, {
-    silent = true,
-    desc = desc,
-  })
+
+---@param mode string|string[]
+---@param lhs string
+---@param rhs string|function
+---@param opt? table|string
+local function map(mode, lhs, rhs, opt)
+  -- NOTE: <cmd> are different from ":"
+  if not opt or type(opt) == "string" then
+    opt = { silent = true, desc = opt }
+  end
+  vim.keymap.set(mode, lhs, rhs, opt)
 end
 
 local function yank()
@@ -89,7 +95,7 @@ map("n", "<leader>ps", "<cmd>StartupTime<cr>", "Startup time")
 
 -- <leader>f: find{{{
 -- telescope
-map("n", "<C-p>", "<cmd>Telescope find_files theme=dropdown previewer=false<cr>")
+map("n", "<C-p>", "<cmd>Telescope find_files theme=dropdown previewer=false<cr>", "Find files")
 map("n", "<leader>ff", "<cmd>Telescope find_files<cr>", "Find files")
 map("n", "<leader>fF", "<cmd>Telescope live_grep<cr>", "Find Text")
 map("n", "<leader>fB", "<cmd>Telescope git_branches<cr>", "Checkout branch")
@@ -143,7 +149,7 @@ map("n", "<leader>lp", "<cmd>Lspsaga peek_definition<cr>", "preview definition")
 map("n", "<leader>lo", "<cmd>TagbarToggle<cr>", "Outline(tagbar)")
 map("n", "<leader>lO", "<cmd>SymbolsOutline<cr>", "Outline(SymbolsOutline)")
 map("n", "<leader>lq", vim.diagnostic.setloclist, "Quickfix")
-vim.keymap.set("n", "<leader>lr", ":IncRename ", { desc = "Rename" })
+map("n", "<leader>lr", ":IncRename ", { desc = "Rename" })
 map("n", "<leader>lR", "<cmd>TroubleToggle lsp_references<cr>", "References")
 map("n", "<leader>ls", "<cmd>Telescope lsp_document_symbols<cr>", "Document Symbols")
 map("n", "<leader>lS", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", "Workspace Symbols")
@@ -191,9 +197,9 @@ map("v", "<leader>y", function() yank() end, "copy to clipboard")
 -- others{{{
 map("i", "kj", "<esc>")
 map("n", "<C-L>", function()
-  require("notify").dismiss()
+  require("notify").dismiss {}
 	vim.cmd("nohlsearch | diffupdate | mode")
-end)
+end, "refresh")
 
 -- quickfix
 map("n", "]q", "<cmd>cnext<cr>", "quickfix next")
@@ -204,17 +210,17 @@ map("v", "<S-h>", ":m '<-2<cr>gv=gv")
 map("v", "<S-l>", ":m '>+1<cr>gv=gv")
 
 -- bufferline
-map("n", "H", "<cmd>BufferLineCyclePrev<cr>")
-map("n", "L", "<cmd>BufferLineCycleNext<cr>")
-map("n", "Q", "<cmd>Bdelete<cr>")
+map("n", "H", "<cmd>BufferLineCyclePrev<cr>", "Previous buffer")
+map("n", "L", "<cmd>BufferLineCycleNext<cr>", "Next buffer")
+map("n", "Q", "<cmd>Bdelete<cr>", "Delete buffer")
 
 -- navigation
 map({"n", "v"}, "<C-j>", "4jzz")
 map({"n", "v"}, "<C-k>", "4kzz")
-vim.keymap.set("!", "<C-A>", "<Home>")
-vim.keymap.set("!", "<C-E>", "<End>")
-vim.keymap.set("!", "<Esc>b", "<S-Left>")
-vim.keymap.set("!", "<Esc>f", "<S-Right>")
+map("!", "<C-A>", "<Home>", {})
+map("!", "<C-E>", "<End>", {})
+map("!", "<Esc>b", "<S-Left>", {})
+map("!", "<Esc>f", "<S-Right>", {})
 
 local function vim_navigation(vim_dir)
   local pre = vim.fn.winnr()
@@ -225,7 +231,7 @@ local function vim_navigation(vim_dir)
   end
 end
 
-map("n", '<M-h>', function() vim_navigation('h') end)
-map("n", '<M-j>', function() vim_navigation('j') end)
-map("n", '<M-k>', function() vim_navigation('k') end)
-map("n", '<M-l>', function() vim_navigation('l') end)
+map("n", '<M-h>', function() vim_navigation('h') end, "Navigate left")
+map("n", '<M-j>', function() vim_navigation('j') end, "Navigate down")
+map("n", '<M-k>', function() vim_navigation('k') end, "Navigate up")
+map("n", '<M-l>', function() vim_navigation('l') end, "Navigate right")

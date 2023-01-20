@@ -28,10 +28,9 @@ function M.config()
     function(lsp_name)
       local opts = {
         on_attach = function(client, bufnr)
-          local opt = { buffer = bufnr }
-          vim.keymap.set("n", "K", vim.lsp.buf.hover, opt)
-          vim.keymap.set("n", "gd", vim.lsp.buf.definition, opt)
-          vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opt)
+          vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bufnr, desc = "Hover doc" })
+          vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = bufnr, desc = "go to definition" })
+          vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = bufnr, desc = "go to declaration" })
           require("illuminate").on_attach(client)
         end,
         capabilities = require('cmp_nvim_lsp').default_capabilities(),
