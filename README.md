@@ -13,6 +13,13 @@ These are my configuration mainly for `nvim`, `zsh`, and `tmux`.
 - `make`, `ripgrep` for nvim plugin
 - `fzf` for tmux plugin
 - `coreutils` for `gdircolors`
+- [Nerd fonts](https://www.nerdfonts.com/)
+
+```
+brew tap homebrew/cask-fonts
+brew search nerd-font
+brew install --cask font-meslo-lg-nerd-font
+```
 
 ### Optional
 - `stow`
