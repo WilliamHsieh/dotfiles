@@ -40,11 +40,6 @@ function M.config()
     },
     routes = {
       {
-        -- show macro
-        view = "notify",
-        filter = { event = "msg_showmode" },
-      },
-      {
         -- don't show written messages
         filter = {
           event = "msg_show",

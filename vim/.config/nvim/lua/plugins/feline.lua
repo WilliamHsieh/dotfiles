@@ -29,6 +29,7 @@ function M.config()
     mode = '',
     dir = '',
     tree = '',
+    macro = "",
   }
 
   local mode = {
@@ -52,7 +53,7 @@ function M.config()
     end,
     icon = '  ',
     right_sep = {
-      str = assets.right_separator,
+      str = assets.right_separator .. ' ',
       hl = function()
         return {
           fg = vi_mode_color(),
@@ -62,10 +63,14 @@ function M.config()
     },
   }
 
-  local cwd = {
+  local cwd_macro = {
     provider = function()
-      local dir_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
-      return ' ' .. assets.dir .. ' ' .. dir_name .. " "
+      if vim.fn.reg_recording() ~= "" then
+        return assets.macro .. ' recording @' .. vim.fn.reg_recording() .. ' '
+      else
+        local dir_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
+        return assets.dir .. ' ' .. dir_name .. ' '
+      end
     end,
     hl = {
 			fg = 'bg',
@@ -220,7 +225,7 @@ function M.config()
       active = {
         {
           mode,
-          cwd,
+          cwd_macro,
           git_branch,
           diagnostic_errors,
           diagnostic_warnings,
