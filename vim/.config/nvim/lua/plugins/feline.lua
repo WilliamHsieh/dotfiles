@@ -30,6 +30,9 @@ function M.config()
     dir = '',
     tree = '',
     macro = "",
+    search = "",
+    search_forward = "",
+    search_backward = "",
   }
 
   local mode = {
@@ -145,15 +148,30 @@ function M.config()
     right_sep = ' ',
   }
 
-  local filetype = {
-    provider = {
-      name = 'file_type',
-      opts = {
-        filetype_icon = true,
-        colored_icon = false,
-        case = "lowercase",
-      }
-    },
+  local filetype_searchcount = {
+    provider = function ()
+      if vim.v.hlsearch == 1 then
+        local res = vim.fn.searchcount { maxcount = 999, timeout = 250 }
+        local direction = vim.v.searchforward == 1 and assets.search_forward or assets.search_backward
+        if res.incomplete == 1 then
+          return ('%s ?/?? %s'):format(assets.search, direction)
+        else
+          local stat = res.incomplete
+          return ('%s %s%d/%s%d %s'):format(
+            assets.search,
+            (stat == 2 and res.current > res.maxcount) and ">" or "",
+            res.current,
+            stat == 2 and ">" or "",
+            res.total,
+            direction
+          )
+        end
+      else
+        local ft = vim.bo.filetype
+        local icon, _ = require("nvim-web-devicons").get_icon_by_filetype(ft, { default = true })
+        return icon .. ' ' .. ft
+      end
+    end,
     hl = {
       fg = 'bg',
       bg = 'red',
@@ -236,7 +254,7 @@ function M.config()
         {
           treesitter_status,
           lsp_client,
-          filetype,
+          filetype_searchcount,
           hostname,
         }
       }
