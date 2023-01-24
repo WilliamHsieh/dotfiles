@@ -91,28 +91,6 @@ function M.config()
       },
     },
   }
-
-  if not vim.g.tpipeline_statusline then
-    return
-  end
-
-  vim.api.nvim_create_autocmd("User", {
-    pattern = "MatchupOffscreenEnter",
-    callback = function()
-      if not string.find(vim.g.tpipeline_statusline, "matchup") then
-        vim.g.sl = vim.g.tpipeline_statusline
-      end
-      if string.find(vim.o.stl, "matchup") then
-        vim.g.tpipeline_statusline = vim.o.stl
-      end
-    end
-  })
-  vim.api.nvim_create_autocmd("User", {
-    pattern = "MatchupOffscreenLeave",
-    callback = function()
-      vim.g.tpipeline_statusline = vim.g.sl
-    end
-  })
 end
 
 return M
