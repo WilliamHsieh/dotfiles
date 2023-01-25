@@ -1,13 +1,13 @@
 local M = {
   "lewis6991/gitsigns.nvim",
-  lazy = true,
+  cmd = "GitSigns",
 }
 
 function M.config()
   require("gitsigns").setup {
     signs = {
-      add = { hl = "GitSignsAdd", text = "▎", numhl = "GitSignsAddNr", linehl = "GitSignsAddLn" },
-      change = { hl = "GitSignsChange", text = "▎", numhl = "GitSignsChangeNr", linehl = "GitSignsChangeLn" },
+      add = { text = "▎" },
+      change = { text = "▎" },
     },
     current_line_blame_opts = {
       virt_text = true,
