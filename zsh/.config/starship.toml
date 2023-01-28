@@ -1,0 +1,21 @@
+format = """
+$all\
+$fill\
+$time\
+$line_break\
+$character
+"""
+
+[fill]
+symbol = " "
+
+[time]
+disabled = false
+style = "bold bright-black"
+format = '[\[$time\]]($style) '
+
+[container]
+disabled = true
+
+[directory]
+truncation_length = 10
