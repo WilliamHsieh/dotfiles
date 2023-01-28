@@ -14,9 +14,8 @@ function M.config()
       'NvimTree',
       'toggleterm',
     },
-    -- FIX: not working
     modes_denylist = {
-      "v", "CTRL-V"
+      "v", "vs", "V", "Vs", "CTRL-V", "CTRL-Vs"
     },
   }
 end
