@@ -13,10 +13,6 @@ function M.config()
     custom_highlights = function(colors)
       return {
         NormalFloat = { bg = colors.base },
-        HlSearchLensNear = { link = "CurSearch" },
-        HlSearchNear = { link = "CurSearch" },
-        HlSearchLens = { link = "Search" },
-        HlSearchFloat = { link = "CurSearch" },
         ExtraWhitespace = { fg = colors.yellow, style = { "underline" } }
       }
     end,
