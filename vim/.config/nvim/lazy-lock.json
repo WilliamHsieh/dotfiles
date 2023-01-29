@@ -66,7 +66,7 @@
   "vim-illuminate": { "branch": "master", "commit": "4e1d43cdc39e35f495c7b39a78a349b4d5badad0" },
   "vim-matchup": { "branch": "master", "commit": "959e0e79ea240cdee29efbdd0d2e2e718931ccec" },
   "vim-startuptime": { "branch": "master", "commit": "cb4c112b9e0f224236ee4eab6bf5153406b3f88b" },
-  "vim-tpipeline": { "branch": "master", "commit": "86f37afec5cefd75baaebf8900889dabb9789a2c" },
+  "vim-tpipeline": { "branch": "master", "commit": "6be01c509779b1c8a3d1747677a9203419bd11c2" },
   "vimtex": { "branch": "master", "commit": "c77ec4e15768ffcb97a96d1bf2df1ef58e94acdd" },
   "which-key.nvim": { "branch": "main", "commit": "a012138fd57cd840ee07e3c664e9b10a74d28e9d" },
   "zen-mode.nvim": { "branch": "main", "commit": "2c8f9f3758a4c430ff867e547741424ac16208bb" }

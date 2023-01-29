@@ -26,6 +26,7 @@ function M.config()
   local assets = {
     left_separator = '',
     right_separator = '',
+    vim_mode = "",
     mode = '',
     dir = '',
     tree = '',
@@ -41,11 +42,11 @@ function M.config()
       if cur_mode == 'INSERT' and vim.o.paste == true then
         cur_mode = 'PASTE'
       end
+      cur_mode = assets.vim_mode .. ' ' .. cur_mode
       if vim.env.TMUX then
-        cur_mode = "#{?client_prefix,Prefix," .. cur_mode .. "}"
-        -- cur_mode = "#{?client_prefix,Prefix,#{?pane_in_mode,Copy,#{?pane_synchronized,Sync," .. cur_mode .. "}}}"
+        cur_mode = "#{?client_prefix, Prefix,#{?pane_in_mode, Copy,#{?pane_synchronized, Sync," .. cur_mode .. "}}}"
       end
-      return cur_mode .. ' '
+      return ' ' .. cur_mode .. ' '
     end,
     hl = function()
       return {
@@ -54,7 +55,6 @@ function M.config()
         style = 'bold',
       }
     end,
-    icon = '  ',
     right_sep = {
       str = assets.right_separator .. ' ',
       hl = function()
@@ -97,6 +97,7 @@ function M.config()
     }
   }
 
+  ---@diagnostic disable-next-line: unused-local, unused-function
   local function lsp_progress()
     local lsp = vim.lsp.util.get_progress_messages()[1]
     if not lsp then
@@ -247,9 +248,6 @@ function M.config()
           git_branch,
           diagnostic_errors,
           diagnostic_warnings,
-        },
-        {
-          { provider = lsp_progress, enabled = function() return vim.fn.exists("$TMUX") == 0 end },
         },
         {
           treesitter_status,

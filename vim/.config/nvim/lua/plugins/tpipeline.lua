@@ -7,6 +7,7 @@ function M.init()
   vim.g.tpipeline_cursormoved = 1
   vim.g.tpipeline_restore = 1
   vim.g.tpipeline_clearstl = 1
+  vim.g.tpipeline_size = 200
 
   -- update statusline
   vim.api.nvim_create_autocmd({ 'DiagnosticChanged', "RecordingEnter" }, {
