@@ -55,7 +55,7 @@ function M.config()
     ["<S-Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
-      elseif luasnip.jumpable(-1) then
+      elseif luasnip.locally_jumpable(-1) then
         luasnip.jump(-1)
       else
         fallback()
@@ -77,13 +77,15 @@ function M.config()
         return vim_item
       end,
     },
+    -- NOTE: reduce noises
+    -- https://github.com/LunarVim/LunarVim/blob/2922a427439bbbef4854c96d6f280c6b4b2ba685/lua/lvim/core/cmp.lua#L258-L264
     sources = {
-      { name = "nvim_lsp", priority = 100 },
-      { name = "nvim_lua", priority = 90 },
-      { name = "buffer", priority = 80 },
-      { name = "path", priority = 70 },
-      { name = "luasnip", priority = 60 },
-      { name = "emoji", priority = 50 },
+      { name = "nvim_lsp" },
+      { name = "nvim_lua" },
+      { name = "path" },
+      { name = "luasnip" },
+      { name = "buffer" },
+      { name = "emoji" },
     },
     confirm_opts = {
       behavior = cmp.ConfirmBehavior.Replace,

@@ -7,6 +7,8 @@ local M = {
   },
 }
 
+-- FIX: not showing (first?) echo messages: https://github.com/folke/noice.nvim/issues/71
+
 function M.config()
   require("noice").setup {
     messages = {
@@ -45,6 +47,24 @@ function M.config()
           event = "msg_show",
           kind = "",
           find = "written",
+        },
+        opts = { skip = true },
+      },
+      -- XXX: noice: filter.find support string[]
+      {
+        -- don't show message on change `u` or `<C-R>`
+        filter = {
+          event = "msg_show",
+          kind = "",
+          find = "; %a* #%d",
+        },
+        opts = { skip = true },
+      },
+      {
+        filter = {
+          event = "msg_show",
+          kind = "",
+          find = "Already at %a* change",
         },
         opts = { skip = true },
       },

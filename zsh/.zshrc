@@ -7,6 +7,9 @@
 
 # General
 # {{{
+    # load platform specific settings
+    [[ -e ~/.local.zsh ]] && source ~/.local.zsh
+
     # auto attach to tmux
     [ -n "$PS1" ] && [ -z "$TMUX" ] && $(tmux has-session 2> /dev/null) && tmux a
 
@@ -17,16 +20,12 @@
 
     # export
     export PATH=$HOME/.local/bin:$PATH
-    export LANG=en_US.UTF-8
-    export LC_ALL=C.UTF-8
+    export LC_ALL=en_US.UTF-8
     command -v nvim &> /dev/null && export VISUAL=nvim || export VISUAL=vim
     export EDITOR="$VISUAL"
 
     # prompt
     source <(starship init zsh --print-full-init)
-
-    # load platform specific settings
-    [[ -e ~/.local.zsh ]] && source ~/.local.zsh
 # }}}
 
 

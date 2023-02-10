@@ -14,6 +14,7 @@ return {
       "lewis6991/gitsigns.nvim",
       "Shatur/neovim-session-manager",
       "tiagovla/scope.nvim",
+      "akinsho/bufferline.nvim",
     },
   },
 
@@ -149,6 +150,7 @@ return {
 
   {
     'declancm/cinnamon.nvim',
+    event = "VeryLazy",
     config = true,
   },
 
@@ -161,7 +163,13 @@ return {
   },
 
   {
+    "nullchilly/fsread.nvim",
+    cmd = "FSToggle",
+  },
+
+  {
     "kylechui/nvim-surround",
+    event = "VeryLazy",
     config = true,
   },
 }

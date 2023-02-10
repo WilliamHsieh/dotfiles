@@ -11,6 +11,34 @@ autocmd("FileType", {
   end
 })
 
+autocmd({ "FocusGained", "TermClose", "TermLeave" }, { command = "checktime" })
+
+-- local function create(event)
+--   vim.api.nvim_create_autocmd(event, {
+--     callback = function(e)
+--       print(event, vim.bo[e.buf].buflisted)
+--     end
+--   })
+-- end
+--
+-- create("BufAdd")
+-- create("BufNew")
+-- create("BufEnter")
+-- create("BufWinEnter")
+-- create("WinEnter")
+
+-- XXX: not working
+-- autocmd("BufWinEnter", {
+--   desc = "filetype settings",
+--   group = "config_group",
+--   callback = function()
+--     if vim.o.buftype == "nofile" and vim.o.filetype ~= "alpha" then
+--       vim.notify("nofile")
+--       vim.keymap.set('n', 'q', '<cmd>close<cr>', { desc = "close buffer", buffer = 0 })
+--     end
+--   end
+-- })
+
 autocmd("TextYankPost", {
   desc = "blink highlight text",
   pattern = "*",
@@ -30,6 +58,7 @@ autocmd("VimResized", {
   command = "tabdo wincmd ="
 })
 
+-- TODO: auto expand folding if available
 autocmd("BufReadPost", {
   desc = "goto previous position",
   group = "config_group",
@@ -57,6 +86,7 @@ autocmd("User", {
       callback = function()
         vim.o.showtabline = pre_showtabline
         vim.o.laststatus = pre_laststatus
+        vim.cmd.Lazy("load bufferline.nvim")
       end
     })
   end

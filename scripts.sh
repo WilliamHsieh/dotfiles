@@ -17,6 +17,9 @@ function install() {
   fi
 
   [ -x "$(command -v starship)" ] || BIN_DIR="$HOME/.local/bin" sh -c "$(curl -fsSL https://starship.rs/install.sh)"
+
+  # TODO: install tmux plugins (<C-B>I)
+  # TODO: open different pane to install simultaneously
 }
 
 function tmux_navigation() {
@@ -97,9 +100,16 @@ function yank() {
 		pane_active_tty=$(tmux list-panes -F "#{pane_active} #{pane_tty}" | awk '$1=="1" { print $2 }')
 		printf "$seq" > "$pane_active_tty"
 	else
-		#TODO: not working
+		# TODO: not working
 		printf "$seq" > "$TTY"
 	fi
+}
+
+# NOTE: https://github.com/tmux/tmux/issues/1384
+function tmux_notify() {
+  if [[ "`tmux display -p '#{session_id}'`" != '$0' ]]; then
+    tmux display "#{session_id} #{window_id}"
+  fi
 }
 
 "$@"

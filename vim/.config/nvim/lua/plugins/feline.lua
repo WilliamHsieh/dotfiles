@@ -2,6 +2,10 @@ local M = {
   'feline-nvim/feline.nvim',
 }
 
+-- TODO: truncate the branch / lsp when too much windows
+-- TODO: live replace count (:s/foo/bar)
+-- TODO: only show icon for lsp when tmux window size too small (1/3 winsize?)
+
 function M.config()
   -- TODO: using custom_providers
   local vi_mode = require("feline.providers.vi_mode")
@@ -170,6 +174,21 @@ function M.config()
       else
         local ft = vim.bo.filetype
         local icon, _ = require("nvim-web-devicons").get_icon_by_filetype(ft, { default = true })
+        if ft == "tex" and vim.b.vimtex.compiler.status == 1 then
+          -- local spinners = { "", "", "" }
+          local spinners = { "⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷" }
+          local idx = math.floor(vim.loop.hrtime() / 12e7) % #spinners + 1
+          ft = ft .. string.format(" %%<%s ", spinners[idx])
+          -- vim.cmd("do User update_tpipeline")
+
+  -- let [l:symbol, l:color] = get([
+  --       \ ['[⏻] ', ''],
+  --       \ ['[⏻] ', ''],
+  --       \ ['[⟳] ', ''],
+  --       \ ['[✔︎] ', 'SLInfo'],
+  --       \ ['[✖] ', 'SLAlert']
+  --       \], l:status)
+        end
         return icon .. ' ' .. ft
       end
     end,

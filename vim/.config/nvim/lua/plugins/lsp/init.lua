@@ -12,10 +12,11 @@ local M = {
 
 function M.config()
   require("neodev").setup {
-    library = {
-      plugins = false,
-    }
+    -- library = {
+    --   plugins = false,
+    -- }
   }
+  -- NOTE: LspInstall
   require("mason").setup {
     ui = {
       border = "rounded",

@@ -5,20 +5,26 @@
 #|  /_/   \_\_|\__,_|\___|_|  |_|\__|\__|\__, |  |#
 #|                                       |___/   |#
 
-# Window
+# Settings
 # {{{
 window:
   dynamic_padding: true
-  padding:
-    x: 3
-  decorations: full
-# }}}
+  # startup_mode: Fullscreen
 
+# TODO: ring bell every time a command finished, send to tmux
+#       (send escape sequence to tmux host? \Ptmux?)
+# NOTE: https://github.com/alacritty/alacritty/blob/master/alacritty.yml
+bell:
+  command:
+    # program: /opt/homebrew/bin/tmux
+    # args: ["display", "Hello, World!"]
 
 # Fonts
-# {{{
+# JetBrainsMono, CaskaydiaCove, CodeNewRoman, SauceCodePro, MesloLGMDZ
 font:
-  size: 16
+  normal:
+    family: MesloLGMDZ Nerd Font Mono
+  size: 18.5
 # }}}
 
 
