@@ -199,7 +199,8 @@ map("v", "<leader>y", function() yank() end, "copy to clipboard")
 map("i", "kj", "<esc>")
 map("n", "<C-L>", function()
   require("notify").dismiss {}
-	vim.cmd("nohlsearch | diffupdate | mode")
+---@diagnostic disable-next-line: param-type-mismatch
+	pcall(vim.cmd, "nohlsearch | diffupdate | mode")
 end, "refresh")
 
 -- quickfix
