@@ -48,6 +48,21 @@ function M.config()
         },
         opts = { skip = true },
       },
+      {
+        -- don't show message on change `u` or `<C-R>`
+        filter = {
+          event = "msg_show",
+          find = "; %a* #%d",
+        },
+        opts = { skip = true },
+      },
+      {
+        filter = {
+          event = "msg_show",
+          find = "Already at %a* change",
+        },
+        opts = { skip = true },
+      },
     },
   }
 end
