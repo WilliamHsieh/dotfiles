@@ -13,7 +13,6 @@ return {
       "neovim/nvim-lspconfig",
       "lewis6991/gitsigns.nvim",
       "Shatur/neovim-session-manager",
-      "tiagovla/scope.nvim",
       "akinsho/bufferline.nvim",
     },
   },
@@ -105,12 +104,6 @@ return {
   },
 
   {
-    "tiagovla/scope.nvim",
-    lazy = true,
-    config = true,
-  },
-
-  {
     "michaelb/sniprun",
     build = "bash ./install.sh",
     cmd = { "SnipClose", "SnipRun", "SnipInfo", "SnipReplMemoryClean", "SnipReset", "SnipRunToggle", "SnipTerminate", },
@@ -150,6 +143,7 @@ return {
 
   {
     'declancm/cinnamon.nvim',
+    event = "VeryLazy",
     config = true,
   },
 
@@ -163,6 +157,7 @@ return {
 
   {
     "kylechui/nvim-surround",
+    event = "VeryLazy",
     config = true,
   },
 }

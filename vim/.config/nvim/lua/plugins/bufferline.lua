@@ -1,6 +1,9 @@
 local M = {
   "akinsho/bufferline.nvim",
   lazy = true,
+  dependencies = {
+    { "tiagovla/scope.nvim", config = true },
+  }
 }
 
 function M.config()
