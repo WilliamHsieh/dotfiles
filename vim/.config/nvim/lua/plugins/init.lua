@@ -14,6 +14,7 @@ return {
       "lewis6991/gitsigns.nvim",
       "Shatur/neovim-session-manager",
       "tiagovla/scope.nvim",
+      "akinsho/bufferline.nvim",
     },
   },
 

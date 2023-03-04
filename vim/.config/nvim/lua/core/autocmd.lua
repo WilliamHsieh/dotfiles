@@ -57,6 +57,7 @@ autocmd("User", {
       callback = function()
         vim.o.showtabline = pre_showtabline
         vim.o.laststatus = pre_laststatus
+        vim.cmd.Lazy("load bufferline.nvim")
       end
     })
   end
