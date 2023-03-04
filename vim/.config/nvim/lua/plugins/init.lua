@@ -148,6 +148,13 @@ return {
   },
 
   {
+    'kevinhwang91/nvim-fundo',
+    dependencies = { 'kevinhwang91/promise-async' },
+    build = function() require('fundo').install() end,
+    config = true,
+  },
+
+  {
     "dstein64/vim-startuptime",
     cmd = "StartupTime",
     config = function()
