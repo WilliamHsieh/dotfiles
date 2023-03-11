@@ -3,8 +3,21 @@
     username = "william";
     homeDirectory = "/home/william";
     stateVersion = "22.11";
-    packages = [
-      pkgs.cowsay
+    packages = with pkgs; [
+      git
+      exa
+      trash-cli
+
+      neovim
+      ripgrep
+      fd
+      unzip
+
+      zsh
+      starship
+
+      tmux
+      fzf
     ];
   };
 
