@@ -7,6 +7,9 @@
 
 # General
 # {{{
+    # load platform specific settings
+    [[ -e ~/.local.zsh ]] && source ~/.local.zsh
+
     # auto attach to tmux
     [ -n "$PS1" ] && [ -z "$TMUX" ] && $(tmux has-session 2> /dev/null) && tmux a
 
@@ -24,9 +27,6 @@
 
     # prompt
     source <(starship init zsh --print-full-init)
-
-    # load platform specific settings
-    [[ -e ~/.local.zsh ]] && source ~/.local.zsh
 # }}}
 
 
