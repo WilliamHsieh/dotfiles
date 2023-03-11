@@ -39,6 +39,7 @@ local options = {
   showmode = false,
   mousemoveevent = true,
   fixendofline = false,
+  grepprg = "rg --vimgrep --smart-case",
 }
 
 for k, v in pairs(options) do
@@ -48,8 +49,6 @@ vim.opt.shortmess:append "c"
 vim.opt.whichwrap:append "<,>,[,],h,l"
 
 local globals = {
-  loaded_netrw = 1,
-  loaded_netrwPlugin = 1,
   netrw_banner = 0,        -- disable banner
   netrw_liststyle = 3,     -- tree view
   netrw_bufsettings = 'noma nomod nonu nowrap ro buflisted', -- buflisted, fix bufferline wierdness
