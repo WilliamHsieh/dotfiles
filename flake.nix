@@ -17,7 +17,6 @@
 
     nur = {
       url = "github:nix-community/nur";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     flake-compat = {
@@ -27,7 +26,7 @@
 
     # Overlays
     neovim-flake = {
-      url = "github:neovim/neovim?dir=contrib";
+      url = "github:neovim/neovim/v0.8.3?dir=contrib";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
