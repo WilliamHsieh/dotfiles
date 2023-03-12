@@ -19,11 +19,6 @@
       url = "github:nix-community/nur";
     };
 
-    flake-compat = {
-      url = "github:edolstra/flake-compat";
-      flake = false;
-    };
-
     # Overlays
     neovim-flake = {
       url = "github:neovim/neovim/v0.8.3?dir=contrib";
