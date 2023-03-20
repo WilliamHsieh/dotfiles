@@ -70,6 +70,6 @@
   "vim-startuptime": { "branch": "master", "commit": "cb4c112b9e0f224236ee4eab6bf5153406b3f88b" },
   "vim-tpipeline": { "branch": "master", "commit": "6be01c509779b1c8a3d1747677a9203419bd11c2" },
   "vimtex": { "branch": "master", "commit": "c77ec4e15768ffcb97a96d1bf2df1ef58e94acdd" },
-  "which-key.nvim": { "branch": "main", "commit": "a012138fd57cd840ee07e3c664e9b10a74d28e9d" },
+  "which-key.nvim": { "branch": "main", "commit": "d1afcd48f309af58fdb43adc4581bf4b5684768b" },
   "zen-mode.nvim": { "branch": "main", "commit": "2c8f9f3758a4c430ff867e547741424ac16208bb" }
 }
