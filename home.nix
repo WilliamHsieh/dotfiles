@@ -1,6 +1,6 @@
 { pkgs, config, ... }:
 let
-  link = path: config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/${path}";
+  link = path: config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/${path}";
 in {
   home = {
     packages = with pkgs; [
@@ -36,9 +36,15 @@ in {
   };
 
   xdg.configFile = {
-    "nvim".source = link "config/.config/nvim";
-    "alacritty".source = link "config/.config/alacritty";
-    "starship.toml".source = link "config/.config/starship.toml";
+    "nvim".source = link ".config/nvim";
+    "alacritty".source = link ".config/alacritty";
+    "starship.toml".source = link ".config/starship.toml";
+  };
+
+  home.file = {
+    ".vimrc".source = link ".vimrc";
+    ".zshrc".source = link ".zshrc";
+    ".tmux.conf".source = link ".tmux.conf";
   };
 
   programs.home-manager.enable = true;
