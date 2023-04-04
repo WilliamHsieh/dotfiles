@@ -36,6 +36,7 @@
   let
     system = "x86_64-linux";
     username = "william";
+
     pkgs = import nixpkgs {
       inherit system;
       config = { allowUnfree = true; };
@@ -44,6 +45,15 @@
       ];
     };
 
+
+    getHomeDirectory = system: with nixpkgs.legacyPackages.${system}.stdenv;
+    if isDarwin then
+      "/Users/${username}"
+    else if username == "root" then
+      "/root"
+    else if isLinux then
+      "/home/${username}"
+    else "";
   in {
     packages.${system}.default = home-manager.defaultPackage.${system};
 
@@ -56,7 +66,7 @@
            {
              home = {
                inherit username;
-               homeDirectory = "/home/${username}";
+               homeDirectory = getHomeDirectory system;
                stateVersion = "22.11";
              };
            }
