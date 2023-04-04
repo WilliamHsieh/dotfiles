@@ -1,4 +1,7 @@
-{ pkgs, ... }: {
+{ pkgs, config, ... }:
+let
+  link = path: config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/${path}";
+in {
   home = {
     packages = with pkgs; [
       # essential
@@ -15,6 +18,7 @@
       starship
       exa
       trash-cli
+      zoxide
 
       # terminal multiplexer
       tmux
@@ -27,7 +31,14 @@
       delta
       comma
       htop
+      rustup
     ];
+  };
+
+  xdg.configFile = {
+    "nvim".source = link "config/.config/nvim";
+    "alacritty".source = link "config/.config/alacritty";
+    "starship.toml".source = link "config/.config/starship.toml";
   };
 
   programs.home-manager.enable = true;
