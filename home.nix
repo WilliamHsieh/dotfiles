@@ -57,6 +57,7 @@ in {
   programs.tmux = {
     enable = true;
     sensibleOnTop = false;
+    shell = "${pkgs.zsh}/bin/zsh";
     plugins = with pkgs.tmuxPlugins; [
       {
         plugin = prefix-highlight;
