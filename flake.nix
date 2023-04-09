@@ -32,7 +32,7 @@
     };
   };
 
-  outputs = inputs @ { nixpkgs, home-manager, ... }:
+  outputs = inputs @ { self, nixpkgs, home-manager, ... }:
   let
     system = "x86_64-linux";
     username = "william";
@@ -45,21 +45,23 @@
       ];
     };
 
-
     getHomeDirectory = system: with nixpkgs.legacyPackages.${system}.stdenv;
-    if isDarwin then
-      "/Users/${username}"
-    else if username == "root" then
-      "/root"
-    else if isLinux then
-      "/home/${username}"
-    else "";
+      if isDarwin then
+        "/Users/${username}"
+      else if username == "root" then
+        "/root"
+      else if isLinux then
+        "/home/${username}"
+      else "";
+
+    inherit (self) outputs;
   in {
     packages.${system}.default = home-manager.defaultPackage.${system};
 
     homeConfigurations = {
       ${username} = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
+        extraSpecialArgs = { inherit inputs outputs; };
 
         modules = [
           ./home.nix

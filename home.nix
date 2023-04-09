@@ -44,6 +44,14 @@ in {
     ".tmux.conf".source = link ".tmux.conf";
   };
 
+  nix = {
+    package = pkgs.nixUnstable;
+    settings = {
+      experimental-features = [ "nix-command" "flakes" ];
+      warn-dirty = false;
+    };
+  };
+
   programs.home-manager.enable = true;
 
   programs.tmux = {
