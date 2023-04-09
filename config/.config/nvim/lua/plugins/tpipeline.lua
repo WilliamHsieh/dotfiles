@@ -1,6 +1,6 @@
 local M = {
   "vimpostor/vim-tpipeline",
-  enabled = vim.env.TMUX ~= nil
+  cond = vim.env.TMUX ~= nil
 }
 
 function M.init()
