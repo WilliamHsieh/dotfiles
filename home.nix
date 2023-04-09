@@ -20,17 +20,14 @@ in {
       trash-cli
       zoxide
 
-      # terminal multiplexer
-      tmux
-      fzf
-
       # common tools
-      direnv
+      fzf
       jq
       bat
       delta
       comma
       htop
+      tldr
       rustup
     ];
   };
@@ -49,7 +46,20 @@ in {
 
   programs.home-manager.enable = true;
 
-  programs.direnv.enable = true;
+  programs.tmux = {
+    enable = true;
+    sensibleOnTop = false;
+    plugins = with pkgs.tmuxPlugins; [
+      {
+        plugin = prefix-highlight;
+        extraConfig = "source-file ~/.tmux.conf";
+      }
+      extrakto
+      tmux-fzf
+      logging
+      resurrect
+    ];
+  };
 
   programs.git = {
     enable = true;
