@@ -30,6 +30,11 @@
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nix-index-database = {
+      url = "github:Mic92/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs @ { self, nixpkgs, home-manager, ... }:
@@ -65,13 +70,14 @@
 
         modules = [
           ./home.nix
-           {
-             home = {
-               inherit username;
-               homeDirectory = getHomeDirectory system;
-               stateVersion = "22.11";
-             };
-           }
+          inputs.nix-index-database.hmModules.nix-index
+          {
+            home = {
+              inherit username;
+              homeDirectory = getHomeDirectory system;
+              stateVersion = "22.11";
+            };
+          }
         ];
       };
     };

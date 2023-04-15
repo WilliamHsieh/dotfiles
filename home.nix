@@ -59,6 +59,8 @@ in {
 
   programs.home-manager.enable = true;
 
+  programs.nix-index.enable = true;
+
   programs.zsh = {
     enable = true;
     enableCompletion = false;
