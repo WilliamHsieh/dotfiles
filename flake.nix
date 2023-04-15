@@ -10,10 +10,6 @@
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "williamhsieh.cachix.org-1:t3jW1IF+bHXN4Ce7ZZe9pLSjRB6D1gwz0EgGdgYxHNg="
     ];
-    extra-experimental-features = [
-      "nix-command"
-      "flakes"
-    ];
   };
 
   inputs = {

@@ -6,8 +6,24 @@ These are my configuration mainly for `nvim`, `zsh`, and `tmux`.
 
 ## Getting Started
 **Disclaimer:** These dotfiles work best on WSL2 and mac. **Use at your own risk!**
+```
+$ git clone "http://github.com/williamhsieh/dotfiles" ~/dotfiles
+```
 
-### Prerequisites
+### Installing with nix and home-manager
+1. install [nix](https://nixos.org/download.html)
+```
+$ sh <(curl -L https://nixos.org/nix/install)
+```
+2. apply home-manager settings
+```
+$ cd ~/dotfiles
+$ NIX_CONFIG="experimental-features = flakes nix-command" nix run . switch -- --flake . -b bak
+```
+
+### Installing manually
+
+#### Prerequisites
 - `awk`
 - `unzip`, `npm` for language servers
 - `make`, `ripgrep` for nvim plugin
@@ -21,12 +37,12 @@ brew search nerd-font
 brew install --cask font-meslo-lg-nerd-font
 ```
 
-### Optional
+#### Optional
 - `stow`
 - `exa`
 - `trash-cli`
 
-### Basic Installation
+#### Basic Installation
 * The repository will be cloned into `~/dotfiles` by executing the following command via `git`.
 * The `backup` process in `scripts.sh` will backup the existing configs into `~/dotfiles_backup`.
 ```
