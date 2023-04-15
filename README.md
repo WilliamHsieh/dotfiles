@@ -1,54 +1,24 @@
 # dotfiles
-These are my configuration mainly for `nvim`, `zsh`, and `tmux`.
+These are my configuration for `neovim`, `zsh`, and `tmux` using [nix](https://nixos.org/manual/nix/stable/) and [home-manager](https://github.com/nix-community/home-manager).
 
 <img width="1440" alt="Screenshot 2023-01-16 at 13 39 33" src="https://user-images.githubusercontent.com/23206205/212606291-498b2c3b-c891-4567-8305-0ad438aad286.png">
 <img width="1440" alt="Screenshot 2023-01-16 at 13 39 41" src="https://user-images.githubusercontent.com/23206205/212606308-24b3b4a8-9ce8-409b-85cb-6b3a1c4a4ce0.png">
 
 ## Getting Started
-**Disclaimer:** These dotfiles work best on WSL2 and mac. **Use at your own risk!**
-```
-$ git clone "http://github.com/williamhsieh/dotfiles" ~/dotfiles
-```
-
-### Installing with nix and home-manager
 1. install [nix](https://nixos.org/download.html)
-```
+```bash
 $ sh <(curl -L https://nixos.org/nix/install)
 ```
-2. apply home-manager settings
+2. clone this repo
+```bash
+$ git clone http://github.com/williamhsieh/dotfiles ~/dotfiles
 ```
+3. apply home-manager settings
+```bash
 $ cd ~/dotfiles
 $ NIX_CONFIG="experimental-features = flakes nix-command" nix run . switch -- --flake . -b bak
 ```
-
-### Installing manually
-
-#### Prerequisites
-- `awk`
-- `unzip`, `npm` for language servers
-- `make`, `ripgrep` for nvim plugin
-- `fzf` for tmux plugin
-- `coreutils` for `gdircolors`
-- [Nerd fonts](https://www.nerdfonts.com/)
-
-```
-brew tap homebrew/cask-fonts
-brew search nerd-font
-brew install --cask font-meslo-lg-nerd-font
-```
-
-#### Optional
-- `stow`
-- `exa`
-- `trash-cli`
-
-#### Basic Installation
-* The repository will be cloned into `~/dotfiles` by executing the following command via `git`.
-* The `backup` process in `scripts.sh` will backup the existing configs into `~/dotfiles_backup`.
-```
-$ git clone "http://github.com/williamhsieh/dotfiles" ~/dotfiles && sh ~/dotfiles/scripts.sh backup
-$ cd ~/dotfiles && stow */ && bash scripts.sh install
-```
+4. download [nerd fonts](https://www.nerdfonts.com/) for the terminal emulator
 
 ## Feedback
 Comments and suggestions are [welcome](https://github.com/WilliamHsieh/dotfiles/issues)!
