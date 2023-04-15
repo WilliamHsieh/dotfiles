@@ -110,9 +110,8 @@ in {
         tool = "vimdiff";
         conflictstyle = "diff3";
       };
-      pull = {
-        rebase=true;
-      };
+      pull.rebase = true;
+      rebase.autoStash = true;
       mergetool.prompt = "false";
     };
   };
