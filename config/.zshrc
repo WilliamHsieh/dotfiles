@@ -24,6 +24,7 @@
     export LC_ALL=C.UTF-8
     command -v nvim &> /dev/null && export VISUAL=nvim || export VISUAL=vim
     export EDITOR="$VISUAL"
+    export MANPAGER='nvim +Man!'
 
     # prompt
     source <(starship init zsh --print-full-init)
