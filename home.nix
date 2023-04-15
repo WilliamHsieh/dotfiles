@@ -52,11 +52,14 @@ in {
     };
   };
 
-  home.activation.install-zinit = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    if ! [ -d "${config.xdg.dataHome}/zinit/zinit.git" ]; then
-      $DRY_RUN_CMD ${pkgs.git}/bin/git clone https://github.com/zdharma-continuum/zinit.git "${config.xdg.dataHome}/zinit/zinit.git"
-    fi
-  '';
+  home.activation = {
+    install-zinit = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      ZINIT_HOME="${config.xdg.dataHome}/zinit/zinit.git"
+      if ! [ -d "$ZINIT_HOME" ]; then
+        $DRY_RUN_CMD ${pkgs.git}/bin/git clone $VERBOSE_ARG https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+      fi
+    '';
+  };
 
   programs.home-manager.enable = true;
 
