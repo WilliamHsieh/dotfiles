@@ -1,6 +1,21 @@
 {
   description = "Procrastinating has never felt this productive";
 
+  nixConfig = {
+    extra-substituters = [
+      "https://nix-community.cachix.org"
+      "https://williamhsieh.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "williamhsieh.cachix.org-1:t3jW1IF+bHXN4Ce7ZZe9pLSjRB6D1gwz0EgGdgYxHNg="
+    ];
+    extra-experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
+  };
+
   inputs = {
     # TODO: change to stable
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
