@@ -21,9 +21,6 @@ M.opts = {
     diffview = true
   },
   sections = {
-    stashes = {
-      folded = false
-    },
     unpulled = {
       folded = false
     },
