@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, config, lib, ... }:
 let
   link = path: config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/${path}";
 in {
@@ -14,11 +14,9 @@ in {
       unzip
 
       # shell
-      zsh
       starship
       exa
       trash-cli
-      zoxide
 
       # common tools
       fzf
@@ -53,7 +51,25 @@ in {
     };
   };
 
+  home.activation.install-zinit = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    if ! [ -d "${config.xdg.dataHome}/zinit/zinit.git" ]; then
+      $DRY_RUN_CMD ${pkgs.git}/bin/git clone https://github.com/zdharma-continuum/zinit.git "${config.xdg.dataHome}/zinit/zinit.git"
+    fi
+  '';
+
   programs.home-manager.enable = true;
+
+  programs.zsh = {
+    enable = true;
+    enableCompletion = false;
+    history.expireDuplicatesFirst = true;
+    dotDir = ".config/zsh";
+    initExtra = "source ~/.zshrc";
+  };
+
+  programs.zoxide = {
+    enable = true;
+  };
 
   programs.tmux = {
     enable = true;

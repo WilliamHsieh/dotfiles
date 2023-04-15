@@ -15,14 +15,12 @@
 
     # zinit
     source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
-    autoload -Uz _zinit
-    (( ${+_comps} )) && _comps[zinit]=_zinit
 
     # export
     export PATH=$HOME/.local/bin:$PATH
     export LANG=en_US.UTF-8
-    export LC_ALL=C.UTF-8
-    command -v nvim &> /dev/null && export VISUAL=nvim || export VISUAL=vim
+    export LC_CTYPE=en_US.UTF-8
+    export VISUAL="$(command -v nvim 2>/dev/null || command -v vim)"
     export EDITOR="$VISUAL"
     export MANPAGER='nvim +Man!'
 
@@ -42,7 +40,6 @@
         atinit"zicompinit; zicdreplay" zdharma-continuum/fast-syntax-highlighting \
         atload"_zsh_autosuggest_start" zsh-users/zsh-autosuggestions \
         blockf atclone"zinit creinstall -q ." atpull"%atclone" zsh-users/zsh-completions \
-        agkozak/zsh-z \
         felixr/docker-zsh-completion \
         as"completion" https://github.com/felixr/docker-zsh-completion/blob/master/_docker \
         atload'
