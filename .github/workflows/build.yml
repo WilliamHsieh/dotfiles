@@ -13,7 +13,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest]
+        os: [ubuntu-latest]
+        # os: [ubuntu-latest, macos-latest]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
@@ -27,5 +28,5 @@ jobs:
           name: williamhsieh
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
       - run: nix build --show-trace
-      - name: apply home-manager profile
+      - name: building home-manager profile
         run: ./result/bin/home-manager build --flake .#william -b bak
