@@ -12,6 +12,7 @@ in {
       ripgrep
       fd
       unzip
+      nodejs
 
       # shell
       starship
