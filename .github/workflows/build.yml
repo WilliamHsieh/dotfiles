@@ -3,7 +3,6 @@ on:
   workflow_dispatch:
   pull_request:
   push:
-    branches: [main]
     paths:
       - "**.nix"
       - "flake.lock"
