@@ -29,6 +29,7 @@ in {
       htop
       tldr
       rustup
+      gcc
     ];
   };
 
