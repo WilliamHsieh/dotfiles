@@ -23,4 +23,6 @@ jobs:
         with:
           name: williamhsieh
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-      - run: nix run . switch -- --flake . -b bak
+      - run: nix build --show-trace
+      - name: apply home-manager profile
+        run: nix run . switch -- --flake . -b bak
