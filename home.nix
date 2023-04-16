@@ -36,6 +36,7 @@ in {
     "nvim".source = link ".config/nvim";
     "alacritty".source = link ".config/alacritty";
     "starship.toml".source = link ".config/starship.toml";
+    "clangd".source = link ".config/clangd";
   };
 
   home.file = {
