@@ -37,6 +37,7 @@ in {
     "alacritty".source = link ".config/alacritty";
     "starship.toml".source = link ".config/starship.toml";
     "clangd".source = link ".config/clangd";
+    "home-manager".source = link "..";
   };
 
   home.file = {

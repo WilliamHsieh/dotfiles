@@ -22,7 +22,6 @@
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.utils.follows = "flake-utils";
     };
 
     darwin = {
@@ -86,7 +85,7 @@
             home = {
               inherit username;
               homeDirectory = getHomeDirectory system;
-              stateVersion = "22.11";
+              stateVersion = "23.05";
             };
           }
         ];
