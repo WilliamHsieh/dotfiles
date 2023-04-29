@@ -62,6 +62,10 @@ in {
         $DRY_RUN_CMD ${pkgs.git}/bin/git clone $VERBOSE_ARG https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
       fi
     '';
+
+    update-neovim-plugins = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      $DRY_RUN_CMD ${pkgs.neovim}/bin/nvim --headless "+Lazy! restore" +qa
+    '';
   };
 
   programs.home-manager.enable = true;
