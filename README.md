@@ -7,15 +7,15 @@ These are my configuration for `neovim`, `zsh`, and `tmux` using [nix](https://n
 ## Getting Started
 1. install [nix](https://nixos.org/download.html)
 ```bash
-sh <(curl -L https://nixos.org/nix/install)
+sh <(curl -L https://nixos.org/nix/install) --daemon
 ```
-2. clone this repo
+2. clone this repo and modify the personal info in `config.nix`
 ```bash
-cd ~ && git clone http://github.com/williamhsieh/dotfiles
+git clone http://github.com/williamhsieh/dotfiles ~/dotfiles && cd ~/dotfiles
 ```
-3. apply home-manager settings
+3. apply home-manager settings (leaving `USER` empty will call `.#william` by default)
 ```bash
-NIX_CONFIG="experimental-features = flakes nix-command" nix run . switch -- --flake . -b bak
+NIX_CONFIG="experimental-features = flakes nix-command" nix run . switch -- -b bak --flake .#USER
 ```
 4. download [nerd fonts](https://www.nerdfonts.com/) for the terminal emulator
 
