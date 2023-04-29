@@ -50,7 +50,7 @@
   outputs = inputs @ { self, nixpkgs, home-manager, ... }:
   let
     system = "x86_64-linux";
-    username = "william";
+    username = (import ./config.nix).user;
 
     pkgs = import nixpkgs {
       inherit system;

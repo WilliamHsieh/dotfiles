@@ -1,6 +1,7 @@
 { pkgs, config, lib, ... }:
 let
   link = path: config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/${path}";
+  cfg = import ./config.nix;
 in {
   home = {
     packages = with pkgs; [
@@ -97,8 +98,8 @@ in {
 
   programs.git = {
     enable = true;
-    userName = "William Hsieh";
-    userEmail = "wh31110@gmail.com";
+    userName = cfg.name;
+    userEmail = cfg.email;
     delta = {
       enable = true;
       options = {
