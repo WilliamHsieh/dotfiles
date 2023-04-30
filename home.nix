@@ -15,6 +15,7 @@ in {
       fd
       unzip
       nodejs
+      gnumake
 
       # shell
       starship
