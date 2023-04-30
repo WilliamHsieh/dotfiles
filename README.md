@@ -7,7 +7,7 @@ These are my configuration for `neovim`, `zsh`, and `tmux` using [nix](https://n
 ## Getting Started
 1. install [nix](https://nixos.org/download.html)
 ```bash
-sh <(curl -L https://nixos.org/nix/install) --daemon
+sh <(curl -L https://nixos.org/nix/install)
 ```
 2. clone this repo and modify the personal info in `config.nix`
 ```bash
