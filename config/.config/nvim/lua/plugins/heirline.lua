@@ -23,21 +23,23 @@ function M.config()
     search_backward = "  ",
   }
 
-  local colors = {
-    bg = utils.get_highlight("Normal").bg,
-    green = utils.get_highlight("String").fg,
-    blue = utils.get_highlight("Function").fg,
-    gray = utils.get_highlight("Conceal").fg,
-    orange = utils.get_highlight("Constant").fg,
-    purple = utils.get_highlight("Statement").fg,
-    pink = utils.get_highlight("Special").fg,
-    yellow = utils.get_highlight("DiagnosticWarn").fg,
-    red = utils.get_highlight("@parameter").fg,
-    cyan = utils.get_highlight("DiagnosticHint").fg,
+  local setup_colors = function()
+    return {
+      bg = utils.get_highlight("Normal").bg,
+      green = utils.get_highlight("String").fg,
+      blue = utils.get_highlight("Function").fg,
+      gray = utils.get_highlight("Conceal").fg,
+      orange = utils.get_highlight("Constant").fg,
+      purple = utils.get_highlight("Statement").fg,
+      pink = utils.get_highlight("Special").fg,
+      yellow = utils.get_highlight("DiagnosticWarn").fg,
+      red = utils.get_highlight("@parameter").fg,
+      cyan = utils.get_highlight("DiagnosticHint").fg,
 
-    lavender = utils.get_highlight("CursorLineNR").fg,
-    flamingo = utils.get_highlight("Identifier").fg,
-  }
+      lavender = utils.get_highlight("CursorLineNR").fg,
+      flamingo = utils.get_highlight("Identifier").fg,
+    }
+  end
 
   local Space = { provider = " " }
   local Align = {
@@ -347,9 +349,17 @@ function M.config()
   require("heirline").setup {
     statusline = statusline,
     opts = {
-      colors = colors,
+      colors = setup_colors(),
     }
   }
+
+  vim.api.nvim_create_augroup("Heirline", { clear = true })
+  vim.api.nvim_create_autocmd("ColorScheme", {
+    callback = function()
+      utils.on_colorscheme(setup_colors)
+    end,
+    group = "Heirline",
+  })
 end
 
 return M
