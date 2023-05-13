@@ -23,6 +23,32 @@ function M.config()
     search_backward = "  ",
   }
 
+  local function wrap_tmux_highlight(color_bg, component)
+    if not vim.env.TMUX then
+      return component
+    end
+    local settings = {
+      { "#{?client_prefix,", "Prefix", "pink" },
+      { "#{?pane_in_mode,", "Copy", "yellow" },
+      { "#{?pane_synchronized,", "Sync", "green" },
+    }
+    local res = {}
+    for _, s in pairs(settings) do
+      res[#res + 1] = {
+        provider = s[1] .. (color_bg and assets.vim .. s[2] .. ' ' or assets.right_separator) .. ',',
+        hl = color_bg and { bg = s[3] } or { fg = s[3] }
+      }
+    end
+    return {
+      hl = color_bg and { fg = 'bg' } or { bg = 'purple' },
+      res,
+      component,
+      {
+        provider = "}}}",
+      }
+    }
+  end
+
   local setup_colors = function()
     return {
       bg = utils.get_highlight("Normal").bg,
@@ -42,6 +68,7 @@ function M.config()
   end
 
   local Space = { provider = " " }
+
   local Align = {
     provider = "%=",
     hl = { bg = "bg" }
@@ -108,27 +135,27 @@ function M.config()
       }
     },
 
-    provider = function(self)
-      return assets.vim .. self.mode_alias[self.mode] .. " "
-    end,
+    hl = { bold = true },
 
-    {
+    wrap_tmux_highlight(true, {
+      provider = function(self)
+        return assets.vim .. self.mode_alias[self.mode] .. ' '
+      end,
+      hl = function(self)
+        return {
+          bg = self.mode_color[self.short_mode],
+        }
+      end,
+    }),
+
+    wrap_tmux_highlight(false, {
       provider = assets.right_separator,
       hl = function(self)
         return {
           fg = self.mode_color[self.short_mode],
-          bg = "purple",
         }
       end
-    },
-
-    hl = function(self)
-      return {
-        fg = "bg",
-        bg = self.mode_color[self.short_mode],
-        bold = true,
-      }
-    end,
+    }),
 
     -- Re-evaluate the component only on ModeChanged event!
     -- Also allows the statusline to be re-evaluated when entering operator-pending mode
