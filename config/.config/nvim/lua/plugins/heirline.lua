@@ -112,10 +112,12 @@ function M.config()
 
     {
       provider = assets.right_separator,
-      hl = {
-        fg = "purple",
-        reverse = true,
-      },
+      hl = function(self)
+        return {
+          fg = self.mode_color[self.short_mode],
+          bg = "purple",
+        }
+      end
     },
 
     hl = function(self)
@@ -168,7 +170,10 @@ function M.config()
     },
     {
       provider = assets.right_separator .. '  ',
-      hl = { reverse = true },
+      hl = {
+        fg = "purple",
+        bg = "bg",
+      },
     },
   }
 
