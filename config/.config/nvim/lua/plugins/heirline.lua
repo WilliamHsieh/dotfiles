@@ -143,6 +143,7 @@ function M.config()
       end,
       hl = function(self)
         return {
+          fg = 'bg',
           bg = self.mode_color[self.short_mode],
         }
       end,
@@ -153,6 +154,7 @@ function M.config()
       hl = function(self)
         return {
           fg = self.mode_color[self.short_mode],
+          bg = 'purple',
         }
       end
     }),
