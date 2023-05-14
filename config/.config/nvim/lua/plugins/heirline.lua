@@ -117,7 +117,6 @@ function M.config()
         ['nt'] = 'TERM',
         ['null'] = 'NONE',
       },
-
       mode_color = {
         ["n"] = "lavender",
         ["i"] = "green",
@@ -158,24 +157,15 @@ function M.config()
         }
       end
     }),
-
-    -- Re-evaluate the component only on ModeChanged event!
-    -- Also allows the statusline to be re-evaluated when entering operator-pending mode
-    -- update = {
-    --   "ModeChanged",
-    --   pattern = "*:*",
-    --   callback = vim.schedule_wrap(function()
-    --     vim.cmd("redrawstatus")
-    --   end),
-    -- },
   }
 
   local Macro = {
-    condition = function()
-      return vim.fn.reg_recording() ~= ""
+    condition = function(self)
+      self.reg = vim.fn.reg_recording()
+      return self.reg ~= ""
     end,
-    provider = function()
-      return assets.macro .. 'recording @' .. vim.fn.reg_recording() .. ' '
+    provider = function(self)
+      return assets.macro .. 'recording @' .. self.reg
     end,
     update = {
       "RecordingEnter",
@@ -183,22 +173,23 @@ function M.config()
     }
   }
 
-  local cwd = {
+  local Dir = {
     provider = function()
-      local dir_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
-      return assets.dir .. dir_name .. ' '
-    end
+      return assets.dir .. vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
+    end,
+    update = "DirChanged"
   }
 
-  local Macro_cwd = {
+  local Macro_Dir = {
     hl = {
       fg = 'bg',
       bg = 'purple',
     },
     {
       fallthrough = false,
-      Macro, cwd
+      Macro, Dir
     },
+    Space,
     {
       provider = assets.right_separator .. '  ',
       hl = {
@@ -210,52 +201,43 @@ function M.config()
 
   local Git = {
     condition = conditions.is_git_repo,
-
     init = function(self)
       ---@diagnostic disable-next-line: undefined-field
       self.status_dict = vim.b.gitsigns_status_dict
     end,
-
-    hl = { fg = "gray" },
-
+    hl = { fg = "gray", bg = "bg" },
     {
       provider = function(self)
         return assets.git .. self.status_dict.head
       end,
     },
-
     Space, Space
   }
 
   local Diagnostics = {
     condition = conditions.has_diagnostics,
-
     static = {
       icons = require("core.icons").diagnostics
     },
-
     init = function(self)
       self.errors = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
       self.warnings = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
       self.hints = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT })
       self.info = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
     end,
-
-    update = { "DiagnosticChanged", "BufEnter" },
-
     {
       provider = function(self)
         return self.errors > 0 and (self.icons.Error .. " " .. self.errors .. " ")
       end,
-      hl = { fg = "red" },
+      hl = { fg = "red", bg = "bg" },
     },
     {
       provider = function(self)
         return self.warnings > 0 and (self.icons.Warning .. " " .. self.warnings .. " ")
       end,
-
-      hl = { fg = "yellow" },
+      hl = { fg = "yellow", bg = "bg" },
     },
+    update = { "DiagnosticChanged", "BufEnter" },
   }
 
   local Treesitter = {
@@ -263,15 +245,11 @@ function M.config()
       return package.loaded['nvim-treesitter'] and require("nvim-treesitter.parsers").has_parser()
     end,
     provider = assets.tree,
-    hl = {
-      fg = "green",
-    },
+    hl = { fg = "green", bg = "bg" },
   }
 
   local LSPActive = {
     condition = conditions.lsp_attached,
-    update = {'LspAttach', 'LspDetach'},
-
     provider  = function()
       local names = {}
       for _, server in pairs(vim.lsp.get_active_clients({ bufnr = 0 })) do
@@ -279,7 +257,8 @@ function M.config()
       end
       return assets.lsp .. table.concat(names, " ")
     end,
-    hl = { fg = "gray" },
+    hl = { fg = "gray", bg = "bg" },
+    update = {'LspAttach', 'LspDetach'},
   }
 
   local SearchCount = {
@@ -330,24 +309,16 @@ function M.config()
     Space, Space,
     {
       provider = assets.left_separator,
-      hl = {
-        fg = "red",
-      }
+      hl = { fg = "red", bg = "bg" }
     },
     {
       fallthrough = false,
-      hl = {
-        fg = "bg",
-        bg = "red",
-      },
+      hl = { fg = "bg", bg = "red" },
       SearchCount, FileType
     },
     {
       provider = assets.left_separator,
-      hl = {
-        fg = "flamingo",
-        bg = "red",
-      }
+      hl = { fg = "flamingo", bg = "red" }
     },
   }
 
@@ -361,31 +332,49 @@ function M.config()
     update = { "BufEnter" },
   }
 
-  local statusline = {
-    Mode,
-    Macro_cwd,
-    Git,
-    Diagnostics,
-
+  local StatusLine = {
+    Mode, Macro_Dir, Git, Diagnostics,
     Align,
-
-    Treesitter,
-    LSPActive,
-    SearchCount_FileType,
-    Hostname,
+    Treesitter, LSPActive, SearchCount_FileType, Hostname,
   }
 
   require("heirline").setup {
-    statusline = statusline,
+    statusline = StatusLine,
     opts = {
       colors = setup_colors(),
     }
   }
 
+  local function set_tmux_style(style)
+    vim.fn.system { "tmux", "set", "status-style", style }
+  end
+
+  local function tmux_style()
+    return vim.fn.system { "tmux", "show-options", "-v", "status-style" }
+  end
+
+  local function vim_style()
+    local bg = require("core.utils").get_hl("Normal").bg
+    return ("bg=%s,fg=%s"):format(bg, bg)
+  end
+
   vim.api.nvim_create_augroup("Heirline", { clear = true })
-  vim.api.nvim_create_autocmd("ColorScheme", {
+  vim.api.nvim_create_autocmd({ "ColorScheme", "VimEnter", "FocusGained" }, {
     callback = function()
       utils.on_colorscheme(setup_colors)
+      if vim.env.TMUX then
+        if not vim.g.tmux_status_style then
+          vim.g.tmux_status_style = tmux_style()
+        end
+        ---@diagnostic disable-next-line: param-type-mismatch
+        vim.defer_fn(function() set_tmux_style(vim_style()) end, 50)
+      end
+    end,
+    group = "Heirline",
+  })
+  vim.api.nvim_create_autocmd({ "FocusLost", "VimLeave" }, {
+    callback = function()
+      set_tmux_style(vim.g.tmux_status_style)
     end,
     group = "Heirline",
   })
