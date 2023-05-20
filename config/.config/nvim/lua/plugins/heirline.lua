@@ -350,7 +350,7 @@ function M.config()
   end
 
   local function tmux_style()
-    return vim.fn.system { "tmux", "show-options", "-v", "status-style" }
+    return vim.fn.system { "tmux", "show-options", "-gv", "status-style" }
   end
 
   local function vim_style()
