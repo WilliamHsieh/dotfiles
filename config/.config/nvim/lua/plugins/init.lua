@@ -163,6 +163,11 @@ return {
   },
 
   {
+    "nullchilly/fsread.nvim",
+    cmd = "FSToggle",
+  },
+
+  {
     "kylechui/nvim-surround",
     event = "VeryLazy",
     config = true,

@@ -23,7 +23,7 @@ function M.config()
     }
   }
   require("mason-lspconfig").setup {
-    ensure_installed = { "sumneko_lua", "clangd", "pyright" }
+    ensure_installed = { "lua_ls", "clangd", "pyright" }
   }
   require("mason-lspconfig").setup_handlers {
     function(lsp_name)
