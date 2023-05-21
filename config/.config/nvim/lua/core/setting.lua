@@ -39,6 +39,7 @@ local options = {
   mousemoveevent = true,
   fixendofline = false,
   grepprg = "rg --vimgrep --smart-case",
+  splitkeep = 'screen',
 }
 
 for k, v in pairs(options) do
