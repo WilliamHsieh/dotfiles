@@ -66,7 +66,7 @@ in {
     '';
 
     update-neovim-plugins = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      $DRY_RUN_CMD ${pkgs.neovim}/bin/nvim --headless "+Lazy! restore" +qa
+      PATH="${config.home.path}/bin:$PATH" $DRY_RUN_CMD nvim --headless "+Lazy! restore | qa"
     '';
   };
 

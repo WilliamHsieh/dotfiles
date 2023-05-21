@@ -34,12 +34,12 @@ local options = {
   wrap = false,                            -- display lines as one long line
   scrolloff = 8,                           -- is one of my fav
   sidescrolloff = 8,
-  foldmethod = "marker",
   virtualedit = 'block',
   showmode = false,
   mousemoveevent = true,
   fixendofline = false,
   grepprg = "rg --vimgrep --smart-case",
+  splitkeep = 'screen',
 }
 
 for k, v in pairs(options) do

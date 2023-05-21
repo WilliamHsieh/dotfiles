@@ -23,17 +23,26 @@ function M.config()
     }
   }
   require("mason-lspconfig").setup {
-    ensure_installed = { "sumneko_lua", "clangd", "pyright" }
+    ensure_installed = { "lua_ls", "clangd", "pyright" }
   }
+
+  local on_attach = function(client, bufnr)
+    vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bufnr, desc = "Hover doc" })
+    vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = bufnr, desc = "go to definition" })
+    vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = bufnr, desc = "go to declaration" })
+  end
+
+  local capabilities = require('cmp_nvim_lsp').default_capabilities()
+  capabilities.textDocument.foldingRange = {
+    dynamicRegistration = false,
+    lineFoldingOnly = true
+  }
+
   require("mason-lspconfig").setup_handlers {
     function(lsp_name)
       local opts = {
-        on_attach = function(client, bufnr)
-          vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bufnr, desc = "Hover doc" })
-          vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = bufnr, desc = "go to definition" })
-          vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = bufnr, desc = "go to declaration" })
-        end,
-        capabilities = require('cmp_nvim_lsp').default_capabilities(),
+        on_attach = on_attach,
+        capabilities = capabilities,
       }
 
       local have_config, lsp_config = pcall(require, "plugins.lsp.server." .. lsp_name)

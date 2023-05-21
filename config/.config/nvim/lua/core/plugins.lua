@@ -7,6 +7,7 @@ if not vim.loop.fs_stat(lazypath) then
     local data = f:read("*a")
     local lock = vim.json.decode(data)
     vim.fn.system { "git", "-C", lazypath, "checkout", lock["lazy.nvim"].commit }
+    f:close()
   end
 end
 vim.opt.runtimepath:prepend(lazypath)

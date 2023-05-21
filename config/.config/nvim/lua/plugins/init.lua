@@ -14,6 +14,7 @@ return {
       "lewis6991/gitsigns.nvim",
       "Shatur/neovim-session-manager",
       "akinsho/bufferline.nvim",
+      "kevinhwang91/nvim-ufo",
     },
   },
 
@@ -163,8 +164,30 @@ return {
   },
 
   {
+    "nullchilly/fsread.nvim",
+    cmd = "FSToggle",
+  },
+
+  {
     "kylechui/nvim-surround",
     event = "VeryLazy",
     config = true,
+  },
+
+  {
+    "kevinhwang91/nvim-ufo",
+    dependencies = "kevinhwang91/promise-async",
+    lazy = true,
+    config = function()
+      vim.o.fillchars = "eob: ,fold: ,foldopen:,foldsep: ,foldclose:"
+      vim.o.foldcolumn = '1'
+      vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+      vim.o.foldlevelstart = 99
+      vim.o.foldenable = true
+
+      require('ufo').setup {
+        open_fold_hl_timeout = 100,
+      }
+    end
   },
 }

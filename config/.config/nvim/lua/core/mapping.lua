@@ -53,6 +53,7 @@ map("n", "<leader>b<", "<cmd>BufferLineMovePrev<cr>", "Move left")
 map("n", "<leader>bs", "<cmd>so %|lua vim.notify('Buffer sourced.')<cr>", "Source this buffer")
 map("n", "<leader>bz", "<cmd>ZenMode<cr>", "Zen mode")
 map("n", "<leader>br", "<cmd>%s/.*/mv & &/<cr>", "bulk rename")
+map("n", "<leader>bf", "<cmd>FSToggle<cr>", "Flow state reading toggle")
 --}}}
 
 -- <leader>c: compile{{{
@@ -121,6 +122,7 @@ map("n", "<leader>fp", "<cmd>Telescope projects<cr>", "Projects")
 map("n", "<leader>ft", "<cmd>TodoTelescope<cr>", "TODOs")
 map("n", "<leader>f/", "<cmd>Telescope current_buffer_fuzzy_find<cr>", "Search in current buffer")
 map("n", "<leader>fs", "<cmd>SessionManager load_session<cr>", "Load session")
+map("n", "<leader>f#", "<cmd>Telescope live_grep<cr>", "grep the word under cursor")
 --}}}
 
 -- <leader>h: hop{{{
