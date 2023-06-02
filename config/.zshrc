@@ -17,7 +17,6 @@
     source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
 
     # export
-    export PATH=$HOME/.local/bin:$PATH
     export LANG=en_US.UTF-8
     export LC_CTYPE=en_US.UTF-8
     export VISUAL="$(command -v nvim 2>/dev/null || command -v vim)"
