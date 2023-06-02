@@ -332,10 +332,15 @@ function M.config()
     update = { "BufEnter" },
   }
 
+  local ShowCmd = {
+    provider = "%S ",
+    hl = { fg = "gray", bg = "bg" },
+  }
+
   local StatusLine = {
     Mode, Macro_Dir, Git, Diagnostics,
     Align,
-    Treesitter, LSPActive, SearchCount_FileType, Hostname,
+    ShowCmd, Treesitter, LSPActive, SearchCount_FileType, Hostname,
   }
 
   require("heirline").setup {
