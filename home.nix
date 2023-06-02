@@ -18,7 +18,6 @@ in {
       gnumake
 
       # shell
-      starship
       exa
       trash-cli
 
@@ -79,7 +78,21 @@ in {
     enableCompletion = false;
     history.expireDuplicatesFirst = true;
     dotDir = ".config/zsh";
+    initExtraFirst = ''
+      # p10k instant prompt
+      echo ""
+      if [[ -r "''${XDG_CACHE_HOME:-''$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
+        source "''${XDG_CACHE_HOME:-''$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
+      fi
+    '';
     initExtra = "source ~/.zshrc";
+  };
+
+  programs.bash.enable = true;
+
+  programs.starship = {
+    enable = true;
+    enableZshIntegration = false;
   };
 
   programs.zoxide = {

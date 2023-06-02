@@ -23,14 +23,22 @@
     export VISUAL="$(command -v nvim 2>/dev/null || command -v vim)"
     export EDITOR="$VISUAL"
     export MANPAGER='nvim +Man!'
-
-    # prompt
-    source <(starship init zsh --print-full-init)
 # }}}
 
 
 # Plugins
 # {{{
+    zinit ice depth=1
+    zinit light romkatv/powerlevel10k
+    if [[ -r "$HOME/.config/zsh/.p10k.zsh" ]]; then
+      zinit snippet ~/.config/zsh/.p10k.zsh
+    fi
+
+    typeset -g POWERLEVEL9K_VCS_BRANCH_ICON='\UE0A0 '
+    typeset -g POWERLEVEL9K_DIR_ANCHOR_BOLD=true
+    typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
+    # typeset -g POWERLEVEL9K_TRANSIENT_PROMPT=same-dir
+
     zinit light-mode for \
       OMZL::key-bindings.zsh \
       OMZL::history.zsh
