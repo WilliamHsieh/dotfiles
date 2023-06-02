@@ -14,7 +14,7 @@
 
   inputs = {
     # TODO: change to stable
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
     flake-parts.url = "github:hercules-ci/flake-parts";
     flake-utils.url = "github:numtide/flake-utils";
     nur.url = "github:nix-community/nur";
@@ -30,7 +30,7 @@
     };
 
     neovim-flake = {
-      url = "github:neovim/neovim/v0.9.0?dir=contrib";
+      url = "github:neovim/neovim/v0.9.1?dir=contrib";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
