@@ -306,7 +306,10 @@ function M.config()
   }
 
   local SearchCount_FileType = {
-    Space, Space,
+    {
+      Space, Space,
+      hl = { fg = "bg", bg = "bg" },
+    },
     {
       provider = assets.left_separator,
       hl = { fg = "red", bg = "bg" }
