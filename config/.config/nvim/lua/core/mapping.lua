@@ -70,7 +70,8 @@ local function need_compile(fname)
   vim.cmd.update()
   local src = vim.loop.fs_stat(vim.fn.expand("%"))
   local bin = vim.loop.fs_stat(fname)
-  return src.mtime.sec > bin.mtime.sec or (src.mtime.sec == bin.mtime.sec and src.mtime.nsec > bin.mtime.nsec)
+  ---@diagnostic disable-next-line: need-check-nil
+  return not bin or src.mtime.sec > bin.mtime.sec or (src.mtime.sec == bin.mtime.sec and src.mtime.nsec > bin.mtime.nsec)
 end
 
 local function compile_and_run()
