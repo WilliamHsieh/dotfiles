@@ -352,39 +352,10 @@ function M.config()
       colors = setup_colors(),
     }
   }
-
-  local function set_tmux_style(style)
-    vim.fn.system { "tmux", "set", "status-style", style }
-  end
-
-  local function tmux_style()
-    return vim.fn.system { "tmux", "show-options", "-gv", "status-style" }
-  end
-
-  local function vim_style()
-    local bg = require("core.utils").get_hl("Normal").bg
-    return ("bg=%s,fg=%s"):format(bg, bg)
-  end
-
-  vim.api.nvim_create_augroup("Heirline", { clear = true })
-  vim.api.nvim_create_autocmd({ "ColorScheme", "VimEnter", "FocusGained" }, {
+  vim.api.nvim_create_autocmd("ColorScheme", {
     callback = function()
       utils.on_colorscheme(setup_colors)
-      if vim.env.TMUX then
-        if not vim.g.tmux_status_style then
-          vim.g.tmux_status_style = tmux_style()
-        end
-        ---@diagnostic disable-next-line: param-type-mismatch
-        vim.defer_fn(function() set_tmux_style(vim_style()) end, 50)
-      end
     end,
-    group = "Heirline",
-  })
-  vim.api.nvim_create_autocmd({ "FocusLost", "VimLeave" }, {
-    callback = function()
-      set_tmux_style(vim.g.tmux_status_style)
-    end,
-    group = "Heirline",
   })
 end
 
