@@ -191,9 +191,17 @@ return {
     }
   },
 
-      require('ufo').setup {
-        open_fold_hl_timeout = 100,
-      }
-    end
+  {
+    "folke/flash.nvim",
+    event = "VeryLazy",
+    opts = {},
+    keys = {
+      {
+        "r",
+        mode = "o",
+        function() require("flash").remote() end,
+        desc = "Remote Flash",
+      },
+    }
   },
 }
