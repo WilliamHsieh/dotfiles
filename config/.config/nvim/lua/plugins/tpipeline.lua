@@ -3,14 +3,12 @@ local M = {
   cond = vim.env.TMUX ~= nil
 }
 
-function M.init()
+function M.config()
   vim.g.tpipeline_cursormoved = 1
   vim.g.tpipeline_restore = 1
   vim.g.tpipeline_clearstl = 1
   vim.g.tpipeline_size = 300
-end
 
-function M.config()
   -- update statusline
   vim.api.nvim_create_autocmd({ 'DiagnosticChanged', "RecordingEnter" }, {
     desc = "update tpipeline",

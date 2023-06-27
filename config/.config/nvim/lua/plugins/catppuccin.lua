@@ -29,7 +29,10 @@ function M.config()
       neogit = true,
       notify = true,
       nvimtree = true,
-      telescope = true,
+      telescope = {
+        enabled = true,
+        -- style = "nvchad",
+      },
       treesitter = true,
       treesitter_context = true,
       which_key = true,

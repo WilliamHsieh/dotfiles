@@ -16,7 +16,7 @@ M.opts = {
     }
   },
   symbol_in_winbar = {
-    enable = true,
+    enable = false,
   }
 }
 

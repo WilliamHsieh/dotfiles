@@ -22,7 +22,7 @@ return {
   {
     "folke/todo-comments.nvim",
     lazy = true,
-    config = {
+    opts = {
       signs = false
     }
   },
@@ -30,7 +30,7 @@ return {
   {
     "folke/zen-mode.nvim",
     cmd = "ZenMode",
-    config = {
+    opts = {
       plugins = {
         tmux = {
           enabled = true
@@ -65,7 +65,7 @@ return {
   {
     "ray-x/lsp_signature.nvim",
     lazy = true,
-    config = {
+    opts = {
       doc_lines = 0,
       floating_window = false,
     }
@@ -114,6 +114,7 @@ return {
   {
     "nvim-telescope/telescope-ui-select.nvim",
     init = function()
+      ---@diagnostic disable-next-line: duplicate-set-field
       vim.ui.select = function(...)
         require("telescope").load_extension "ui-select"
         return vim.ui.select(...)
@@ -178,12 +179,17 @@ return {
     "kevinhwang91/nvim-ufo",
     dependencies = "kevinhwang91/promise-async",
     lazy = true,
-    config = function()
+    init = function()
       vim.o.fillchars = "eob: ,fold: ,foldopen:,foldsep: ,foldclose:"
       vim.o.foldcolumn = '1'
       vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
       vim.o.foldlevelstart = 99
       vim.o.foldenable = true
+    end,
+    opts = {
+      open_fold_hl_timeout = 100,
+    }
+  },
 
       require('ufo').setup {
         open_fold_hl_timeout = 100,
