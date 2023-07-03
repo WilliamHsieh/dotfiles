@@ -258,7 +258,6 @@ function M.config()
       return assets.lsp .. table.concat(names, " ")
     end,
     hl = { fg = "gray", bg = "bg" },
-    update = {'LspAttach', 'LspDetach'},
   }
 
   local SearchCount = {
