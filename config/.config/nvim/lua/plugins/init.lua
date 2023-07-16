@@ -89,7 +89,7 @@ return {
 
   {
     "smjonas/inc-rename.nvim",
-    cmd = "IncRename",
+    lazy = true,
     config = true,
   },
 

@@ -7,6 +7,7 @@ local M = {
     "folke/neodev.nvim",
     "ray-x/lsp_signature.nvim",
     "RRethy/vim-illuminate",
+    "smjonas/inc-rename.nvim",
   },
 }
 
@@ -30,6 +31,7 @@ function M.config()
     vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bufnr, desc = "Hover doc" })
     vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = bufnr, desc = "go to definition" })
     vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = bufnr, desc = "go to declaration" })
+    vim.keymap.set("n", "<leader>lr", ":IncRename ", { buffer = bufnr, desc = "Rename" })
   end
 
   local capabilities = require('cmp_nvim_lsp').default_capabilities()
