@@ -107,6 +107,7 @@ in {
   programs.tmux = {
     enable = true;
     sensibleOnTop = false;
+    terminal = "xterm-256color";
     shell = "${pkgs.zsh}/bin/zsh";
     plugins = with pkgs.tmuxPlugins; [
       {
