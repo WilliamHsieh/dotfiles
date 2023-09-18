@@ -34,6 +34,8 @@ in {
     ];
   };
 
+  xdg.enable = true;
+
   xdg.configFile = {
     "nvim".source = link ".config/nvim";
     "alacritty".source = link ".config/alacritty";
@@ -81,13 +83,13 @@ in {
     initExtraFirst = ''
       # p10k instant prompt
       echo ""
-      if [[ -r "''${XDG_CACHE_HOME:-''$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
-        source "''${XDG_CACHE_HOME:-''$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
+      if [[ -r "${config.xdg.cacheHome}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
+        source "${config.xdg.cacheHome}/p10k-instant-prompt-''${(%):-%n}.zsh"
       fi
 
       # source nix profile
-      if [[ -r "''$HOME/.nix-profile/etc/profile.d/nix.sh" ]]; then
-        source "''$HOME/.nix-profile/etc/profile.d/nix.sh"
+      if [[ -r "${config.xdg.stateHome}/nix/profiles/profile/etc/profile.d/nix.sh" ]]; then
+        source "${config.xdg.stateHome}/nix/profiles/profile/etc/profile.d/nix.sh"
       fi
     '';
     initExtra = "source ~/.zshrc";
