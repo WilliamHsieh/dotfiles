@@ -32,6 +32,9 @@ in {
       rustup
       gcc
     ];
+    sessionVariables = {
+      COMMA_NIXPKGS_FLAKE = "nixpkgs/${config.home.stateVersion}";
+    };
   };
 
   xdg.enable = true;
