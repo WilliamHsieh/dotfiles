@@ -146,6 +146,7 @@ in {
         tool = "vimdiff";
         conflictstyle = "diff3";
       };
+      push.autoSetupRemote = true;
       pull.rebase = true;
       rebase.autoStash = true;
       mergetool.prompt = "false";
