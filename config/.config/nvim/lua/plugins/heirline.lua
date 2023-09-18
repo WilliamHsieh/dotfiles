@@ -19,6 +19,7 @@ function M.config()
     search = "  ",
     lsp = "  ",
     git = " ",
+    settings = "  ",
     search_forward = "  ",
     search_backward = "  ",
   }
@@ -175,19 +176,33 @@ function M.config()
 
   local Dir = {
     provider = function()
-      return assets.dir .. vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
+      return assets.dir .. vim.fn.fnamemodify(vim.fn.getcwd(), ":t") .. ' '
     end,
     update = "DirChanged"
   }
 
-  local Macro_Dir = {
+  local FileType = {
+    provider = function()
+      local ft = vim.bo.filetype
+      local icon, _ = require("nvim-web-devicons").get_icon_by_filetype(ft, { default = true })
+      return ' ' .. icon .. ' ' .. ft
+    end,
+    {
+      condition = function()
+        return not vim.bo.modifiable or vim.bo.readonly
+      end,
+      provider = " ",
+    },
+  }
+
+  local Macro_Filetype = {
     hl = {
       fg = 'bg',
       bg = 'purple',
     },
     {
       fallthrough = false,
-      Macro, Dir
+      Macro, FileType
     },
     Space,
     {
@@ -290,21 +305,14 @@ function M.config()
     end,
   }
 
-  local FileType = {
-    provider = function ()
-      local ft = vim.bo.filetype
-      local icon, _ = require("nvim-web-devicons").get_icon_by_filetype(ft, { default = true })
-      ---@diagnostic disable-next-line: undefined-field
-      if ft == "tex" and vim.b.vimtex.compiler.status == 1 then
-        local spinners = { "⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷" }
-        local idx = math.floor(vim.loop.hrtime() / 12e7) % #spinners + 1
-        ft = ft .. string.format(" %%<%s ", spinners[idx])
-      end
-      return ' ' .. icon .. ' ' .. ft .. ' '
+  local TmuxSession = {
+    condition = function()
+      return vim.env.TMUX
     end,
+    provider = assets.settings .. "#S "
   }
 
-  local SearchCount_FileType = {
+  local SearchCount_TmuxSession_Dir = {
     {
       Space, Space,
       hl = { fg = "bg", bg = "bg" },
@@ -316,7 +324,7 @@ function M.config()
     {
       fallthrough = false,
       hl = { fg = "bg", bg = "red" },
-      SearchCount, FileType
+      SearchCount, TmuxSession, Dir
     },
     {
       provider = assets.left_separator,
@@ -340,9 +348,9 @@ function M.config()
   }
 
   local StatusLine = {
-    Mode, Macro_Dir, Git, Diagnostics,
+    Mode, Macro_Filetype, Git, Diagnostics,
     Align,
-    ShowCmd, Treesitter, LSPActive, SearchCount_FileType, Hostname,
+    ShowCmd, Treesitter, LSPActive, SearchCount_TmuxSession_Dir, Hostname,
   }
 
   require("heirline").setup {
