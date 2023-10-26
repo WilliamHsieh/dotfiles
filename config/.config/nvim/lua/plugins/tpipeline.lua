@@ -64,13 +64,13 @@ function M.config()
   })
 
   -- rename tmux window with CWD
-  vim.api.nvim_create_autocmd({ "DirChanged", "FocusGained" }, {
+  vim.api.nvim_create_autocmd({ "DirChanged", "BufReadPost", "BufNewFile" }, {
     callback = function()
       vim.fn.system { "tmux", "rename-window", vim.fn.fnamemodify(vim.fn.getcwd(), ":t") }
     end,
     group = "Heirline",
   })
-  vim.api.nvim_create_autocmd("VimLeave", {
+  vim.api.nvim_create_autocmd("VimLeavePre", {
     callback = function()
       vim.fn.system { "tmux", "setw", "automatic-rename", "on" }
     end,
