@@ -123,7 +123,7 @@ map("n", "<leader>fp", "<cmd>Telescope projects<cr>", "Projects")
 map("n", "<leader>ft", "<cmd>TodoTelescope<cr>", "TODOs")
 map("n", "<leader>f/", "<cmd>Telescope current_buffer_fuzzy_find<cr>", "Search in current buffer")
 map("n", "<leader>fs", "<cmd>SessionManager load_session<cr>", "Load session")
-map("n", "<leader>f#", "<cmd>Telescope live_grep<cr>", "grep the word under cursor")
+map("n", "<leader>f#", "<cmd>Telescope grep_string<cr>", "grep the word under cursor")
 --}}}
 
 -- <leader>h: hop{{{
