@@ -32,6 +32,18 @@ function M.config()
     vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = bufnr, desc = "go to definition" })
     vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = bufnr, desc = "go to declaration" })
     vim.keymap.set("n", "<leader>lr", ":IncRename ", { buffer = bufnr, desc = "Rename" })
+
+    local augroup = vim.api.nvim_create_augroup("LspFormatting", { clear = false })
+    if client.supports_method("textDocument/formatting") then
+      vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        group = augroup,
+        buffer = bufnr,
+        callback = function()
+          vim.lsp.buf.format()
+        end,
+      })
+    end
   end
 
   local capabilities = require('cmp_nvim_lsp').default_capabilities()
