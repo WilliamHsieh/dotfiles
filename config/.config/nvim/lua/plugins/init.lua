@@ -96,7 +96,13 @@ return {
   ---------- Others ----------
   {
     "kevinhwang91/nvim-bqf",
-    ft = "qf"
+    ft = "qf",
+    opts = {
+      func_map = {
+        pscrollup = '<C-u>',
+        pscrolldown = '<C-d>',
+      }
+    }
   },
 
   {
