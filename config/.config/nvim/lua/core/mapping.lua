@@ -93,7 +93,7 @@ local function compile_and_run()
 end
 
 local function make()
-  termexec { run = "make -j"}
+  termexec { run = "make -j$(nproc)" }
 end
 
 map("n", "<leader>cc", compile_and_run, "Compile and run")
