@@ -25,7 +25,7 @@ function M.config()
   }
 
   local function wrap_tmux_highlight(color_bg, component)
-    if not vim.env.TMUX then
+    if not require("core.utils").is_tmux_active() then
       return component
     end
     local settings = {
@@ -307,7 +307,7 @@ function M.config()
 
   local TmuxSession = {
     condition = function()
-      return vim.env.TMUX
+      return require("core.utils").is_tmux_active()
     end,
     provider = assets.settings .. "#S "
   }

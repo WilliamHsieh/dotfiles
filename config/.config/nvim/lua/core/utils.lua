@@ -9,4 +9,12 @@ function utils.get_hl(group)
   return { fg = to_hex(hl.foreground), bg = to_hex(hl.background) }
 end
 
+function utils.get_tmux_option(opt)
+  return vim.fn.system { "tmux", "show-options", "-Av", opt }
+end
+
+function utils.is_tmux_active()
+  return vim.env.TMUX ~= nil and utils.get_tmux_option("status"):find("^on") == 1
+end
+
 return utils

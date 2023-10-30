@@ -1,6 +1,6 @@
 local M = {
   "vimpostor/vim-tpipeline",
-  cond = vim.env.TMUX ~= nil
+  cond = require("core.utils").is_tmux_active()
 }
 
 function M.init()
@@ -43,14 +43,16 @@ function M.config()
     vim.fn.system { "tmux", "set", "status-style", style }
   end
 
+  local utils = require("core.utils")
+
   vim.api.nvim_create_augroup("Heirline", { clear = true })
   vim.api.nvim_create_autocmd({ "ColorScheme", "VimEnter", "FocusGained" }, {
     callback = function()
       if not vim.g.tmux_status_style then
-        vim.g.tmux_status_style = vim.fn.system { "tmux", "show-options", "-gv", "status-style" }
+        vim.g.tmux_status_style = utils.get_tmux_option("status-style")
       end
       vim.defer_fn(function()
-        local bg = require("core.utils").get_hl("Normal").bg
+        local bg = utils.get_hl("Normal").bg
         set_tmux_style(("bg=%s,fg=%s"):format(bg, bg))
       end, 50)
     end,
@@ -64,7 +66,7 @@ function M.config()
   })
 
   -- rename tmux window with CWD
-  vim.api.nvim_create_autocmd({ "DirChanged", "BufReadPost", "BufNewFile" }, {
+  vim.api.nvim_create_autocmd({ "DirChanged", "FocusGained" }, {
     callback = function()
       vim.fn.system { "tmux", "rename-window", vim.fn.fnamemodify(vim.fn.getcwd(), ":t") }
     end,

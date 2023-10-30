@@ -58,7 +58,7 @@ for k, v in pairs(globals) do
   vim.g[k] = v
 end
 
-if vim.fn.exists("$TMUX") == 1 then
+if require("core.utils").is_tmux_active() then
   vim.g.clipboard = {
     name = 'tmux_buffer',
     copy = {

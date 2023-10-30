@@ -240,7 +240,7 @@ map("!", "<Esc>f", "<S-Right>", {})
 local function vim_navigation(vim_dir)
   local pre = vim.fn.winnr()
   vim.cmd("wincmd " .. vim_dir)
-  if vim.fn.exists('$TMUX') and vim.fn.winnr() == pre then
+  if require("core.utils").is_tmux_active() and vim.fn.winnr() == pre then
     local tmux_dir = vim.fn.tr(vim_dir, 'hjkl', 'LDUR')
     vim.fn.system { "tmux", "select-pane", "-" .. tmux_dir }
   end
