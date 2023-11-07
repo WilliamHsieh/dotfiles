@@ -198,15 +198,22 @@ return {
   },
 
   {
-    "folke/flash.nvim",
-    event = "VeryLazy",
-    opts = {},
+    'ThePrimeagen/harpoon',
     keys = {
       {
-        "r",
-        mode = "o",
-        function() require("flash").remote() end,
-        desc = "Remote Flash",
+        "<leader>bh",
+        function() require("harpoon.ui").toggle_quick_menu() end,
+        desc = "harpoon open ui",
+      },
+      {
+        "<leader>ba",
+        function() require("harpoon.mark").add_file() end,
+        desc = "harpoon add file",
+      },
+      {
+        "<leader><tab>",
+        function() require("harpoon.ui").nav_next() end,
+        desc = "harpoon next buffer",
       },
     }
   },
