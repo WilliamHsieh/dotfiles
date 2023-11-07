@@ -90,7 +90,9 @@ vim.api.nvim_create_autocmd("InsertEnter", {
 vim.api.nvim_create_autocmd("InsertLeave", {
   group = "config_group",
   callback = function()
-    vim.cmd.match("ExtraWhitespace", [[/\s\+$\| \+\ze\t/]])
-    vim.o.cursorline = true
+    if vim.o.filetype ~= "toggleterm" then
+      vim.cmd.match("ExtraWhitespace", [[/\s\+$\| \+\ze\t/]])
+      vim.o.cursorline = true
+    end
   end
 })
