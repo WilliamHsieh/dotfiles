@@ -72,7 +72,7 @@ vim.api.nvim_create_autocmd({ 'User' }, {
 })
 
 vim.api.nvim_create_autocmd('User', {
-  pattern = { 'GitSignsUpdate', 'NeogitStatusRefreshed' },
+  pattern = { 'NeogitStatusRefreshed' },
   group = "config_group",
   callback = function()
     pcall(vim.cmd.NvimTreeRefresh)
