@@ -111,13 +111,6 @@ return {
   },
 
   {
-    "michaelb/sniprun",
-    build = "bash ./install.sh",
-    cmd = { "SnipClose", "SnipRun", "SnipInfo", "SnipReplMemoryClean", "SnipReset", "SnipRunToggle", "SnipTerminate", },
-    config = true,
-  },
-
-  {
     "nvim-telescope/telescope-ui-select.nvim",
     init = function()
       ---@diagnostic disable-next-line: duplicate-set-field
