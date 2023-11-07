@@ -15,6 +15,7 @@ function M.config()
     defaults = {
       file_ignore_patterns = {
         ".git/",
+        ".min.js",
       },
 
       prompt_prefix = icons.ui.Telescope .. " ",
