@@ -10,8 +10,10 @@ function M.init()
     callback = function()
       local state = vim.loop.fs_stat(vim.fn.expand("%:p"))
       if state and state.type == "directory" then
-        require("nvim-tree")
-        vim.api.nvim_del_augroup_by_name("nvim-tree-loader")
+        vim.schedule(function()
+          require("lazy").load { plugins = { "nvim-tree" } }
+          vim.api.nvim_del_augroup_by_name("nvim-tree-loader")
+        end)
       end
     end
   })
