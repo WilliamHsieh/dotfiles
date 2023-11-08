@@ -4,16 +4,14 @@ local M = {
 }
 
 function M.init()
-  vim.api.nvim_create_augroup("nvim-tree-loader", {})
+  local augroup = vim.api.nvim_create_augroup("nvim-tree-loader", { clear = true })
   vim.api.nvim_create_autocmd("BufEnter", {
-    group = "nvim-tree-loader",
-    callback = function()
-      local state = vim.loop.fs_stat(vim.fn.expand("%:p"))
-      if state and state.type == "directory" then
-        -- FIX: this is opening wrong directory
-        require("lazy").load { plugins = { "nvim-tree.lua" } }
-        vim.cmd.NvimTreeToggle()
-        vim.api.nvim_del_augroup_by_name("nvim-tree-loader")
+    group = augroup,
+    callback = function(data)
+      if vim.fn.isdirectory(data.file) == 1 then
+        vim.cmd.cd(data.file)
+        require("nvim-tree.api").tree.open()
+        vim.api.nvim_del_augroup_by_id(augroup)
       end
     end
   })
