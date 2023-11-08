@@ -1,6 +1,6 @@
 local M = {
   "rebelot/heirline.nvim",
-  event = { "BufReadPost", "BufNewFile", },
+  event = "VeryLazy",
 }
 
 function M.config()
