@@ -13,8 +13,13 @@ function utils.get_tmux_option(opt)
   return vim.fn.system { "tmux", "show-options", "-Av", opt }
 end
 
+local tmux_is_active = nil
+
 function utils.is_tmux_active()
-  return vim.env.TMUX ~= nil and utils.get_tmux_option("status"):find("^on") == 1
+  if tmux_is_active == nil then
+    tmux_is_active = vim.env.TMUX ~= nil and utils.get_tmux_option("status"):find("^on") ~= nil
+  end
+  return tmux_is_active
 end
 
 return utils
