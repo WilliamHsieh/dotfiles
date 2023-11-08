@@ -1,5 +1,6 @@
 local M = {
-  "rebelot/heirline.nvim"
+  "rebelot/heirline.nvim",
+  event = { "BufReadPost", "BufNewFile", },
 }
 
 function M.config()
@@ -364,6 +365,8 @@ function M.config()
       utils.on_colorscheme(setup_colors)
     end,
   })
+
+  require("lazy").load { plugins = { "vim-tpipeline" } }
 end
 
 return M

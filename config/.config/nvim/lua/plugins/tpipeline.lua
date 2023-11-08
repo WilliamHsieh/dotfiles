@@ -1,5 +1,6 @@
 local M = {
   "vimpostor/vim-tpipeline",
+  lazy = true,
   cond = require("core.utils").is_tmux_active()
 }
 
