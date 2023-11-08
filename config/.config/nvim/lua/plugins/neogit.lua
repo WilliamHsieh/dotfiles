@@ -2,6 +2,7 @@ local M = {
   "TimUntersberger/neogit",
   cmd = "Neogit",
   dependencies = {
+    "nvim-lua/plenary.nvim",
     "sindrets/diffview.nvim",
     "rhysd/conflict-marker.vim",
   },
@@ -11,7 +12,7 @@ M.opts = {
   disable_commit_confirmation = true,
   disable_insert_on_commit = false,
   console_timeout = 5000,
-  commit_popup = {
+  commit_editor = {
     kind = "vsplit",
   },
   popup = {
@@ -21,10 +22,10 @@ M.opts = {
     diffview = true
   },
   sections = {
-    unpulled = {
+    unpulled_pushRemote = {
       folded = false
     },
-    unmerged = {
+    unmerged_upstream = {
       folded = false
     },
     recent = {

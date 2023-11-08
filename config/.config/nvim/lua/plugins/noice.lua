@@ -1,6 +1,8 @@
+-- FIX: noice is broken (ui not properly showed), disable for now
 local M = {
   "folke/noice.nvim",
   priority = 100,
+  cond = false,
   dependencies = {
     "MunifTanjim/nui.nvim",
     "rcarriga/nvim-notify",

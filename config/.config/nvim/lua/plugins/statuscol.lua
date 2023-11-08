@@ -10,7 +10,7 @@ function M.config()
     relculright = true,
     segments = {
       {
-        sign = { name = { "GitSigns" }, maxwidth = 1, auto = true, wrap = true },
+        sign = { namespace = { "gitsigns" }, maxwidth = 1, auto = true, wrap = true },
         click = "v:lua.ScSa",
       },
       {
