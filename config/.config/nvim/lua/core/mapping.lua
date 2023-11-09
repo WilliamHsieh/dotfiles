@@ -85,6 +85,8 @@ local function compile_and_run()
       compile = "g++ --std=c++20 -O2 -g3 -Wall -Wextra -Wshadow -fsanitize=address,leak,undefined -DLOCAL %"
     end
     run = "./a.out" .. (vim.loop.fs_stat("./in") and " < in" or "")
+  elseif ft == "lua" then
+    run = "nvim -l %"
   else
     vim.notify(ft .. " filetype not supported")
     return
