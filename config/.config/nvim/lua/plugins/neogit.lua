@@ -3,8 +3,11 @@ local M = {
   cmd = "Neogit",
   dependencies = {
     "nvim-lua/plenary.nvim",
-    "sindrets/diffview.nvim",
     "rhysd/conflict-marker.vim",
+    {
+      "sindrets/diffview.nvim",
+      cmd = { "DiffviewFileHistory", "DiffviewOpen" },
+    },
   },
 }
 
