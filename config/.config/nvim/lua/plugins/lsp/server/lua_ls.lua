@@ -3,7 +3,8 @@ return {
     Lua = {
       workspace = {
         -- NOTE: https://github.com/neovim/nvim-lspconfig/issues/1700
-        checkThirdParty = false
+        -- NOTE: https://github.com/LunarVim/LunarVim/issues/4049
+        checkThirdParty = "Disable",
       },
     },
   },
