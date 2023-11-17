@@ -53,6 +53,7 @@ function M.config()
         vim.g.tmux_status_style = utils.get_tmux_option("status-style")
       end
       vim.defer_fn(function()
+        vim.fn["tpipeline#forceupdate"]()
         local bg = utils.get_hl("Normal").bg
         set_tmux_style(("bg=%s,fg=%s"):format(bg, bg))
       end, 50)
