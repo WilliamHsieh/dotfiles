@@ -7,6 +7,13 @@ local M = {
     {
       "sindrets/diffview.nvim",
       cmd = { "DiffviewFileHistory", "DiffviewOpen" },
+      opts = {
+        keymaps = {
+          file_history_panel = {
+            ["q"] = "<cmd>tabclose<cr>",
+          },
+        },
+      },
     },
   },
 }

@@ -146,7 +146,7 @@ map("n", "<leader>gu", "<cmd>Gitsigns undo_stage_hunk<cr>", "Undo staged hunk")
 map("n", "<leader>go", "<cmd>Telescope git_status<cr>", "git status")
 map("n", "<leader>gb", "<cmd>Telescope git_branches<cr>", "Checkout branch")
 map("n", "<leader>gc", "<cmd>Telescope git_commits<cr>", "Checkout commit")
-map("n", "<leader>gd", "<cmd>Gitsigns diffthis HEAD<cr>", "Diff")
+map({ "n", "v" }, "<leader>gd", ":DiffviewFileHistory %<cr>", "Diff file history")
 map("n", "<leader>gg", "<cmd>Neogit<cr>", "Neogit")
 map("n", "<leader>gn", "<cmd>NvimTreeRefresh<cr>", "refresh nvim-tree")
 --}}}
