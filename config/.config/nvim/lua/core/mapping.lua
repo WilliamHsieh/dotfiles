@@ -152,11 +152,8 @@ map("n", "<leader>gn", "<cmd>NvimTreeRefresh<cr>", "refresh nvim-tree")
 --}}}
 
 -- <leader>l: lsp{{{
-map("i", "<C-k>", vim.lsp.buf.signature_help, "signature_help")
-map("n", "gr", vim.lsp.buf.references, "go to references")
 map("n", "<leader>la", "<cmd>Lspsaga code_action<cr>", "Code Action")
 map("n", "<leader>ld", "<cmd>TroubleToggle<cr>", "Diagnostics")
-map("n", "<leader>lf", function () vim.lsp.buf.format { async = true } end, "Format")
 map("n", "<leader>li", "<cmd>LspInfo<cr>", "LSP info")
 map("n", "<leader>lI", "<cmd>Mason<cr>", "LSP installer Info")
 map("n", "<leader>ll", vim.diagnostic.open_float, "Hover diagnostics")

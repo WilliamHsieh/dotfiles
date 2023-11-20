@@ -28,10 +28,15 @@ function M.config()
   }
 
   local on_attach = function(client, bufnr)
-    vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bufnr, desc = "Hover doc" })
-    vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = bufnr, desc = "go to definition" })
-    vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = bufnr, desc = "go to declaration" })
-    vim.keymap.set("n", "<leader>lr", ":IncRename ", { buffer = bufnr, desc = "Rename" })
+    local function opts(desc)
+      return { buffer = bufnr, desc = desc }
+    end
+    vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help, opts("signature_help"))
+    vim.keymap.set("n", "K", vim.lsp.buf.hover, opts("Hover doc"))
+    vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts("go to definition"))
+    vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts("go to declaration"))
+    vim.keymap.set("n", "gr", vim.lsp.buf.references, opts("go to references"))
+    vim.keymap.set("n", "<leader>lr", ":IncRename ", opts("Rename"))
 
     local augroup = vim.api.nvim_create_augroup("LspFormatting", { clear = false })
     if client.supports_method("textDocument/formatting") then
@@ -43,6 +48,7 @@ function M.config()
           vim.lsp.buf.format()
         end,
       })
+      vim.keymap.set("n", "<leader>lf", function() vim.lsp.buf.format { async = true } end, opts("Format"))
     end
   end
 
