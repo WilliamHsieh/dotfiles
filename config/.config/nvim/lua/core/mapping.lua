@@ -235,17 +235,3 @@ map("!", "<C-A>", "<Home>", {})
 map("!", "<C-E>", "<End>", {})
 map("!", "<Esc>b", "<S-Left>", {})
 map("!", "<Esc>f", "<S-Right>", {})
-
-local function vim_navigation(vim_dir)
-  local pre = vim.fn.winnr()
-  vim.cmd("wincmd " .. vim_dir)
-  if require("core.utils").is_tmux_active() and vim.fn.winnr() == pre then
-    local tmux_dir = vim.fn.tr(vim_dir, 'hjkl', 'LDUR')
-    vim.fn.system { "tmux", "select-pane", "-" .. tmux_dir }
-  end
-end
-
-map("n", '<M-h>', function() vim_navigation('h') end, "Navigate left")
-map("n", '<M-j>', function() vim_navigation('j') end, "Navigate down")
-map("n", '<M-k>', function() vim_navigation('k') end, "Navigate up")
-map("n", '<M-l>', function() vim_navigation('l') end, "Navigate right")
