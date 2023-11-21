@@ -209,11 +209,6 @@ map("v", "<leader>y", function() yank() end, "copy to clipboard")
 
 -- others{{{
 map("i", "kj", "<esc>")
-map("n", "<C-L>", function()
-  require("notify").dismiss {}
----@diagnostic disable-next-line: param-type-mismatch
-	pcall(vim.cmd, "nohlsearch | diffupdate | mode")
-end, "refresh")
 
 -- quickfix
 map("n", "]q", "<cmd>cnext<cr>", "quickfix next")

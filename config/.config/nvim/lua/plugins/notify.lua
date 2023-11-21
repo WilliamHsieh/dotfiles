@@ -1,5 +1,16 @@
 local M = {
   "rcarriga/nvim-notify",
+  keys = {
+    {
+      "<C-L>",
+      function()
+        require("notify").dismiss({ silent = true, pending = true })
+        ---@diagnostic disable-next-line: param-type-mismatch
+        pcall(vim.cmd, "nohlsearch | diffupdate | mode")
+      end,
+      desc = "Dismiss all Notifications and refresh",
+    },
+  },
 }
 
 function M.init()
