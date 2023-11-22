@@ -22,4 +22,22 @@ function utils.is_tmux_active()
   return tmux_is_active
 end
 
+-- copy from https://github.com/LazyVim/LazyVim/blob/68ff818a5bb7549f90b05e412b76fe448f605ffb/lua/lazyvim/util/init.lua#L129
+function utils.on_load(name, fn)
+  local Config = require("lazy.core.config")
+  if Config.plugins[name] and Config.plugins[name]._.loaded then
+    fn(name)
+  else
+    vim.api.nvim_create_autocmd("User", {
+      pattern = "LazyLoad",
+      callback = function(event)
+        if event.data == name then
+          fn(name)
+          return true
+        end
+      end,
+    })
+  end
+end
+
 return utils

@@ -66,9 +66,9 @@ autocmd("User", {
 vim.api.nvim_create_autocmd({ 'User' }, {
   pattern = "SessionLoadPost",
   group = "config_group",
-  callback = function()
+  callback = vim.schedule_wrap(function()
     pcall(require("nvim-tree.api").tree.toggle, false, true)
-  end
+  end)
 })
 
 vim.api.nvim_create_autocmd('User', {
