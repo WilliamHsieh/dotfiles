@@ -9,6 +9,18 @@ function M.init()
   vim.g.tpipeline_restore = 1
   vim.g.tpipeline_clearstl = 1
   vim.g.tpipeline_size = 300
+
+  -- https://github.com/vimpostor/vim-tpipeline/issues/19#issuecomment-1000844167
+  vim.opt.fillchars:append {
+    stl = "─",
+    -- HACK: https://github.com/neovim/neovim/pull/25941
+    stlnc = "-",
+    horiz = '─',
+    horizup = '┴',
+    horizdown = '┬',
+    vert = '│',
+    verthoriz = '┼',
+  }
 end
 
 function M.config()

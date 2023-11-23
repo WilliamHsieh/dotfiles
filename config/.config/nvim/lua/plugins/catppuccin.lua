@@ -13,7 +13,9 @@ function M.config()
     custom_highlights = function(colors)
       return {
         NormalFloat = { bg = colors.base },
-        ExtraWhitespace = { fg = colors.yellow, style = { "underline" } }
+        ExtraWhitespace = { fg = colors.yellow, style = { "underline" } },
+        StatusLine = { link = "WinSeparator" },
+        StatusLineNC = { link = "WinSeparator" },
       }
     end,
     integrations = {
