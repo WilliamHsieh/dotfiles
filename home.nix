@@ -34,6 +34,7 @@ in {
     ];
     sessionVariables = {
       COMMA_NIXPKGS_FLAKE = "nixpkgs/${config.home.stateVersion}";
+      FZF_COMPLETION_TRIGGER = "~~";
     };
   };
 
@@ -95,7 +96,7 @@ in {
         source "${config.xdg.stateHome}/nix/profiles/profile/etc/profile.d/nix.sh"
       fi
     '';
-    initExtra = "source ~/.zshrc";
+    initExtraBeforeCompInit = "source ~/.zshrc";
   };
 
   programs.bash.enable = true;
@@ -107,6 +108,22 @@ in {
 
   programs.zoxide = {
     enable = true;
+  };
+
+  programs.fzf = {
+    enable = true;
+    defaultOptions = [
+      "--color=bg+:#363a4f,bg:#24273a,spinner:#f4dbd6,hl:#ed8796"
+      "--color=fg:#cad3f5,header:#ed8796,info:#c6a0f6,pointer:#f4dbd6"
+      "--color=marker:#f4dbd6,fg+:#cad3f5,prompt:#c6a0f6,hl+:#ed8796"
+      "--layout=reverse"
+    ];
+    changeDirWidgetOptions = [
+      "--preview 'exa --tree {} | head -200'"
+    ];
+    fileWidgetOptions = [
+      "--preview 'bat --color=always {}'"
+    ];
   };
 
   programs.tmux = {

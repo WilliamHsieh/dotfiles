@@ -80,9 +80,6 @@
     alias pythonServer="python3 -m http.server"
     alias true_colors="bash ~/dotfiles/scripts.sh true_colors"
 
-    # key-bindings
-    bindkey -s "^f" "history | fzf^M"
-
     # platform specific
     if uname -r | grep -i -q 'microsoft'; then
         alias cmd="cmd.exe"
