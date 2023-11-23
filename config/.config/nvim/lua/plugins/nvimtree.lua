@@ -4,14 +4,17 @@ local M = {
 }
 
 function M.init()
-  local augroup = vim.api.nvim_create_augroup("nvim-tree-loader", { clear = true })
   vim.api.nvim_create_autocmd("BufEnter", {
-    group = augroup,
     callback = function(data)
       if vim.fn.isdirectory(data.file) == 1 then
         vim.cmd.cd(data.file)
         require("nvim-tree.api").tree.open()
-        vim.api.nvim_del_augroup_by_id(augroup)
+        return true
+      end
+
+      local plugin = require("lazy.core.config").plugins["nvim-tree.lua"]
+      if plugin and plugin._.loaded then
+        return true
       end
     end
   })
