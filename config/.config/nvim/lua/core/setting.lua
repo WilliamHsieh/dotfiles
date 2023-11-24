@@ -47,6 +47,11 @@ for k, v in pairs(options) do
 end
 vim.opt.shortmess:append "c"
 vim.opt.whichwrap:append "<,>,[,],h,l"
+vim.opt.fillchars:append {
+  -- HACK: https://vi.stackexchange.com/a/34849
+  stl = " ",
+  eob = " ",
+}
 
 local globals = {
   netrw_banner = 0,        -- disable banner
