@@ -3,7 +3,8 @@ let
   cfg = import ./config.nix;
   config-path = "${config.home.homeDirectory}/${cfg.repo-path}/config";
   link = path: config.lib.file.mkOutOfStoreSymlink "${config-path}/${path}";
-in {
+in
+{
   home = {
     packages = with pkgs; [
       # essential
