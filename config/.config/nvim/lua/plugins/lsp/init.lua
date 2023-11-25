@@ -24,7 +24,7 @@ function M.config()
     }
   }
   require("mason-lspconfig").setup {
-    ensure_installed = { "lua_ls", "clangd", "pyright" }
+    ensure_installed = { "rnix", "lua_ls", "clangd", "pyright", "tsserver" }
   }
 
   local on_attach = function(client, bufnr)
