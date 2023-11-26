@@ -366,7 +366,10 @@ function M.config()
     end,
   })
 
-  require("lazy").load { plugins = { "vim-tpipeline" } }
+  if require("core.utils").is_tmux_active() then
+    require("plugins.tpipeline").setup()
+    require("lazy").load { plugins = { "vim-tpipeline" } }
+  end
 end
 
 return M

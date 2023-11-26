@@ -17,7 +17,7 @@ local tmux_is_active = nil
 
 function utils.is_tmux_active()
   if tmux_is_active == nil then
-    tmux_is_active = vim.env.TMUX ~= nil and utils.get_tmux_option("status"):find("^on") ~= nil
+    tmux_is_active = vim.env.TMUX ~= nil and utils.get_tmux_option("status"):find("^on") ~= nil or false
   end
   return tmux_is_active
 end

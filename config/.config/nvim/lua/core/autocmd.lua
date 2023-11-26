@@ -42,27 +42,6 @@ autocmd("BufReadPost", {
   end,
 })
 
-autocmd("User", {
-  pattern = "AlphaReady",
-  group = "config_group",
-  callback = function()
-    local pre_showtabline = vim.o.showtabline
-    local pre_laststatus = vim.o.laststatus
-    vim.o.showtabline = 0
-    vim.o.laststatus = 0
-    autocmd("BufUnload", {
-      pattern = "<buffer>",
-      group = "config_group",
-      once = true,
-      callback = function()
-        vim.o.showtabline = pre_showtabline
-        vim.o.laststatus = pre_laststatus
-        vim.cmd.Lazy("load bufferline.nvim")
-      end
-    })
-  end
-})
-
 vim.api.nvim_create_autocmd({ 'User' }, {
   pattern = "SessionLoadPost",
   group = "config_group",

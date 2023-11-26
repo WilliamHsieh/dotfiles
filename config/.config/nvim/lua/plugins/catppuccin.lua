@@ -14,8 +14,9 @@ function M.config()
       return {
         NormalFloat = { bg = colors.base },
         ExtraWhitespace = { fg = colors.yellow, style = { "underline" } },
-        StatusLine = { link = "WinSeparator" },
-        StatusLineNC = { link = "WinSeparator" },
+        -- HACK: https://github.com/neovim/neovim/pull/25941
+        StatusLine = { fg = colors.crust, bg = "none" },
+        StatusLineNC = { fg = colors.mantle, bg = "none" },
       }
     end,
     integrations = {

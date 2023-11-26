@@ -1,10 +1,9 @@
 local M = {
   "vimpostor/vim-tpipeline",
   lazy = true,
-  cond = require("core.utils").is_tmux_active()
 }
 
-function M.init()
+function M.setup()
   vim.g.tpipeline_cursormoved = 1
   vim.g.tpipeline_restore = 1
   vim.g.tpipeline_clearstl = 1
@@ -13,13 +12,7 @@ function M.init()
   -- https://github.com/vimpostor/vim-tpipeline/issues/19#issuecomment-1000844167
   vim.opt.fillchars:append {
     stl = "─",
-    -- HACK: https://github.com/neovim/neovim/pull/25941
-    stlnc = "-",
-    horiz = '─',
-    horizup = '┴',
-    horizdown = '┬',
-    vert = '│',
-    verthoriz = '┼',
+    stlnc = "─",
   }
 end
 
