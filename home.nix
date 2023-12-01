@@ -178,5 +178,11 @@ in
       # TODO: https://github.com/catppuccin/bat
       theme = "base16-256";
     };
+    extraPackages = with pkgs.bat-extras; [
+      batdiff
+      batman
+      batgrep
+      batwatch
+    ];
   };
 }
