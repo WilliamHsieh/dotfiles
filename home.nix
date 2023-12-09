@@ -1,4 +1,4 @@
-{ pkgs, config, lib, ... }:
+{ inputs, pkgs, config, lib, ... }:
 let
   cfg = import ./config.nix;
   config-path = "${config.home.homeDirectory}/${cfg.repo-path}/config";
@@ -34,8 +34,8 @@ in
       gcc
     ];
     sessionVariables = {
-      COMMA_NIXPKGS_FLAKE = "nixpkgs/${config.home.stateVersion}";
       FZF_COMPLETION_TRIGGER = "~~";
+      NIX_PATH = "nixpkgs=${inputs.nixpkgs}";
     };
   };
 
@@ -57,6 +57,7 @@ in
 
   nix = {
     package = pkgs.nixUnstable;
+    registry.nixpkgs.flake = inputs.nixpkgs;
     settings = {
       experimental-features = [ "nix-command" "flakes" ];
       warn-dirty = false;
