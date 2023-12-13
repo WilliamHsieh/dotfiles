@@ -19,7 +19,7 @@ in
       gnumake
 
       # shell
-      exa
+      eza
       trash-cli
 
       # common tools

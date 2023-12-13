@@ -58,7 +58,7 @@
         ' OMZL::completion.zsh \
         OMZL::theme-and-appearance.zsh \
         atload'
-          command -v exa &> /dev/null && alias ls="exa"
+          command -v eza &> /dev/null && alias ls="eza"
           alias l="ls -l"
           alias la="ls -lag --icons"
           alias ll="\ls -Llah"

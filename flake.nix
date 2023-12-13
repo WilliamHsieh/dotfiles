@@ -13,14 +13,13 @@
   };
 
   inputs = {
-    # TODO: change to stable
-    nixpkgs.url = "github:nixos/nixpkgs/release-23.05";
+    nixpkgs.url = "github:nixos/nixpkgs/release-23.11";
     flake-parts.url = "github:hercules-ci/flake-parts";
     flake-utils.url = "github:numtide/flake-utils";
     nur.url = "github:nix-community/nur";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-23.05";
+      url = "github:nix-community/home-manager/release-23.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -60,7 +59,7 @@
         ];
       };
 
-      getHomeDirectory = system: with nixpkgs.legacyPackages.${system}.stdenv;
+      homeDirectory = with pkgs.stdenv;
         if isDarwin then
           "/Users/${username}"
         else if username == "root" then
@@ -84,9 +83,8 @@
             inputs.nix-index-database.hmModules.nix-index
             {
               home = {
-                inherit username;
-                homeDirectory = getHomeDirectory system;
-                stateVersion = "23.05";
+                inherit username homeDirectory;
+                stateVersion = "23.11";
               };
             }
           ];
