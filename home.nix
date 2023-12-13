@@ -168,6 +168,8 @@ in
       options = {
         true-color = "always";
         syntax-theme = "base16-256";
+        line-numbers = true;
+        side-by-side = true;
       };
     };
     ignores = [
