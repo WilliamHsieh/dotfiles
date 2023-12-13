@@ -7,13 +7,21 @@ in
 {
   home = {
     packages = with pkgs; [
-      # essential
+      # common tools
+      fd
+      ripgrep
+      comma
+      htop
+      tldr
+      viu
+
+      # git
       git
+      gh
+      glab
 
       # editor
       neovim
-      ripgrep
-      fd
       unzip
       nodejs
       gnumake
@@ -22,20 +30,22 @@ in
       eza
       trash-cli
 
-      # common tools
-      fzf
+      # parser
+      jc
       jq
-      bat
-      delta
-      comma
-      htop
-      tldr
-      rustup
+      jqp
+
+      # language specific
+      cargo
       gcc
+      go
+      poetry
+      python3Full
     ];
     sessionVariables = {
       FZF_COMPLETION_TRIGGER = "~~";
       NIX_PATH = "nixpkgs=${inputs.nixpkgs}";
+      COLORTERM = "truecolor";
     };
   };
 
@@ -122,6 +132,7 @@ in
       "--color=fg:#cad3f5,header:#ed8796,info:#c6a0f6,pointer:#f4dbd6"
       "--color=marker:#f4dbd6,fg+:#cad3f5,prompt:#c6a0f6,hl+:#ed8796"
       "--layout=reverse"
+      "--cycle"
     ];
     changeDirWidgetOptions = [
       "--preview 'exa --tree {} | head -200'"
