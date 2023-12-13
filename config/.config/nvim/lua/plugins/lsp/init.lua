@@ -59,19 +59,19 @@ function M.config()
   }
 
   require("mason-lspconfig").setup_handlers {
-    function(lsp_name)
+    function(server)
       local opts = {
         on_attach = on_attach,
         capabilities = capabilities,
       }
 
-      local have_config, lsp_config = pcall(require, "plugins.lsp.server." .. lsp_name)
+      local have_config, lsp_config = pcall(require, "plugins.lsp.server." .. server)
       if have_config then
         opts = vim.tbl_deep_extend("force", lsp_config, opts)
       end
 
-      require("lspconfig")[lsp_name].setup(opts)
-    end
+      require("lspconfig")[server].setup(opts)
+    end,
   }
 
   -- settings

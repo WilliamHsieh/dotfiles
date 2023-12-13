@@ -45,8 +45,11 @@ in
     "nvim".source = link ".config/nvim";
     "alacritty".source = link ".config/alacritty";
     "starship.toml".source = link ".config/starship.toml";
-    "clangd".source = link ".config/clangd";
     "home-manager".source = link "..";
+    "clangd/config.yaml".text = ''
+      ${lib.removeSuffix "\n" (builtins.readFile ./config/.config/clangd/config.yaml)}
+        Compiler: ${pkgs.gcc}/bin/g++
+    '';
   };
 
   home.file = {
