@@ -163,6 +163,9 @@ in
     enable = true;
     userName = cfg.name;
     userEmail = cfg.email;
+    aliases = {
+      undo = "reset HEAD@{1}";
+    };
     delta = {
       enable = true;
       options = {
