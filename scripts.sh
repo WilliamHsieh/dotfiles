@@ -97,8 +97,7 @@ function yank() {
 		pane_active_tty=$(tmux list-panes -F "#{pane_active} #{pane_tty}" | awk '$1=="1" { print $2 }')
 		printf "$seq" > "$pane_active_tty"
 	else
-		#TODO: not working
-		printf "$seq" > "$TTY"
+		printf "$seq" > /dev/fd/2
 	fi
 }
 
