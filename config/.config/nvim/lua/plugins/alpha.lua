@@ -4,37 +4,42 @@ local M = {
 }
 
 local function setup()
-  local icons = require "core.icons"
   local dashboard = require "alpha.themes.dashboard"
 
-  dashboard.section.buttons.val = {
-    dashboard.button("i", icons.ui.NewFile .. "  New file", ":ene <BAR> startinsert<CR>"),
-    dashboard.button("r", icons.ui.History .. "  Recent files", ":Telescope oldfiles<CR>"),
-    dashboard.button("f", icons.documents.Files .. "  Find file", ":Telescope find_files<CR>"),
-    dashboard.button("F", icons.ui.List .. "  Find text", ":Telescope live_grep<CR>"),
-    dashboard.button("p", icons.git.Repo .. "  Find project", ":Telescope projects theme=dropdown<CR>"),
-    dashboard.button("s", icons.misc.Watch .. "  Find session", ":SessionManager load_session<CR>"),
-    dashboard.button("c", icons.ui.Gear .. "  Config", ":e ~/dotfiles<CR>"),
-    dashboard.button("q", icons.diagnostics.Error .. "  Quit", ":qa<CR>"),
-  }
+  local function get_buttons()
+    local icons = require "core.icons"
+    return {
+      dashboard.button("i", icons.ui.NewFile .. "  New file", ":ene <BAR> startinsert<CR>"),
+      dashboard.button("r", icons.ui.History .. "  Recent files", ":Telescope oldfiles<CR>"),
+      dashboard.button("f", icons.documents.Files .. "  Find file", ":Telescope find_files<CR>"),
+      dashboard.button("F", icons.ui.List .. "  Find text", ":Telescope live_grep<CR>"),
+      dashboard.button("p", icons.git.Repo .. "  Find project", ":Telescope projects theme=dropdown<CR>"),
+      dashboard.button("s", icons.misc.Watch .. "  Find session", ":SessionManager load_session<CR>"),
+      dashboard.button("c", icons.ui.Gear .. "  Config", ":e ~/dotfiles<CR>"),
+      dashboard.button("q", icons.diagnostics.Error .. "  Quit", ":qa<CR>"),
+    }
+  end
 
   local function get_header()
-    -- https://manytools.org/hacker-tools/ascii-banner/
     local banner = {
-      "███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗",
-      "████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║",
-      "██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║",
-      "██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║",
-      "██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║",
-      "╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝",
+      [[                                                                     ]],
+      [[       ████ ██████           █████      ██                     ]],
+      [[      ███████████             █████                             ]],
+      [[      █████████ ███████████████████ ███   ███████████   ]],
+      [[     █████████  ███    █████████████ █████ ██████████████   ]],
+      [[    █████████ ██████████ █████████ █████ █████ ████ █████   ]],
+      [[  ███████████ ███    ███ █████████ █████ █████ ████ █████  ]],
+      [[ ██████  █████████████████████ ████ █████ █████ ████ ██████ ]],
     }
 
     local height = vim.fn.winheight(0)
     local content = #banner + 2 * #dashboard.section.buttons.val + 5
-    local cnt = vim.fn.max{1, vim.fn.floor((height - content) * 0.4)}
+    local cnt = vim.fn.max { 1, vim.fn.floor((height - content) * 0.4) }
 
+    -- U+00A0
+    local no_break_space = " "
     for _ = 1, cnt do
-      table.insert(banner, 1, "")
+      table.insert(banner, 1, no_break_space)
     end
     return banner
   end
@@ -45,11 +50,9 @@ local function setup()
     return string.format("NVIM v%d.%d.%d", v.major, v.minor, v.patch)
   end
 
+  dashboard.section.buttons.val = get_buttons()
   dashboard.section.header.val = get_header()
   dashboard.section.footer.val = get_footer()
-  dashboard.section.header.opts.hl = "Include"
-  dashboard.section.footer.opts.hl = "Type"
-  dashboard.section.buttons.opts.hl = "Keyword"
 
   require("alpha").setup(dashboard.opts)
 end
