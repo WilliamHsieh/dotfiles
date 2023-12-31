@@ -13,7 +13,11 @@ in
       comma
       htop
       tldr
+      coreutils-full
+
+      # images
       viu
+      qimgv
 
       # git
       git
