@@ -27,7 +27,9 @@ autocmd("VimResized", {
   desc = "auto resize",
   pattern = "*",
   group = "config_group",
-  command = "tabdo wincmd ="
+  callback = function()
+    require('focus').focus_autoresize()
+  end
 })
 
 autocmd("BufReadPost", {
