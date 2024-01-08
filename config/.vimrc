@@ -357,7 +357,7 @@
     " Copy to clipboard
     "{{{
         function! Osc52Yank(msg)
-            call system('bash ~/dotfiles/scripts.sh yank', @0)
+            call system('bash ~/dotfiles/config/zsh/autoload/yank', @0)
             call EchoMsg(a:msg)
         endfunction
 
