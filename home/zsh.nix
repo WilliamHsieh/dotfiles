@@ -46,6 +46,7 @@ in
       fpath+=${pkgs.oh-my-zsh}/share/oh-my-zsh/plugins/extract
       fpath+=${dotfilesDir}/config/zsh/autoload
       autoload -Uz true_colors
+      autoload -Uz yank
 
       # HACK: https://github.com/zsh-users/zsh-syntax-highlighting/issues/67#issuecomment-1728953
       autoload -Uz select-word-style

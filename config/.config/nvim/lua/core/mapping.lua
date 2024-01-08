@@ -27,7 +27,7 @@ local function yank()
   else
     vim.cmd('normal! y')
   end
-  vim.fn.system('bash ~/dotfiles/scripts.sh yank', vim.fn.getreg('0'))
+  vim.fn.system('bash ~/dotfiles/config/zsh/autoload/yank', vim.fn.getreg('0'))
   vim.notify("copied to clipboard")
 end
 

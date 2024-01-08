@@ -1,0 +1,14 @@
+# vim: set ft=bash:
+
+seq="$(cat "$@" | base64 | tr -d "\r\n")"
+seq="\ePtmux;\e\e]52;c;$seq\a\e\\"
+
+if [[ ! -z "${SSH_TTY}" ]]; then
+  [[ ! -z "${TMUX}" ]] && export $(tmux showenv SSH_TTY)
+  printf "$seq" > "$SSH_TTY"
+elif [[ ! -z "${TMUX}" ]]; then
+  pane_active_tty=$(tmux list-panes -F "#{pane_active} #{pane_tty}" | awk '$1=="1" { print $2 }')
+  printf "$seq" > "$pane_active_tty"
+else
+  printf "$seq" > /dev/fd/2
+fi
