@@ -55,6 +55,11 @@ in
       FZF_COMPLETION_TRIGGER = "~~";
       NIX_PATH = "nixpkgs=${inputs.nixpkgs}";
       COLORTERM = "truecolor";
+      LANG = "en_US.UTF-8";
+      LC_CTYPE = "en_US.UTF-8";
+      VISUAL = "nvim";
+      EDITOR = "nvim";
+      MANPAGER = "nvim +Man!";
     };
   };
 
