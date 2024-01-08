@@ -118,6 +118,8 @@ in
     initExtraBeforeCompInit = "source ~/.zshrc";
   };
 
+  programs.dircolors.enable = true;
+
   programs.bash.enable = true;
 
   programs.starship = {
