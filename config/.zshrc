@@ -92,8 +92,6 @@
     elif uname | grep -i -q 'Linux'; then
         alias pbcopy="bash ~/dotfiles/scripts.sh yank"
         alias open="xdg-open"
-    else
-        source <(gdircolors)
     fi
 
     # ring the bell before every command
