@@ -1,8 +1,8 @@
 { inputs, pkgs, config, lib, ... }:
 let
   cfg = import ./config.nix;
-  config-path = "${config.home.homeDirectory}/${cfg.repo-path}/config";
-  link = path: config.lib.file.mkOutOfStoreSymlink "${config-path}/${path}";
+  dotfilesDir = "${config.home.homeDirectory}/${cfg.repo-path}";
+  link = path: config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/config/${path}";
 in
 {
   home = {
@@ -61,7 +61,7 @@ in
     "starship.toml".source = link ".config/starship.toml";
     "home-manager".source = link "..";
     "clangd/config.yaml".text = ''
-      ${lib.removeSuffix "\n" (builtins.readFile ./config/.config/clangd/config.yaml)}
+      ${lib.removeSuffix "\n" (builtins.readFile ../config/.config/clangd/config.yaml)}
         Compiler: ${pkgs.gcc}/bin/g++
     '';
   };
