@@ -49,8 +49,6 @@
 
 # Others
 # {{{
-    alias true_colors="bash ~/dotfiles/scripts.sh true_colors"
-
     # platform specific
     if uname -r | grep -i -q 'microsoft'; then
         alias cmd="cmd.exe"
