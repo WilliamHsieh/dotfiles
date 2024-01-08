@@ -11,7 +11,7 @@
     [[ -e ~/.local.zsh ]] && source ~/.local.zsh
 
     # auto attach to tmux
-    [ -n "$PS1" ] && [ -z "$TMUX" ] && $(tmux has-session 2> /dev/null) && tmux a
+    [ -n "$PS1" ] && [ -z "$TMUX" ] && [ $SHLVL = 1 ] && $(tmux has-session 2> /dev/null) && tmux a
 
     # export
     export LANG=en_US.UTF-8
