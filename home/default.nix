@@ -66,20 +66,19 @@ in
   xdg.enable = true;
 
   xdg.configFile = {
-    "nvim".source = link ".config/nvim";
-    "alacritty".source = link ".config/alacritty";
-    "starship.toml".source = link ".config/starship.toml";
+    "nvim".source = link "nvim";
+    "alacritty".source = link "alacritty";
+    "starship".source = link "starship";
     "home-manager".source = link "..";
     "zsh/.p10k.zsh".source = link "zsh/.p10k.zsh";
     "clangd/config.yaml".text = ''
-      ${lib.removeSuffix "\n" (builtins.readFile ../config/.config/clangd/config.yaml)}
+      ${lib.removeSuffix "\n" (builtins.readFile ../config/clangd/config.yaml)}
         Compiler: ${pkgs.gcc}/bin/g++
     '';
   };
 
   home.file = {
-    ".vimrc".source = link ".vimrc";
-    ".tmux.conf".source = link ".tmux.conf";
+    ".vimrc".source = link "vim/.vimrc";
   };
 
   nix = {
@@ -146,7 +145,7 @@ in
     plugins = with pkgs.tmuxPlugins; [
       {
         plugin = prefix-highlight;
-        extraConfig = "source-file ~/.tmux.conf";
+        extraConfig = "source-file ${dotfilesDir}/config/tmux/tmux.conf";
       }
       extrakto
       tmux-fzf
