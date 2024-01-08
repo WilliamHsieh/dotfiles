@@ -12,13 +12,6 @@
 
     # auto attach to tmux
     [ -n "$PS1" ] && [ -z "$TMUX" ] && [ $SHLVL = 1 ] && $(tmux has-session 2> /dev/null) && tmux a
-
-    # export
-    export LANG=en_US.UTF-8
-    export LC_CTYPE=en_US.UTF-8
-    export VISUAL="$(command -v nvim 2>/dev/null || command -v vim)"
-    export EDITOR="$VISUAL"
-    export MANPAGER='nvim +Man!'
 # }}}
 
 
