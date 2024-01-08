@@ -70,6 +70,7 @@ in
     "alacritty".source = link ".config/alacritty";
     "starship.toml".source = link ".config/starship.toml";
     "home-manager".source = link "..";
+    "zsh/.p10k.zsh".source = link "zsh/.p10k.zsh";
     "clangd/config.yaml".text = ''
       ${lib.removeSuffix "\n" (builtins.readFile ../config/.config/clangd/config.yaml)}
         Compiler: ${pkgs.gcc}/bin/g++
