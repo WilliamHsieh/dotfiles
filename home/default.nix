@@ -5,6 +5,10 @@ let
   link = path: config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/config/${path}";
 in
 {
+  imports = [
+    ./zsh.nix
+  ];
+
   home = {
     packages = with pkgs; [
       # common tools
@@ -97,26 +101,6 @@ in
   programs.home-manager.enable = true;
 
   programs.nix-index.enable = true;
-
-  programs.zsh = {
-    enable = true;
-    enableCompletion = false;
-    history.expireDuplicatesFirst = true;
-    dotDir = ".config/zsh";
-    initExtraFirst = ''
-      # p10k instant prompt
-      echo ""
-      if [[ -r "${config.xdg.cacheHome}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
-        source "${config.xdg.cacheHome}/p10k-instant-prompt-''${(%):-%n}.zsh"
-      fi
-
-      # source nix profile
-      if [[ -r "${config.xdg.stateHome}/nix/profiles/profile/etc/profile.d/nix.sh" ]]; then
-        source "${config.xdg.stateHome}/nix/profiles/profile/etc/profile.d/nix.sh"
-      fi
-    '';
-    initExtraBeforeCompInit = "source ~/.zshrc";
-  };
 
   programs.dircolors.enable = true;
 
