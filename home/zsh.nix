@@ -36,14 +36,16 @@ in
       gco = "git checkout";
       glgg = "git log --graph";
 
-      mv = "mv - i";
-      cp = "cp - i";
+      mv = "mv -i";
+      cp = "cp -i";
       rm = "trash";
       pythonServer = "python3 -m http.server";
     };
     initExtraBeforeCompInit = ''
       fpath+=${pkgs.zsh-completions}/share/zsh/site-functions
       fpath+=${pkgs.oh-my-zsh}/share/oh-my-zsh/plugins/extract
+      fpath+=${dotfilesDir}/config/zsh/autoload
+      autoload -Uz true_colors
 
       # HACK: https://github.com/zsh-users/zsh-syntax-highlighting/issues/67#issuecomment-1728953
       autoload -Uz select-word-style
@@ -88,7 +90,7 @@ in
       zsh-defer zvm_define_widget dotfiles_fzf_history_widget;
       zsh-defer zvm_bindkey viins '^R' dotfiles_fzf_history_widget;
 
-      source ~/.zshrc
+      source ${dotfilesDir}/config/zsh/.zshrc
     '';
   };
 }

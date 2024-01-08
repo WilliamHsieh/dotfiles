@@ -18,6 +18,7 @@ in
       htop
       tldr
       coreutils-full
+      gawk
 
       # images
       viu
@@ -72,7 +73,6 @@ in
 
   home.file = {
     ".vimrc".source = link ".vimrc";
-    ".zshrc".source = link ".zshrc";
     ".tmux.conf".source = link ".tmux.conf";
   };
 
