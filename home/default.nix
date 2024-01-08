@@ -91,13 +91,6 @@ in
   };
 
   home.activation = {
-    install-zinit = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      ZINIT_HOME="${config.xdg.dataHome}/zinit/zinit.git"
-      if ! [ -d "$ZINIT_HOME" ]; then
-        $DRY_RUN_CMD ${pkgs.git}/bin/git clone $VERBOSE_ARG https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
-      fi
-    '';
-
     update-neovim-plugins = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       PATH="${config.home.path}/bin:$PATH" $DRY_RUN_CMD nvim --headless "+Lazy! restore | qa"
     '';
