@@ -49,7 +49,7 @@
   outputs = inputs @ { self, nixpkgs, home-manager, ... }:
     let
       system = "x86_64-linux";
-      username = (import ./config.nix).user;
+      username = (import ./home/config.nix).user;
 
       pkgs = import nixpkgs {
         inherit system;
@@ -79,7 +79,7 @@
           extraSpecialArgs = { inherit inputs outputs; };
 
           modules = [
-            ./home.nix
+            ./home
             inputs.nix-index-database.hmModules.nix-index
             {
               home = {
