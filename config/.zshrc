@@ -13,9 +13,6 @@
     # auto attach to tmux
     [ -n "$PS1" ] && [ -z "$TMUX" ] && $(tmux has-session 2> /dev/null) && tmux a
 
-    # zinit
-    source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
-
     # export
     export LANG=en_US.UTF-8
     export LC_CTYPE=en_US.UTF-8
@@ -27,57 +24,31 @@
 
 # Plugins
 # {{{
-    zinit ice depth=1
-    zinit light romkatv/powerlevel10k
-    if [[ -r "$HOME/.config/zsh/.p10k.zsh" ]]; then
-      zinit snippet ~/.config/zsh/.p10k.zsh
-    fi
-
     typeset -g POWERLEVEL9K_VCS_BRANCH_ICON='\UE0A0 '
     typeset -g POWERLEVEL9K_DIR_ANCHOR_BOLD=true
     typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
+    typeset -g POWERLEVEL9K_NIX_SHELL_INFER_FROM_PATH=true
     # typeset -g POWERLEVEL9K_TRANSIENT_PROMPT=same-dir
 
-    zinit light-mode for \
-      OMZL::key-bindings.zsh \
-      OMZL::history.zsh
+    setopt auto_cd
+    setopt auto_pushd
+    setopt pushd_ignore_dups
+    setopt pushdminus
 
-    # turbo mode
-    zinit wait lucid light-mode for \
-        atinit"zicompinit; zicdreplay" zdharma-continuum/fast-syntax-highlighting \
-        atload"_zsh_autosuggest_start" zsh-users/zsh-autosuggestions \
-        blockf atclone"zinit creinstall -q ." atpull"%atclone" zsh-users/zsh-completions \
-        felixr/docker-zsh-completion \
-        as"completion" https://github.com/felixr/docker-zsh-completion/blob/master/_docker \
-        atload'
-            bindkey -M menuselect "h" vi-backward-char
-            bindkey -M menuselect "j" vi-down-line-or-history
-            bindkey -M menuselect "k" vi-up-line-or-history
-            bindkey -M menuselect "l" vi-forward-char
-            zstyle ":completion:*" list-colors "${(s.:.)LS_COLORS}"
-        ' OMZL::completion.zsh \
-        OMZL::theme-and-appearance.zsh \
-        atload'
-          command -v eza &> /dev/null && alias ls="eza"
-          alias l="ls -l"
-          alias la="ls -lag --icons"
-          alias ll="\ls -Llah"
-        ' OMZL::directories.zsh \
-        OMZP::cp \
-        OMZP::git \
-        OMZP::extract \
-        as="completion" OMZP::extract/_extract \
-        as="completion" OMZP::pip/_pip
+    function d () {
+      if [[ -n $1 ]]; then
+        dirs "$@"
+      else
+        dirs -v | head -n 10
+      fi
+
+    }
+    compdef _dirs d
 # }}}
 
 
 # Others
 # {{{
-    alias mv='mv -i'
-    alias cp='cp -i'
-    alias rm="trash"
-
-    alias pythonServer="python3 -m http.server"
     alias true_colors="bash ~/dotfiles/scripts.sh true_colors"
 
     # platform specific
@@ -104,4 +75,5 @@
 # Notes
 # {{{
 #   Ctrl-x, Ctrl-e open vim as command editor
+#   Ctrl-_ is undo!
 # }}}
