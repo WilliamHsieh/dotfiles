@@ -18,6 +18,7 @@ function M.config()
     }
   }
   require("mason").setup {
+    PATH = "append",
     ui = {
       border = "rounded",
       height = 0.8,
