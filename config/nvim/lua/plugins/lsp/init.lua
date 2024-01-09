@@ -24,6 +24,17 @@ function M.config()
       height = 0.8,
     }
   }
+
+  -- trigger FileType event to possibly load this newly installed LSP server
+  require("mason-registry"):on("package:install:success", function()
+    vim.defer_fn(function()
+      require("lazy.core.handler.event").trigger({
+        event = "FileType",
+        buf = vim.api.nvim_get_current_buf(),
+      })
+    end, 100)
+  end)
+
   require("mason-lspconfig").setup {
     ensure_installed = { "rnix", "lua_ls", "clangd", "pyright", "tsserver" }
   }
