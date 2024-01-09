@@ -77,3 +77,25 @@ vim.api.nvim_create_autocmd("InsertLeave", {
     end
   end
 })
+
+-- Auto create dir when saving a file, in case some intermediate directory does not exist
+vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+  group = "config_group",
+  callback = function(event)
+    if event.match:match("^%w%w+://") then
+      return
+    end
+
+    local file = vim.loop.fs_realpath(event.match) or event.match
+    local dir = vim.fn.fnamemodify(file, ":p:h")
+
+    ---@diagnostic disable-next-line: param-type-mismatch
+    if not vim.loop.fs_stat(dir) then
+      local ok = vim.fn.mkdir(dir, "p")
+      vim.notify(
+        ("Missing directory [%s]%s"):format(dir, ok and " created." or ""),
+        ok and "warn" or "error"
+      )
+    end
+  end,
+})
