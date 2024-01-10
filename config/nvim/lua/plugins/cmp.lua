@@ -31,6 +31,22 @@ function M.config()
 
   local cmp = require("cmp");
   local luasnip = require("luasnip");
+
+  local s = luasnip.snippet
+  local t = luasnip.text_node
+  local i = luasnip.insert_node
+
+  -- NOTE: https://github.com/molleweide/LuaSnip-snippets.nvim#how-to-compose-snippets
+  vim.schedule(function()
+    luasnip.add_snippets("cpp", {
+      s("incp", {
+        t({ "#include <bits/stdc++.h>", "" }),
+        t({ "using namespace std;", "", "" }),
+        i(0)
+      })
+    })
+  end)
+
   local mappings = {
     ['<C-k>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'i', 'c' }),
     ['<C-j>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 'c' }),
