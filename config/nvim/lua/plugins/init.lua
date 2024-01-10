@@ -218,4 +218,26 @@ return {
       },
     }
   },
+
+  {
+    "kawre/leetcode.nvim",
+    build = ":TSUpdate html",
+    cond = function(plugin)
+      return vim.fn.argc() == 1 and vim.fn.argv()[1] == plugin.opts.arg
+    end,
+    opts = {
+      arg         = "leetcode",
+      description = {
+        width = "60%",
+      },
+      injector    = {
+        ["cpp"] = {
+          before = {
+            "#include <bits/stdc++.h>",
+            "using namespace std;"
+          },
+        },
+      },
+    },
+  },
 }

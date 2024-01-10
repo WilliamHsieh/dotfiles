@@ -2,6 +2,7 @@ local M = {
   "nvim-treesitter/nvim-treesitter",
   build = ":TSUpdate",
   lazy = true,
+  cmd = "TSUpdate",
   dependencies = {
     "andymass/vim-matchup",
     "windwp/nvim-ts-autotag",
