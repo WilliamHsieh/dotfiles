@@ -1,0 +1,18 @@
+# NOTE: clang-format(16) -style=google -dump-config | bat
+
+BasedOnStyle: Google
+Standard: c++20
+
+UseTab: ForIndentation
+TabWidth: 2
+IndentWidth: 2
+ColumnLimit: 0
+AccessModifierOffset: -2
+ContinuationIndentWidth: 2
+ConstructorInitializerIndentWidth: 2
+
+AllowShortFunctionsOnASingleLine: None
+
+DerivePointerAlignment: false
+PointerAlignment: Left
+ReferenceAlignment: Pointer

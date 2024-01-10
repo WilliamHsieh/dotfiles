@@ -79,6 +79,7 @@ in
 
   home.file = {
     ".vimrc".source = link "vim/.vimrc";
+    ".clang-format".source = link "clangd/.clang-format";
   };
 
   nix = {
