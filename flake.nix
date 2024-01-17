@@ -14,6 +14,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/release-23.11";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     flake-parts.url = "github:hercules-ci/flake-parts";
     flake-utils.url = "github:numtide/flake-utils";
     nur.url = "github:nix-community/nur";
@@ -50,13 +51,17 @@
     let
       system = "x86_64-linux";
       username = (import ./home/config.nix).user;
+      config = { allowUnfree = true; };
 
       pkgs = import nixpkgs {
-        inherit system;
-        config = { allowUnfree = true; };
+        inherit system config;
         overlays = [
           inputs.neovim-flake.overlay
         ];
+      };
+
+      pkgs-unstable = import inputs.nixpkgs-unstable {
+        inherit system config;
       };
 
       homeDirectory = with pkgs.stdenv;
@@ -76,7 +81,7 @@
       homeConfigurations = {
         ${username} = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
-          extraSpecialArgs = { inherit inputs outputs; };
+          extraSpecialArgs = { inherit inputs outputs pkgs-unstable; };
 
           modules = [
             ./home
