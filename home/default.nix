@@ -51,14 +51,14 @@ in
       poetry
       python3Full
     ];
-    sessionVariables = {
+    sessionVariables = rec {
       FZF_COMPLETION_TRIGGER = "~~";
       NIX_PATH = "nixpkgs=${inputs.nixpkgs}";
       COLORTERM = "truecolor";
       LANG = "en_US.UTF-8";
       LC_CTYPE = "en_US.UTF-8";
-      VISUAL = "nvim";
-      EDITOR = "nvim";
+      EDITOR = "${pkgs.neovim}/bin/nvim";
+      VISUAL = EDITOR;
       MANPAGER = "nvim +Man!";
     };
   };
