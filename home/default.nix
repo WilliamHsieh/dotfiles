@@ -1,4 +1,4 @@
-{ inputs, pkgs, config, lib, ... }:
+{ inputs, pkgs, pkgs-unstable, config, lib, ... }:
 let
   cfg = import ./config.nix;
   dotfilesDir = "${config.home.homeDirectory}/${cfg.repo-path}";
@@ -140,6 +140,10 @@ in
       {
         plugin = prefix-highlight;
         extraConfig = "source-file ${dotfilesDir}/config/tmux/tmux.conf";
+      }
+      {
+        plugin = pkgs-unstable.tmuxPlugins.fingers;
+        extraConfig = "set -g @fingers-key C-f";
       }
       extrakto
       tmux-fzf
