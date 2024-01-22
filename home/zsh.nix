@@ -4,6 +4,22 @@ let
   dotfilesDir = "${config.home.homeDirectory}/${cfg.repo-path}";
 in
 {
+  home.shellAliases = {
+    ls = "eza";
+    l = "eza -l";
+    la = "eza -lag --icons=auto";
+    ll = "eza -lag --icons=auto -X";
+
+    gst = "git status";
+    gco = "git checkout";
+    glgg = "git log --graph";
+
+    mv = "mv -i";
+    cp = "cp -i";
+    rm = "trash";
+    pythonServer = "python3 -m http.server";
+  };
+
   programs.zsh = {
     enable = true;
     history = {
@@ -26,21 +42,6 @@ in
         source "${config.xdg.stateHome}/nix/profiles/profile/etc/profile.d/nix.sh"
       fi
     '';
-    shellAliases = {
-      ls = "eza";
-      l = "eza -l";
-      la = "eza -lag --icons=auto";
-      ll = "eza -lag --icons=auto -X";
-
-      gst = "git status";
-      gco = "git checkout";
-      glgg = "git log --graph";
-
-      mv = "mv -i";
-      cp = "cp -i";
-      rm = "trash";
-      pythonServer = "python3 -m http.server";
-    };
     initExtraBeforeCompInit = ''
       fpath+=${pkgs.zsh-completions}/share/zsh/site-functions
       fpath+=${pkgs.oh-my-zsh}/share/oh-my-zsh/plugins/extract
