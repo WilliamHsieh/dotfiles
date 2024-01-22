@@ -68,7 +68,7 @@ in
   xdg.configFile = {
     "nvim".source = link "nvim";
     "alacritty".source = link "alacritty";
-    "starship".source = link "starship";
+    "starship.toml".source = link "starship/starship.toml";
     "home-manager".source = link "..";
     "zsh/.p10k.zsh".source = link "zsh/.p10k.zsh";
     "clangd/config.yaml".text = ''
