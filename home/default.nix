@@ -184,6 +184,8 @@ in
     };
   };
 
+  programs.man.generateCaches = true;
+
   programs.bat = {
     enable = true;
     config = {
