@@ -59,39 +59,27 @@ in
       # zsh-defer
       source ${zsh-defer}/share/zsh-defer/zsh-defer.plugin.zsh
 
+      # theme
       source ${zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
       source ~/${config.programs.zsh.dotDir}/.p10k.zsh
 
+      # completion
       zsh-defer source ${oh-my-zsh}/share/oh-my-zsh/lib/completion.zsh
       zsh-defer zstyle ":completion:*" list-colors "''${(s.:.)LS_COLORS}"
-
       zsh-defer source ${zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh
 
+      # plugins
       zsh-defer source ${zsh-autosuggestions}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-
       zsh-defer source ${zsh-fast-syntax-highlighting}/share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh
-
       zsh-defer source ${zsh-autopair}/share/zsh/zsh-autopair/autopair.zsh
-      zsh-defer autopair-init
-
       zsh-defer source ${zsh-nix-shell}/share/zsh-nix-shell/nix-shell.plugin.zsh
-
       zsh-defer source ${oh-my-zsh}/share/oh-my-zsh/plugins/extract/extract.plugin.zsh
 
+      # vi-mode
+      ZVM_VI_ESCAPE_BINDKEY=kj
       zsh-defer source ${zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
-      ZVM_VI_INSERT_ESCAPE_BINDKEY=kj
 
-      # HACK: https://github.com/jeffreytse/zsh-vi-mode/issues/242
-      ZVM_INIT_MODE=sourcing
-
-      # HACK: https://github.com/jeffreytse/zsh-vi-mode/issues/237
-      function dotfiles_fzf_history_widget() {
-        fzf-history-widget "$@";
-        zle .reset-prompt; # This is the workaround
-      }
-      zsh-defer zvm_define_widget dotfiles_fzf_history_widget;
-      zsh-defer zvm_bindkey viins '^R' dotfiles_fzf_history_widget;
-
+      # other settings
       source ${dotfilesDir}/config/zsh/.zshrc
     '';
   };

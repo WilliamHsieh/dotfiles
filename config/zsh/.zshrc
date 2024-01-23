@@ -17,6 +17,16 @@
 
 # Plugins
 # {{{
+    function zvm_after_init() {
+      bindkey "^[f" forward-word
+      bindkey "^[b" backward-word
+      bindkey "^d" delete-char
+
+      zvm_bindkey viins '^R' fzf-history-widget;
+
+      autopair-init
+    }
+
     typeset -g POWERLEVEL9K_VCS_BRANCH_ICON='\UE0A0 '
     typeset -g POWERLEVEL9K_DIR_ANCHOR_BOLD=true
     typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
