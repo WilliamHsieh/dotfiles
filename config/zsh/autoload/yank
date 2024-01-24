@@ -1,4 +1,4 @@
-# vim: set ft=bash:
+#!/usr/bin/env bash
 
 seq="$(cat "$@" | base64 | tr -d "\r\n")"
 seq="\ePtmux;\e\e]52;c;$seq\a\e\\"

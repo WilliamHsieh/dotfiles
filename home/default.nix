@@ -122,6 +122,10 @@ in
       "--color=marker:#f4dbd6,fg+:#cad3f5,prompt:#c6a0f6,hl+:#ed8796"
       "--layout=reverse"
       "--cycle"
+      "--bind 'ctrl-y:execute-silent(echo -n {1..} | ${dotfilesDir}/config/zsh/autoload/yank)+abort'"
+    ];
+    historyWidgetOptions = [
+      "--bind 'ctrl-y:execute-silent(echo -n {2..} | ${dotfilesDir}/config/zsh/autoload/yank)+abort'"
     ];
     changeDirWidgetOptions = [
       "--preview 'exa --tree {} | head -200'"
