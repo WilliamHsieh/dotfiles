@@ -60,6 +60,9 @@ in
       EDITOR = "${pkgs.neovim}/bin/nvim";
       VISUAL = EDITOR;
       MANPAGER = "nvim +Man!";
+
+      # HACK: https://github.com/sharkdp/bat/issues/2578
+      LESSUTFCHARDEF = "E000-F8FF:p,F0000-FFFFD:p,100000-10FFFD:p";
     };
   };
 
