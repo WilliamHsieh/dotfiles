@@ -12,6 +12,9 @@ local M = {
           file_history_panel = {
             ["q"] = "<cmd>tabclose<cr>",
           },
+          file_panel = {
+            ["q"] = "<cmd>tabclose<cr>",
+          },
         },
       },
     },

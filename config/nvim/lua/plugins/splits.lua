@@ -48,7 +48,7 @@ return {
 
       local augroup = vim.api.nvim_create_augroup('FocusDisable', { clear = true })
 
-      vim.api.nvim_create_autocmd('WinEnter', {
+      vim.api.nvim_create_autocmd("BufEnter", {
         group = augroup,
         callback = function(_)
           ---@diagnostic disable-next-line: inject-field

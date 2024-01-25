@@ -240,4 +240,24 @@ return {
       },
     },
   },
+
+  {
+    "smjonas/live-command.nvim",
+    commands = { "Norm", "G" },
+    main = "live-command",
+    opts = {
+      commands = {
+        Norm = { cmd = "norm" },
+        G = { cmd = "g", hl_range = { 1, -1, kind = "visible" } },
+      },
+    },
+  },
+
+  {
+    "akinsho/git-conflict.nvim",
+    opts = {},
+    keys = {
+      { "cr", "<cmd>GitConflictRefresh<cr>", desc = "Refresh conflict marks" },
+    },
+  },
 }
