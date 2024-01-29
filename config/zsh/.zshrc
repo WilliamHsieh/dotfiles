@@ -67,8 +67,12 @@
     fi
 
     # ring the bell before every command
-    precmd () {
+    function precmd () {
         echo -ne '\a' #tput bel
+        if (( ! $(tmux display-message -p '#{session_attached}') )); then
+            tmux display-message -N -d 2000 "[#S] job finished."
+            tmux select-pane -m -t $TMUX_PANE
+        fi
     }
 # }}}
 
