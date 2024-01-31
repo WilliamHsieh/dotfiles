@@ -63,6 +63,8 @@ in
       go
       poetry
       python3Full
+
+      nix-search-cli
     ];
     sessionVariables = rec {
       FZF_COMPLETION_TRIGGER = "~~";
@@ -99,7 +101,7 @@ in
   };
 
   nix = {
-    package = pkgs.nixUnstable;
+    package = lib.mkDefault pkgs.nixUnstable;
     registry.nixpkgs.flake = inputs.nixpkgs;
     settings = {
       experimental-features = [ "nix-command" "flakes" ];
@@ -114,8 +116,6 @@ in
   };
 
   programs.home-manager.enable = true;
-
-  programs.nix-index.enable = true;
 
   programs.dircolors.enable = true;
 
