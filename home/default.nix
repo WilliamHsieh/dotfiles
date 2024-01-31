@@ -152,6 +152,10 @@ in
         plugin = pkgs-unstable.tmuxPlugins.fingers;
         extraConfig = "set -g @fingers-key C-f";
       }
+      {
+        plugin = pkgs-unstable.tmuxPlugins.t-smart-tmux-session-manager;
+        extraConfig = "set -g @t-bind 'F4'";
+      }
       extrakto
       tmux-fzf
       logging

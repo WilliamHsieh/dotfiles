@@ -97,6 +97,8 @@ colors:
 
 # Mappings
 # {{{
+# NOTE: showkey -a
+# ex: <esc>(): \e, \x1b, 0x1b
 key_bindings:
   - { key: C, mods: Control|Shift, action: Copy }
   - { key: V, mods: Control|Shift, action: Paste }
@@ -105,6 +107,7 @@ key_bindings:
   - { key: T, mods: Control|Shift, chars: "\eT\e[21~" }
   - { key: Tab, mods: Control, chars: "\e)" }
   - { key: Tab, mods: Control|Shift, chars: "\e(" }
+  - { key: P, mods: Control|Shift, chars: "\x02\eOS" } #C-b f4
 
   # Mac
   - { key: B, mods: Command, chars: "\eb" } # one word left
