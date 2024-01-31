@@ -9,7 +9,20 @@ in
     ./zsh.nix
   ];
 
-  home = {
+  home = rec {
+    username = cfg.user;
+
+    homeDirectory = with pkgs.stdenv;
+      if isDarwin then
+        "/Users/${username}"
+      else if "${username}" == "root" then
+        "/root"
+      else if isLinux then
+        "/home/${username}"
+      else "";
+
+    stateVersion = "23.11";
+
     packages = with pkgs; [
       # common tools
       fd

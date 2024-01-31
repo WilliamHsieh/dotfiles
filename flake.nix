@@ -64,15 +64,6 @@
         inherit system config;
       };
 
-      homeDirectory = with pkgs.stdenv;
-        if isDarwin then
-          "/Users/${username}"
-        else if username == "root" then
-          "/root"
-        else if isLinux then
-          "/home/${username}"
-        else "";
-
       inherit (self) outputs;
     in
     {
@@ -86,12 +77,6 @@
           modules = [
             ./home
             inputs.nix-index-database.hmModules.nix-index
-            {
-              home = {
-                inherit username homeDirectory;
-                stateVersion = "23.11";
-              };
-            }
           ];
         };
       };
