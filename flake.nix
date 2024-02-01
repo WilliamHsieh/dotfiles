@@ -98,8 +98,9 @@
         };
       };
 
-      # Convenience output that aggregates the outputs for home, nixos, and darwin configurations
-      # to avoid calling `nix build .#nixosConfigurations.{host}.config.system.build.toplevel`
+      # Convenience output that aggregates the outputs for home, nixos, and darwin configurations.
+      # Instead of calling `nix build .#nixosConfigurations.{host}.config.system.build.toplevel`,
+      # now it's simply `nix build .#top.{host}` or `nix build .#top.{user}`
       top =
         let
           nixtop = nixpkgs.lib.genAttrs

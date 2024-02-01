@@ -45,7 +45,7 @@
 
   i18n.inputMethod = {
     enabled = "fcitx5";
-    fcitx5.addons = with pkgs; [ fcitx5-chewing fcitx5-material-color fcitx5-rime ];
+    fcitx5.addons = with pkgs; [ fcitx5-chewing fcitx5-material-color ];
   };
 
   # Enable the X11 windowing system.
@@ -106,6 +106,7 @@
     alacritty
     firefox
     google-chrome
+    spotify
     wget
     logiops
   ];
@@ -199,7 +200,7 @@
             mode: "OnRelease";
             action = {
               type = "Keypress";
-              keys: ["KEY_PLAYPAUSE"];
+              keys: ["KEY_20"];
             };
           });
         };
