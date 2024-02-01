@@ -97,5 +97,18 @@
           ];
         };
       };
+
+      # Convenience output that aggregates the outputs for home, nixos, and darwin configurations
+      # to avoid calling `nix build .#nixosConfigurations.{host}.config.system.build.toplevel`
+      top =
+        let
+          nixtop = nixpkgs.lib.genAttrs
+            (builtins.attrNames inputs.self.nixosConfigurations)
+            (attr: inputs.self.nixosConfigurations.${attr}.config.system.build.toplevel);
+          hometop = nixpkgs.lib.genAttrs
+            (builtins.attrNames inputs.self.homeConfigurations)
+            (attr: inputs.self.homeConfigurations.${attr}.activationPackage);
+        in
+        nixtop // hometop;
     };
 }
