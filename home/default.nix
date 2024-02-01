@@ -7,6 +7,7 @@ in
 {
   imports = [
     ./zsh.nix
+    inputs.nix-index-database.hmModules.nix-index
   ];
 
   home = rec {

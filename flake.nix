@@ -79,22 +79,20 @@
 
           modules = [
             ./home
-            inputs.nix-index-database.hmModules.nix-index
           ];
         };
       };
 
       nixosConfigurations = {
         ${hostname} = nixpkgs.lib.nixosSystem {
-          # specialArgs = { inherit inputs outputs; };
+          specialArgs = { inherit inputs outputs; };
           modules = [
             ./system
-            # inputs.nix-index-database.nixosModules.nix-index
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = { inherit inputs pkgs-unstable; };
+              home-manager.extraSpecialArgs = { inherit inputs outputs pkgs-unstable; };
               home-manager.users.${username} = import ./home;
             }
           ];
