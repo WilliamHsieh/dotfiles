@@ -13,20 +13,38 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest]
-        # os: [ubuntu-latest, macos-latest]
+        include:
+          - os: ubuntu-latest
+            target: william
+          - os: ubuntu-latest
+            target: nixos
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: cachix/install-nix-action@v25
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Insall nix
+        uses: cachix/install-nix-action@v25
         with:
           install_url: https://releases.nixos.org/nix/nix-2.17.1/install
           extra_nix_config: |
             accept-flake-config = true
-      - uses: cachix/cachix-action@v14
+
+      - name: Setup cachix
+        uses: cachix/cachix-action@v14
         with:
           name: williamhsieh
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-      - run: nix build --show-trace
-      - name: building home-manager profile
-        run: ./result/bin/home-manager build --show-trace --flake .#william
+
+      - name: Build target
+        run: |
+          set -o pipefail
+          nix build .#top.${{ matrix.target }} --fallback --show-trace -v --log-format raw > >(tee /tmp/nix-build-out.log) 2> >(tee /tmp/nix-build-err.log >&2)
+
+      - name: Output build failure
+        if: failure()
+        run: |
+          drv=$(grep "For full logs, run" /tmp/nix-build-err.log | grep -oE "/nix/store/.*.drv")
+          nix log $drv
+          echo $drv
+          exit 1
