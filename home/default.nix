@@ -64,7 +64,9 @@ in
       poetry
       python3Full
 
+      # misc
       nix-search-cli
+      hello-unfree #test unfree packages
     ];
     sessionVariables = rec {
       FZF_COMPLETION_TRIGGER = "~~";

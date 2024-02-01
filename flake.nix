@@ -52,6 +52,8 @@
       system = "x86_64-linux";
       username = (import ./home/config.nix).user;
       hostname = (import ./system/config.nix).host;
+
+      # https://github.com/nix-community/home-manager/issues/2942#issuecomment-1378627909
       config = { allowUnfree = true; };
 
       pkgs = import nixpkgs {
