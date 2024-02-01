@@ -51,6 +51,7 @@
     let
       system = "x86_64-linux";
       username = (import ./home/config.nix).user;
+      hostname = (import ./system/config.nix).host;
       config = { allowUnfree = true; };
 
       pkgs = import nixpkgs {
@@ -82,7 +83,7 @@
       };
 
       nixosConfigurations = {
-        "nixos" = nixpkgs.lib.nixosSystem {
+        ${hostname} = nixpkgs.lib.nixosSystem {
           # specialArgs = { inherit inputs outputs; };
           modules = [
             ./system

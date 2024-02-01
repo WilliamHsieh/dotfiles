@@ -19,7 +19,7 @@ jobs:
           - os: ubuntu-latest
             target: william
           - os: ubuntu-latest
-            target: nixos
+            target: synopc
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
