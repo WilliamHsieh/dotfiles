@@ -64,6 +64,7 @@ in
       go
       poetry
       python3Full
+      nixpkgs-fmt
 
       # misc
       nix-search-cli
