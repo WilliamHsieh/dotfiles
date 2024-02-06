@@ -1,3 +1,5 @@
+require("core.utils").lazy_file()
+
 return {
   "nvim-lua/popup.nvim",
   "nvim-lua/plenary.nvim",
@@ -7,7 +9,7 @@ return {
   {
     "WilliamHsieh/placeholder.nvim",
     name = "lazyloader",
-    event = { "BufReadPost", "BufNewFile" },
+    event = "LazyFile",
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
       "neovim/nvim-lspconfig",
@@ -15,6 +17,7 @@ return {
       "Shatur/neovim-session-manager",
       "akinsho/bufferline.nvim",
       "kevinhwang91/nvim-ufo",
+      "RRethy/vim-illuminate",
     },
   },
 
@@ -115,43 +118,48 @@ return {
     init = function()
       ---@diagnostic disable-next-line: duplicate-set-field
       vim.ui.select = function(...)
-        require("telescope").load_extension "ui-select"
+        require("telescope").load_extension("ui-select")
         return vim.ui.select(...)
       end
-    end
+    end,
   },
 
   {
     "ahmedkhalf/project.nvim",
-    event = "VeryLazy",
+    event = "LazyFile",
     config = function()
       require("project_nvim").setup {
         detection_methods = { "pattern" }, -- otherwise cwd is overwriten by lsp
         patterns = { ".git", "_darcs", ".hg", ".bzr", ".svn", "Makefile", "package.json", "CMakeLists.txt" },
       }
-    end
+    end,
   },
 
   {
-    'Shatur/neovim-session-manager',
+    "Shatur/neovim-session-manager",
     cmd = "SessionManager",
     config = function()
-      require('session_manager').setup {
-        autoload_mode = require('session_manager.config').AutoloadMode.Disabled,
+      require("session_manager").setup {
+        autoload_mode = require("session_manager.config").AutoloadMode.Disabled,
       }
-    end
+    end,
+
+    -- NOTE: ultimately, what i want is open a project with cwd set, and open files from harpoon list
+    -- do this after harpoon2 is release and stable
   },
 
   {
-    'declancm/cinnamon.nvim',
+    "declancm/cinnamon.nvim",
     event = "VeryLazy",
     config = true,
   },
 
   {
-    'kevinhwang91/nvim-fundo',
-    dependencies = { 'kevinhwang91/promise-async' },
-    build = function() require('fundo').install() end,
+    "kevinhwang91/nvim-fundo",
+    dependencies = { "kevinhwang91/promise-async" },
+    build = function()
+      require("fundo").install()
+    end,
     config = true,
   },
 

@@ -1,10 +1,10 @@
 local M = {
   "luukvbaal/statuscol.nvim",
-  event = "VeryLazy",
+  event = "LazyFile",
 }
 
 function M.config()
-  local builtin = require "statuscol.builtin"
+  local builtin = require("statuscol.builtin")
   require("statuscol").setup {
     setopt = true,
     relculright = true,

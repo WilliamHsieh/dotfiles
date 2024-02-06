@@ -6,7 +6,6 @@ local M = {
     "williamboman/mason-lspconfig.nvim",
     "folke/neodev.nvim",
     "ray-x/lsp_signature.nvim",
-    "RRethy/vim-illuminate",
     "smjonas/inc-rename.nvim",
   },
 }
