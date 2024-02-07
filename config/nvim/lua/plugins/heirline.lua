@@ -13,7 +13,7 @@ function M.config()
     terminal = "  ",
     tmux = "  ",
     vim = "  ",
-    host = "  ",
+    host = " 󰒋 ",
     dir = "  ",
     tree = "  ",
     macro = "  ",
