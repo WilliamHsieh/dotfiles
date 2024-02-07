@@ -7,6 +7,7 @@ in
 {
   imports = [
     ./zsh.nix
+    ./tmux.nix
     inputs.nix-index-database.hmModules.nix-index
   ];
 
@@ -152,31 +153,6 @@ in
     ];
     fileWidgetOptions = [
       "--preview 'bat --color=always {}'"
-    ];
-  };
-
-  programs.tmux = {
-    enable = true;
-    sensibleOnTop = false;
-    terminal = "xterm-256color";
-    shell = "${pkgs.zsh}/bin/zsh";
-    plugins = with pkgs.tmuxPlugins; [
-      {
-        plugin = prefix-highlight;
-        extraConfig = "source-file ${dotfilesDir}/config/tmux/tmux.conf";
-      }
-      {
-        plugin = pkgs-unstable.tmuxPlugins.fingers;
-        extraConfig = "set -g @fingers-key C-f";
-      }
-      {
-        plugin = pkgs-unstable.tmuxPlugins.t-smart-tmux-session-manager;
-        extraConfig = "set -g @t-bind 'F4'";
-      }
-      extrakto
-      tmux-fzf
-      logging
-      resurrect
     ];
   };
 
