@@ -40,7 +40,8 @@ return {
     opts = {
       ui = {
         cursorline = false,
-      }
+        signcolumn = false,
+      },
     },
     config = function(_, opts)
       local ignore_filetypes = { 'NvimTree', 'qf' }
