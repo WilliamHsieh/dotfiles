@@ -1,5 +1,3 @@
-require("core.utils").lazy_file()
-
 return {
   "nvim-lua/popup.nvim",
   "nvim-lua/plenary.nvim",

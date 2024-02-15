@@ -52,13 +52,13 @@ end
 ---Properly load file based plugins without blocking the UI
 ---https://github.com/LazyVim/LazyVim/blob/68ff818a5bb7549f90b05e412b76fe448f605ffb/lua/lazyvim/util/plugin.lua#L60-L125
 function M.lazy_file()
-  M.use_lazy_file = vim.fn.argc(-1) > 0
-  M.lazy_file_events = { "BufReadPost", "BufNewFile", "BufWritePre" }
+  local use_lazy_file = vim.fn.argc(-1) > 0
+  local lazy_file_events = { "BufReadPost", "BufNewFile", "BufWritePre" }
 
   -- Add support for the LazyFile event
   local Event = require("lazy.core.handler.event")
 
-  if M.use_lazy_file then
+  if use_lazy_file then
     -- We'll handle delayed execution of events ourselves
     Event.mappings.LazyFile = { id = "LazyFile", event = "User", pattern = "LazyFile" }
     Event.mappings["User LazyFile"] = Event.mappings.LazyFile
@@ -106,15 +106,14 @@ function M.lazy_file()
     events = {}
   end
 
-  -- schedule wrap so that nested autocmds are executed
-  -- and the UI can continue rendering without blocking
-  load = vim.schedule_wrap(load)
-
-  vim.api.nvim_create_autocmd(M.lazy_file_events, {
+  vim.api.nvim_create_autocmd(lazy_file_events, {
     group = vim.api.nvim_create_augroup("lazy_file", { clear = true }),
     callback = function(event)
       table.insert(events, event)
-      load()
+
+      -- schedule wrap so that nested autocmds are executed
+      -- and the UI can continue rendering without blocking
+      vim.schedule(load)
     end,
   })
 end
