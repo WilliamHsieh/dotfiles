@@ -9,6 +9,7 @@ in
     l = "eza -l";
     la = "eza -lag --icons=auto";
     ll = "eza -lag --icons=auto -X";
+    tree = "eza --tree";
 
     gst = "git status";
     gco = "git checkout";
