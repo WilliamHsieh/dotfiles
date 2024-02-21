@@ -11,7 +11,9 @@
     [[ -e ~/.local.zsh ]] && source ~/.local.zsh
 
     # auto attach to tmux
-    [ -n "$PS1" ] && [ -z "$TMUX" ] && [ $SHLVL = 1 ] && $(tmux has-session 2> /dev/null) && tmux a
+    tmux_can_attach=$( [ -n "$PS1" ] && [ -z "$TMUX" ] && [ $SHLVL = 1 ] && echo 1 || echo 0 )
+    tmux_has_session=$(tmux has-session 2> /dev/null && echo 1 || echo 0)
+    (( $tmux_can_attach )) && (( $tmux_has_session )) && tmux a
 # }}}
 
 
@@ -66,13 +68,20 @@
         alias open="xdg-open"
     fi
 
-    # ring the bell before every command
-    function precmd () {
-        echo -ne '\a' #tput bel
+    function tmux_mark_pane() {
+        (( $tmux_has_session )) || return
+
         if (( ! $(tmux display-message -p '#{session_attached}') )); then
             tmux display-message -N -d 2000 "[#S] job finished."
             tmux select-pane -m -t $TMUX_PANE
         fi
+    }
+
+    function precmd () {
+        # ring the bell before every command
+        echo -ne '\a' #tput bel
+
+        tmux_mark_pane
     }
 # }}}
 
