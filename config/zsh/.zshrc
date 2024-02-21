@@ -83,6 +83,10 @@
 
         tmux_mark_pane
     }
+
+    function TRAPUSR1() {
+      tmux_mark_pane
+    }
 # }}}
 
 
