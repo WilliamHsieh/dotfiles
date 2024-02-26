@@ -35,7 +35,7 @@ function M.config()
   end)
 
   require("mason-lspconfig").setup {
-    ensure_installed = { "nil_ls", "lua_ls", "clangd", "ruff_lsp", "tsserver" },
+    ensure_installed = { "nil_ls", "lua_ls", "clangd", "pyright", "ruff_lsp", "tsserver" },
   }
 
   local on_attach = function(client, bufnr)
