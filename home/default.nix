@@ -11,16 +11,16 @@ in
     inputs.nix-index-database.hmModules.nix-index
   ];
 
-  home = rec {
+  home = {
     username = cfg.user;
 
     homeDirectory = with pkgs.stdenv;
       if isDarwin then
-        "/Users/${username}"
-      else if "${username}" == "root" then
+        "/Users/${cfg.user}"
+      else if "${cfg.user}" == "root" then
         "/root"
       else if isLinux then
-        "/home/${username}"
+        "/home/${cfg.user}"
       else "";
 
     stateVersion = "23.11";
