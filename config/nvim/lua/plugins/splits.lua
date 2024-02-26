@@ -1,20 +1,19 @@
 return {
   {
-    'mrjones2014/smart-splits.nvim',
+    "mrjones2014/smart-splits.nvim",
     opts = {},
+    event = "VeryLazy",
     keys = {
+      -- stylua: ignore start
       { '<C-Up>',    function() require('smart-splits').resize_up() end,         mode = { "", "!" }, desc = "resize up" },
       { '<C-Down>',  function() require('smart-splits').resize_down() end,       mode = { "", "!" }, desc = "resize down" },
       { '<C-Left>',  function() require('smart-splits').resize_left() end,       mode = { "", "!" }, desc = "resize left" },
       { '<C-Right>', function() require('smart-splits').resize_right() end,      mode = { "", "!" }, desc = "resize right" },
-      { '<M-Up>',    function() require('smart-splits').move_cursor_up() end,    mode = { "", "!" }, desc = "move cursor up" },
-      { '<M-Down>',  function() require('smart-splits').move_cursor_down() end,  mode = { "", "!" }, desc = "move cursor down" },
-      { '<M-Left>',  function() require('smart-splits').move_cursor_left() end,  mode = { "", "!" }, desc = "move cursor left" },
-      { '<M-Right>', function() require('smart-splits').move_cursor_right() end, mode = { "", "!" }, desc = "move cursor right" },
       { '<M-k>',     function() require('smart-splits').move_cursor_up() end,    mode = { "", "!" }, desc = "move cursor up" },
       { '<M-j>',     function() require('smart-splits').move_cursor_down() end,  mode = { "", "!" }, desc = "move cursor down" },
       { '<M-h>',     function() require('smart-splits').move_cursor_left() end,  mode = { "", "!" }, desc = "move cursor left" },
       { '<M-l>',     function() require('smart-splits').move_cursor_right() end, mode = { "", "!" }, desc = "move cursor right" },
+      -- stylua: ignore end
     },
   },
 
