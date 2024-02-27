@@ -163,6 +163,7 @@ in
     userEmail = cfg.email;
     aliases = {
       undo = "reset HEAD@{1}";
+      lg = "log --pretty=format:'%C(red)%h %C(blue)<%an> %C(green)%cs (%cr)  %C(reset)%s %C(auto)%d' --abbrev-commit --graph";
     };
     delta = {
       enable = true;
