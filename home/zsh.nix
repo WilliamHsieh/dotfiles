@@ -5,11 +5,11 @@ let
 in
 {
   home.shellAliases = {
-    ls = "eza";
-    l = "eza -l";
-    la = "eza -lag --icons=auto";
-    ll = "eza -lag --icons=auto -X";
-    tree = "eza --tree";
+    ls = "eza --group-directories-first";
+    l = "ls -l";
+    la = "ls -lag --icons=auto";
+    ll = "ls -lag --icons=auto -X";
+    tree = "ls --tree";
 
     gst = "git status";
     gco = "git checkout";
