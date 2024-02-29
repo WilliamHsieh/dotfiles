@@ -9,6 +9,7 @@
 # {{{
     # load platform specific settings
     [[ -e ~/.local.zsh ]] && source ~/.local.zsh
+    [[ -d ~/.local/bin ]] && export PATH=~/.local/bin:$PATH
 
     # auto attach to tmux
     tmux_can_attach=$( [ -n "$PS1" ] && [ -z "$TMUX" ] && [ $SHLVL = 1 ] && echo 1 || echo 0 )
