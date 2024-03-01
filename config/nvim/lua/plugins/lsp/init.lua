@@ -51,15 +51,20 @@ function M.config()
 
     local augroup = vim.api.nvim_create_augroup("LspFormatting", { clear = false })
     if client.supports_method("textDocument/formatting") then
-      vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+      vim.b[bufnr].autoformat = true
+      vim.api.nvim_clear_autocmds { group = augroup, buffer = bufnr }
       vim.api.nvim_create_autocmd("BufWritePre", {
         group = augroup,
         buffer = bufnr,
         callback = function()
-          vim.lsp.buf.format()
+          if vim.b[bufnr].autoformat then
+            vim.lsp.buf.format()
+          end
         end,
       })
-      vim.keymap.set("n", "<leader>lf", function() vim.lsp.buf.format { async = true } end, opts("Format"))
+      vim.keymap.set("n", "<leader>lf", function()
+        vim.lsp.buf.format { async = true }
+      end, opts("Format"))
     end
   end
 
