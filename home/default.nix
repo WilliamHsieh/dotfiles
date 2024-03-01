@@ -112,6 +112,7 @@ in
       experimental-features = [ "nix-command" "flakes" ];
       warn-dirty = false;
       max-jobs = "auto";
+      use-xdg-base-directories = true;
     };
   };
 
