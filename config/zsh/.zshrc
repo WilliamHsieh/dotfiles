@@ -24,6 +24,8 @@
       bindkey "^[f" forward-word
       bindkey "^[b" backward-word
       bindkey "^d" delete-char
+      bindkey "d" kill-word
+      bindkey "^f" live_grep
 
       zvm_bindkey viins '^R' fzf-history-widget;
 

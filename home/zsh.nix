@@ -49,6 +49,8 @@ in
       fpath+=${dotfilesDir}/config/zsh/autoload
       autoload -Uz true_colors
       autoload -Uz yank
+      autoload -Uz live_grep
+      zle -N live_grep
 
       # HACK: https://github.com/zsh-users/zsh-syntax-highlighting/issues/67#issuecomment-1728953
       autoload -Uz select-word-style

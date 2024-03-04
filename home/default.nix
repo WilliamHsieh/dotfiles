@@ -108,6 +108,7 @@ in
   nix = {
     package = lib.mkDefault pkgs.nixUnstable;
     registry.nixpkgs.flake = inputs.nixpkgs;
+    registry.nixpkgs-unstable.flake = inputs.nixpkgs-unstable;
     settings = {
       experimental-features = [ "nix-command" "flakes" ];
       warn-dirty = false;
@@ -139,6 +140,7 @@ in
 
   programs.fzf = {
     enable = true;
+    package = pkgs-unstable.fzf;
     defaultOptions = [
       "--color=bg+:#363a4f,bg:#24273a,spinner:#f4dbd6,hl:#ed8796"
       "--color=fg:#cad3f5,header:#ed8796,info:#c6a0f6,pointer:#f4dbd6"
@@ -151,7 +153,7 @@ in
       "--bind 'ctrl-y:execute-silent(echo -n {2..} | ${dotfilesDir}/config/zsh/autoload/yank)+abort'"
     ];
     changeDirWidgetOptions = [
-      "--preview 'exa --tree {} | head -200'"
+      "--preview 'tree {} | head -200'"
     ];
     fileWidgetOptions = [
       "--preview 'bat --color=always {}'"
