@@ -31,7 +31,7 @@ in
     autocd = true;
     defaultKeymap = "emacs";
     dotDir = ".config/zsh";
-    initExtraFirst = ''
+    initExtraFirst = /* bash */ ''
       # p10k instant prompt
       echo ""
       if [[ -r "${config.xdg.cacheHome}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
@@ -43,7 +43,7 @@ in
         source "${config.xdg.stateHome}/nix/profiles/profile/etc/profile.d/nix.sh"
       fi
     '';
-    initExtraBeforeCompInit = ''
+    initExtraBeforeCompInit = /* bash */ ''
       fpath+=${pkgs.zsh-completions}/share/zsh/site-functions
       fpath+=${pkgs.oh-my-zsh}/share/oh-my-zsh/plugins/extract
       fpath+=${dotfilesDir}/config/zsh/autoload
@@ -58,7 +58,7 @@ in
     '';
     # TODO: change to -i?
     completionInit = "autoload -Uz compinit && compinit -u";
-    initExtra = with pkgs; ''
+    initExtra = with pkgs; /* bash */''
       # zsh-defer
       source ${zsh-defer}/share/zsh-defer/zsh-defer.plugin.zsh
 
