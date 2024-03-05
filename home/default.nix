@@ -58,6 +58,7 @@ in
       jc
       jq
       jqp
+      glow
 
       # language specific
       cargo
@@ -97,6 +98,21 @@ in
     "clangd/config.yaml".text = ''
       ${lib.removeSuffix "\n" (builtins.readFile ../config/clangd/config.yaml)}
         Compiler: ${pkgs.gcc}/bin/g++
+    '';
+    "glow/glow.yml".text = /* yaml */ ''
+      # style name or JSON path (default "auto")
+      style: ${builtins.fetchurl {
+        url = "https://github.com/catppuccin/glamour/releases/download/v1.0.0/mocha.json";
+        sha256 = "190p7z2hacpd63r7iq2j92h9hj3akfc631zaaxhhrqwbsx19y7ag";
+      }}
+      # show local files only; no network (TUI-mode only)
+      local: false
+      # mouse support (TUI-mode only)
+      mouse: true
+      # use pager to display markdown
+      pager: true
+      # word-wrap at width
+      width: 100
     '';
   };
 
