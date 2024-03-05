@@ -155,8 +155,14 @@ in
     changeDirWidgetOptions = [
       "--preview 'tree {} | head -200'"
     ];
+    fileWidgetCommand = "fd";
     fileWidgetOptions = [
       "--preview 'bat --color=always {}'"
+      "--prompt 'All> '"
+      "--header 'CTRL-D: Directories / CTRL-F: Files / CTRL-H: Hidden'"
+      "--bind 'ctrl-d:change-prompt(Directories> )+reload(fd --type directory)'"
+      "--bind 'ctrl-f:change-prompt(Files> )+reload(fd --type file)'"
+      "--bind 'ctrl-h:change-prompt(Hidden> )+reload(fd --hidden --exclude=.git)'"
     ];
   };
 
