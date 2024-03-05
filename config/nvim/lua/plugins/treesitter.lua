@@ -92,6 +92,8 @@ function M.config()
       },
     },
   }
+
+  vim.treesitter.language.register("bash", "zsh")
 end
 
 return M
