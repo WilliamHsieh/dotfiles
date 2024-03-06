@@ -23,27 +23,6 @@ function M.config()
     command = "call tpipeline#update()"
   })
 
-  -- update statusline on vim-matchup
-  vim.api.nvim_create_autocmd("User", {
-    pattern = "MatchupOffscreenEnter",
-    callback = function()
-      if not string.find(vim.g.tpipeline_statusline, "matchup") then
-        vim.g.sl = vim.g.tpipeline_statusline
-      end
-      if string.find(vim.o.stl, "matchup") then
-        vim.g.tpipeline_statusline = vim.o.stl
-      end
-      vim.fn["tpipeline#update"]()
-    end
-  })
-  vim.api.nvim_create_autocmd("User", {
-    pattern = "MatchupOffscreenLeave",
-    callback = function()
-      vim.g.tpipeline_statusline = vim.g.sl
-      vim.fn["tpipeline#update"]()
-    end
-  })
-
   -- update tmux status style based on current colorscheme
   local function set_tmux_style(style)
     vim.fn.system { "tmux", "set", "status-style", style }

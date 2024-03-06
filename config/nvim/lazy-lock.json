@@ -78,7 +78,7 @@
   "undotree": { "branch": "master", "commit": "170aa9e516b6926e6bddfe21bbf01f2283a00e7d" },
   "vim-bbye": { "branch": "master", "commit": "25ef93ac5a87526111f43e5110675032dbcacf56" },
   "vim-illuminate": { "branch": "master", "commit": "3bd2ab64b5d63b29e05691e624927e5ebbf0fb86" },
-  "vim-matchup": { "branch": "master", "commit": "d30b72d20f01478a8486f15a57c89fe3177373db" },
+  "vim-matchup": { "branch": "master", "commit": "2d660e4aa7c566014c667af2cda0458043527902" },
   "vim-startuptime": { "branch": "master", "commit": "454b3de856b7bd298700de33d79774ca9b9e3875" },
   "vim-tpipeline": { "branch": "master", "commit": "5f663e863df6fba9749ec6db0a890310ba4ad0a9" },
   "vimtex": { "branch": "master", "commit": "7d1dbd0eebe041fbda4d1132622bf051b1546497" },
