@@ -73,7 +73,7 @@ in
       hello-unfree #test unfree packages
     ];
     sessionVariables = rec {
-      FZF_COMPLETION_TRIGGER = "~~";
+      FZF_COMPLETION_TRIGGER = "__";
       NIX_PATH = "nixpkgs=${inputs.nixpkgs}";
       COLORTERM = "truecolor";
       LANG = "en_US.UTF-8";
