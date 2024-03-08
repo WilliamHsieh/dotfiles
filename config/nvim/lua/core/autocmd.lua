@@ -130,3 +130,52 @@ vim.api.nvim_create_autocmd("LspAttach", {
     })
   end,
 })
+
+local function setup_project()
+  -- disable all null-ls sources from previous directory
+  local nls = require("null-ls")
+  local sources = nls.get_sources()
+  for _, source in ipairs(sources) do
+    nls.disable(source)
+  end
+
+  -- default lsp auto-formatting to true
+  vim.g.lsp_formatting = true
+
+  -- read project local settings
+  local file = io.open(vim.loop.cwd() .. "/.nvim.settings.json")
+  if not file then
+    return
+  end
+  local ok, settings = pcall(vim.json.decode, file:read("*a"))
+  if not ok or not settings then
+    return
+  end
+
+  vim.notify(vim.inspect(settings))
+
+  -- lsp auto-formatting
+  vim.g.lsp_formatting = settings.lsp and settings.lsp.formatting
+
+  -- enable null-ls sources from new directory
+  if not settings.null_ls then
+    return
+  end
+  for type, sources in pairs(settings.null_ls) do
+    for _, source in pairs(sources) do
+      local s = nls.builtins[type][source]
+      if not nls.is_registered(s) then
+        nls.register(s)
+      end
+      nls.enable(s)
+    end
+  end
+end
+vim.api.nvim_create_autocmd("DirChanged", {
+  callback = setup_project,
+})
+vim.api.nvim_create_autocmd("User", {
+  pattern = "VeryLazy",
+  once = true,
+  callback = setup_project,
+})
