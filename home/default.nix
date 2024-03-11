@@ -26,18 +26,33 @@ in
     stateVersion = "23.11";
 
     packages = with pkgs; [
-      # common tools
+      # manage itself
+      nix
+
+      # basic tools
+      coreutils-full
+      file
+      findutils
+      gawk
+      less
+      ps
+      zlib
+      glibc #ldd, iconv, ...
+
+      # useful tools
       fd
       ripgrep
       comma
       htop
       tldr
-      coreutils-full
-      gawk
+      dua
 
       # images
       viu
-      qimgv
+      # fast and feature rich
+      qimgv # export QT_XCB_GL_INTEGRATION=none
+      # super fast
+      feh
 
       # git
       git
@@ -53,6 +68,7 @@ in
       # shell
       eza
       trash-cli
+      bashInteractive
 
       # parser
       jc
@@ -67,6 +83,14 @@ in
       poetry
       python3Full
       nixpkgs-fmt
+
+      # network
+      httpie
+      socat
+      netcat-openbsd # only the bsd version support `-k`
+
+      # fun
+      sl
 
       # misc
       nix-search-cli
