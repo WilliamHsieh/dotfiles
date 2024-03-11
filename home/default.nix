@@ -31,6 +31,7 @@ in
 
       # basic tools
       coreutils-full
+      util-linux
       file
       findutils
       gawk
