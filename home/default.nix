@@ -197,16 +197,15 @@ in
       "--bind 'ctrl-y:execute-silent(echo -n {2..} | ${dotfilesDir}/config/zsh/autoload/yank)+abort'"
     ];
     changeDirWidgetOptions = [
-      "--preview 'tree {} | head -200'"
+      "--preview 'eza --color always --tree --level 1 {} | less'"
     ];
-    fileWidgetCommand = "fd";
+    fileWidgetCommand = "fd --follow";
     fileWidgetOptions = [
-      "--preview 'bat --color=always {}'"
-      "--prompt 'All> '"
-      "--header 'CTRL-D: Directories / CTRL-F: Files / CTRL-H: Hidden'"
-      "--bind 'ctrl-d:change-prompt(Directories> )+reload(fd --type directory)'"
-      "--bind 'ctrl-f:change-prompt(Files> )+reload(fd --type file)'"
-      "--bind 'ctrl-h:change-prompt(Hidden> )+reload(fd --hidden --exclude=.git)'"
+      "--preview '([[ -f {} ]] && bat --color=always {}) || ([[ -d {} ]] && eza --color always --tree --level 1 {} | less) || echo {} 2> /dev/null | head -200'"
+      "--header 'CTRL-H: toggle hidden files'"
+      "--bind 'ctrl-h:transform:[[ ! \\$FZF_PROMPT =~ hidden ]]"
+      "&& echo \\\"change-prompt(hidden> )+reload(\\$FZF_CTRL_T_COMMAND --hidden --exclude=.git)\\\""
+      "|| echo \\\"change-prompt(> )+reload(\\$FZF_CTRL_T_COMMAND)\\\"'"
     ];
   };
 
