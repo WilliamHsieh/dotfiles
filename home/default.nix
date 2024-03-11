@@ -38,6 +38,8 @@ in
       ps
       zlib
       glibc #ldd, iconv, ...
+      wget
+      curl
 
       # useful tools
       fd
