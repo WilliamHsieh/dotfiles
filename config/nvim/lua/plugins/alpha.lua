@@ -11,10 +11,9 @@ local function setup()
     return {
       dashboard.button("i", icons.ui.NewFile .. "  New file", ":ene <BAR> startinsert<CR>"),
       dashboard.button("r", icons.ui.History .. "  Recent files", ":Telescope oldfiles<CR>"),
-      dashboard.button("f", icons.documents.Files .. "  Find file", ":Telescope find_files<CR>"),
-      dashboard.button("F", icons.ui.List .. "  Find text", ":Telescope live_grep<CR>"),
       dashboard.button("p", icons.git.Repo .. "  Find project", ":Telescope projects theme=dropdown<CR>"),
       dashboard.button("s", icons.misc.Watch .. "  Find session", ":SessionManager load_session<CR>"),
+      dashboard.button("l", icons.ui.Fire .. "  Leetcode", ":Leet<CR>"),
       dashboard.button("c", icons.ui.Gear .. "  Config", ":e ~/dotfiles<CR>"),
       dashboard.button("q", icons.diagnostics.Error .. "  Quit", ":qa<CR>"),
     }

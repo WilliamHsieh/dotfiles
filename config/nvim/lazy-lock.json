@@ -31,7 +31,7 @@
   "killersheep.nvim": { "branch": "master", "commit": "506823c47b854df02e78d5fec9468ab0e542dcf5" },
   "lazy.nvim": { "branch": "main", "commit": "96584866b9c5e998cbae300594d0ccfd0c464627" },
   "lazyloader": { "branch": "master", "commit": "c509afc8eea48f02bb5144ef23539c65ea969b3a" },
-  "leetcode.nvim": { "branch": "master", "commit": "9934697917ad0786d36aa2869c6bddb0bdc6047b" },
+  "leetcode.nvim": { "branch": "master", "commit": "05d4153787fab5c6163150d2a0acf29cd1ef297f" },
   "live-command.nvim": { "branch": "main", "commit": "d460067d47948725a6f25b20f31ea8bbfdfe4622" },
   "lsp_signature.nvim": { "branch": "master", "commit": "9ed85616b772a07f8db56c26e8fff2d962f1f211" },
   "lspsaga.nvim": { "branch": "main", "commit": "4f075452c466df263e69ae142f6659dcf9324bf6" },

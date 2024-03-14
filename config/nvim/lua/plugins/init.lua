@@ -228,19 +228,16 @@ return {
   {
     "kawre/leetcode.nvim",
     build = ":TSUpdate html",
-    cond = function(plugin)
-      return vim.fn.argc() == 1 and vim.fn.argv()[1] == plugin.opts.arg
-    end,
+    cmd = "Leet",
     opts = {
-      arg         = "leetcode",
       description = {
         width = "60%",
       },
-      injector    = {
+      injector = {
         ["cpp"] = {
           before = {
             "#include <bits/stdc++.h>",
-            "using namespace std;"
+            "using namespace std;",
           },
         },
       },
