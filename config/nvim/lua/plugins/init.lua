@@ -273,4 +273,9 @@ return {
     event = "LazyFile",
     opts = {},
   },
+
+  {
+    "seandewar/killersheep.nvim",
+    cmd = "KillKillKill",
+  },
 }
