@@ -267,7 +267,7 @@ return {
   -- https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim
   {
     "nvimtools/none-ls.nvim",
-    event = "LazyFile",
+    lazy = true,
     opts = {},
   },
 

@@ -134,8 +134,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
 local function setup_project()
   -- disable all null-ls sources from previous directory
   local nls = require("null-ls")
-  local sources = nls.get_sources()
-  for _, source in ipairs(sources) do
+  local previous_sources = nls.get_sources()
+  for _, source in ipairs(previous_sources) do
     nls.disable(source)
   end
 
@@ -175,7 +175,7 @@ vim.api.nvim_create_autocmd("DirChanged", {
   callback = setup_project,
 })
 vim.api.nvim_create_autocmd("User", {
-  pattern = "VeryLazy",
+  pattern = "LazyFile",
   once = true,
   callback = setup_project,
 })
