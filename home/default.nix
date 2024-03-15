@@ -231,6 +231,7 @@ in
       ".DS_Store"
     ];
     extraConfig = {
+      init.defaultBranch = "master";
       merge = {
         tool = "vimdiff";
         conflictstyle = "diff3";
