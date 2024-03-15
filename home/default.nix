@@ -36,7 +36,7 @@ in
       findutils
       gawk
       less
-      ps
+      procps
       zlib
       glibc #ldd, iconv, ...
       wget
