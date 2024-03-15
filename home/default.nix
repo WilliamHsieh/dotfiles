@@ -237,7 +237,10 @@ in
       };
       push.autoSetupRemote = true;
       pull.rebase = true;
-      rebase.autoStash = true;
+      rebase = {
+        autoStash = true;
+        rebaseMerges = true;
+      };
       mergetool.prompt = "false";
     };
   };
