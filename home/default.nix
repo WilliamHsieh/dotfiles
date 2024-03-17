@@ -8,6 +8,7 @@ in
   imports = [
     ./zsh.nix
     ./tmux.nix
+    ./fzf.nix
     inputs.nix-index-database.hmModules.nix-index
   ];
 
@@ -100,7 +101,6 @@ in
       hello-unfree #test unfree packages
     ];
     sessionVariables = rec {
-      FZF_COMPLETION_TRIGGER = "__";
       NIX_PATH = "nixpkgs=${inputs.nixpkgs}";
       COLORTERM = "truecolor";
       LANG = "en_US.UTF-8";
@@ -179,34 +179,6 @@ in
 
   programs.zoxide = {
     enable = true;
-  };
-
-  programs.fzf = {
-    enable = true;
-    package = pkgs-unstable.fzf;
-    defaultOptions = [
-      "--color=bg+:#363a4f,bg:#24273a,spinner:#f4dbd6,hl:#ed8796"
-      "--color=fg:#cad3f5,header:#ed8796,info:#c6a0f6,pointer:#f4dbd6"
-      "--color=marker:#f4dbd6,fg+:#cad3f5,prompt:#c6a0f6,hl+:#ed8796"
-      "--layout=reverse"
-      "--cycle"
-      "--bind ctrl-u:preview-half-page-up,ctrl-d:preview-half-page-down"
-      "--bind 'ctrl-y:execute-silent(echo -n {1..} | ${dotfilesDir}/config/zsh/autoload/yank)+abort'"
-    ];
-    historyWidgetOptions = [
-      "--bind 'ctrl-y:execute-silent(echo -n {2..} | ${dotfilesDir}/config/zsh/autoload/yank)+abort'"
-    ];
-    changeDirWidgetOptions = [
-      "--preview 'eza --color always --tree --level 1 {} | less'"
-    ];
-    fileWidgetCommand = "fd --follow";
-    fileWidgetOptions = [
-      "--preview '([[ -f {} ]] && bat --color=always {}) || ([[ -d {} ]] && eza --color always --tree --level 1 {} | less) || echo {} 2> /dev/null | head -200'"
-      "--header 'CTRL-H: toggle hidden files'"
-      "--bind 'ctrl-h:transform:[[ ! \\$FZF_PROMPT =~ hidden ]]"
-      "&& echo \\\"change-prompt(hidden> )+reload(\\$FZF_CTRL_T_COMMAND --hidden --exclude=.git)\\\""
-      "|| echo \\\"change-prompt(> )+reload(\\$FZF_CTRL_T_COMMAND)\\\"'"
-    ];
   };
 
   programs.git = {
