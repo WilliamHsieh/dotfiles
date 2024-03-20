@@ -35,18 +35,20 @@ in
     autocd = true;
     defaultKeymap = "emacs";
     dotDir = ".config/zsh";
-    initExtraFirst = /* bash */ ''
-      # p10k instant prompt
-      echo ""
-      if [[ -r "${config.xdg.cacheHome}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
-        source "${config.xdg.cacheHome}/p10k-instant-prompt-''${(%):-%n}.zsh"
-      fi
+    initExtraFirst =
+      let
+        instantPrompt = "${config.xdg.cacheHome}/p10k-instant-prompt-\${(%):-%n}.zsh";
+        nixProfile = "${config.home.profileDirectory}/etc/profile.d/nix.sh";
+        sourceIfExists = file: "[[ -r ${file} ]] && source ${file}";
+      in
+        /* bash */ ''
+        # p10k instant prompt
+        echo ""
+        ${sourceIfExists "${instantPrompt}"}
 
-      # source nix profile
-      if [[ -r "${config.xdg.stateHome}/nix/profiles/profile/etc/profile.d/nix.sh" ]]; then
-        source "${config.xdg.stateHome}/nix/profiles/profile/etc/profile.d/nix.sh"
-      fi
-    '';
+        # source nix profile
+        ${sourceIfExists "${nixProfile}"}
+      '';
     initExtraBeforeCompInit = /* bash */ ''
       fpath+=${pkgs.zsh-completions}/share/zsh/site-functions
       fpath+=${pkgs.oh-my-zsh}/share/oh-my-zsh/plugins/extract
