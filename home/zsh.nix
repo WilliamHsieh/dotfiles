@@ -18,6 +18,8 @@ in
     mv = "mv -i";
     cp = "cp -i";
     rm = "trash";
+
+    visudo = "${pkgs.sudo}/bin/visudo";
     pythonServer = "python3 -m http.server";
   };
 
