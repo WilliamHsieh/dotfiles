@@ -21,6 +21,10 @@ in
     pythonServer = "python3 -m http.server";
   };
 
+  home.packages = [
+    pkgs-unstable.zsh-forgit
+  ];
+
   programs.zsh = {
     enable = true;
     history = {
