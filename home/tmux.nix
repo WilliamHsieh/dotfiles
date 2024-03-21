@@ -1,4 +1,4 @@
-{ pkgs, pkgs-unstable, config, ... }:
+{ pkgs, config, ... }:
 let
   cfg = import ./config.nix;
   dotfilesDir = "${config.home.homeDirectory}/${cfg.repo-path}";
@@ -16,11 +16,11 @@ in
         extraConfig = "source-file ${dotfilesDir}/config/tmux/tmux.conf";
       }
       {
-        plugin = pkgs-unstable.tmuxPlugins.fingers;
+        plugin = pkgs.unstable.tmuxPlugins.fingers;
         extraConfig = "set -g @fingers-key C-f";
       }
       {
-        plugin = pkgs-unstable.tmuxPlugins.t-smart-tmux-session-manager;
+        plugin = pkgs.unstable.tmuxPlugins.t-smart-tmux-session-manager;
         extraConfig = "set -g @t-bind 'F4'";
       }
       {

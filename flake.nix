@@ -54,17 +54,19 @@
       hostname = (import ./system/config.nix).host;
 
       # https://github.com/nix-community/home-manager/issues/2942#issuecomment-1378627909
-      config = { allowUnfree = true; };
-
       pkgs = import nixpkgs {
-        inherit system config;
+        inherit system;
+        config = {
+          allowUnfree = true;
+          packageOverrides = pkgs: {
+            unstable = import inputs.nixpkgs-unstable {
+              inherit (pkgs) system config;
+            };
+          };
+        };
         overlays = [
           inputs.neovim-flake.overlay
         ];
-      };
-
-      pkgs-unstable = import inputs.nixpkgs-unstable {
-        inherit system config;
       };
 
       inherit (self) outputs;
@@ -75,7 +77,7 @@
       homeConfigurations = {
         ${username} = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
-          extraSpecialArgs = { inherit inputs outputs pkgs-unstable; };
+          extraSpecialArgs = { inherit inputs outputs; };
 
           modules = [
             ./home
@@ -92,7 +94,7 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = { inherit inputs outputs pkgs-unstable; };
+              home-manager.extraSpecialArgs = { inherit inputs outputs; };
               home-manager.users.${username} = import ./home;
             }
           ];

@@ -1,4 +1,4 @@
-{ inputs, pkgs, pkgs-unstable, config, lib, ... }:
+{ inputs, pkgs, config, lib, ... }:
 let
   cfg = import ./config.nix;
   dotfilesDir = "${config.home.homeDirectory}/${cfg.repo-path}";

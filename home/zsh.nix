@@ -1,4 +1,4 @@
-{ inputs, pkgs, pkgs-unstable, config, lib, ... }:
+{ inputs, pkgs, config, lib, ... }:
 let
   cfg = import ./config.nix;
   dotfilesDir = "${config.home.homeDirectory}/${cfg.repo-path}";
@@ -25,7 +25,7 @@ in
   };
 
   home.packages = [
-    pkgs-unstable.zsh-forgit
+    pkgs.unstable.zsh-forgit
   ];
 
   programs.zsh = {
@@ -78,7 +78,7 @@ in
       # completion
       zsh-defer source ${oh-my-zsh}/share/oh-my-zsh/lib/completion.zsh
       zsh-defer zstyle ":completion:*" list-colors "''${(s.:.)LS_COLORS}"
-      zsh-defer source ${pkgs-unstable.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh
+      zsh-defer source ${unstable.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh
 
       # plugins
       zsh-defer source ${zsh-autosuggestions}/share/zsh-autosuggestions/zsh-autosuggestions.zsh

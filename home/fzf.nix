@@ -1,4 +1,4 @@
-{ pkgs, pkgs-unstable, config, ... }:
+{ pkgs, config, ... }:
 let
   cfg = import ./config.nix;
   dotfilesPath = "${config.home.homeDirectory}/${cfg.repo-path}";
@@ -16,7 +16,7 @@ in
 
   programs.fzf = {
     enable = true;
-    package = pkgs-unstable.fzf;
+    package = pkgs.unstable.fzf;
     colors = {
       "fg" = "#cad3f5";
       "fg+" = "#cad3f5";
