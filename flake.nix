@@ -58,6 +58,7 @@
         inherit system;
         config = {
           allowUnfree = true;
+          allowUnfreePredicate = (_: true);
           packageOverrides = pkgs: {
             unstable = import inputs.nixpkgs-unstable {
               inherit (pkgs) system config;
@@ -87,7 +88,7 @@
 
       nixosConfigurations = {
         ${hostname} = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs outputs; };
+          specialArgs = { inherit inputs outputs pkgs; };
           modules = [
             ./system
             home-manager.nixosModules.home-manager
