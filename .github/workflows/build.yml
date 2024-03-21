@@ -32,6 +32,9 @@ jobs:
           extra_nix_config: |
             accept-flake-config = true
 
+      - name: Github actions built-in cache
+        uses: DeterminateSystems/magic-nix-cache-action@v4
+
       - name: Setup cachix
         uses: cachix/cachix-action@v14
         with:
