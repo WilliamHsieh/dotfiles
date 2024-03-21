@@ -36,4 +36,5 @@ Inspiration and code were taken from many sources, including:
 * [Mathias Bynens](https://mathiasbynens.be/) and his [dotfiles repository](https://github.com/mathiasbynens/dotfiles/)
 * [Michael Peter](https://mijope.de/) and his [nvim configuration](https://github.com/Allaman/nvim)
 * [Christian Chiarulli](https://www.chrisatmachine.com/) and his [nvim configuration](https://github.com/ChristianChiarulli/nvim)
+* [Gabriel Fontes](https://m7.rs/) and his [nix starter template](https://github.com/Misterio77/nix-starter-configs)
 * Anyone who made a helpful [suggestion](https://github.com/WilliamHsieh/dotfiles/issues)
