@@ -21,6 +21,7 @@ in
 
     visudo = "${pkgs.sudo}/bin/visudo";
     pythonServer = "python3 -m http.server";
+    cpcmd = "fc -ln -1 | awk '{$1=$1}1' | tee /dev/fd/2 | yank";
   };
 
   home.packages = [
