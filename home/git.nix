@@ -3,6 +3,10 @@ let
   cfg = import ./config.nix;
 in
 {
+  home.packages = with pkgs; [
+    glab
+  ];
+
   programs.git = {
     enable = true;
     userName = cfg.name;
@@ -44,5 +48,13 @@ in
       };
       mergetool.prompt = "false";
     };
+  };
+
+  programs.gh = {
+    enable = true;
+    extensions = with pkgs; [
+      gh-dash
+      unstable.gh-copilot
+    ];
   };
 }

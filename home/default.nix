@@ -59,11 +59,6 @@ in
       # super fast
       feh
 
-      # git
-      git
-      gh
-      glab
-
       # editor
       neovim
       unzip
