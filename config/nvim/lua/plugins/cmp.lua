@@ -11,7 +11,9 @@ local M = {
     "saadparwaiz1/cmp_luasnip",
     "L3MON4D3/LuaSnip",
     "rafamadriz/friendly-snippets",
-  }
+    "zbirenbaum/copilot.lua",
+    "zbirenbaum/copilot-cmp",
+  },
 }
 
 function M.config()
@@ -79,6 +81,12 @@ function M.config()
     end, { 'i', 'c', 's', }),
   }
 
+  require("copilot").setup {
+    -- suggestion = { enabled = false },
+    panel = { enabled = false },
+  }
+  require("copilot_cmp").setup()
+
   cmp.setup {
     snippet = {
       expand = function(args)
@@ -94,12 +102,13 @@ function M.config()
       end,
     },
     sources = {
-      { name = "nvim_lsp", priority = 100 },
-      { name = "nvim_lua", priority = 90 },
-      { name = "buffer", priority = 80 },
-      { name = "path", priority = 70 },
-      { name = "luasnip", priority = 60 },
-      { name = "emoji", priority = 50 },
+      { name = "copilot", },
+      { name = "nvim_lsp", },
+      { name = "nvim_lua", },
+      { name = "path", },
+      { name = "buffer", },
+      { name = "luasnip", },
+      { name = "emoji", },
     },
     confirm_opts = {
       behavior = cmp.ConfirmBehavior.Replace,
