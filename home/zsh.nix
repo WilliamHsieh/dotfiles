@@ -81,6 +81,7 @@ in
       zsh-defer source ${unstable.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh
 
       # plugins
+      zsh-defer source ${unstable.zsh-abbr}/share/zsh/zsh-abbr/abbr.plugin.zsh
       zsh-defer source ${zsh-autosuggestions}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
       zsh-defer source ${zsh-fast-syntax-highlighting}/share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh
       zsh-defer source ${zsh-autopair}/share/zsh/zsh-autopair/autopair.zsh
@@ -93,6 +94,16 @@ in
 
       # other settings
       source ${dotfilesDir}/config/zsh/.zshrc
+    '';
+  };
+
+  xdg.configFile = {
+    "zsh/abbreviations".text = /* bash */ ''
+      abbr "n"="nvim"
+      abbr "g"="git"
+      abbr "gf"="git forgit"
+      abbr -g "-h"="--help"
+      abbr -g "-v"="--version"
     '';
   };
 }
