@@ -99,6 +99,7 @@ in
 
   xdg.configFile = {
     "zsh/abbreviations".text = /* bash */ ''
+      abbr "b"="bat"
       abbr "n"="nvim"
       abbr "g"="git"
       abbr "gf"="git forgit"
