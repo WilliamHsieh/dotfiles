@@ -213,6 +213,8 @@ in
       rebase = {
         autoStash = true;
         rebaseMerges = true;
+        autosquash = true;
+        updateRefs = true;
       };
       mergetool.prompt = "false";
     };
