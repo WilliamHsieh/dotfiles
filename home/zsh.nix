@@ -20,6 +20,7 @@ in
     rm = "trash";
 
     visudo = "${pkgs.sudo}/bin/visudo";
+    sudo = ''sudo -E env "PATH=$PATH" '';
     pythonServer = "python3 -m http.server";
     cpcmd = "fc -ln -1 | awk '{$1=$1}1' | tee /dev/fd/2 | yank";
   };
@@ -99,6 +100,7 @@ in
 
   xdg.configFile = {
     "zsh/abbreviations".text = /* bash */ ''
+      abbr "s"="sudo"
       abbr "b"="bat"
       abbr "n"="nvim"
       abbr "g"="git"
