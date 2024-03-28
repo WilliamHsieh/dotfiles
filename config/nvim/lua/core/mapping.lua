@@ -132,7 +132,7 @@ map("n", "<leader>f#", "<cmd>Telescope grep_string<cr>", "grep the word under cu
 --}}}
 
 -- <leader>h: hop{{{
-map("n", "<leader>hh", "<cmd>HopChar2<cr>", "Hop 2 characters")
+map("n", "<leader>hh", "<cmd>HopChar2MW<cr>", "Hop 2 characters")
 map("n", "<leader>hw", "<cmd>HopWord<cr>", "Hop word")
 --}}}
 
