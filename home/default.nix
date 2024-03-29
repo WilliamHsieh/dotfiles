@@ -10,6 +10,7 @@ in
     ./tmux.nix
     ./fzf.nix
     ./git.nix
+    ./theme.nix
     inputs.nix-index-database.hmModules.nix-index
   ];
 
@@ -74,7 +75,6 @@ in
       jc
       jq
       jqp
-      glow
 
       # language specific
       cargo
@@ -96,6 +96,7 @@ in
       nix-search-cli
       hello-unfree #test unfree packages
     ];
+
     sessionVariables = rec {
       NIX_PATH = "nixpkgs=${inputs.nixpkgs}";
       COLORTERM = "truecolor";
@@ -104,9 +105,6 @@ in
       EDITOR = "${pkgs.neovim}/bin/nvim";
       VISUAL = EDITOR;
       MANPAGER = "nvim +Man!";
-
-      # HACK: https://github.com/sharkdp/bat/issues/2578
-      LESSUTFCHARDEF = "E000-F8FF:p,F0000-FFFFD:p,100000-10FFFD:p";
     };
   };
 
@@ -121,21 +119,6 @@ in
     "clangd/config.yaml".text = ''
       ${lib.removeSuffix "\n" (builtins.readFile ../config/clangd/config.yaml)}
         Compiler: ${pkgs.gcc}/bin/g++
-    '';
-    "glow/glow.yml".text = /* yaml */ ''
-      # style name or JSON path (default "auto")
-      style: ${builtins.fetchurl {
-        url = "https://github.com/catppuccin/glamour/releases/download/v1.0.0/mocha.json";
-        sha256 = "190p7z2hacpd63r7iq2j92h9hj3akfc631zaaxhhrqwbsx19y7ag";
-      }}
-      # show local files only; no network (TUI-mode only)
-      local: false
-      # mouse support (TUI-mode only)
-      mouse: true
-      # use pager to display markdown
-      pager: true
-      # word-wrap at width
-      width: 100
     '';
   };
 
@@ -178,18 +161,4 @@ in
   };
 
   programs.man.generateCaches = true;
-
-  programs.bat = {
-    enable = true;
-    config = {
-      # TODO: https://github.com/catppuccin/bat
-      theme = "base16-256";
-    };
-    extraPackages = with pkgs.bat-extras; [
-      batdiff
-      batman
-      batgrep
-      batwatch
-    ];
-  };
 }
