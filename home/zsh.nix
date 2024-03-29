@@ -82,9 +82,9 @@ in
       zsh-defer source ${unstable.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh
 
       # plugins
-      zsh-defer source ${unstable.zsh-abbr}/share/zsh/zsh-abbr/abbr.plugin.zsh
       zsh-defer source ${zsh-autosuggestions}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
       zsh-defer source ${zsh-fast-syntax-highlighting}/share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh
+      zsh-defer source ${unstable.zsh-abbr}/share/zsh/zsh-abbr/abbr.plugin.zsh
       zsh-defer source ${zsh-autopair}/share/zsh/zsh-autopair/autopair.zsh
       zsh-defer source ${zsh-nix-shell}/share/zsh-nix-shell/nix-shell.plugin.zsh
       zsh-defer source ${oh-my-zsh}/share/oh-my-zsh/plugins/extract/extract.plugin.zsh
@@ -106,7 +106,6 @@ in
       abbr "g"="git"
       abbr "gf"="git forgit"
       abbr -g "-h"="--help"
-      abbr -g "-v"="--version"
     '';
   };
 }
