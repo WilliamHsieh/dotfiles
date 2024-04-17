@@ -49,6 +49,25 @@ function M.on_load(name, fn)
   end
 end
 
+---@param signum integer|uv.aliases.signals
+---@param callback? fun()
+function M.signal_handler(signum, callback)
+  local signal, err = vim.loop.new_signal()
+  if not signal then
+    vim.notify("Failed to create signal handler: " .. err)
+    return
+  end
+
+  vim.loop.signal_start(signal, signum, function(sig)
+    vim.schedule(function()
+      vim.notify("signal " .. sig .. " reveived")
+      if callback then
+        callback()
+      end
+    end)
+  end)
+end
+
 ---Properly load file based plugins without blocking the UI
 ---https://github.com/LazyVim/LazyVim/blob/68ff818a5bb7549f90b05e412b76fe448f605ffb/lua/lazyvim/util/plugin.lua#L60-L125
 function M.lazy_file()
