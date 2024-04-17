@@ -77,7 +77,7 @@ in
       jqp
 
       # language specific
-      cargo
+      rustup
       gcc
       go
       poetry
