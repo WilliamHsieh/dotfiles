@@ -56,13 +56,17 @@ function M.config()
         group = augroup,
         buffer = bufnr,
         callback = function()
-          if vim.g.lsp_formatting ~= false then
+          if vim.g.lsp_formatting then
             vim.lsp.buf.format()
           end
         end,
       })
       vim.keymap.set("n", "<leader>lf", function()
-        vim.lsp.buf.format { async = true }
+        vim.g.lsp_formatting = not vim.g.lsp_formatting
+        vim.notify("LSP auto formatting: " .. (vim.g.lsp_formatting and "on" or "off"))
+        if vim.g.lsp_formatting then
+          vim.lsp.buf.format { async = true }
+        end
       end, opts("Format"))
     end
   end

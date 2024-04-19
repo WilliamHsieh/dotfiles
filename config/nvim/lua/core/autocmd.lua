@@ -131,16 +131,17 @@ vim.api.nvim_create_autocmd("LspAttach", {
   end,
 })
 
-local function setup_project()
+local function setup_project(ev)
+  if ev.event == "BufReadPost" and vim.g.settings_json_loaded then
+    return
+  end
+
   -- disable all null-ls sources from previous directory
   local nls = require("null-ls")
   local previous_sources = nls.get_sources()
   for _, source in ipairs(previous_sources) do
     nls.disable(source)
   end
-
-  -- default lsp auto-formatting to true
-  vim.g.lsp_formatting = true
 
   -- read project local settings
   local file = io.open(vim.loop.cwd() .. "/.nvim.settings.json")
@@ -153,6 +154,7 @@ local function setup_project()
   end
 
   vim.notify(vim.inspect(settings))
+  vim.g.settings_json_loaded = true
 
   -- lsp auto-formatting
   vim.g.lsp_formatting = settings.lsp and settings.lsp.formatting
@@ -171,11 +173,6 @@ local function setup_project()
     end
   end
 end
-vim.api.nvim_create_autocmd("DirChanged", {
-  callback = setup_project,
-})
-vim.api.nvim_create_autocmd("User", {
-  pattern = "LazyFile",
-  once = true,
+vim.api.nvim_create_autocmd({ "DirChanged", "BufReadPost" }, {
   callback = setup_project,
 })
