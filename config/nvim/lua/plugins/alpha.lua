@@ -10,7 +10,7 @@ local function setup()
     local icons = require "core.icons"
     return {
       dashboard.button("i", icons.ui.NewFile .. "  New file", ":ene <BAR> startinsert<CR>"),
-      dashboard.button("r", icons.ui.History .. "  Recent files", ":Telescope oldfiles<CR>"),
+      dashboard.button("r", icons.ui.History .. "  Recent files", ":FzfLua oldfiles<CR>"),
       dashboard.button("p", icons.git.Repo .. "  Find project", ":Telescope projects theme=dropdown<CR>"),
       dashboard.button("s", icons.misc.Watch .. "  Find session", ":SessionManager load_session<CR>"),
       dashboard.button("l", icons.ui.Fire .. "  Leetcode", ":Leet<CR>"),

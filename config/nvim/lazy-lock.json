@@ -22,6 +22,7 @@
   "focus.nvim": { "branch": "master", "commit": "c9bc6a969c3ff0d682f389129961c9e71ff2c918" },
   "friendly-snippets": { "branch": "main", "commit": "dcd4a586439a1c81357d5b9d26319ae218cc9479" },
   "fsread.nvim": { "branch": "main", "commit": "a637bf048f733def7c5c46f5bf482f93a8311b29" },
+  "fzf-lua": { "branch": "main", "commit": "52637a72ed728d7955a6a2b24afdf455ebaba623" },
   "git-conflict.nvim": { "branch": "main", "commit": "4c8e252b87d54d944c1e56bfb477f78b6fdaf661" },
   "git-worktree.nvim": { "branch": "main", "commit": "b6f06312850ec2657921484c1c7c34ff0468f4f2" },
   "gitsigns.nvim": { "branch": "main", "commit": "078041e9d060a386b0c9d3a8c7a7b019a35d3fb0" },
