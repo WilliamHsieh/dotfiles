@@ -89,12 +89,16 @@
     isNormalUser = true;
     description = "William Hsieh";
     extraGroups = [ "networkmanager" "wheel" ];
+    shell = pkgs.zsh;
     packages = with pkgs; [
       firefox
       thunderbird
       skypeforlinux
     ];
   };
+
+  # for default login shell
+  programs.zsh.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
