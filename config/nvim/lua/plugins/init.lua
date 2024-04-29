@@ -47,11 +47,6 @@ return {
   },
 
   {
-    "nvim-treesitter/playground",
-    cmd = { "TSPlaygroundToggle" , "TSHighlightCapturesUnderCursor" }
-  },
-
-  {
     "JoosepAlviste/nvim-ts-context-commentstring",
     lazy = true,
   },

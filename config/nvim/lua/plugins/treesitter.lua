@@ -47,9 +47,6 @@ function M.config()
       enable = true,
       enable_autocmd = false,
     },
-    playground = {
-      enable = true,
-    },
     textobjects = {
       select = {
         enable = true,
