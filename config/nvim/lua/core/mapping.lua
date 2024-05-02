@@ -110,7 +110,16 @@ map("n", "<leader>ps", "<cmd>StartupTime<cr>", "Startup time")
 
 -- <leader>f: find{{{
 map("n", "<C-p>", "<cmd>FzfLua files<cr>", "Find files")
-map("n", "<leader>fF", "<cmd>FzfLua live_grep<cr>", "Find Text")
+map("n", "<leader>fF", function()
+  require("fzf-lua").live_grep {
+    winopts = {
+      preview = {
+        layout = "vertical",
+        vertical = "up:60%",
+      },
+    },
+  }
+end, "Find Text")
 map("n", "<leader>fd", "<cmd>FzfLua files cwd=~/dotfiles<cr>", "Dotfiles")
 map("n", "<leader>fc", "<cmd>FzfLua commands<cr>", "Commands")
 map("n", "<leader>fh", "<cmd>FzfLua helptags<cr>", "Help")
