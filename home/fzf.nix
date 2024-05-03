@@ -17,20 +17,6 @@ in
   programs.fzf = {
     enable = true;
     package = pkgs.unstable.fzf;
-    colors = {
-      "fg" = "#cad3f5";
-      "fg+" = "#cad3f5";
-      "bg" = "#24273a";
-      "bg+" = "#363a4f";
-      "hl" = "#ed8796";
-      "hl+" = "#ed8796";
-      "header" = "#ed8796";
-      "spinner" = "#f4dbd6";
-      "pointer" = "#f4dbd6";
-      "marker" = "#f4dbd6";
-      "prompt" = "#c6a0f6";
-      "info" = "#c6a0f6";
-    };
     defaultOptions = [
       "--layout=reverse"
       "--cycle"

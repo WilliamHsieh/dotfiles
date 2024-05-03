@@ -20,7 +20,6 @@ in
       enable = true;
       options = {
         true-color = "always";
-        syntax-theme = "base16-256";
         line-numbers = true;
         diff-so-fancy = true;
       };

@@ -10,6 +10,7 @@ in
     sensibleOnTop = false;
     terminal = "xterm-256color";
     shell = "${pkgs.zsh}/bin/zsh";
+    catppuccin.enable = false;
     plugins = with pkgs.tmuxPlugins; [
       {
         plugin = prefix-highlight;

@@ -10,9 +10,12 @@ in
     ./tmux.nix
     ./fzf.nix
     ./git.nix
-    ./theme.nix
     inputs.nix-index-database.hmModules.nix-index
+    inputs.catppuccin.homeManagerModules.catppuccin
   ];
+
+  catppuccin.flavour = "macchiato";
+  catppuccin.enable = true;
 
   home = {
     username = cfg.user;
@@ -95,6 +98,7 @@ in
       # misc
       nix-search-cli
       hello-unfree #test unfree packages
+      glow
     ];
 
     sessionVariables = rec {
@@ -105,6 +109,7 @@ in
       EDITOR = "${pkgs.neovim}/bin/nvim";
       VISUAL = EDITOR;
       MANPAGER = "nvim +Man!";
+      LESSUTFCHARDEF = "E000-F8FF:p,F0000-FFFFD:p,100000-10FFFD:p"; # HACK: https://github.com/sharkdp/bat/issues/2578
     };
   };
 
@@ -113,7 +118,6 @@ in
   xdg.configFile = {
     "nvim".source = link "nvim";
     "alacritty".source = link "alacritty";
-    "starship.toml".source = link "starship/starship.toml";
     "home-manager".source = link "..";
     "zsh/.p10k.zsh".source = link "zsh/.p10k.zsh";
     "clangd/config.yaml".text = ''
@@ -154,11 +158,46 @@ in
   programs.starship = {
     enable = true;
     enableZshIntegration = false;
+    settings = {
+      format = lib.concatStrings [
+        "$all"
+        "$fill"
+        "$time"
+        "$line_break"
+        "$character"
+      ];
+      fill = {
+        symbol = " ";
+      };
+      time = {
+        disabled = false;
+        style = "bold bright-black";
+        format = "[\\[$time\\]]($style)";
+      };
+      container = {
+        disabled = true;
+      };
+      directory = {
+        truncation_length = 10;
+      };
+    };
   };
 
   programs.zoxide = {
     enable = true;
   };
+
+  programs.bat = {
+    enable = true;
+    extraPackages = with pkgs.bat-extras; [
+      batdiff
+      batman
+      batgrep
+      batwatch
+    ];
+  };
+
+  programs.glamour.catppuccin.enable = true;
 
   programs.man.generateCaches = true;
 }
