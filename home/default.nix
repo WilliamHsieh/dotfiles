@@ -3,6 +3,14 @@ let
   cfg = import ./config.nix;
   dotfilesDir = "${config.home.homeDirectory}/${cfg.repo-path}";
   link = path: config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/config/${path}";
+
+  glow-without-completion = pkgs.glow.overrideAttrs
+    (oldAttrs: {
+      postFixup = ''
+        # Remove the completion file
+        rm $out/share/zsh/site-functions/_glow
+      '';
+    });
 in
 {
   imports = [
@@ -95,10 +103,12 @@ in
       # fun
       sl
 
+      # pretty stuff
+      glow-without-completion
+
       # misc
       nix-search-cli
       hello-unfree #test unfree packages
-      glow
     ];
 
     sessionVariables = rec {
@@ -119,6 +129,7 @@ in
     "nvim".source = link "nvim";
     "alacritty".source = link "alacritty";
     "home-manager".source = link "..";
+    "glow".source = link "glow";
     "zsh/.p10k.zsh".source = link "zsh/.p10k.zsh";
     "clangd/config.yaml".text = ''
       ${lib.removeSuffix "\n" (builtins.readFile ../config/clangd/config.yaml)}
