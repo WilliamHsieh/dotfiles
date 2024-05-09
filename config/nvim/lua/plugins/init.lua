@@ -225,8 +225,8 @@ return {
     build = ":TSUpdate html",
     cmd = "Leet",
     opts = {
-      description = {
-        width = "60%",
+      keys = {
+        reset_testcases = "R",
       },
       injector = {
         ["cpp"] = {
