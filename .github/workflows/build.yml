@@ -1,4 +1,4 @@
-name: Build
+name: Build nix profile
 on:
   workflow_dispatch:
   pull_request:
