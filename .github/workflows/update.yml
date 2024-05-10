@@ -1,0 +1,26 @@
+name: update-flake-lock
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 6 * * 1'
+
+jobs:
+  lockfile:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v9
+      - name: Enable magic Nix cache
+        uses: DeterminateSystems/magic-nix-cache-action@v2
+      - name: Check flake
+        uses: DeterminateSystems/flake-checker-action@v5
+      - name: Update flake.lock
+        uses: DeterminateSystems/update-flake-lock@v20
+        with:
+          commit-msg: "chore(nix): update flake.lock"
+          pr-title: "Update flake.lock"
+          pr-labels: |
+            bot
