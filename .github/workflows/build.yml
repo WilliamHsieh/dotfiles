@@ -1,4 +1,4 @@
-name: Build
+name: Build nixos / home-manager profile
 on:
   workflow_dispatch:
   pull_request:
