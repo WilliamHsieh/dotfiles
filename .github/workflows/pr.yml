@@ -39,9 +39,10 @@ jobs:
 
       - uses: cachix/cachix-action@v14
         with:
-          name: edeneast
-          skipPush: true
+          name: williamhsieh
           extraPullNames: nix-community
+          skipPush: true
+          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
 
       - name: Garbage collect build dependencies
         run: nix-collect-garbage
@@ -75,6 +76,8 @@ jobs:
         uses: marocchino/sticky-pull-request-comment@v2
         if: ${{ !startswith(github.ref, 'dependabot') }}
         with:
+          hide_and_recreate: true
+          hide_classify: "OUTDATED"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           header: ".#top.${{ matrix.target }}"
           message: |

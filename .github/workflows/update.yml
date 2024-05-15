@@ -2,7 +2,7 @@ name: Update flake.lock
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 6 * * 1'
+    - cron: '0 0 * * 1'
 
 jobs:
   lockfile:
@@ -21,6 +21,8 @@ jobs:
         uses: DeterminateSystems/update-flake-lock@v20
         with:
           commit-msg: "chore(nix): update flake.lock"
+          nix-options: --accept-flake-config
+          token: ${{ secrets.PR_COMMENT }}
           pr-title: "Update flake.lock"
           pr-labels: |
             bot
