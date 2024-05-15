@@ -12,7 +12,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@v9
+        uses: DeterminateSystems/nix-installer-action@v11
       - name: Enable magic Nix cache
         uses: DeterminateSystems/magic-nix-cache-action@v2
       - name: Check flake
