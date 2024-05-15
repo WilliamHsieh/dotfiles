@@ -16,7 +16,7 @@ jobs:
       - name: Enable magic Nix cache
         uses: DeterminateSystems/magic-nix-cache-action@v2
       - name: Check flake
-        uses: DeterminateSystems/flake-checker-action@v5
+        uses: DeterminateSystems/flake-checker-action@v7
       - name: Update flake.lock
         uses: DeterminateSystems/update-flake-lock@v21
         with:
