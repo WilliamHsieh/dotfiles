@@ -204,7 +204,7 @@
             mode: "OnRelease";
             action = {
               type = "Keypress";
-              keys: ["KEY_20"];
+              keys: ["KEY_PLAYPAUSE"];
             };
           });
         };
