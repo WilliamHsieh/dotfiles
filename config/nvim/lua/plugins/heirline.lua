@@ -37,8 +37,8 @@ function M.config()
     local res = {}
     for _, s in pairs(settings) do
       res[#res + 1] = {
-        provider = s[1] .. (color_bg and assets.vim .. s[2] .. ' ' or assets.right_separator) .. ',',
-        hl = color_bg and { bg = s[3] } or { fg = s[3] }
+        provider = s[1] .. (color_bg and assets.tmux .. s[2] .. " " or assets.right_separator) .. ",",
+        hl = color_bg and { bg = s[3] } or { fg = s[3] },
       }
     end
     return {
