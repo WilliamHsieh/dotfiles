@@ -113,6 +113,7 @@
     spotify
     wget
     logiops
+    xwayland
   ];
 
   fonts.packages = with pkgs; [
