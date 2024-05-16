@@ -217,25 +217,6 @@ return {
         function() require("harpoon.ui").nav_next() end,
         desc = "harpoon next buffer",
       },
-    }
-  },
-
-  {
-    "kawre/leetcode.nvim",
-    build = ":TSUpdate html",
-    cmd = "Leet",
-    opts = {
-      keys = {
-        reset_testcases = "R",
-      },
-      injector = {
-        ["cpp"] = {
-          before = {
-            "#include <bits/stdc++.h>",
-            "using namespace std;",
-          },
-        },
-      },
     },
   },
 
