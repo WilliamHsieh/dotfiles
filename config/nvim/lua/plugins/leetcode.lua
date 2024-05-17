@@ -17,6 +17,7 @@ return {
     hooks = {
       ["enter"] = {
         function()
+          require("copilot.command").disable()
           vim.g.lsp_formatting = true
           vim.keymap.set("n", "<leader>cc", "<cmd>Leet run<cr>", { desc = "Leetcode run testcase" })
           vim.keymap.set("n", "<leader>cp", "<cmd>Leet submit<cr>", { desc = "Leetcode submit" })
