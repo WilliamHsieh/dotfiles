@@ -36,7 +36,7 @@ jobs:
         uses: DeterminateSystems/flake-checker-action@v7
 
       - name: Github actions built-in cache
-        uses: DeterminateSystems/magic-nix-cache-action@v4
+        uses: DeterminateSystems/magic-nix-cache-action@v6
 
       - name: Setup cachix
         uses: cachix/cachix-action@v14
