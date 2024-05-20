@@ -119,5 +119,24 @@
             (attr: inputs.self.homeConfigurations.${attr}.activationPackage);
         in
         nixtop // hometop;
+
+      checks.${system}.pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
+        src = pkgs.lib.cleanSource ./.;
+
+        hooks = {
+          # TODO: treefmt, selene, shellcheck
+          editorconfig-checker.enable = true;
+          nixpkgs-fmt.enable = true;
+          stylua = {
+            enable = true;
+            entry = "${pkgs.stylua}/bin/stylua --config-path ./config/nvim/stylua.toml";
+          };
+        };
+      };
+
+      devShells.${system}.default = pkgs.mkShell {
+        inherit (self.checks.${system}.pre-commit-check) shellHook;
+        buildInputs = self.checks.${system}.pre-commit-check.enabledPackages;
+      };
     };
 }
