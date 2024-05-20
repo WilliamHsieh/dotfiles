@@ -91,7 +91,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.william = {
     isNormalUser = true;
-    description = "William Hsieh";
+    description = (import ../home/config.nix).name;
     extraGroups = [ "networkmanager" "wheel" ];
     shell = pkgs.zsh;
     packages = with pkgs; [
