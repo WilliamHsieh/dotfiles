@@ -24,8 +24,8 @@ return {
     "folke/todo-comments.nvim",
     lazy = true,
     opts = {
-      signs = false
-    }
+      signs = false,
+    },
   },
 
   {
@@ -34,9 +34,9 @@ return {
     opts = {
       plugins = {
         tmux = {
-          enabled = true
-        }
-      }
+          enabled = true,
+        },
+      },
     },
     dependencies = {
       {
@@ -54,7 +54,7 @@ return {
   {
     "simrat39/symbols-outline.nvim",
     cmd = "SymbolsOutline",
-    config = true
+    config = true,
   },
 
   ---------- LSP ----------
@@ -64,12 +64,12 @@ return {
     opts = {
       doc_lines = 0,
       floating_window = false,
-    }
+    },
   },
 
   {
     "b0o/SchemaStore.nvim",
-    ft = "json"
+    ft = "json",
   },
 
   {
@@ -80,7 +80,7 @@ return {
 
   {
     "preservim/tagbar",
-    cmd = "TagbarToggle"
+    cmd = "TagbarToggle",
   },
 
   {
@@ -95,15 +95,15 @@ return {
     ft = "qf",
     opts = {
       func_map = {
-        pscrollup = '<C-u>',
-        pscrolldown = '<C-d>',
-      }
-    }
+        pscrollup = "<C-u>",
+        pscrolldown = "<C-d>",
+      },
+    },
   },
 
   {
     "moll/vim-bbye",
-    cmd = "Bdelete"
+    cmd = "Bdelete",
   },
 
   {
@@ -161,7 +161,7 @@ return {
     cmd = "StartupTime",
     config = function()
       vim.g.startuptime_tries = 10
-    end
+    end,
   },
 
   {
@@ -181,14 +181,14 @@ return {
     lazy = true,
     init = function()
       vim.opt.fillchars:append { fold = " ", foldopen = "", foldsep = " ", foldclose = "" }
-      vim.o.foldcolumn = '1'
+      vim.o.foldcolumn = "1"
       vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
       vim.o.foldlevelstart = 99
       vim.o.foldenable = true
     end,
     opts = {
       open_fold_hl_timeout = 100,
-    }
+    },
   },
 
   {
@@ -196,25 +196,31 @@ return {
     event = "InsertEnter",
     opts = {
       mapping = { "kj" },
-    }
+    },
   },
 
   {
-    'ThePrimeagen/harpoon',
+    "ThePrimeagen/harpoon",
     keys = {
       {
         "<leader>bh",
-        function() require("harpoon.ui").toggle_quick_menu() end,
+        function()
+          require("harpoon.ui").toggle_quick_menu()
+        end,
         desc = "harpoon open ui",
       },
       {
         "<leader>ba",
-        function() require("harpoon.mark").add_file() end,
+        function()
+          require("harpoon.mark").add_file()
+        end,
         desc = "harpoon add file",
       },
       {
         "<leader><tab>",
-        function() require("harpoon.ui").nav_next() end,
+        function()
+          require("harpoon.ui").nav_next()
+        end,
         desc = "harpoon next buffer",
       },
     },
@@ -250,5 +256,9 @@ return {
   {
     "seandewar/killersheep.nvim",
     cmd = "KillKillKill",
+  },
+
+  {
+    "direnv/direnv.vim",
   },
 }
