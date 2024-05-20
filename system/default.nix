@@ -25,6 +25,10 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
+  security.pki.certificateFiles = [
+    ./synology-intranet.pem
+  ];
+
   # Set your time zone.
   time.timeZone = "Asia/Taipei";
 
