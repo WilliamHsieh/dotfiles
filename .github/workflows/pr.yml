@@ -47,6 +47,9 @@ jobs:
           skipPush: true
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
 
+      - name: Free Disk Space (Ubuntu)
+        uses: jlumbroso/free-disk-space@main
+
       - name: Garbage collect build dependencies
         run: nix-collect-garbage
 
