@@ -40,7 +40,7 @@ jobs:
       - name: Github actions built-in cache
         uses: DeterminateSystems/magic-nix-cache-action@v6
 
-      - uses: cachix/cachix-action@v14
+      - uses: cachix/cachix-action@v15
         with:
           name: williamhsieh
           extraPullNames: nix-community
