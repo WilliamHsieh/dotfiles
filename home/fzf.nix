@@ -16,7 +16,7 @@ in
 
   programs.fzf = {
     enable = true;
-    package = pkgs.unstable.fzf;
+    package = pkgs.fzf;
     defaultOptions = [
       "--layout=reverse"
       "--cycle"

@@ -26,7 +26,7 @@ in
   };
 
   home.packages = [
-    pkgs.unstable.zsh-forgit
+    pkgs.zsh-forgit
   ];
 
   programs.zsh = {

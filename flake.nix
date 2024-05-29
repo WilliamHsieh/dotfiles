@@ -13,18 +13,18 @@
   };
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     flake-parts.url = "github:hercules-ci/flake-parts";
     flake-utils.url = "github:numtide/flake-utils";
     nur.url = "github:nix-community/nur";
 
-    # Temporarily pin catppuccin, since they don't support tracking releases
-    # currently, and newer commits break home-manager 23.11
-    catppuccin.url = "github:catppuccin/nix/a48e70a31616cb63e4794fd3465bff1835cc4246";
+    catppuccin = {
+      url = "github:catppuccin/nix";
+    };
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-23.11";
+      url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -33,15 +33,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    neovim-flake = {
-      url = "github:neovim/neovim/v0.9.5?dir=contrib";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
-    };
-
     pre-commit-hooks = {
       url = "github:cachix/pre-commit-hooks.nix";
-      inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -70,7 +63,6 @@
           };
         };
         overlays = [
-          inputs.neovim-flake.overlay
         ];
       };
 
