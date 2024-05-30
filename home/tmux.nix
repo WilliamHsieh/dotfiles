@@ -17,11 +17,11 @@ in
         extraConfig = "source-file ${dotfilesDir}/config/tmux/tmux.conf";
       }
       {
-        plugin = pkgs.unstable.tmuxPlugins.fingers;
+        plugin = fingers;
         extraConfig = "set -g @fingers-key C-f";
       }
       {
-        plugin = pkgs.unstable.tmuxPlugins.t-smart-tmux-session-manager;
+        plugin = t-smart-tmux-session-manager;
         extraConfig = "set -g @t-bind 'F4'";
       }
       {

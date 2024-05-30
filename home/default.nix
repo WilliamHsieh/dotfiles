@@ -22,7 +22,7 @@ in
     inputs.catppuccin.homeManagerModules.catppuccin
   ];
 
-  catppuccin.flavour = "macchiato";
+  catppuccin.flavor = "macchiato";
   catppuccin.enable = true;
 
   home = {
@@ -37,7 +37,7 @@ in
         "/home/${cfg.user}"
       else "";
 
-    stateVersion = "23.11";
+    stateVersion = "24.05";
 
     packages = with pkgs; [
       # manage itself
@@ -143,7 +143,7 @@ in
   };
 
   nix = {
-    package = lib.mkDefault pkgs.nixUnstable;
+    package = lib.mkDefault pkgs.nixVersions.latest;
     registry.nixpkgs.flake = inputs.nixpkgs;
     registry.nixpkgs-unstable.flake = inputs.nixpkgs-unstable;
     settings = {
@@ -156,7 +156,7 @@ in
 
   home.activation = {
     update-neovim-plugins = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      PATH="${config.home.path}/bin:$PATH" $DRY_RUN_CMD nvim --headless "+Lazy! restore | qa"
+      PATH="${config.home.path}/bin:$PATH" run nvim --headless "+Lazy! restore | qa"
     '';
   };
 
