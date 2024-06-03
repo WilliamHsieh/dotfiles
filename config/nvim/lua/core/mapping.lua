@@ -186,9 +186,8 @@ map("n", "<leader>sx", "<cmd>SnipTerminate<cr>", "Terminate")
 --}}}
 
 -- <leader>t: terminal{{{
-map('t', '<esc>', [[<C-\><C-n>]])
-map('t', 'kj', [[<C-\><C-n>]])
-map('n', [[<c-\>]], "<cmd>ToggleTerm<cr>", "Toggleterm")
+map("t", "<esc>", [[<C-\><C-n>]])
+map("n", [[<c-\>]], "<cmd>ToggleTerm<cr>", "Toggleterm")
 
 map("n", "<leader>tt", function()
   local cmd = "ToggleTerm"
