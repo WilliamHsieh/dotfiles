@@ -5,11 +5,10 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-    [
-      # Include the results of the hardware scan.
-      ./hardware.nix
-    ];
+  imports = [
+    ./hardware.nix
+    ./logiops.nix
+  ];
 
   boot = {
     kernelPackages = pkgs.linuxPackages_zen;
@@ -19,7 +18,6 @@
       efi.canTouchEfiVariables = true;
     };
   };
-
 
   networking.hostName = (import ./config.nix).host;
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -165,76 +163,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.05"; # Did you read the comment?
-
-  systemd.services.logiops = {
-    description = "An unofficial userspace driver for HID++ Logitech devices";
-    serviceConfig = {
-      Type = "simple";
-      ExecStart = "${pkgs.logiops}/bin/logid";
-    };
-  };
-
-  # NOTE: https://github.com/PixlOne/logiops/blob/main/logid.example.cfg
-  environment.etc."logid.cfg".text = ''
-    devices: ({
-      name: "Wireless Mouse MX Master 3";
-      smartshift: {
-        on: true;
-        threshold: 12;
-      };
-      hiresscroll: {
-        hires: true;
-        target: false;
-      };
-      dpi: 1200;
-      buttons: ({
-        cid: 0xc3;
-        action = {
-          type: "Gestures";
-          gestures: ({
-            direction: "Left";
-            mode: "OnRelease";
-            action = {
-              type = "Keypress";
-              keys: ["KEY_F15"];
-            };
-          }, {
-            direction: "Right";
-            mode: "OnRelease";
-            action = {
-              type = "Keypress";
-              keys: ["KEY_F16"];
-            };
-          }, {
-            direction: "Down";
-            mode: "OnRelease";
-            action = {
-              type: "Keypress";
-              keys: ["KEY_F17"];
-            };
-          }, {
-            direction: "Up";
-            mode: "OnRelease";
-            action = {
-              type: "Keypress";
-              keys: ["KEY_F18"];
-            };
-          }, {
-            direction: "None";
-            mode: "OnRelease";
-            action = {
-              type = "Keypress";
-              keys: ["KEY_PLAYPAUSE"];
-            };
-          });
-        };
-      }, {
-        cid: 0xc4;
-        action = {
-          type: "Keypress";
-          keys: ["KEY_F19"];
-        };
-      });
-    });
-  '';
 }
