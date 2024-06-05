@@ -101,9 +101,9 @@
     extraGroups = [ "networkmanager" "wheel" ];
     shell = pkgs.zsh;
     packages = with pkgs; [
-      firefox
-      thunderbird
+      discord
       skypeforlinux
+      spotify
     ];
   };
 
@@ -118,12 +118,15 @@
   environment.systemPackages = with pkgs; [
     kitty
     alacritty
+    wezterm
+
     firefox
     google-chrome
-    spotify
-    wget
-    logiops
+    thunderbird
     xwayland
+
+    gnome.gnome-tweaks
+    gnome.gnome-shell-extensions
   ];
 
   fonts.packages = with pkgs; [
