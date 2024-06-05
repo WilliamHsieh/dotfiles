@@ -12,7 +12,6 @@
     ];
 
   boot = {
-    # Change kernel to zen kernal
     kernelPackages = pkgs.linuxPackages_zen;
 
     loader = {
