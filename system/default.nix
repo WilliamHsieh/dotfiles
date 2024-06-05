@@ -110,6 +110,12 @@
   # for default login shell
   programs.zsh.enable = true;
 
+  # for running nearly every binaries
+  programs.nix-ld = {
+    enable = true;
+    libraries = pkgs.steam-run.fhsenv.args.multiPkgs pkgs;
+  };
+
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
