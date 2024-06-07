@@ -102,13 +102,18 @@ in
 
       # fun
       sl
+      smassh
 
       # pretty stuff
       glow-without-completion
+      csvlens
+      litecli
 
       # misc
       nix-search-cli
       hello-unfree #test unfree packages
+      nurl #generate nix fetcher call from repo
+      cloc
     ];
 
     sessionVariables = rec {
@@ -211,6 +216,13 @@ in
       batgrep
       batwatch
     ];
+  };
+
+  programs.btop = {
+    enable = true;
+    settings = {
+      vim_keys = true;
+    };
   };
 
   programs.glamour.catppuccin.enable = true;
