@@ -45,6 +45,7 @@ jobs:
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
           skipPush: ${{ github.ref != 'refs/heads/master' }}
 
+
       - name: Build target
         run: |
           set -o pipefail
