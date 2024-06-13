@@ -121,7 +121,6 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     kitty
-    alacritty
     wezterm
 
     firefox

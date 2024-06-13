@@ -18,6 +18,7 @@ in
     ./tmux.nix
     ./fzf.nix
     ./git.nix
+    ./alacritty.nix
     inputs.nix-index-database.hmModules.nix-index
     inputs.catppuccin.homeManagerModules.catppuccin
   ];
@@ -132,7 +133,6 @@ in
 
   xdg.configFile = {
     "nvim".source = link "nvim";
-    "alacritty".source = link "alacritty";
     "home-manager".source = link "..";
     "glow".source = link "glow";
     "zsh/.p10k.zsh".source = link "zsh/.p10k.zsh";
