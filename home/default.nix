@@ -26,6 +26,8 @@ in
   catppuccin.enable = true;
 
   home = {
+    inherit (import ../lib { inherit inputs; }) stateVersion;
+
     username = cfg.user;
 
     homeDirectory = with pkgs.stdenv;
@@ -36,8 +38,6 @@ in
       else if isLinux then
         "/home/${cfg.user}"
       else "";
-
-    stateVersion = "24.05";
 
     packages = with pkgs; [
       # manage itself
