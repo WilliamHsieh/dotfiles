@@ -33,7 +33,7 @@ jobs:
             accept-flake-config = true
 
       - name: Check Nix flake inputs
-        uses: DeterminateSystems/flake-checker-action@v7
+        uses: DeterminateSystems/flake-checker-action@v8
 
       - name: Github actions built-in cache
         uses: DeterminateSystems/magic-nix-cache-action@v7
