@@ -37,8 +37,8 @@ jobs:
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
             accept-flake-config = true
 
-      - name: Github actions built-in cache
-        uses: DeterminateSystems/magic-nix-cache-action@v7
+      # - name: Github actions built-in cache
+      #   uses: DeterminateSystems/magic-nix-cache-action@v7
 
       - uses: cachix/cachix-action@v15
         with:
