@@ -16,7 +16,7 @@
       };
       window = {
         dynamic_padding = true;
-        decorations = "None";
+        option_as_alt = "Both";
       };
       colors = {
         indexed_colors = [
@@ -34,14 +34,6 @@
           { key = "Tab"; mods = "Control"; chars = "\\u001B)"; }
           { key = "Tab"; mods = "Control|Shift"; chars = "\\u001B("; }
           { key = "P"; mods = "Control|Shift"; chars = "\\u0002\\u001BOS"; } # C-b f4
-        ] ++ lib.optional pkgs.stdenv.isDarwin [
-          { key = "B"; mods = "Command"; chars = "\\u001Bb"; } # one word left
-          { key = "F"; mods = "Command"; chars = "\\u001Bf"; } # one word right
-          { key = "D"; mods = "Command"; chars = "\\u001Bd"; } # delete one word right
-          { key = "H"; mods = "Command"; chars = "\\u001Bh"; } # M-h
-          { key = "J"; mods = "Command"; chars = "\\u001Bj"; } # M-j
-          { key = "K"; mods = "Command"; chars = "\\u001Bk"; } # M-k
-          { key = "L"; mods = "Command"; chars = "\\u001Bl"; } # M-l
         ];
       };
     };
