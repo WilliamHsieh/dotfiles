@@ -38,7 +38,7 @@ local options = {
   mousemoveevent = true,
   fixendofline = false,
   grepprg = "rg --vimgrep --smart-case",
-  splitkeep = 'screen',
+  splitkeep = "cursor",
   showcmdloc = 'statusline',
 }
 
