@@ -114,6 +114,12 @@
     libraries = pkgs.steam-run.fhsenv.args.multiPkgs pkgs;
   };
 
+  # AppImage files can be invoked directly as if they were normal programs
+  programs.appimage = {
+    enable = true;
+    binfmt = true;
+  };
+
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
