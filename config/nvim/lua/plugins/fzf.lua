@@ -31,6 +31,9 @@ M.opts = {
       cmd = "man %s | col -bx",
     },
   },
+  grep = {
+    rg_glob = true,
+  }
 }
 
 return M
