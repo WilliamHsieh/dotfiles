@@ -73,7 +73,7 @@ in
       feh
 
       # editor
-      neovim
+      unstable.neovim
       unzip
       nodejs
       gnumake
