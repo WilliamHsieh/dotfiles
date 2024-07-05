@@ -42,6 +42,16 @@
       url = "github:Mic92/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    neovim-overlay = {
+      url = "github:nix-community/neovim-nightly-overlay";
+      # HACK: https://github.com/nix-community/neovim-nightly-overlay/issues/533
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.neovim-src = {
+        url = "github:neovim/neovim/release-0.10";
+        flake = false;
+      };
+    };
   };
 
   outputs = inputs @ { self, nixpkgs, home-manager, ... }:
@@ -59,6 +69,10 @@
           packageOverrides = pkgs: {
             unstable = import inputs.nixpkgs-unstable {
               inherit (pkgs) system config;
+              # HACK: https://github.com/sandydoo/nixos/commit/261ff27ceff1abc147ff50f80938028298f6206e
+              overlays = [
+                inputs.neovim-overlay.overlays.default
+              ];
             };
           };
         };
