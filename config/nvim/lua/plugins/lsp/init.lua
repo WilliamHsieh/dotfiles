@@ -45,7 +45,7 @@ function M.config()
     vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help, opts("signature_help"))
     vim.keymap.set("n", "K", vim.lsp.buf.hover, opts("Hover doc"))
     vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts("go to definition"))
-    vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts("go to declaration"))
+    vim.keymap.set("n", "gD", vim.lsp.buf.type_definition, opts("go to type definition"))
     vim.keymap.set("n", "gr", "<cmd>FzfLua lsp_references<cr>", opts("go to references"))
     vim.keymap.set("n", "<leader>lr", ":IncRename ", opts("Rename"))
 
