@@ -244,6 +244,11 @@ return {
   },
 
   {
+    "Bekaboo/dropbar.nvim",
+    opts = {},
+  },
+
+  {
     "akinsho/git-conflict.nvim",
     opts = {},
     keys = {
