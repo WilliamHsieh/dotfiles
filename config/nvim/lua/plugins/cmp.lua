@@ -102,6 +102,7 @@ function M.config()
       end,
     },
     sources = {
+      { name = "lazydev",  group_index = 0, },
       { name = "copilot", },
       { name = "nvim_lsp", },
       { name = "nvim_lua", },

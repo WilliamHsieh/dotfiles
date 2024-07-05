@@ -4,18 +4,12 @@ local M = {
   dependencies = {
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
-    "folke/neodev.nvim",
     "ray-x/lsp_signature.nvim",
     "smjonas/inc-rename.nvim",
   },
 }
 
 function M.config()
-  require("neodev").setup {
-    library = {
-      plugins = false,
-    }
-  }
   require("mason").setup {
     PATH = "append",
     ui = {
