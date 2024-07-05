@@ -211,9 +211,6 @@ map("v", "<leader>s", "<esc><cmd>'<,'>SnipRun<cr>", "Run range")
 map("v", "<leader>y", function() yank() end, "copy to clipboard")
 --}}}
 
--- others{{{
-map("i", "kj", "<esc>")
-
 -- quickfix
 map("n", "]q", "<cmd>cnext<cr>", "quickfix next")
 map("n", "[q", "<cmd>cprev<cr>", "quickfix prev")
