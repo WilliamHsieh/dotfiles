@@ -7,6 +7,7 @@ in
 {
   programs.tmux = {
     enable = true;
+    package = pkgs.unstable.tmux;
     sensibleOnTop = false;
     terminal = "xterm-256color";
     shell = "${pkgs.zsh}/bin/zsh";

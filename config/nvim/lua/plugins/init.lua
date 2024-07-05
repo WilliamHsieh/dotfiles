@@ -144,7 +144,11 @@ return {
   {
     "declancm/cinnamon.nvim",
     event = "VeryLazy",
-    config = true,
+    opts = {
+      keymaps = {
+        basic = true,
+      },
+    },
   },
 
   {
@@ -193,6 +197,7 @@ return {
 
   {
     "max397574/better-escape.nvim",
+    version = "v1.0.0",
     event = "InsertEnter",
     opts = {
       mapping = { "kj" },
@@ -236,6 +241,11 @@ return {
         G = { cmd = "g", hl_range = { 1, -1, kind = "visible" } },
       },
     },
+  },
+
+  {
+    "Bekaboo/dropbar.nvim",
+    opts = {},
   },
 
   {
