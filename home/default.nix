@@ -122,7 +122,7 @@ in
       COLORTERM = "truecolor";
       LANG = "en_US.UTF-8";
       LC_CTYPE = "en_US.UTF-8";
-      EDITOR = "${pkgs.neovim}/bin/nvim";
+      EDITOR = "${pkgs.unstable.neovim}/bin/nvim";
       VISUAL = EDITOR;
       MANPAGER = "nvim +Man!";
       LESSUTFCHARDEF = "E000-F8FF:p,F0000-FFFFD:p,100000-10FFFD:p"; # HACK: https://github.com/sharkdp/bat/issues/2578
