@@ -144,7 +144,11 @@ return {
   {
     "declancm/cinnamon.nvim",
     event = "VeryLazy",
-    config = true,
+    opts = {
+      keymaps = {
+        basic = true,
+      },
+    },
   },
 
   {
