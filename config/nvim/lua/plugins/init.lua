@@ -79,11 +79,6 @@ return {
   },
 
   {
-    "preservim/tagbar",
-    cmd = "TagbarToggle",
-  },
-
-  {
     "smjonas/inc-rename.nvim",
     lazy = true,
     config = true,
@@ -245,7 +240,13 @@ return {
 
   {
     "Bekaboo/dropbar.nvim",
-    opts = {},
+    opts = {
+      bar = {
+        pick = {
+          pivots = "asdfghjkl;qwertyuiopzxcvbnm",
+        },
+      },
+    },
   },
 
   {
