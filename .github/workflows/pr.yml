@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    if: github.event.pull_request.draft == false && startswith(github.ref, 'update_flake_lock_action')
+    if: github.head_ref == 'update_flake_lock_action'
     name: "Build ${{ matrix.target }}"
     runs-on: ${{ matrix.os }}
     strategy:
