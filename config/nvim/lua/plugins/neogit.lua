@@ -2,8 +2,6 @@ local M = {
   "TimUntersberger/neogit",
   cmd = "Neogit",
   dependencies = {
-    "nvim-lua/plenary.nvim",
-    "rhysd/conflict-marker.vim",
     {
       "sindrets/diffview.nvim",
       cmd = { "DiffviewFileHistory", "DiffviewOpen" },
