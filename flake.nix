@@ -15,9 +15,6 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    flake-parts.url = "github:hercules-ci/flake-parts";
-    flake-utils.url = "github:numtide/flake-utils";
-    nur.url = "github:nix-community/nur";
 
     catppuccin = {
       url = "github:catppuccin/nix";
@@ -28,13 +25,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    darwin = {
-      url = "github:lnl7/nix-darwin/master";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    pre-commit-hooks = {
-      url = "github:cachix/pre-commit-hooks.nix";
+    git-hooks = {
+      url = "github:cachix/git-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -47,6 +39,7 @@
       url = "github:nix-community/neovim-nightly-overlay";
       # HACK: https://github.com/nix-community/neovim-nightly-overlay/issues/533
       inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.git-hooks.follows = "git-hooks";
       inputs.neovim-src = {
         url = "github:neovim/neovim/release-0.10";
         flake = false;
@@ -126,7 +119,7 @@
         in
         nixtop // hometop;
 
-      checks.${system}.pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
+      checks.${system}.pre-commit-check = inputs.git-hooks.lib.${system}.run {
         src = pkgs.lib.cleanSource ./.;
 
         hooks = {
