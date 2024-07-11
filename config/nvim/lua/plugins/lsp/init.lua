@@ -43,6 +43,12 @@ function M.config()
     vim.keymap.set("n", "gr", "<cmd>FzfLua lsp_references<cr>", opts("go to references"))
     vim.keymap.set("n", "<leader>lr", ":IncRename ", opts("Rename"))
 
+    vim.keymap.set("n", "<leader>lh", function()
+      local enabled = vim.lsp.inlay_hint.is_enabled()
+      vim.lsp.inlay_hint.enable(not enabled)
+      vim.notify("LSP inlay hint: " .. (not enabled and "on" or "off"))
+    end, opts("toggle inlay hists"))
+
     local augroup = vim.api.nvim_create_augroup("LspFormatting", { clear = false })
     if client.supports_method("textDocument/formatting") then
       vim.api.nvim_clear_autocmds { group = augroup, buffer = bufnr }
