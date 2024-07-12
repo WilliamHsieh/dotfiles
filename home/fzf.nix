@@ -16,7 +16,9 @@ in
 
   programs.fzf = {
     enable = true;
-    package = pkgs.fzf;
+    colors = {
+      "gutter" = "#24273a";
+    };
     defaultOptions = [
       "--layout=reverse"
       "--cycle"
