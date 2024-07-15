@@ -97,6 +97,9 @@ function M.config()
   vim.keymap.set("n", "[c", function()
     require("treesitter-context").go_to_context(vim.v.count1)
   end, { silent = true })
+
+  -- HACK: this semantic token is overriding the custom sql injection highlight
+  vim.api.nvim_set_hl(0, "@lsp.type.string.rust", {})
 end
 
 return M
