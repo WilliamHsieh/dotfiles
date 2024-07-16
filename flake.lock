@@ -184,7 +184,9 @@
           "git-hooks"
         ],
         "hercules-ci-effects": "hercules-ci-effects",
-        "neovim-src": "neovim-src",
+        "neovim-src": [
+          "neovim-src"
+        ],
         "nixpkgs": [
           "nixpkgs-unstable"
         ]
@@ -215,6 +217,7 @@
       },
       "original": {
         "owner": "neovim",
+        "ref": "release-0.10",
         "repo": "neovim",
         "type": "github"
       }
@@ -293,6 +296,7 @@
         "git-hooks": "git-hooks",
         "home-manager": "home-manager",
         "neovim-overlay": "neovim-overlay",
+        "neovim-src": "neovim-src",
         "nix-index-database": "nix-index-database",
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable"

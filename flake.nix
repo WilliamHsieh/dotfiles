@@ -35,15 +35,17 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    neovim-src = {
+      url = "github:neovim/neovim/release-0.10";
+      flake = false;
+    };
+
     neovim-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
       # HACK: https://github.com/nix-community/neovim-nightly-overlay/issues/533
       inputs.nixpkgs.follows = "nixpkgs-unstable";
       inputs.git-hooks.follows = "git-hooks";
-      inputs.neovim-src = {
-        url = "github:neovim/neovim/release-0.10";
-        flake = false;
-      };
+      inputs.neovim-src.follows = "neovim-src";
     };
   };
 
