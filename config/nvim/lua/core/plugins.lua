@@ -21,23 +21,11 @@ require("lazy").setup("plugins", {
   ui = {
     border = "rounded",
     icons = {
-      loaded = "●",
-      not_loaded = "○",
-      cmd = "⌘",
-      config = "",
-      event = "",
-      ft = "",
-      init = "",
-      import = "",
-      keys = "",
-      plugin = "",
-      runtime = "",
-      source = "",
-      start = "",
-      task = "",
-      lazy = "鈴 ",
       list = { "", "", "", "" },
     },
+  },
+  diff = {
+    cmd = "terminal_git",
   },
   change_detection = {
     notify = false,
