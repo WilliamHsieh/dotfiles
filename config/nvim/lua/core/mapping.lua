@@ -82,7 +82,7 @@ local function compile_and_run()
     run = "python %"
   elseif ft == "cpp" then
     if need_compile("./a.out") then
-      compile = "g++ --std=c++20 -O2 -g3 -Wall -Wextra -Wshadow -fsanitize=address,leak,undefined -DLOCAL %"
+      compile = "g++ --std=c++23 -O2 -g3 -Wall -Wextra -Wshadow -fsanitize=address,leak,undefined -DLOCAL %"
     end
     run = "./a.out" .. (vim.loop.fs_stat("./in") and " < in" or "")
   elseif ft == "lua" then
