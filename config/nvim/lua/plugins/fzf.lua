@@ -33,7 +33,13 @@ M.opts = {
   },
   grep = {
     rg_glob = true,
-  }
+    winopts = {
+      preview = {
+        layout = "vertical",
+        vertical = "up:60%",
+      },
+    },
+  },
 }
 
 return M
