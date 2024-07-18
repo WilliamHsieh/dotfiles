@@ -27,10 +27,14 @@ return {
         local filetype = vim.bo[bufid].filetype
         local floating = vim.api.nvim_win_get_config(winid).relative ~= ""
 
-        -- Do not tint `terminal` or floating windows, tint everything else
-        return buftype == "terminal" or floating or filetype == "NvimTree"
-      end
-    }
+        -- tint everything else
+        local buftype_blacklist = { "terminal" }
+        local filetype_blacklist = { "NvimTree", "undotree", "trouble" }
+        return floating
+            or vim.tbl_contains(buftype_blacklist, buftype)
+            or vim.tbl_contains(filetype_blacklist, filetype)
+      end,
+    },
   },
 
   {
@@ -43,30 +47,30 @@ return {
       },
     },
     config = function(_, opts)
-      local ignore_filetypes = { 'NvimTree', 'qf' }
-      local ignore_buftypes = { 'nofile', 'prompt', 'popup' }
+      vim.o.equalalways = false
 
-      local augroup = vim.api.nvim_create_augroup('FocusDisable', { clear = true })
+      -- https://github.com/nvim-focus/focus.nvim?tab=readme-ov-file#disabling-focus
+      local ignore_filetypes = { "NvimTree", "qf", "toggleterm", "trouble" }
+      local ignore_buftypes = { "nofile", "prompt", "popup" }
+      local augroup = vim.api.nvim_create_augroup("FocusDisable", { clear = true })
 
-      vim.api.nvim_create_autocmd("BufEnter", {
+      vim.api.nvim_create_autocmd("WinEnter", {
         group = augroup,
         callback = function(_)
-          ---@diagnostic disable-next-line: inject-field
           vim.w.focus_disable = vim.tbl_contains(ignore_buftypes, vim.bo.buftype)
         end,
-        desc = 'Disable focus autoresize for BufType',
+        desc = "Disable focus autoresize for BufType",
       })
 
-      vim.api.nvim_create_autocmd('FileType', {
+      vim.api.nvim_create_autocmd("FileType", {
         group = augroup,
         callback = function(_)
-          ---@diagnostic disable-next-line: inject-field
           vim.b.focus_disable = vim.tbl_contains(ignore_filetypes, vim.bo.filetype)
         end,
-        desc = 'Disable focus autoresize for FileType',
+        desc = "Disable focus autoresize for FileType",
       })
 
       require("focus").setup(opts)
     end,
-  }
+  },
 }
