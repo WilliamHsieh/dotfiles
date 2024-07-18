@@ -7,7 +7,6 @@ local M = {
     "hrsh7th/cmp-emoji",
     "hrsh7th/cmp-path",
     "hrsh7th/cmp-nvim-lsp",
-    "hrsh7th/cmp-nvim-lua",
     "saadparwaiz1/cmp_luasnip",
     "L3MON4D3/LuaSnip",
     "rafamadriz/friendly-snippets",
@@ -31,9 +30,7 @@ function M.config()
     return s:gsub('•', '')
   end
 
-  local cmp = require("cmp");
-  local luasnip = require("luasnip");
-
+  local luasnip = require("luasnip")
   local s = luasnip.snippet
   local t = luasnip.text_node
   local i = luasnip.insert_node
@@ -49,19 +46,22 @@ function M.config()
     })
   end)
 
+  local cmp = require("cmp")
+  local cmp_select_opts = { behavior = cmp.SelectBehavior.Select }
+
   local mappings = {
-    ['<C-k>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'i', 'c' }),
-    ['<C-j>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 'c' }),
-    ["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { 'i', 'c' }),
-    ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { 'i', 'c' }),
+    ["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item(cmp_select_opts), { "i", "c" }),
+    ["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item(cmp_select_opts), { "i", "c" }),
+    ["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
+    ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
     ["<C-c>"] = cmp.mapping {
       i = cmp.mapping.abort(),
       c = cmp.mapping.close(),
     },
-    ["<CR>"] = cmp.mapping.confirm { select = false },
+    ["<CR>"] = cmp.mapping(cmp.mapping.confirm { select = false }, { "i", "c" }),
     ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
-        cmp.select_next_item()
+        cmp.select_next_item(cmp_select_opts)
       elseif luasnip.expand_or_locally_jumpable() then
         luasnip.expand_or_jump()
       elseif has_words_before() then
@@ -72,7 +72,7 @@ function M.config()
     end, { 'i', 'c', 's', }),
     ["<S-Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
-        cmp.select_prev_item()
+        cmp.select_prev_item(cmp_select_opts)
       elseif luasnip.locally_jumpable(-1) then
         luasnip.jump(-1)
       else
@@ -102,14 +102,13 @@ function M.config()
       end,
     },
     sources = {
-      { name = "lazydev",  group_index = 0, },
-      { name = "copilot", },
-      { name = "nvim_lsp", },
-      { name = "nvim_lua", },
-      { name = "path", },
-      { name = "buffer", },
-      { name = "luasnip", },
-      { name = "emoji", },
+      { name = "lazydev", group_index = 0 },
+      { name = "buffer",  group_index = 1 },
+      { name = "copilot" },
+      { name = "nvim_lsp" },
+      { name = "path" },
+      { name = "luasnip" },
+      { name = "emoji" },
     },
     confirm_opts = {
       behavior = cmp.ConfirmBehavior.Replace,
