@@ -49,26 +49,7 @@ function M.config()
       vim.notify("LSP inlay hint: " .. (not enabled and "on" or "off"))
     end, opts("toggle inlay hists"))
 
-    local augroup = vim.api.nvim_create_augroup("LspFormatting", { clear = false })
-    if client.supports_method("textDocument/formatting") then
-      vim.api.nvim_clear_autocmds { group = augroup, buffer = bufnr }
-      vim.api.nvim_create_autocmd("BufWritePre", {
-        group = augroup,
-        buffer = bufnr,
-        callback = function()
-          if vim.g.lsp_formatting then
-            vim.lsp.buf.format()
-          end
-        end,
-      })
-      vim.keymap.set("n", "<leader>lf", function()
-        vim.g.lsp_formatting = not vim.g.lsp_formatting
-        vim.notify("LSP auto formatting: " .. (vim.g.lsp_formatting and "on" or "off"))
-        if vim.g.lsp_formatting then
-          vim.lsp.buf.format { async = true }
-        end
-      end, opts("Format"))
-    end
+    require("core.utils").setup_formatting(client, bufnr)
   end
 
   local capabilities = require('cmp_nvim_lsp').default_capabilities()
