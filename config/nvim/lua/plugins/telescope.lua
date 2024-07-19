@@ -87,8 +87,7 @@ function M.config()
     },
   }
 
-  telescope.load_extension "fzf"
-  telescope.load_extension "projects"
+  telescope.load_extension("fzf")
 end
 
 return M

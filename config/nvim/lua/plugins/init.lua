@@ -117,9 +117,11 @@ return {
     event = "LazyFile",
     config = function()
       require("project_nvim").setup {
-        detection_methods = { "pattern" }, -- otherwise cwd is overwriten by lsp
-        patterns = { ".git", "_darcs", ".hg", ".bzr", ".svn", "Makefile", "package.json", "CMakeLists.txt" },
+        -- manual_mode = true,
       }
+      require("core.utils").on_load("telescope.nvim", function()
+        require("telescope").load_extension("projects")
+      end)
     end,
   },
 
