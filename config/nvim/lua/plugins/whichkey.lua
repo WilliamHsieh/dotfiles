@@ -3,53 +3,25 @@ local M = {
   event = "VeryLazy",
 }
 
-function M.config()
-  local which_key = require("which-key")
-
-  which_key.setup {
-    plugins = {
-      spelling = {
-        enabled = true,
-      },
+M.opts = {
+  preset = "modern",
+  show_help = false,
+  spec = {
+    { "]", group = "Navigate next" },
+    { "[", group = "Navigate previous" },
+    { "<leader>", group = "Leader" },
+    { "<leader>c", group = "Compile" },
+    { "<leader>b", group = "Buffer" },
+    { "<leader>p", group = "Plugin" },
+    { "<leader>f", group = "Find" },
+    { "<leader>l", group = "LSP" },
+    { "<leader>t", group = "Terminal" },
+    { "<leader>h", group = "Hop" },
+    {
+      mode = { "n", "v" },
+      { "<leader>g", group = "Git" },
     },
-    layout = {
-      align = "center",
-    },
-    show_help = false,
-  }
-
-  local opts = {
-    mode = "n", -- NORMAL mode
-    prefix = "<leader>",
-    buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
-    silent = true, -- use `silent` when creating keymaps
-    noremap = true, -- use `noremap` when creating keymaps
-    nowait = true, -- use `nowait` when creating keymaps
-  }
-
-  local mappings = {
-    c = { name = "Compile" },
-    b = { name = "Buffer" },
-    p = { name = "Plugin" },
-    f = { name = "Find" },
-    g = { name = "Git" },
-    l = { name = "LSP" },
-    s = { name = "SnipRun" },
-    t = { name = "Terminal" },
-    h = { name = "Hop" },
-  }
-
-  local vopts = {
-    mode = 'v',
-    prefix = '<leader>',
-  }
-
-  local vmappings = {
-    g = { name = "Git" },
-  }
-
-  which_key.register(mappings, opts)
-  which_key.register(vmappings, vopts)
-end
+  },
+}
 
 return M

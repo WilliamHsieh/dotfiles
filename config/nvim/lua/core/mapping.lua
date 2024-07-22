@@ -167,16 +167,6 @@ map("n", "<leader>lS", "<cmd>FzfLua lsp_workspace_symbols<cr>", "Workspace Symbo
 map("n", "<leader>lw", "<cmd>FzfLua lsp_workspace_diagnostics<cr>", "Workspace Diagnostics")
 map("n", "<leader>ln", "<cmd>Lspsaga finder<cr>", "Lsp finder (definition, reference)")
 
--- <leader>s: sniprun{{{
-map("n", "<leader>sc", "<cmd>SnipClose<cr>", "Close")
-map("n", "<leader>sf", "<cmd>%SnipRun<cr>", "Run File")
-map("n", "<leader>si", "<cmd>SnipInfo<cr>", "Info")
-map("n", "<leader>sm", "<cmd>SnipReplMemoryClean<cr>", "Mem Clean")
-map("n", "<leader>sr", "<cmd>SnipReset<cr>", "Reset")
-map("n", "<leader>st", "<cmd>SnipRunToggle<cr>", "Toggle")
-map("n", "<leader>sx", "<cmd>SnipTerminate<cr>", "Terminate")
---}}}
-
 -- <leader>t: terminal{{{
 map("t", "<esc>", [[<C-\><C-n>]])
 map("n", [[<c-\>]], "<cmd>ToggleTerm<cr>", "Toggleterm")
@@ -199,7 +189,6 @@ map("n", "<leader>tp", function() terminal('python3') end, "Python")
 
 -- <leader>: visual mode{{{
 map("v", "<leader>/", '<esc><cmd>lua require("Comment.api").toggle.linewise(vim.fn.visualmode())<cr>', "Comment")
-map("v", "<leader>s", "<esc><cmd>'<,'>SnipRun<cr>", "Run range")
 map("v", "<leader>y", function() yank() end, "copy to clipboard")
 --}}}
 
