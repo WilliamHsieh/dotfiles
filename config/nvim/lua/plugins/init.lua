@@ -4,22 +4,6 @@ return {
   "nvim-tree/nvim-web-devicons",
   "echasnovski/mini.icons",
 
-  ---------- LazyLoader ----------
-  {
-    "WilliamHsieh/placeholder.nvim",
-    name = "lazyloader",
-    event = "LazyFile",
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-      "neovim/nvim-lspconfig",
-      "lewis6991/gitsigns.nvim",
-      "Shatur/neovim-session-manager",
-      "akinsho/bufferline.nvim",
-      "kevinhwang91/nvim-ufo",
-      "RRethy/vim-illuminate",
-    },
-  },
-
   ---------- Treesitter ----------
   {
     "folke/todo-comments.nvim",
@@ -175,7 +159,7 @@ return {
   {
     "kevinhwang91/nvim-ufo",
     dependencies = "kevinhwang91/promise-async",
-    lazy = true,
+    event = "LazyFile",
     init = function()
       vim.opt.fillchars:append { fold = " ", foldopen = "", foldsep = " ", foldclose = "" }
       vim.o.foldcolumn = "1"

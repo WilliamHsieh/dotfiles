@@ -1,6 +1,6 @@
 local M = {
   "RRethy/vim-illuminate",
-  lazy = true,
+  event = "LazyFile",
 }
 
 function M.config()

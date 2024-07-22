@@ -1,6 +1,6 @@
 local M = {
   "akinsho/bufferline.nvim",
-  lazy = true,
+  event = "LazyFile",
   dependencies = {
     { "tiagovla/scope.nvim", config = true },
   }

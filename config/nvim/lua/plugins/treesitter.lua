@@ -3,6 +3,7 @@ local M = {
   build = ":TSUpdate",
   lazy = true,
   cmd = "TSUpdate",
+  event = "LazyFile",
   dependencies = {
     "andymass/vim-matchup",
     "windwp/nvim-ts-autotag",
