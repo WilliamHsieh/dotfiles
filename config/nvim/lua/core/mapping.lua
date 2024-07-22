@@ -41,7 +41,6 @@ end
 map("n", "<leader>e", "<cmd>NvimTreeToggle<cr>", "Explorer")
 map("n", "<leader>w", "<cmd>up<cr>", "Save")
 map("n", "<leader>q", "<cmd>q<cr>", "Quit")
-map("n", "<leader>/", function() require("Comment.api").toggle.linewise.current() end, "Comment")
 map("n", "<leader>y", function() yank() end, "copy to clipboard")
 map("n", "<leader><space>", ":e #<cr>", "swap buffer")
 --}}}
@@ -188,7 +187,6 @@ map("n", "<leader>tp", function() terminal('python3') end, "Python")
 --}}}
 
 -- <leader>: visual mode{{{
-map("v", "<leader>/", '<esc><cmd>lua require("Comment.api").toggle.linewise(vim.fn.visualmode())<cr>', "Comment")
 map("v", "<leader>y", function() yank() end, "copy to clipboard")
 --}}}
 

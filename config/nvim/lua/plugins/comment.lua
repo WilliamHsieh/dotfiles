@@ -1,27 +1,39 @@
-local M = {
-  "numToStr/Comment.nvim",
+local ts_context_commentstring = {
+  "JoosepAlviste/nvim-ts-context-commentstring",
   lazy = true,
+  opts = {
+    enable_autocmd = false,
+  },
 }
 
-function M.config()
-  require("Comment").setup {
-    mappings = false,
-    pre_hook = function(ctx)
-      local U = require "Comment.utils"
+local comment = {
+  "numToStr/Comment.nvim",
 
-      local location = nil
-      if ctx.ctype == U.ctype.blockwise then
-        location = require("ts_context_commentstring.utils").get_cursor_location()
-      elseif ctx.cmotion == U.cmotion.v or ctx.cmotion == U.cmotion.V then
-        location = require("ts_context_commentstring.utils").get_visual_start_location()
-      end
+  opts = function()
+    return {
+      mappings = false,
+      pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
+    }
+  end,
 
-      return require("ts_context_commentstring.internal").calculate_commentstring {
-        key = ctx.ctype == U.ctype.linewise and '__default' or '__multiline',
-        location = location,
-      }
-    end,
-  }
-end
+  keys = {
+    {
+      "<leader>/",
+      function()
+        require("Comment.api").toggle.linewise.current()
+      end,
+      desc = "Comment",
+    },
+    {
+      "<leader>/",
+      '<esc><cmd>lua require("Comment.api").toggle.linewise(vim.fn.visualmode())<cr>',
+      mode = "v",
+      desc = "Comment",
+    },
+  },
+}
 
-return M
+return {
+  ts_context_commentstring,
+  comment,
+}

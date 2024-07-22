@@ -48,11 +48,6 @@ return {
   },
 
   {
-    "JoosepAlviste/nvim-ts-context-commentstring",
-    lazy = true,
-  },
-
-  {
     "simrat39/symbols-outline.nvim",
     cmd = "SymbolsOutline",
     config = true,
