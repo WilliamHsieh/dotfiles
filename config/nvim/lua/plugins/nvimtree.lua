@@ -22,12 +22,12 @@ end
 
 M.opts = {
   sync_root_with_cwd = true,
-  diagnostics = {
-    enable = true,
-  },
+  respect_buf_cwd = true,
   update_focused_file = {
     enable = true,
-    update_root = true,
+    update_root = {
+      enable = true,
+    },
   },
   renderer = {
     group_empty = true,
