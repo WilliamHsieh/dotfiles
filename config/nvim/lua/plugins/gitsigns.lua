@@ -1,6 +1,7 @@
 local M = {
   "lewis6991/gitsigns.nvim",
   cmd = "GitSigns",
+  event = "LazyFile",
 }
 
 M.opts = {
