@@ -1,9 +1,11 @@
+---@module "ibl"
 local M = {
   "lukas-reineke/indent-blankline.nvim",
   main = "ibl",
   event = "LazyFile",
 }
 
+---@type ibl.config?
 M.opts = {
   indent = {
     char = "▏",
@@ -14,6 +16,10 @@ M.opts = {
       "NvimTree",
       "trouble",
     },
+  },
+  scope = {
+    show_start = false,
+    show_end = false,
   },
 }
 
