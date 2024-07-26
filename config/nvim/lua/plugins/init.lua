@@ -98,6 +98,7 @@ return {
     config = function()
       require("project_nvim").setup {
         -- manual_mode = true,
+        ignore_lsp = { "null-ls", "copilot" },
       }
       require("core.utils").on_load("telescope.nvim", function()
         require("telescope").load_extension("projects")
