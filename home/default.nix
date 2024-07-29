@@ -152,8 +152,8 @@ in
   };
 
   home.activation = {
-    update-neovim-plugins = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      PATH="${config.home.path}/bin:$PATH" run nvim --headless "+Lazy! restore | qa"
+    updateNeovimPlugins = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      PATH="${config.home.path}/bin:$PATH" run --quiet nvim --headless "+Lazy! restore | qa"
     '';
   };
 
