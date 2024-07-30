@@ -1,3 +1,4 @@
+---@module "CopilotChat"
 local M = {
   "CopilotC-Nvim/CopilotChat.nvim",
   cmd = "CopilotChat",
@@ -6,9 +7,8 @@ local M = {
   end,
 }
 
+---@type CopilotChat.config
 M.opts = {
-  -- NOTE: https://github.com/CopilotC-Nvim/CopilotChat.nvim/issues/366
-  model = "gpt-4-0125-preview",
   prompts = {
     Explain = {
       prompt =
