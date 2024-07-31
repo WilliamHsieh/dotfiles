@@ -1,8 +1,9 @@
-# NOTE: clang-format(16) -style=google -dump-config | bat
+# NOTE: clang-format(18) -style=google -dump-config | bat
 
 BasedOnStyle: Google
 Standard: c++20
 
+# indent
 UseTab: ForIndentation
 TabWidth: 2
 IndentWidth: 2
@@ -11,8 +12,24 @@ AccessModifierOffset: -2
 ContinuationIndentWidth: 2
 ConstructorInitializerIndentWidth: 2
 
-AllowShortFunctionsOnASingleLine: None
+# constructor
+BreakConstructorInitializersBeforeComma: true
+PackConstructorInitializers: CurrentLine
 
+# wrapping
+AllowShortFunctionsOnASingleLine: Empty
+AllowShortBlocksOnASingleLine: Empty
+
+# reference / pointer alignment
 DerivePointerAlignment: false
 PointerAlignment: Left
 ReferenceAlignment: Pointer
+
+# brace
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterFunction: true
+
+# misc
+InsertBraces: true
+IncludeBlocks: Preserve
