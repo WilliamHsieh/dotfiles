@@ -240,18 +240,6 @@ return {
     },
   },
 
-  -- https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim
-  {
-    "nvimtools/none-ls.nvim",
-    event = "LazyFile",
-    opts = {
-      border = "rounded",
-      on_attach = function(client, bufnr)
-        require("core.utils").setup_formatting(client, bufnr)
-      end,
-    },
-  },
-
   {
     "seandewar/killersheep.nvim",
     cmd = "KillKillKill",

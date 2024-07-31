@@ -3,36 +3,16 @@ local M = {
   cmd = { "Mason", "LspInfo" },
   event = "LazyFile",
   dependencies = {
-    "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
     "ray-x/lsp_signature.nvim",
     "smjonas/inc-rename.nvim",
+
+    require("plugins.lsp.mason"),
+    require("plugins.lsp.null-ls"),
   },
 }
 
 function M.config()
-  require("mason").setup {
-    PATH = "append",
-    ui = {
-      border = "rounded",
-      height = 0.8,
-    }
-  }
-
-  -- trigger FileType event to possibly load this newly installed LSP server
-  require("mason-registry"):on("package:install:success", function()
-    vim.defer_fn(function()
-      require("lazy.core.handler.event").trigger({
-        event = "FileType",
-        buf = vim.api.nvim_get_current_buf(),
-      })
-    end, 100)
-  end)
-
-  require("mason-lspconfig").setup {
-    ensure_installed = { "nil_ls", "lua_ls", "clangd", "pyright", "ruff_lsp", "tsserver" },
-  }
-
   local on_attach = function(client, bufnr)
     local function opts(desc)
       return { buffer = bufnr, desc = desc }
