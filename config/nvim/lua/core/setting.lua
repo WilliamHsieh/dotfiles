@@ -63,18 +63,22 @@ for k, v in pairs(globals) do
   vim.g[k] = v
 end
 
-if require("core.utils").is_tmux_active() then
+require("core.utils").on_tmux_active(function()
+  local load_buffer = { "tmux", "load-buffer", "-" }
+  local save_buffer = { "tmux", "save-buffer", "-" }
+
   vim.g.clipboard = {
-    name = 'tmux_buffer',
+    name = "tmux_buffer",
     copy = {
-      ['+'] = {'tmux', 'load-buffer', '-'},
-      ['*'] = {'tmux', 'load-buffer', '-'},
+      ["+"] = load_buffer,
+      ["*"] = load_buffer,
     },
     paste = {
-      ['+'] = {'tmux', 'save-buffer', '-'},
-      ['*'] = {'tmux', 'save-buffer', '-'},
+      ["+"] = save_buffer,
+      ["*"] = save_buffer,
     },
     cache_enabled = 1,
   }
+
   vim.o.clipboard = "unnamedplus"
-end
+end)

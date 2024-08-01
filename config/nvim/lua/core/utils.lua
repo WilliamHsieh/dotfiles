@@ -28,6 +28,26 @@ function M.is_tmux_active()
   return tmux_is_active
 end
 
+---@param callback function
+function M.on_tmux_active(callback)
+  tmux_is_active = tmux_is_active == nil and vim.env.TMUX == nil and false or nil
+  if tmux_is_active == nil then
+    if vim.env.TMUX == nil then
+      tmux_is_active = false
+      return
+    end
+
+    vim.system({ "tmux", "show-options", "-Av", "status" }, { text = true, detach = true }, function(obj)
+      tmux_is_active = obj.stdout:find("^on") ~= nil or false
+      if tmux_is_active then
+        vim.schedule(callback)
+      end
+    end)
+  elseif tmux_is_active then
+    callback()
+  end
+end
+
 ---function callback on plugin load
 ---https://github.com/LazyVim/LazyVim/blob/68ff818a5bb7549f90b05e412b76fe448f605ffb/lua/lazyvim/util/init.lua#L129
 ---@param name string
