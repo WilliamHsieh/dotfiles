@@ -17,7 +17,6 @@ end
 
 vim.api.nvim_create_autocmd("User", {
   pattern = "VimtexEventViewReverse",
-  group = "config_group",
   callback = function()
     vim.api.nvim_create_autocmd("FocusGained", {
       pattern = "*",

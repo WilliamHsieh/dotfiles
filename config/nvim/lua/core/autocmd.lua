@@ -1,40 +1,39 @@
-local autocmd = vim.api.nvim_create_autocmd
-vim.api.nvim_create_augroup("config_group", { clear = true })
+local function augroup(name)
+  return vim.api.nvim_create_augroup("dotfiles_" .. name, { clear = true })
+end
 
-autocmd("FileType", {
+vim.api.nvim_create_autocmd("FileType", {
   desc = "filetype settings",
   pattern = { "qf", "help", "man", "LspsagaHover" },
-  group = "config_group",
+  group = augroup("close_buffer"),
   callback = function(event)
     vim.bo[event.buf].buflisted = false
-    vim.keymap.set('n', 'q', '<cmd>close<cr>', { desc = "close buffer", buffer = event.buf })
-  end
+    vim.keymap.set("n", "q", "<cmd>close<cr>", { desc = "close buffer", buffer = event.buf })
+  end,
 })
 
-autocmd("TextYankPost", {
+vim.api.nvim_create_autocmd("TextYankPost", {
   desc = "blink highlight text",
-  pattern = "*",
-  group = "config_group",
+  group = augroup("highlight_yank"),
   callback = function()
     vim.highlight.on_yank {
-      higroup = 'IncSearch',
+      higroup = "IncSearch",
       timeout = 200,
     }
-  end
+  end,
 })
 
-autocmd("VimResized", {
+vim.api.nvim_create_autocmd("VimResized", {
   desc = "auto resize",
-  pattern = "*",
-  group = "config_group",
+  group = augroup("auto_resize"),
   callback = function()
-    require('focus').focus_autoresize()
-  end
+    require("focus").focus_autoresize()
+  end,
 })
 
-autocmd("BufReadPost", {
+vim.api.nvim_create_autocmd("BufReadPost", {
   desc = "goto previous position",
-  group = "config_group",
+  group = augroup("previous_position"),
   callback = function()
     local mark = vim.api.nvim_buf_get_mark(0, '"')
     local lcount = vim.api.nvim_buf_line_count(0)
@@ -45,26 +44,26 @@ autocmd("BufReadPost", {
 })
 
 vim.api.nvim_create_autocmd("InsertEnter", {
-  group = "config_group",
+  group = augroup("extra_whitespace_insert"),
   callback = function()
     vim.cmd.match("ExtraWhitespace", [[/\s\+\%#\@<!$/]])
     vim.o.cursorline = false
-  end
+  end,
 })
 
 vim.api.nvim_create_autocmd("InsertLeave", {
-  group = "config_group",
+  group = augroup("extra_whitespace_normal"),
   callback = function()
     if vim.o.filetype ~= "toggleterm" then
       vim.cmd.match("ExtraWhitespace", [[/\s\+$\| \+\ze\t/]])
       vim.o.cursorline = true
     end
-  end
+  end,
 })
 
 -- Auto create dir when saving a file, in case some intermediate directory does not exist
-vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-  group = "config_group",
+vim.api.nvim_create_autocmd("BufWritePre", {
+  group = augroup("create_parent_dir"),
   callback = function(event)
     if event.match:match("^%w%w+://") then
       return
@@ -76,10 +75,7 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
     ---@diagnostic disable-next-line: param-type-mismatch
     if not vim.loop.fs_stat(dir) then
       local ok = vim.fn.mkdir(dir, "p")
-      vim.notify(
-        ("Missing directory [%s]%s"):format(dir, ok and " created." or ""),
-        ok and "warn" or "error"
-      )
+      vim.notify(("Missing directory [%s]%s"):format(dir, ok and " created." or ""), ok and "warn" or "error")
     end
   end,
 })
