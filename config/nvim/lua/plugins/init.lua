@@ -1,8 +1,21 @@
 return {
-  "nvim-lua/popup.nvim",
-  "nvim-lua/plenary.nvim",
-  "nvim-tree/nvim-web-devicons",
-  "echasnovski/mini.icons",
+  ---------- lib ----------
+  {
+    "nvim-lua/popup.nvim",
+    lazy = true,
+  },
+  {
+    "nvim-lua/plenary.nvim",
+    lazy = true,
+  },
+  {
+    "echasnovski/mini.icons",
+    lazy = true,
+  },
+  {
+    "nvim-tree/nvim-web-devicons",
+    lazy = true,
+  },
 
   ---------- Treesitter ----------
   {
@@ -248,5 +261,6 @@ return {
 
   {
     "direnv/direnv.vim",
+    event = "VeryLazy",
   },
 }
