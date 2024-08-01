@@ -55,6 +55,8 @@ function M.config()
     end,
   }
 
+  require("plugins.lsp.utils").setup_auto_detach()
+
   -- settings
   local icons = require "core.icons"
   local signs = {

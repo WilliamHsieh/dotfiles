@@ -120,19 +120,6 @@ return {
   },
 
   {
-    "Shatur/neovim-session-manager",
-    cmd = "SessionManager",
-    config = function()
-      require("session_manager").setup {
-        autoload_mode = require("session_manager.config").AutoloadMode.Disabled,
-      }
-    end,
-
-    -- NOTE: ultimately, what i want is open a project with cwd set, and open files from harpoon list
-    -- do this after harpoon2 is release and stable
-  },
-
-  {
     "declancm/cinnamon.nvim",
     event = "VeryLazy",
     opts = {

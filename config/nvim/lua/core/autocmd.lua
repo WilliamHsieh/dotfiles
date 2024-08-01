@@ -44,22 +44,6 @@ autocmd("BufReadPost", {
   end,
 })
 
-vim.api.nvim_create_autocmd({ 'User' }, {
-  pattern = "SessionLoadPost",
-  group = "config_group",
-  callback = vim.schedule_wrap(function()
-    pcall(require("nvim-tree.api").tree.toggle, false, true)
-  end)
-})
-
-vim.api.nvim_create_autocmd('User', {
-  pattern = { 'NeogitStatusRefreshed' },
-  group = "config_group",
-  callback = function()
-    pcall(vim.cmd.NvimTreeRefresh)
-  end
-})
-
 vim.api.nvim_create_autocmd("InsertEnter", {
   group = "config_group",
   callback = function()
@@ -97,36 +81,5 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
         ok and "warn" or "error"
       )
     end
-  end,
-})
-
--- auto detach LSP after timeout
-vim.api.nvim_create_autocmd("LspAttach", {
-  once = true,
-  callback = function(args)
-    local lsp_detach_group = vim.api.nvim_create_augroup("lsp_detach", { clear = true })
-    local timer = vim.loop.new_timer()
-    local timeout = 1000 * 60 * 60 * 24
-
-    vim.api.nvim_create_autocmd("FocusLost", {
-      group = lsp_detach_group,
-      callback = function()
-        timer:start(timeout, 0, vim.schedule_wrap(function()
-          ---@diagnostic disable-next-line: param-type-mismatch
-          pcall(vim.cmd, "LspStop")
-        end))
-      end
-    })
-
-    vim.api.nvim_create_autocmd("FocusGained", {
-      group = lsp_detach_group,
-      callback = function()
-        if not timer:is_active() then
-          ---@diagnostic disable-next-line: param-type-mismatch
-          pcall(vim.cmd, "LspStart")
-        end
-        timer:stop()
-      end
-    })
   end,
 })

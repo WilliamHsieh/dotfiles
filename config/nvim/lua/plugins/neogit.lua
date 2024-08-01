@@ -45,4 +45,16 @@ M.opts = {
   },
 }
 
+M.config = function(_, opts)
+  vim.api.nvim_create_autocmd("User", {
+    pattern = { "NeogitStatusRefreshed" },
+    group = "config_group",
+    callback = function()
+      pcall(vim.cmd.NvimTreeRefresh)
+    end,
+  })
+
+  require("neogit").setup(opts)
+end
+
 return M
