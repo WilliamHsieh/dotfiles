@@ -21,26 +21,26 @@ local M = {
     "nvim-treesitter/nvim-treesitter-textobjects",
     "nvim-treesitter/nvim-treesitter-context",
     "folke/todo-comments.nvim",
-    "norcalli/nvim-colorizer.lua",
+    { "nvchad/nvim-colorizer.lua", config = true },
   },
 }
 
 function M.config()
   vim.g.matchup_matchparen_offscreen = { method = "popup" }
 
+  ---@diagnostic disable-next-line: missing-fields
   require("nvim-treesitter.configs").setup {
     ensure_installed = { "lua", "vim", "markdown", "markdown_inline" },
     auto_install = true,
     highlight = {
       enable = true,
       disable = function(lang, buf)
-        local max_filesize = 100 * 1024 -- 100 KB
         local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-        if lang == "latex" or ok and stats and stats.size > max_filesize then
+        if lang == "latex" or ok and stats and stats.size > vim.g.bigfile_size then
           return true
         end
+        return false
       end,
-      additional_vim_regex_highlighting = false,
     },
     indent = {
       enable = true,

@@ -79,3 +79,26 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     end
   end,
 })
+
+vim.g.bigfile_size = 1024 * 1024 * 1.5 -- 1.5 MB
+vim.filetype.add {
+  pattern = {
+    [".*"] = {
+      function(path, buf)
+        return vim.bo[buf].filetype ~= "bigfile" and path and vim.fn.getfsize(path) > vim.g.bigfile_size and "bigfile"
+            or nil
+      end,
+    },
+  },
+}
+
+vim.api.nvim_create_autocmd("FileType", {
+  group = augroup("bigfile"),
+  pattern = "bigfile",
+  callback = function(event)
+    vim.schedule(function()
+      vim.bo[event.buf].syntax = vim.filetype.match { buf = event.buf } or ""
+      require("core.utils").on_load("noice.nvim", vim.schedule_wrap(require("noice").disable))
+    end)
+  end,
+})
