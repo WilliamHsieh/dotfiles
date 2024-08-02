@@ -224,6 +224,7 @@ return {
 
   {
     "Bekaboo/dropbar.nvim",
+    event = "LazyFile",
     opts = {
       bar = {
         pick = {
