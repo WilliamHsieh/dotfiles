@@ -81,21 +81,17 @@ function M.config()
     float = {
       focusable = true,
       border = "rounded",
-      source = "always",
+      source = "if_many",
     },
   }
 
-  vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
-    vim.lsp.handlers.hover,
-    { border = 'rounded' }
-  )
-
-  vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
-    vim.lsp.handlers.signature_help,
-    { border = 'rounded' }
-  )
-
-  require('lspconfig.ui.windows').default_options.border = 'rounded'
+  -- set rounded border
+  local rounded_border = {
+    border = "rounded",
+  }
+  require("lspconfig.ui.windows").default_options = rounded_border
+  vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, rounded_border)
+  vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, rounded_border)
 end
 
 return M
