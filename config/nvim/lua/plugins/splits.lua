@@ -1,8 +1,13 @@
 return {
   {
     "mrjones2014/smart-splits.nvim",
-    opts = {},
     event = "VeryLazy",
+
+    ---@type SmartSplitsConfig
+    opts = { ---@diagnostic disable-line: missing-fields
+      disable_multiplexer_nav_when_zoomed = false,
+    },
+
     keys = {
       -- stylua: ignore start
       { '<C-Up>',    function() require('smart-splits').resize_up() end,         mode = { "", "!" }, desc = "resize up" },
