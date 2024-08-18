@@ -68,30 +68,27 @@ in
     '';
     # TODO: change to -i?
     completionInit = "autoload -Uz compinit && compinit -u";
-    initExtra = with pkgs; /* bash */''
-      # zsh-defer
-      source ${zsh-defer}/share/zsh-defer/zsh-defer.plugin.zsh
+    initExtra = with pkgs; /* bash */ ''
+      # completion
+      source ${oh-my-zsh}/share/oh-my-zsh/lib/completion.zsh
+      zstyle ":completion:*" list-colors "''${(s.:.)LS_COLORS}"
+      source ${zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh
+
+      # plugins
+      source ${zsh-autosuggestions}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+      source ${zsh-fast-syntax-highlighting}/share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh
+      source ${unstable.zsh-abbr}/share/zsh/zsh-abbr/abbr.plugin.zsh
+      source ${zsh-autopair}/share/zsh/zsh-autopair/autopair.zsh
+      source ${zsh-nix-shell}/share/zsh-nix-shell/nix-shell.plugin.zsh
+      source ${oh-my-zsh}/share/oh-my-zsh/plugins/extract/extract.plugin.zsh
+
+      # vi-mode
+      ZVM_VI_ESCAPE_BINDKEY=kj
+      source ${zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 
       # theme
       source ${zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
       source ~/${config.programs.zsh.dotDir}/.p10k.zsh
-
-      # completion
-      zsh-defer source ${oh-my-zsh}/share/oh-my-zsh/lib/completion.zsh
-      zsh-defer zstyle ":completion:*" list-colors "''${(s.:.)LS_COLORS}"
-      zsh-defer source ${unstable.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh
-
-      # plugins
-      zsh-defer source ${zsh-autosuggestions}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-      zsh-defer source ${zsh-fast-syntax-highlighting}/share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh
-      zsh-defer source ${unstable.zsh-abbr}/share/zsh/zsh-abbr/abbr.plugin.zsh
-      zsh-defer source ${zsh-autopair}/share/zsh/zsh-autopair/autopair.zsh
-      zsh-defer source ${zsh-nix-shell}/share/zsh-nix-shell/nix-shell.plugin.zsh
-      zsh-defer source ${oh-my-zsh}/share/oh-my-zsh/plugins/extract/extract.plugin.zsh
-
-      # vi-mode
-      ZVM_VI_ESCAPE_BINDKEY=kj
-      zsh-defer source ${zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 
       # other settings
       source ${dotfilesDir}/config/zsh/.zshrc
