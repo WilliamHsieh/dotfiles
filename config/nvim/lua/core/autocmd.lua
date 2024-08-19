@@ -4,7 +4,7 @@ end
 
 vim.api.nvim_create_autocmd("FileType", {
   desc = "filetype settings",
-  pattern = { "qf", "help", "man", "LspsagaHover" },
+  pattern = { "qf", "help", "man", "startuptime" },
   group = augroup("close_buffer"),
   callback = function(event)
     vim.bo[event.buf].buflisted = false
