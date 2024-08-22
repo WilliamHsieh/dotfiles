@@ -18,7 +18,7 @@ return {
       ["enter"] = {
         function()
           require("copilot.command").disable()
-          vim.g.lsp_formatting = true
+          vim.g.autoformat = true
           vim.keymap.set("n", "<leader>cc", "<cmd>Leet run<cr>", { desc = "Leetcode run testcase" })
           vim.keymap.set("n", "<leader>cp", "<cmd>Leet submit<cr>", { desc = "Leetcode submit" })
           vim.keymap.set("n", [[<c-\>]], "<cmd>Leet console<cr>", { desc = "Leetcode console" })

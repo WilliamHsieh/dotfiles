@@ -88,37 +88,6 @@ function M.signal_handler(signum, callback)
   end)
 end
 
----@param client vim.lsp.Client vim.lsp.Client
----@param bufnr integer buffer number
-function M.setup_formatting(client, bufnr)
-  if not client.supports_method("textDocument/formatting") then
-    return
-  end
-
-  local format = function()
-    if vim.g.lsp_formatting then
-      vim.lsp.buf.format()
-    end
-  end
-
-  local augroup = vim.api.nvim_create_augroup("FormatOnSave", { clear = false })
-  vim.api.nvim_clear_autocmds { group = augroup, buffer = bufnr }
-
-  vim.api.nvim_create_autocmd("BufWritePre", {
-    group = augroup,
-    buffer = bufnr,
-    callback = function()
-      format()
-    end,
-  })
-
-  vim.keymap.set("n", "<leader>lf", function()
-    vim.g.lsp_formatting = not vim.g.lsp_formatting
-    vim.notify("Format on save: " .. (vim.g.lsp_formatting and "on" or "off"))
-    format()
-  end, { buffer = bufnr, desc = "toggle auto formatting" })
-end
-
 function M.lazy_file()
   -- This autocmd will only trigger when a file was loaded from the cmdline.
   -- It will render the file as quickly as possible.

@@ -32,8 +32,6 @@ function M.config()
       vim.lsp.inlay_hint.enable(not enabled)
       vim.notify("LSP inlay hint: " .. (not enabled and "on" or "off"))
     end, opts("toggle inlay hists"))
-
-    require("core.utils").setup_formatting(client, bufnr)
   end
 
   local capabilities = require('cmp_nvim_lsp').default_capabilities()
