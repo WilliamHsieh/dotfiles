@@ -11,8 +11,9 @@ sh <(curl -L https://nixos.org/nix/install)
 ```
 2. clone this repo and modify the personal info in `config.nix`
 ```bash
+nix-shell -p git vim
 git clone http://github.com/williamhsieh/dotfiles ~/dotfiles && cd ~/dotfiles
-nvim ./home/config.nix
+vim ./home/config.nix
 ```
 3. apply home-manager settings (leaving `USER` empty will call `.#william` by default)
 ```bash
