@@ -94,7 +94,7 @@
       };
 
       darwinConfigurations = {
-        "synomini" = inputs.nix-darwin.lib.darwinSystem {
+        ${hostname} = inputs.nix-darwin.lib.darwinSystem {
           specialArgs = { inherit inputs outputs pkgs; };
           modules = [
             ./system/darwin

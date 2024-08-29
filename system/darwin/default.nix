@@ -1,5 +1,7 @@
 { inputs, config, pkgs, ... }:
-
+let
+  username = (import ../../home/config.nix).user;
+in
 {
   environment.systemPackages =
     [
@@ -10,13 +12,13 @@
 
   nixpkgs.hostPlatform = "aarch64-darwin";
 
-  networking.hostName = "synomini";
+  networking.hostName = (import ../config.nix).host;
 
   services.karabiner-elements.enable = true;
 
-  users.users.william = {
-    description = (import ../home/config.nix).name;
-    home = "/Users/william";
+  users.users."${username}" = {
+    description = username;
+    home = "/Users/${username}";
     shell = pkgs.zsh;
   };
 
@@ -62,8 +64,8 @@
         magnification = true;
         mru-spaces = false;
         persistent-others = [
-          "/Users/william/Documents"
-          "/Users/william/Downloads"
+          "/Users/${username}/Documents"
+          "/Users/${username}/Downloads"
         ];
       };
       trackpad = {
