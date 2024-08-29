@@ -1,0 +1,93 @@
+{ inputs, config, pkgs, ... }:
+
+{
+  environment.systemPackages =
+    [
+      pkgs.spotify
+      pkgs.discord
+      pkgs.xquartz
+    ];
+
+  nixpkgs.hostPlatform = "aarch64-darwin";
+
+  networking.hostName = "synomini";
+
+  services.karabiner-elements.enable = true;
+
+  users.users.william = {
+    description = (import ../home/config.nix).name;
+    home = "/Users/william";
+    shell = pkgs.zsh;
+  };
+
+  # for login shell
+  programs.zsh.enable = true; # default shell on catalina
+
+  homebrew = {
+    enable = true;
+    casks = [
+      "google-chrome"
+
+      "google-drive"
+      "raycast"
+      "rectangle"
+      "logi-options+"
+      "skype"
+      "arc"
+    ];
+  };
+
+  fonts.packages = with pkgs; [
+    (nerdfonts.override {
+      fonts = [
+        "Iosevka"
+        "JetBrainsMono"
+        "CodeNewRoman"
+        "Meslo"
+        "FiraCode"
+        "DroidSansMono"
+      ];
+    })
+  ];
+
+  system = {
+    defaults = {
+      NSGlobalDomain = {
+        AppleInterfaceStyle = "Dark";
+        NSAutomaticCapitalizationEnabled = false;
+        # "com.apple.keyboard.fnState" = true;
+      };
+      dock = {
+        largesize = 100;
+        magnification = true;
+        mru-spaces = false;
+        persistent-others = [
+          "/Users/william/Documents"
+          "/Users/william/Downloads"
+        ];
+      };
+      trackpad = {
+        Dragging = true;
+      };
+      finder.FXPreferredViewStyle = "icnv";
+      # universalaccess = {
+      #   closeViewScrollWheelToggle = true;
+      #   closeViewZoomFollowsFocus = true;
+      # };
+    };
+
+    # how to only apply internal keyboard?
+    keyboard = {
+      enableKeyMapping = true;
+      # swapLeftCommandAndLeftAlt = true;
+      # swapLeftCtrlAndFn = true;
+    };
+  };
+
+  # Auto upgrade nix package and the daemon service.
+  services.nix-daemon.enable = true;
+
+  # Used for backwards compatibility, please read the changelog before changing.
+  # $ darwin-rebuild changelog
+  system.stateVersion = 4;
+}
