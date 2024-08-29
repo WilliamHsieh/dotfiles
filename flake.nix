@@ -81,7 +81,7 @@
         ${hostname} = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs outputs pkgs; };
           modules = [
-            ./system
+            ./system/nixos
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
