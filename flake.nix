@@ -25,6 +25,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-darwin = {
+      url = "github:LnL7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     git-hooks = {
       url = "github:cachix/git-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -76,11 +81,27 @@
         ${hostname} = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs outputs pkgs; };
           modules = [
-            ./system
+            ./system/nixos
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs = { inherit inputs outputs; };
+              home-manager.users.${username} = import ./home;
+            }
+          ];
+        };
+      };
+
+      darwinConfigurations = {
+        ${hostname} = inputs.nix-darwin.lib.darwinSystem {
+          specialArgs = { inherit inputs outputs pkgs; };
+          modules = [
+            ./system/darwin
+            home-manager.darwinModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              # home-manager.useUserPackages = true;
               home-manager.extraSpecialArgs = { inherit inputs outputs; };
               home-manager.users.${username} = import ./home;
             }
@@ -96,6 +117,9 @@
           nixtop = nixpkgs.lib.genAttrs
             (builtins.attrNames inputs.self.nixosConfigurations)
             (attr: inputs.self.nixosConfigurations.${attr}.config.system.build.toplevel);
+          darwintop = nixpkgs.lib.genAttrs
+            (builtins.attrNames inputs.self.darwinConfigurations)
+            (attr: inputs.self.darwinConfigurations.${attr}.system);
           hometop = nixpkgs.lib.genAttrs
             (builtins.attrNames inputs.self.homeConfigurations)
             (attr: inputs.self.homeConfigurations.${attr}.activationPackage);

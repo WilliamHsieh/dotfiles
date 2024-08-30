@@ -9,6 +9,7 @@
       env = {
         TERM = "xterm-256color";
         LANG = "C.UTF-8";
+        CC = "gcc";
       };
       font = {
         normal.family = "MesloLGMDZ Nerd Font Mono";

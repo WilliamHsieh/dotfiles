@@ -2,9 +2,7 @@
 let
   cfg = import ./config.nix;
   dotfilesDir = "${config.home.homeDirectory}/${cfg.repo-path}";
-in
-{
-  home.shellAliases = {
+  aliases = {
     ls = "eza --group-directories-first";
     l = "ls -l";
     la = "ls -lag --icons=auto";
@@ -19,11 +17,18 @@ in
     cp = "cp -i";
     rm = "trash";
 
-    visudo = "${pkgs.sudo}/bin/visudo";
     sudo = ''sudo -E env "PATH=$PATH" '';
     pythonServer = "python3 -m http.server";
     cpcmd = "fc -ln -1 | awk '{$1=$1}1' | tee /dev/fd/2 | yank";
   };
+in
+{
+  home.shellAliases = pkgs.lib.mkMerge [
+    aliases
+    (pkgs.lib.mkIf pkgs.stdenv.isLinux {
+      visudo = "${pkgs.sudo}/bin/visudo";
+    })
+  ];
 
   home.packages = [
     pkgs.zsh-forgit

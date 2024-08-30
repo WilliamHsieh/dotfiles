@@ -19,7 +19,7 @@
     };
   };
 
-  networking.hostName = (import ./config.nix).host;
+  networking.hostName = (import ../config.nix).host;
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -95,7 +95,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.william = {
     isNormalUser = true;
-    description = (import ../home/config.nix).name;
+    description = (import ../../home/config.nix).name;
     extraGroups = [ "networkmanager" "wheel" ];
     shell = pkgs.zsh;
     packages = with pkgs; [
@@ -161,5 +161,5 @@
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
-  system.stateVersion = (import ../lib { inherit inputs; }).stateVersion;
+  system.stateVersion = (import ../../lib { inherit inputs; }).stateVersion;
 }
