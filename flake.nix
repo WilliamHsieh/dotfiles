@@ -124,7 +124,7 @@
             (builtins.attrNames inputs.self.homeConfigurations)
             (attr: inputs.self.homeConfigurations.${attr}.activationPackage);
         in
-        nixtop // darwintop // hometop;
+        nixtop // hometop;
 
       checks.${system}.pre-commit-check = inputs.git-hooks.lib.${system}.run {
         src = pkgs.lib.cleanSource ./.;

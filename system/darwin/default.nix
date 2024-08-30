@@ -29,11 +29,11 @@ in
     enable = true;
     casks = [
       "google-chrome"
-
       "google-drive"
       "raycast"
       "rectangle"
       "logi-options+"
+      "vmware-fusion"
       "skype"
       "arc"
     ];
@@ -57,7 +57,7 @@ in
       NSGlobalDomain = {
         AppleInterfaceStyle = "Dark";
         NSAutomaticCapitalizationEnabled = false;
-        # "com.apple.keyboard.fnState" = true;
+        "com.apple.keyboard.fnState" = true;
       };
       dock = {
         largesize = 100;
