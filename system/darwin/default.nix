@@ -34,6 +34,7 @@ in
       "rectangle"
       "logi-options+"
       "vmware-fusion"
+      "hammerspoon"
       "skype"
       "arc"
     ];
