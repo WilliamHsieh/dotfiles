@@ -10,10 +10,11 @@
         TERM = "xterm-256color";
         LANG = "C.UTF-8";
         CC = "gcc";
-      } // (if pkgs.stdenv.isDarwin then {
+      } // (lib.optionalAttrs pkgs.stdenv.isDarwin {
         # NOTE: ssh with `-Y` to setup remote DISPLAY properly
+        # remember to start xquartz
         DISPLAY = ":0";
-      } else { });
+      });
       font = {
         normal.family = "MesloLGLDZ Nerd Font Mono";
         size = 14;
