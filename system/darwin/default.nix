@@ -85,6 +85,11 @@ in
       # swapLeftCommandAndLeftAlt = true;
       # swapLeftCtrlAndFn = true;
     };
+
+    activationScripts.postActivation.text = ''
+      # Disable the sound effects on boot
+      sudo nvram SystemAudioVolume=" "
+    '';
   };
 
   # Auto upgrade nix package and the daemon service.
