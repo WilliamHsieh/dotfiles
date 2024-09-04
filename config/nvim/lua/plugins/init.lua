@@ -251,4 +251,10 @@ return {
     "direnv/direnv.vim",
     event = "VeryLazy",
   },
+
+  {
+    "saecki/crates.nvim",
+    event = { "BufRead Cargo.toml" },
+    opts = {},
+  },
 }
