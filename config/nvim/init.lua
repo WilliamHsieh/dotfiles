@@ -8,7 +8,7 @@ vim.api.nvim_create_autocmd("User", {
   callback = function()
     require("core.mapping")
     require("core.utils").signal_handler("sigusr1", function()
-      vim.cmd.terminal()
+      vim.cmd.suspend()
     end)
   end,
 })
