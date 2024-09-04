@@ -10,10 +10,13 @@
         TERM = "xterm-256color";
         LANG = "C.UTF-8";
         CC = "gcc";
-      };
+      } // (if pkgs.stdenv.isDarwin then {
+        # NOTE: ssh with `-Y` to setup remote DISPLAY properly
+        DISPLAY = ":0";
+      } else { });
       font = {
-        normal.family = "MesloLGMDZ Nerd Font Mono";
-        size = 10.5;
+        normal.family = "MesloLGLDZ Nerd Font Mono";
+        size = 14;
       };
       window = {
         dynamic_padding = true;
