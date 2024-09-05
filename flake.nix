@@ -46,7 +46,9 @@
     {
       lib = import ./lib { inherit inputs; } // inputs.nixpkgs.lib;
 
-      # packages.${system}.default = home-manager.defaultPackage.${system};
+      packages = foreachSystem (system: {
+        default = inputs.home-manager.defaultPackage.${system};
+      });
 
       homeConfigurations = mkHome {
         system = "x86_64-linux";
@@ -74,23 +76,26 @@
         in
         nixtop // darwintop // hometop;
 
-      # checks.${system}.pre-commit-check = inputs.git-hooks.lib.${system}.run {
-      #   src = pkgs.lib.cleanSource ./.;
-      #
-      #   hooks = {
-      #     # TODO: treefmt, selene, shellcheck
-      #     editorconfig-checker.enable = true;
-      #     nixpkgs-fmt.enable = true;
-      #     stylua = {
-      #       enable = true;
-      #       entry = "${pkgs.stylua}/bin/stylua --config-path ./config/nvim/stylua.toml";
-      #     };
-      #   };
-      # };
-      #
-      # devShells.${system}.default = pkgs.mkShell {
-      #   inherit (self.checks.${system}.pre-commit-check) shellHook;
-      #   buildInputs = self.checks.${system}.pre-commit-check.enabledPackages;
-      # };
+      checks = foreachSystem (system: {
+        pre-commit-check = inputs.git-hooks.lib.${system}.run {
+          src = cleanSource ./.;
+          hooks = {
+            # TODO: treefmt, selene, shellcheck
+            editorconfig-checker.enable = true;
+            nixpkgs-fmt.enable = true;
+            stylua = {
+              enable = true;
+              entry = "${pkgsBySystem.${system}.stylua}/bin/stylua --config-path ./config/nvim/stylua.toml";
+            };
+          };
+        };
+      });
+
+      devShells = foreachSystem (system: {
+        default = pkgsBySystem.${system}.mkShell {
+          inherit (self.checks.${system}.pre-commit-check) shellHook;
+          buildInputs = self.checks.${system}.pre-commit-check.enabledPackages;
+        };
+      });
     };
 }

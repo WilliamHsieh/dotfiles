@@ -24,6 +24,8 @@ in
 {
   stateVersion = "${builtins.elemAt (lib.splitString "-" lockfile.nodes.home-manager.original.ref) 1}";
 
+  inherit foreachSystem pkgsBySystem;
+
   mkHome = { system }:
     {
       ${dotfiles.home.username} = inputs.home-manager.lib.homeManagerConfiguration {
