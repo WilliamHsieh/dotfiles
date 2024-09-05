@@ -4,7 +4,7 @@ let
   lockfile = builtins.fromJSON (builtins.readFile ../flake.lock);
   inherit (inputs.nixpkgs) lib;
 
-  dotfiles = import ../config.nix;
+  dotfiles = import ../config;
 
   foreachSystem = genAttrs [ "x86_64-linux" "aarch64-darwin" ];
 
