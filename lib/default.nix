@@ -29,6 +29,18 @@ in
 {
   stateVersion = "${builtins.elemAt (lib.splitString "-" lockfile.nodes.home-manager.original.ref) 1}";
 
+  mkHome = { system ? "x86_64-linux" }:
+    {
+      ${dotfiles.home.username} = inputs.home-manager.lib.homeManagerConfiguration {
+        pkgs = pkgsBySystem.${system};
+        extraSpecialArgs = { inherit inputs; };
+
+        modules = [
+          ./home
+        ];
+      };
+    };
+
   mkSystem = { type }:
     let
       # TODO: assert type is either "darwin" or "nixos"

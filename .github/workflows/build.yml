@@ -15,6 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        # https://github.com/actions/runner-images?tab=readme-ov-file#available-images
         # os: [ubuntu-latest, macos-latest]
         # target: [william, nixos-local, macos-local]
         include:

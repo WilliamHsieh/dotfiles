@@ -43,43 +43,12 @@
 
   outputs = inputs @ { self, nixpkgs, home-manager, ... }:
     with self.lib;
-    let
-      system = "x86_64-linux";
-      foreachSystem = genAttrs [ "x86_64-linux" "aarch64-darwin" ];
-
-      username = (import ./home/config.nix).user;
-
-      # https://github.com/nix-community/home-manager/issues/2942#issuecomment-1378627909
-      pkgs = import nixpkgs {
-        inherit system;
-        config = {
-          allowUnfree = true;
-          allowUnfreePredicate = (_: true);
-          packageOverrides = pkgs: {
-            unstable = import inputs.nixpkgs-unstable {
-              inherit (pkgs) system config;
-            };
-          };
-        };
-      };
-
-      inherit (self) outputs;
-    in
     {
       lib = import ./lib { inherit inputs; } // inputs.nixpkgs.lib;
 
       # packages.${system}.default = home-manager.defaultPackage.${system};
 
-      homeConfigurations = {
-        ${username} = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          extraSpecialArgs = { inherit inputs outputs; };
-
-          modules = [
-            ./home
-          ];
-        };
-      };
+      homeConfigurations = mkHome { };
 
       nixosConfigurations = mkSystem {
         type = "nixos";
