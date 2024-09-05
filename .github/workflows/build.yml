@@ -19,12 +19,16 @@ jobs:
         include:
           - os: ubuntu-latest
             target: home-manager
+            name: william
           - os: ubuntu-latest
             target: nixos-rebuild
+            name: nixos-local
           - os: macos-latest
             target: home-manager
+            name: william
           - os: macos-latest
             target: darwin-rebuild
+            name: macos-local
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
@@ -58,7 +62,7 @@ jobs:
       - name: Build target
         run: |
           set -o pipefail
-          nix run .#${{ matrix.target }} build -- --flake . --fallback --show-trace -v --log-format raw > >(tee /tmp/nix-build-out.log) 2> >(tee /tmp/nix-build-err.log >&2)
+          nix run .#${{ matrix.target }} build --fallback --show-trace -v --log-format raw -- --flake .#${{ matrix.name }} > >(tee /tmp/nix-build-out.log) 2> >(tee /tmp/nix-build-err.log >&2)
 
       - name: Output build failure
         if: failure()
