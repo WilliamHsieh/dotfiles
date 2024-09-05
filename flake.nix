@@ -81,7 +81,7 @@
         };
       };
 
-      nixosConfigurations = lib.mkSystem {
+      nixosConfigurations = mkSystem {
         type = "nixos";
       };
 
