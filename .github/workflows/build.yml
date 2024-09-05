@@ -18,13 +18,13 @@ jobs:
         # https://github.com/actions/runner-images?tab=readme-ov-file#available-images
         include:
           - os: ubuntu-latest
-            target: william
+            target: home-manager
           - os: ubuntu-latest
-            target: nixos-local
+            target: nixos-rebuild
           - os: macos-latest
-            target: william
+            target: home-manager
           - os: macos-latest
-            target: macos-local
+            target: darwin-rebuild
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
@@ -58,7 +58,7 @@ jobs:
       - name: Build target
         run: |
           set -o pipefail
-          nix build .#top.${{ matrix.target }} --fallback --show-trace -v --log-format raw > >(tee /tmp/nix-build-out.log) 2> >(tee /tmp/nix-build-err.log >&2)
+          nix run .#${{ matrix.target }} build -- --flake . --fallback --show-trace -v --log-format raw > >(tee /tmp/nix-build-out.log) 2> >(tee /tmp/nix-build-err.log >&2)
 
       - name: Output build failure
         if: failure()

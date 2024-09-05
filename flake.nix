@@ -46,9 +46,16 @@
     {
       lib = import ./lib { inherit inputs; } // inputs.nixpkgs.lib;
 
-      packages = foreachSystem (system: {
-        default = inputs.home-manager.defaultPackage.${system};
-      });
+      packages = foreachSystem (system:
+        {
+          default = self.packages.${system}.home-manager;
+          inherit (inputs.home-manager.packages.${system}) home-manager;
+        } // (optionalAttrs (system == dotfiles.nixos.system) {
+          inherit (pkgsBySystem.${system}) nixos-rebuild;
+        }) // (optionalAttrs (system == dotfiles.darwin.system) {
+          inherit (inputs.darwin.packages.${system}) darwin-rebuild;
+        })
+      );
 
       homeConfigurations = mkHome {
         system = "x86_64-linux";
@@ -61,20 +68,6 @@
       darwinConfigurations = mkSystem {
         type = "darwin";
       };
-
-      # Convenience output that aggregates the outputs for home, nixos, and darwin configurations.
-      # Instead of calling `nix build .#nixosConfigurations.{host}.config.system.build.toplevel`,
-      # now it's simply `nix build .#top.{host}` or `nix build .#top.{user}`
-      top =
-        let
-          nixtop = genAttrs (builtins.attrNames inputs.self.nixosConfigurations)
-            (attr: inputs.self.nixosConfigurations.${attr}.config.system.build.toplevel);
-          darwintop = genAttrs (builtins.attrNames inputs.self.darwinConfigurations)
-            (attr: inputs.self.darwinConfigurations.${attr}.system);
-          hometop = genAttrs (builtins.attrNames inputs.self.homeConfigurations)
-            (attr: inputs.self.homeConfigurations.${attr}.activationPackage);
-        in
-        nixtop // darwintop // hometop;
 
       checks = foreachSystem (system: {
         pre-commit-check = inputs.git-hooks.lib.${system}.run {

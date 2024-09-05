@@ -24,7 +24,7 @@ in
 {
   stateVersion = "${builtins.elemAt (lib.splitString "-" lockfile.nodes.home-manager.original.ref) 1}";
 
-  inherit foreachSystem pkgsBySystem;
+  inherit foreachSystem pkgsBySystem dotfiles;
 
   mkHome = { system }:
     {
