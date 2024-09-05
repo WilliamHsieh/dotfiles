@@ -8,8 +8,7 @@ let
 
   foreachSystem = genAttrs [ "x86_64-linux" "aarch64-darwin" ];
 
-  pkgsBySystem = foreachSystem (
-    system:
+  pkgsBySystem = foreachSystem (system:
     # https://github.com/nix-community/home-manager/issues/2942#issuecomment-1378627909
     import inputs.nixpkgs {
       inherit system;
@@ -29,7 +28,7 @@ in
 {
   stateVersion = "${builtins.elemAt (lib.splitString "-" lockfile.nodes.home-manager.original.ref) 1}";
 
-  mkHome = { system ? "x86_64-linux" }:
+  mkHome = { system }:
     {
       ${dotfiles.home.username} = inputs.home-manager.lib.homeManagerConfiguration {
         pkgs = pkgsBySystem."${system}";

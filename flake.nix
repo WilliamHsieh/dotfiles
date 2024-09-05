@@ -48,7 +48,9 @@
 
       # packages.${system}.default = home-manager.defaultPackage.${system};
 
-      homeConfigurations = mkHome { };
+      homeConfigurations = mkHome {
+        system = "x86_64-linux";
+      };
 
       nixosConfigurations = mkSystem {
         type = "nixos";
