@@ -1,13 +1,10 @@
 { inputs, ... }:
-with inputs.nixpkgs.lib;
 let
+  dotfiles = import ../config;
   lockfile = builtins.fromJSON (builtins.readFile ../flake.lock);
   inherit (inputs.nixpkgs) lib;
 
-  dotfiles = import ../config;
-
-  foreachSystem = genAttrs [ "x86_64-linux" "aarch64-darwin" ];
-
+  foreachSystem = lib.genAttrs [ "x86_64-linux" "aarch64-darwin" ];
   pkgsBySystem = foreachSystem (system:
     # https://github.com/nix-community/home-manager/issues/2942#issuecomment-1378627909
     import inputs.nixpkgs {
@@ -23,12 +20,6 @@ let
       };
     }
   );
-
-  exposeArgs = {
-    config._module.args = {
-      inherit dotfiles;
-    };
-  };
 in
 {
   stateVersion = "${builtins.elemAt (lib.splitString "-" lockfile.nodes.home-manager.original.ref) 1}";
@@ -37,10 +28,9 @@ in
     {
       ${dotfiles.home.username} = inputs.home-manager.lib.homeManagerConfiguration {
         pkgs = pkgsBySystem.${system};
-        extraSpecialArgs = { inherit inputs; };
+        extraSpecialArgs = { inherit inputs dotfiles; };
         modules = [
           ../home
-          exposeArgs
         ];
       };
     };
@@ -50,11 +40,11 @@ in
       # TODO: assert type is either "darwin" or "nixos"
       isDarwin = type == "darwin";
       osConfig = ../system/${if isDarwin then "darwin" else "nixos" };
-      userHMConfig = ../home;
+      hmConfig = ../home;
 
       # NixOS vs nix-darwin functionst
       systemFunc = if isDarwin then inputs.darwin.lib.darwinSystem else inputs.nixpkgs.lib.nixosSystem;
-      osModules = if isDarwin then inputs.home-manager.darwinModules else inputs.home-manager.nixosModules;
+      hmModules = if isDarwin then inputs.home-manager.darwinModules else inputs.home-manager.nixosModules;
 
       hostSystem = if isDarwin then dotfiles.darwin else dotfiles.nixos;
       pkgs = pkgsBySystem.${hostSystem.system};
@@ -65,13 +55,12 @@ in
           specialArgs = { inherit inputs pkgs dotfiles; };
           modules = [
             osConfig
-            exposeArgs
-            osModules.home-manager
+            hmModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
               # home-manager.useUserPackages = true;
               home-manager.extraSpecialArgs = { inherit inputs dotfiles; };
-              home-manager.users.${dotfiles.home.username} = import userHMConfig;
+              home-manager.users.${dotfiles.home.username} = import hmConfig;
             }
           ];
         };
