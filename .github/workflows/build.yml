@@ -17,9 +17,9 @@ jobs:
       matrix:
         include:
           - os: ubuntu-latest
-            target: [william nixos-local]
+            target: [william, nixos-local]
           - os: macos-latest
-            target: [william macos-local]
+            target: [william, macos-local]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
