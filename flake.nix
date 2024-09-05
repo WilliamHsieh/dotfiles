@@ -41,7 +41,7 @@
     };
   };
 
-  outputs = inputs @ { self, nixpkgs, home-manager, ... }:
+  outputs = inputs @ { self, ... }:
     with self.lib;
     {
       lib = import ./lib { inherit inputs; } // inputs.nixpkgs.lib;
@@ -65,14 +65,11 @@
       # now it's simply `nix build .#top.{host}` or `nix build .#top.{user}`
       top =
         let
-          nixtop = nixpkgs.lib.genAttrs
-            (builtins.attrNames inputs.self.nixosConfigurations)
+          nixtop = genAttrs (builtins.attrNames inputs.self.nixosConfigurations)
             (attr: inputs.self.nixosConfigurations.${attr}.config.system.build.toplevel);
-          darwintop = nixpkgs.lib.genAttrs
-            (builtins.attrNames inputs.self.darwinConfigurations)
+          darwintop = genAttrs (builtins.attrNames inputs.self.darwinConfigurations)
             (attr: inputs.self.darwinConfigurations.${attr}.system);
-          hometop = nixpkgs.lib.genAttrs
-            (builtins.attrNames inputs.self.homeConfigurations)
+          hometop = genAttrs (builtins.attrNames inputs.self.homeConfigurations)
             (attr: inputs.self.homeConfigurations.${attr}.activationPackage);
         in
         nixtop // darwintop // hometop;
