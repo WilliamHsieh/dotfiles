@@ -24,6 +24,11 @@ let
     }
   );
 
+  exposeArgs = {
+    config._module.args = {
+      inherit dotfiles;
+    };
+  };
 in
 {
   stateVersion = "${builtins.elemAt (lib.splitString "-" lockfile.nodes.home-manager.original.ref) 1}";
@@ -35,6 +40,7 @@ in
         extraSpecialArgs = { inherit inputs; };
         modules = [
           ../home
+          exposeArgs
         ];
       };
     };
@@ -59,6 +65,7 @@ in
           specialArgs = { inherit inputs pkgs dotfiles; };
           modules = [
             osConfig
+            exposeArgs
             osModules.home-manager
             {
               home-manager.useGlobalPkgs = true;

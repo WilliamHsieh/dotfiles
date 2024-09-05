@@ -1,6 +1,6 @@
-{ inputs, config, pkgs, ... }:
+{ inputs, config, pkgs, dotfiles, ... }:
 let
-  username = (import ../../home/config.nix).user;
+  inherit (dotfiles.home) username;
 in
 {
   environment.systemPackages =
@@ -12,7 +12,7 @@ in
 
   nixpkgs.hostPlatform = "aarch64-darwin";
 
-  networking.hostName = (import ../config.nix).host;
+  networking.hostName = dotfiles.darwin.hostname;
 
   services.karabiner-elements.enable = true;
 

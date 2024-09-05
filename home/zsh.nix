@@ -1,7 +1,6 @@
-{ inputs, pkgs, config, lib, ... }:
+{ inputs, pkgs, config, lib, dotfiles, ... }:
 let
-  cfg = import ./config.nix;
-  dotfilesDir = "${config.home.homeDirectory}/${cfg.repo-path}";
+  dotDir = "${config.home.homeDirectory}/${dotfiles.home.dotDir}";
   aliases = {
     ls = "eza --group-directories-first";
     l = "ls -l";
@@ -61,7 +60,7 @@ in
     initExtraBeforeCompInit = /* bash */ ''
       fpath+=${pkgs.zsh-completions}/share/zsh/site-functions
       fpath+=${pkgs.oh-my-zsh}/share/oh-my-zsh/plugins/extract
-      fpath+=${dotfilesDir}/config/zsh/autoload
+      fpath+=${dotDir}/config/zsh/autoload
       autoload -Uz true_colors
       autoload -Uz yank
       autoload -Uz live_grep
@@ -96,7 +95,7 @@ in
       source ~/${config.programs.zsh.dotDir}/.p10k.zsh
 
       # other settings
-      source ${dotfilesDir}/config/zsh/.zshrc
+      source ${dotDir}/config/zsh/.zshrc
     '';
   };
 

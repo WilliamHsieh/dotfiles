@@ -1,13 +1,12 @@
-{ pkgs, config, ... }:
+{ pkgs, config, dotfiles, ... }:
 let
-  cfg = import ./config.nix;
-  dotfilesPath = "${config.home.homeDirectory}/${cfg.repo-path}";
+  dotDir = "${config.home.homeDirectory}/${dotfiles.home.dotDir}";
 
   filePreview = "bat --color=always {}";
   dirPreview = "eza --color always --tree --level 1 {} | less";
 
   yankField = field:
-    "ctrl-y:execute-silent(echo -n {${toString field}..} | ${dotfilesPath}/config/zsh/autoload/yank)+abort";
+    "ctrl-y:execute-silent(echo -n {${toString field}..} | ${dotDir}/config/zsh/autoload/yank)+abort";
 in
 {
   home.sessionVariables = {

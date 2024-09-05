@@ -1,8 +1,7 @@
-{ lib, pkgs, config, ... }:
+{ lib, pkgs, config, dotfiles, ... }:
 let
-  cfg = import ./config.nix;
-  dotfilesDir = "${config.home.homeDirectory}/${cfg.repo-path}";
-  link = path: config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/config/${path}";
+  dotDir = "${config.home.homeDirectory}/${dotfiles.home.dotDir}";
+  link = path: config.lib.file.mkOutOfStoreSymlink "${dotDir}/config/${path}";
   yamlFormat = pkgs.formats.yaml { };
 in
 {

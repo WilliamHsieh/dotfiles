@@ -1,7 +1,6 @@
-{ pkgs, config, ... }:
+{ pkgs, config, dotfiles, ... }:
 let
-  cfg = import ./config.nix;
-  dotfilesDir = "${config.home.homeDirectory}/${cfg.repo-path}";
+  dotDir = "${config.home.homeDirectory}/${dotfiles.home.dotDir}";
   dataHome = "${config.xdg.dataHome}/tmux";
 in
 {
@@ -15,7 +14,7 @@ in
     plugins = with pkgs.tmuxPlugins; [
       {
         plugin = prefix-highlight;
-        extraConfig = "source-file ${dotfilesDir}/config/tmux/tmux.conf";
+        extraConfig = "source-file ${dotDir}/config/tmux/tmux.conf";
       }
       {
         plugin = fingers;
@@ -30,7 +29,7 @@ in
         extraConfig = ''
           set -g @extrakto_copy_key "ctrl-y"
           set -g @extrakto_insert_key "enter"
-          set -g @extrakto_clip_tool "bash ${dotfilesDir}/config/zsh/autoload/yank"
+          set -g @extrakto_clip_tool "bash ${dotDir}/config/zsh/autoload/yank"
         '';
       }
       {
