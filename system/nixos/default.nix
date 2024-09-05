@@ -93,7 +93,7 @@
   # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.william = {
+  users.users.${dotfiles.home.username} = {
     isNormalUser = true;
     description = dotfiles.home.fullname;
     extraGroups = [ "networkmanager" "wheel" ];
