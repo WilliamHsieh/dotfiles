@@ -31,11 +31,10 @@ in
   mkHome = { system }:
     {
       ${dotfiles.home.username} = inputs.home-manager.lib.homeManagerConfiguration {
-        pkgs = pkgsBySystem."${system}";
+        pkgs = pkgsBySystem.${system};
         extraSpecialArgs = { inherit inputs; };
-
         modules = [
-          ./home
+          ../home
         ];
       };
     };
