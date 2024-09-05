@@ -25,7 +25,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-darwin = {
+    darwin = {
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -42,10 +42,12 @@
   };
 
   outputs = inputs @ { self, nixpkgs, home-manager, ... }:
+    with self.lib;
     let
       system = "x86_64-linux";
+      foreachSystem = genAttrs [ "x86_64-linux" "aarch64-darwin" ];
+
       username = (import ./home/config.nix).user;
-      hostname = (import ./system/config.nix).host;
 
       # https://github.com/nix-community/home-manager/issues/2942#issuecomment-1378627909
       pkgs = import nixpkgs {
@@ -64,7 +66,9 @@
       inherit (self) outputs;
     in
     {
-      packages.${system}.default = home-manager.defaultPackage.${system};
+      lib = import ./lib { inherit inputs; } // inputs.nixpkgs.lib;
+
+      # packages.${system}.default = home-manager.defaultPackage.${system};
 
       homeConfigurations = {
         ${username} = home-manager.lib.homeManagerConfiguration {
@@ -77,36 +81,12 @@
         };
       };
 
-      nixosConfigurations = {
-        ${hostname} = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs outputs pkgs; };
-          modules = [
-            ./system/nixos
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = { inherit inputs outputs; };
-              home-manager.users.${username} = import ./home;
-            }
-          ];
-        };
+      nixosConfigurations = lib.mkSystem {
+        type = "nixos";
       };
 
-      darwinConfigurations = {
-        ${hostname} = inputs.nix-darwin.lib.darwinSystem {
-          specialArgs = { inherit inputs outputs pkgs; };
-          modules = [
-            ./system/darwin
-            home-manager.darwinModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              # home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = { inherit inputs outputs; };
-              home-manager.users.${username} = import ./home;
-            }
-          ];
-        };
+      darwinConfigurations = mkSystem {
+        type = "darwin";
       };
 
       # Convenience output that aggregates the outputs for home, nixos, and darwin configurations.
@@ -124,25 +104,25 @@
             (builtins.attrNames inputs.self.homeConfigurations)
             (attr: inputs.self.homeConfigurations.${attr}.activationPackage);
         in
-        nixtop // hometop;
+        nixtop // darwintop // hometop;
 
-      checks.${system}.pre-commit-check = inputs.git-hooks.lib.${system}.run {
-        src = pkgs.lib.cleanSource ./.;
-
-        hooks = {
-          # TODO: treefmt, selene, shellcheck
-          editorconfig-checker.enable = true;
-          nixpkgs-fmt.enable = true;
-          stylua = {
-            enable = true;
-            entry = "${pkgs.stylua}/bin/stylua --config-path ./config/nvim/stylua.toml";
-          };
-        };
-      };
-
-      devShells.${system}.default = pkgs.mkShell {
-        inherit (self.checks.${system}.pre-commit-check) shellHook;
-        buildInputs = self.checks.${system}.pre-commit-check.enabledPackages;
-      };
+      # checks.${system}.pre-commit-check = inputs.git-hooks.lib.${system}.run {
+      #   src = pkgs.lib.cleanSource ./.;
+      #
+      #   hooks = {
+      #     # TODO: treefmt, selene, shellcheck
+      #     editorconfig-checker.enable = true;
+      #     nixpkgs-fmt.enable = true;
+      #     stylua = {
+      #       enable = true;
+      #       entry = "${pkgs.stylua}/bin/stylua --config-path ./config/nvim/stylua.toml";
+      #     };
+      #   };
+      # };
+      #
+      # devShells.${system}.default = pkgs.mkShell {
+      #   inherit (self.checks.${system}.pre-commit-check) shellHook;
+      #   buildInputs = self.checks.${system}.pre-commit-check.enabledPackages;
+      # };
     };
 }
