@@ -1,4 +1,4 @@
-{ inputs, pkgs, config, lib, dotfiles, ... }:
+{ inputs, pkgs, config, lib, dotfiles, isSystemConfig, ... }:
 let
   dotDir = "${config.home.homeDirectory}/${dotfiles.home.dotDir}";
   aliases = {
@@ -19,6 +19,17 @@ let
     sudo = ''sudo -E env "PATH=$PATH" '';
     pythonServer = "python3 -m http.server";
     cpcmd = "fc -ln -1 | awk '{$1=$1}1' | tee /dev/fd/2 | yank";
+
+    dotswitch =
+      let
+        cmd = (
+          if isSystemConfig then
+            (if pkgs.stdenv.isLinux then "sudo nixos-rebuild" else "darwin-rebuild")
+          else
+            "home-manager"
+        );
+      in
+      "${cmd} switch --flake ${dotDir} --show-trace";
   };
 in
 {

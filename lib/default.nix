@@ -31,7 +31,10 @@ in
   mkHome = { system }:
     inputs.home-manager.lib.homeManagerConfiguration {
       pkgs = pkgsBySystem.${system};
-      extraSpecialArgs = { inherit inputs dotfiles; };
+      extraSpecialArgs = {
+        inherit inputs dotfiles;
+        isSystemConfig = false;
+      };
       modules = [
         ../home
       ];
@@ -59,7 +62,10 @@ in
             {
               home-manager.useGlobalPkgs = true;
               # home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = { inherit inputs dotfiles; };
+              home-manager.extraSpecialArgs = {
+                inherit inputs dotfiles;
+                isSystemConfig = true;
+              };
               home-manager.users.${dotfiles.home.username} = import hmConfig;
             }
           ];
