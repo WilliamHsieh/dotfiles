@@ -67,11 +67,11 @@
       };
 
       nixosConfigurations = mkSystem {
-        type = "nixos";
+        isDarwin = false;
       };
 
       darwinConfigurations = mkSystem {
-        type = "darwin";
+        isDarwin = true;
       };
 
       checks = foreachSystem (system: {

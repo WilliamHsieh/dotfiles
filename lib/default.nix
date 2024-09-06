@@ -37,10 +37,8 @@ in
       ];
     };
 
-  mkSystem = { type }:
+  mkSystem = { isDarwin }:
     let
-      # TODO: assert type is either "darwin" or "nixos"
-      isDarwin = type == "darwin";
       osConfig = ../system/${if isDarwin then "darwin" else "nixos" };
       hmConfig = ../home;
 
