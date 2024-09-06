@@ -10,14 +10,12 @@
   };
 
   nixos = {
-    # enable = true;
-    hostname = "nixos-local";
     system = "x86_64-linux";
+    hostname = "nixos-local";
   };
 
   darwin = {
-    # enable = true;
-    hostname = "macos-local";
     system = "aarch64-darwin";
+    hostname = "macos-local";
   };
 }
