@@ -73,10 +73,11 @@ in
         Dragging = true;
       };
       finder.FXPreferredViewStyle = "icnv";
-      # universalaccess = {
-      #   closeViewScrollWheelToggle = true;
-      #   closeViewZoomFollowsFocus = true;
-      # };
+      universalaccess = {
+        # NOTE: require permission for alacritty: System Preferences > Security & Privacy > Privacy > Full Disk Access
+        closeViewScrollWheelToggle = true;
+        closeViewZoomFollowsFocus = true;
+      };
     };
 
     # how to only apply internal keyboard?
