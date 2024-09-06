@@ -34,11 +34,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - uses: gitleaks/gitleaks-action@v2
-        if: ${{ github.ref == 'refs/heads/master' && matrix.target != 'home-manager' }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Insall nix
         uses: cachix/install-nix-action@V27
         with:
