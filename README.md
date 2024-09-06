@@ -9,15 +9,15 @@ These are my configuration for `neovim`, `zsh`, and `tmux` using [nix](https://n
 ```bash
 sh <(curl -L https://nixos.org/nix/install)
 ```
-2. clone this repo and modify the personal info in `config.nix`
+2. clone this repo and modify the personal info in `config/default.nix`
 ```bash
 nix-shell -p git vim
 git clone http://github.com/williamhsieh/dotfiles ~/dotfiles && cd ~/dotfiles
-vim ./home/config.nix
+vim ./config/default.nix
 ```
-3. apply home-manager settings (leaving `USER` empty will call `.#william` by default)
+3. apply home-manager settings
 ```bash
-NIX_CONFIG="experimental-features = flakes nix-command" nix run . switch -- -b bak --flake .#USER
+NIX_CONFIG="experimental-features = flakes nix-command" nix run . switch -- -b bak --flake .
 ```
 4. download [nerd fonts](https://www.nerdfonts.com/) for the terminal emulator
 

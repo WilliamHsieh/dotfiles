@@ -21,7 +21,11 @@ jobs:
           - os: ubuntu-latest
             target: william
           - os: ubuntu-latest
-            target: synopc
+            target: nixos-local
+          - os: macos-latest
+            target: william-alt
+          - os: macos-latest
+            target: macos-local
 
     steps:
       - uses: actions/checkout@v4
@@ -36,9 +40,6 @@ jobs:
             experimental-features = nix-command flakes
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
             accept-flake-config = true
-
-      # - name: Github actions built-in cache
-      #   uses: DeterminateSystems/magic-nix-cache-action@v7
 
       - uses: cachix/cachix-action@v15
         with:

@@ -15,18 +15,27 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        # https://github.com/actions/runner-images?tab=readme-ov-file#available-images
         include:
           - os: ubuntu-latest
-            target: william
+            target: home-manager
+            name: william
           - os: ubuntu-latest
-            target: synopc
+            target: nixos-rebuild
+            name: nixos-local
+          - os: macos-latest
+            target: home-manager
+            name: william-alt
+          - os: macos-latest
+            target: darwin-rebuild
+            name: macos-local
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
       - uses: gitleaks/gitleaks-action@v2
-        if: ${{ github.ref == 'refs/heads/master' && matrix.target == 'synopc' }}
+        if: ${{ github.ref == 'refs/heads/master' && matrix.target != 'home-manager' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -53,7 +62,8 @@ jobs:
       - name: Build target
         run: |
           set -o pipefail
-          nix build .#top.${{ matrix.target }} --fallback --show-trace -v --log-format raw > >(tee /tmp/nix-build-out.log) 2> >(tee /tmp/nix-build-err.log >&2)
+          nix run .#${{ matrix.target }} build --fallback --show-trace -v --log-format raw -- \
+          --flake .#${{ matrix.name }} > >(tee /tmp/nix-build-out.log) 2> >(tee /tmp/nix-build-err.log >&2)
 
       - name: Output build failure
         if: failure()

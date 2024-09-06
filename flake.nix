@@ -25,7 +25,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-darwin = {
+    darwin = {
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -41,72 +41,37 @@
     };
   };
 
-  outputs = inputs @ { self, nixpkgs, home-manager, ... }:
-    let
-      system = "x86_64-linux";
-      username = (import ./home/config.nix).user;
-      hostname = (import ./system/config.nix).host;
-
-      # https://github.com/nix-community/home-manager/issues/2942#issuecomment-1378627909
-      pkgs = import nixpkgs {
-        inherit system;
-        config = {
-          allowUnfree = true;
-          allowUnfreePredicate = (_: true);
-          packageOverrides = pkgs: {
-            unstable = import inputs.nixpkgs-unstable {
-              inherit (pkgs) system config;
-            };
-          };
-        };
-      };
-
-      inherit (self) outputs;
-    in
+  outputs = inputs @ { self, ... }:
+    with self.lib;
     {
-      packages.${system}.default = home-manager.defaultPackage.${system};
+      lib = inputs.nixpkgs.lib // import ./lib { inherit inputs; };
+
+      packages = foreachSystem (system:
+        {
+          default = self.packages.${system}.home-manager;
+          inherit (inputs.home-manager.packages.${system}) home-manager;
+        } // (optionalAttrs (system == dotfiles.nixos.system) {
+          inherit (pkgsBySystem.${system}) nixos-rebuild;
+        }) // (optionalAttrs (system == dotfiles.darwin.system) {
+          inherit (inputs.darwin.packages.${system}) darwin-rebuild;
+        })
+      );
 
       homeConfigurations = {
-        ${username} = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          extraSpecialArgs = { inherit inputs outputs; };
-
-          modules = [
-            ./home
-          ];
+        ${dotfiles.home.username} = mkHome {
+          inherit (dotfiles.home) system;
+        };
+        "${dotfiles.home.username}-alt" = mkHome {
+          system = builtins.elemAt (builtins.filter (s: s != dotfiles.home.system) systems) 0;
         };
       };
 
-      nixosConfigurations = {
-        ${hostname} = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs outputs pkgs; };
-          modules = [
-            ./system/nixos
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = { inherit inputs outputs; };
-              home-manager.users.${username} = import ./home;
-            }
-          ];
-        };
+      nixosConfigurations = mkSystem {
+        isDarwin = false;
       };
 
-      darwinConfigurations = {
-        ${hostname} = inputs.nix-darwin.lib.darwinSystem {
-          specialArgs = { inherit inputs outputs pkgs; };
-          modules = [
-            ./system/darwin
-            home-manager.darwinModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              # home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = { inherit inputs outputs; };
-              home-manager.users.${username} = import ./home;
-            }
-          ];
-        };
+      darwinConfigurations = mkSystem {
+        isDarwin = true;
       };
 
       # Convenience output that aggregates the outputs for home, nixos, and darwin configurations.
@@ -114,35 +79,35 @@
       # now it's simply `nix build .#top.{host}` or `nix build .#top.{user}`
       top =
         let
-          nixtop = nixpkgs.lib.genAttrs
-            (builtins.attrNames inputs.self.nixosConfigurations)
+          nixtop = genAttrs (builtins.attrNames inputs.self.nixosConfigurations)
             (attr: inputs.self.nixosConfigurations.${attr}.config.system.build.toplevel);
-          darwintop = nixpkgs.lib.genAttrs
-            (builtins.attrNames inputs.self.darwinConfigurations)
+          darwintop = genAttrs (builtins.attrNames inputs.self.darwinConfigurations)
             (attr: inputs.self.darwinConfigurations.${attr}.system);
-          hometop = nixpkgs.lib.genAttrs
-            (builtins.attrNames inputs.self.homeConfigurations)
+          hometop = genAttrs (builtins.attrNames inputs.self.homeConfigurations)
             (attr: inputs.self.homeConfigurations.${attr}.activationPackage);
         in
-        nixtop // hometop;
+        nixtop // darwintop // hometop;
 
-      checks.${system}.pre-commit-check = inputs.git-hooks.lib.${system}.run {
-        src = pkgs.lib.cleanSource ./.;
-
-        hooks = {
-          # TODO: treefmt, selene, shellcheck
-          editorconfig-checker.enable = true;
-          nixpkgs-fmt.enable = true;
-          stylua = {
-            enable = true;
-            entry = "${pkgs.stylua}/bin/stylua --config-path ./config/nvim/stylua.toml";
+      checks = foreachSystem (system: {
+        pre-commit-check = inputs.git-hooks.lib.${system}.run {
+          src = cleanSource ./.;
+          hooks = {
+            # TODO: treefmt, selene, shellcheck
+            editorconfig-checker.enable = true;
+            nixpkgs-fmt.enable = true;
+            stylua = {
+              enable = true;
+              entry = "${pkgsBySystem.${system}.stylua}/bin/stylua --config-path ./config/nvim/stylua.toml";
+            };
           };
         };
-      };
+      });
 
-      devShells.${system}.default = pkgs.mkShell {
-        inherit (self.checks.${system}.pre-commit-check) shellHook;
-        buildInputs = self.checks.${system}.pre-commit-check.enabledPackages;
-      };
+      devShells = foreachSystem (system: {
+        default = pkgsBySystem.${system}.mkShell {
+          inherit (self.checks.${system}.pre-commit-check) shellHook;
+          buildInputs = self.checks.${system}.pre-commit-check.enabledPackages;
+        };
+      });
     };
 }

@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, inputs, pkgs, ... }:
+{ config, inputs, pkgs, dotfiles, ... }:
 
 {
   imports = [
@@ -19,7 +19,7 @@
     };
   };
 
-  networking.hostName = (import ../config.nix).host;
+  networking.hostName = dotfiles.nixos.hostname;
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -93,9 +93,9 @@
   # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.william = {
+  users.users.${dotfiles.home.username} = {
     isNormalUser = true;
-    description = (import ../../home/config.nix).name;
+    description = dotfiles.home.fullname;
     extraGroups = [ "networkmanager" "wheel" ];
     shell = pkgs.zsh;
     packages = with pkgs; [

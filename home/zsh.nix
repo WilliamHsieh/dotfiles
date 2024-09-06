@@ -1,7 +1,6 @@
-{ inputs, pkgs, config, lib, ... }:
+{ inputs, pkgs, config, lib, dotfiles, isSystemConfig, ... }:
 let
-  cfg = import ./config.nix;
-  dotfilesDir = "${config.home.homeDirectory}/${cfg.repo-path}";
+  dotDir = "${config.home.homeDirectory}/${dotfiles.home.dotDir}";
   aliases = {
     ls = "eza --group-directories-first";
     l = "ls -l";
@@ -20,6 +19,17 @@ let
     sudo = ''sudo -E env "PATH=$PATH" '';
     pythonServer = "python3 -m http.server";
     cpcmd = "fc -ln -1 | awk '{$1=$1}1' | tee /dev/fd/2 | yank";
+
+    dotswitch =
+      let
+        cmd = (
+          if isSystemConfig then
+            (if pkgs.stdenv.isLinux then "sudo nixos-rebuild" else "darwin-rebuild")
+          else
+            "home-manager"
+        );
+      in
+      "${cmd} switch --flake ${dotDir} --show-trace";
   };
 in
 {
@@ -61,7 +71,7 @@ in
     initExtraBeforeCompInit = /* bash */ ''
       fpath+=${pkgs.zsh-completions}/share/zsh/site-functions
       fpath+=${pkgs.oh-my-zsh}/share/oh-my-zsh/plugins/extract
-      fpath+=${dotfilesDir}/config/zsh/autoload
+      fpath+=${dotDir}/config/zsh/autoload
       autoload -Uz true_colors
       autoload -Uz yank
       autoload -Uz live_grep
@@ -96,7 +106,7 @@ in
       source ~/${config.programs.zsh.dotDir}/.p10k.zsh
 
       # other settings
-      source ${dotfilesDir}/config/zsh/.zshrc
+      source ${dotDir}/config/zsh/.zshrc
     '';
   };
 

@@ -1,8 +1,7 @@
-{ inputs, pkgs, config, lib, ... }:
+{ inputs, pkgs, config, lib, dotfiles, ... }:
 let
-  cfg = import ./config.nix;
-  dotfilesDir = "${config.home.homeDirectory}/${cfg.repo-path}";
-  link = path: config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/config/${path}";
+  dotDir = "${config.home.homeDirectory}/${dotfiles.home.dotDir}";
+  link = path: config.lib.file.mkOutOfStoreSymlink "${dotDir}/config/${path}";
 
   glow-without-completion = pkgs.glow.overrideAttrs
     (oldAttrs: {
@@ -27,18 +26,18 @@ in
   catppuccin.flavor = "macchiato";
   catppuccin.enable = true;
 
-  home = {
+  home = rec {
     inherit (import ../lib { inherit inputs; }) stateVersion;
 
-    username = cfg.user;
+    inherit (dotfiles.home) username;
 
     homeDirectory = with pkgs.stdenv;
       if isDarwin then
-        "/Users/${cfg.user}"
-      else if "${cfg.user}" == "root" then
+        "/Users/${username}"
+      else if "${username}" == "root" then
         "/root"
       else if isLinux then
-        "/home/${cfg.user}"
+        "/home/${username}"
       else "";
 
     packages = with pkgs; [

@@ -1,7 +1,4 @@
-{ pkgs, config, ... }:
-let
-  cfg = import ./config.nix;
-in
+{ pkgs, config, dotfiles, ... }:
 {
   home.packages = with pkgs; [
     glab
@@ -9,8 +6,8 @@ in
 
   programs.git = {
     enable = true;
-    userName = cfg.name;
-    userEmail = cfg.email;
+    userName = dotfiles.home.fullname;
+    userEmail = dotfiles.home.email;
     aliases = {
       undo = "reset HEAD@{1}";
       lg = "log --pretty=format:'%C(red)%h %C(blue)<%an> %C(green)%cs (%cr)  %C(reset)%s %C(auto)%d' --abbrev-commit --graph";
