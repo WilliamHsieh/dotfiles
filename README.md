@@ -15,9 +15,9 @@ nix-shell -p git vim
 git clone http://github.com/williamhsieh/dotfiles ~/dotfiles && cd ~/dotfiles
 vim ./config/default.nix
 ```
-3. apply home-manager settings (leaving `USER` empty will call `.#william` by default)
+3. apply home-manager settings
 ```bash
-NIX_CONFIG="experimental-features = flakes nix-command" nix run . switch -- -b bak --flake .#USER
+NIX_CONFIG="experimental-features = flakes nix-command" nix run . switch -- -b bak --flake .
 ```
 4. download [nerd fonts](https://www.nerdfonts.com/) for the terminal emulator
 
