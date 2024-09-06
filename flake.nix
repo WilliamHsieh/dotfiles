@@ -44,7 +44,7 @@
   outputs = inputs @ { self, ... }:
     with self.lib;
     {
-      lib = import ./lib { inherit inputs; } // inputs.nixpkgs.lib;
+      lib = inputs.nixpkgs.lib // import ./lib { inherit inputs; };
 
       packages = foreachSystem (system:
         {
@@ -57,8 +57,13 @@
         })
       );
 
-      homeConfigurations = mkHome {
-        system = "x86_64-linux";
+      homeConfigurations = {
+        ${dotfiles.home.username} = mkHome {
+          inherit (dotfiles.home) system;
+        };
+        "${dotfiles.home.username}-alt" = mkHome {
+          system = builtins.elemAt (builtins.filter (s: s != dotfiles.home.system) systems) 0;
+        };
       };
 
       nixosConfigurations = mkSystem {

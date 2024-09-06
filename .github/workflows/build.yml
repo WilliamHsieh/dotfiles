@@ -25,7 +25,7 @@ jobs:
             name: nixos-local
           - os: macos-latest
             target: home-manager
-            name: william
+            name: william-alt
           - os: macos-latest
             target: darwin-rebuild
             name: macos-local
@@ -35,7 +35,7 @@ jobs:
         uses: actions/checkout@v4
 
       - uses: gitleaks/gitleaks-action@v2
-        if: ${{ github.ref == 'refs/heads/master' && matrix.target == 'synopc' }}
+        if: ${{ github.ref == 'refs/heads/master' && matrix.target != 'home-manager' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -62,7 +62,8 @@ jobs:
       - name: Build target
         run: |
           set -o pipefail
-          nix run .#${{ matrix.target }} build --fallback --show-trace -v --log-format raw -- --flake .#${{ matrix.name }} > >(tee /tmp/nix-build-out.log) 2> >(tee /tmp/nix-build-err.log >&2)
+          nix run .#${{ matrix.target }} build --fallback --show-trace -v --log-format raw -- \
+          --flake .#${{ matrix.name }} > >(tee /tmp/nix-build-out.log) 2> >(tee /tmp/nix-build-err.log >&2)
 
       - name: Output build failure
         if: failure()

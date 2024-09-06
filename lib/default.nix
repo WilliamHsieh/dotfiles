@@ -4,7 +4,9 @@ let
   lockfile = builtins.fromJSON (builtins.readFile ../flake.lock);
   inherit (inputs.nixpkgs) lib;
 
-  foreachSystem = lib.genAttrs [ "x86_64-linux" "aarch64-darwin" ];
+  systems = [ "x86_64-linux" "aarch64-darwin" ];
+  foreachSystem = lib.genAttrs systems;
+
   pkgsBySystem = foreachSystem (system:
     # https://github.com/nix-community/home-manager/issues/2942#issuecomment-1378627909
     import inputs.nixpkgs {
@@ -22,19 +24,17 @@ let
   );
 in
 {
+  inherit foreachSystem pkgsBySystem dotfiles systems;
+
   stateVersion = "${builtins.elemAt (lib.splitString "-" lockfile.nodes.home-manager.original.ref) 1}";
 
-  inherit foreachSystem pkgsBySystem dotfiles;
-
   mkHome = { system }:
-    {
-      ${dotfiles.home.username} = inputs.home-manager.lib.homeManagerConfiguration {
-        pkgs = pkgsBySystem.${system};
-        extraSpecialArgs = { inherit inputs dotfiles; };
-        modules = [
-          ../home
-        ];
-      };
+    inputs.home-manager.lib.homeManagerConfiguration {
+      pkgs = pkgsBySystem.${system};
+      extraSpecialArgs = { inherit inputs dotfiles; };
+      modules = [
+        ../home
+      ];
     };
 
   mkSystem = { type }:
