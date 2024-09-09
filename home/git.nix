@@ -12,6 +12,7 @@
       undo = "reset HEAD@{1}";
       lg = "log --pretty=format:'%C(red)%h %C(blue)<%an> %C(green)%cs (%cr)  %C(reset)%s %C(auto)%d' --abbrev-commit --graph";
       pushf = "push --force-with-lease";
+      review = /* bash */ ''!f() { nvim +"DiffviewFileHistory --range=''${1:-master}.."; }; f'';
     };
     delta = {
       enable = true;

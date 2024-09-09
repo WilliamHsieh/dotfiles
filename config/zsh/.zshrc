@@ -52,6 +52,8 @@
 
     }
     compdef _dirs d
+
+    _git-review() { _git-checkout }
 # }}}
 
 
