@@ -28,8 +28,7 @@
     extraConfig = {
       init.defaultBranch = "master";
       merge = {
-        tool = "vimdiff";
-        conflictstyle = "diff3";
+        tool = "diffview";
       };
       push = {
         autoSetupRemote = true;
@@ -42,7 +41,13 @@
         autosquash = true;
         updateRefs = true;
       };
-      mergetool.prompt = "false";
+      mergetool = {
+        prompt = "false";
+        keepBackup = "false";
+        diffview = {
+          cmd = "nvim +DiffviewOpen $MERGE";
+        };
+      };
     };
   };
 
