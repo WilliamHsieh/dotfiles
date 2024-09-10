@@ -38,6 +38,9 @@ in
     (pkgs.lib.mkIf pkgs.stdenv.isLinux {
       visudo = "${pkgs.sudo}/bin/visudo";
     })
+    (pkgs.lib.mkIf pkgs.stdenv.isDarwin {
+      ldd = "otool -L";
+    })
   ];
 
   home.packages = [
