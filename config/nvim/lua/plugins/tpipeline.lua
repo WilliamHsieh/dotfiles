@@ -1,6 +1,7 @@
 local M = {
   "vimpostor/vim-tpipeline",
   lazy = true,
+  commit = "5f663e863df6fba9749ec6db0a890310ba4ad0a9",
 }
 
 function M.setup()
