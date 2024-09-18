@@ -212,7 +212,7 @@ return {
 
   {
     "smjonas/live-command.nvim",
-    cmd = { "Norm", "G" },
+    cmd = { "Norm", "G", "Preview" },
     main = "live-command",
     opts = {
       commands = {
