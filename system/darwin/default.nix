@@ -28,16 +28,21 @@ in
   homebrew = {
     enable = true;
     casks = [
+      "arc"
       "google-chrome"
       "google-drive"
       "raycast"
-      "rectangle"
+      "heptabase"
       "logi-options+"
       "vmware-fusion"
+      "utm"
       "hammerspoon"
-      "skype"
-      "arc"
     ];
+    # only work if the app is already acquired by your apple id
+    masApps = {
+      "Dropover - Easier Drag & Drop" = 1355679052;
+      "Hand Mirror" = 1502839586;
+    };
   };
 
   fonts.packages = with pkgs; [
