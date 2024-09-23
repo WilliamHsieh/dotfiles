@@ -151,6 +151,7 @@ in
       warn-dirty = false;
       max-jobs = "auto";
       use-xdg-base-directories = true;
+      auto-optimise-store = true;
     };
   };
 
