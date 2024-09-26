@@ -1,5 +1,6 @@
 local M = {
-  'hrsh7th/nvim-cmp',
+  "yioneko/nvim-cmp",
+  branch = "perf-up",
   event = { "InsertEnter", "CmdlineEnter" },
   dependencies = {
     "hrsh7th/cmp-buffer",
