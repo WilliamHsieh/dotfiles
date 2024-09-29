@@ -25,7 +25,9 @@ DerivePointerAlignment: false
 PointerAlignment: Left
 ReferenceAlignment: Pointer
 
-# brace
+# line break
+BreakBeforeBinaryOperators: All
+AlignOperands: AlignAfterOperator
 BreakBeforeBraces: Custom
 BraceWrapping:
   AfterFunction: true
