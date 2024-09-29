@@ -30,6 +30,5 @@ BreakBeforeBraces: Custom
 BraceWrapping:
   AfterFunction: true
 
-# misc
-InsertBraces: true
+# include blocks
 IncludeBlocks: Preserve
