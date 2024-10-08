@@ -47,6 +47,8 @@ in
       # basic tools
       coreutils-full
       util-linux
+      gnugrep
+      gnumake
       file
       findutils
       gawk
@@ -64,6 +66,9 @@ in
       htop
       tldr
       dua
+      just
+      pueue
+      mprocs
 
       # images
       viu
@@ -74,7 +79,6 @@ in
       unstable.neovim
       unzip
       nodejs
-      gnumake
 
       # shell
       eza
@@ -85,6 +89,7 @@ in
       jc
       jq
       jqp
+      sq
 
       # language specific
       rustup
