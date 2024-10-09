@@ -25,6 +25,13 @@ in
   # for login shell
   programs.zsh.enable = true; # default shell on catalina
 
+  nix-homebrew = {
+    enable = true;
+    enableRosetta = pkgs.stdenv.hostPlatform.isAarch64;
+    user = dotfiles.home.username;
+    autoMigrate = true;
+  };
+
   homebrew = {
     enable = true;
     casks = [

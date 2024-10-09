@@ -68,7 +68,9 @@ in
               };
               home-manager.users.${dotfiles.home.username} = import hmConfig;
             }
-          ];
+          ] ++ (pkgs.lib.optionals pkgs.stdenv.isDarwin [
+            inputs.homebrew.darwinModules.nix-homebrew
+          ]);
         };
     };
 }

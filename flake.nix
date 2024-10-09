@@ -30,6 +30,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    homebrew = {
+      url = "github:zhaofengli/nix-homebrew";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nix-darwin.follows = "darwin";
+    };
+
     git-hooks = {
       url = "github:cachix/git-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
