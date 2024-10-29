@@ -102,16 +102,19 @@ function M.config()
         return vim_item
       end,
     },
-    sources = {
-      { name = "lazydev", group_index = 0 },
-      { name = "rg", group_index = 1, keyword_length = 3 },
-      { name = "buffer", group_index = 2 },
+    sources = cmp.config.sources({
+      { name = "lazydev" }, -- set group index to 0 to skip loading LuaLS completions
+    }, {
       { name = "copilot" },
       { name = "nvim_lsp" },
       { name = "path" },
       { name = "luasnip" },
       { name = "emoji" },
-    },
+    }, {
+      { name = "rg", keyword_length = 3 },
+    }, {
+      { name = "buffer" }, -- for keyword_length < 3
+    }),
     preselect = cmp.PreselectMode.None,
     confirm_opts = {
       behavior = cmp.ConfirmBehavior.Replace,
