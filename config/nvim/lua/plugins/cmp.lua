@@ -10,6 +10,7 @@ local M = {
     "saadparwaiz1/cmp_luasnip",
     "L3MON4D3/LuaSnip",
     "rafamadriz/friendly-snippets",
+    "lukas-reineke/cmp-rg",
     "zbirenbaum/copilot.lua",
     "zbirenbaum/copilot-cmp",
   },
@@ -103,7 +104,8 @@ function M.config()
     },
     sources = {
       { name = "lazydev", group_index = 0 },
-      { name = "buffer",  group_index = 1 },
+      { name = "rg", group_index = 1, keyword_length = 3 },
+      { name = "buffer", group_index = 2 },
       { name = "copilot" },
       { name = "nvim_lsp" },
       { name = "path" },
