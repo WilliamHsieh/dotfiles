@@ -1,6 +1,5 @@
 local M = {
-  "yioneko/nvim-cmp",
-  branch = "perf-up",
+  "hrsh7th/nvim-cmp",
   event = { "InsertEnter", "CmdlineEnter" },
   dependencies = {
     "hrsh7th/cmp-buffer",
@@ -111,6 +110,7 @@ function M.config()
       { name = "luasnip" },
       { name = "emoji" },
     },
+    preselect = cmp.PreselectMode.None,
     confirm_opts = {
       behavior = cmp.ConfirmBehavior.Replace,
       select = false,
