@@ -88,12 +88,16 @@ function M.config()
   }
   require("copilot_cmp").setup()
 
+  local sorting = require("cmp.config.default")().sorting
+  table.insert(sorting.comparators, 1, require("copilot_cmp.comparators").prioritize)
+
   cmp.setup {
     snippet = {
       expand = function(args)
         luasnip.lsp_expand(args.body)
       end,
     },
+    sorting = sorting,
     mapping = mappings,
     formatting = {
       format = function(_, vim_item)
