@@ -7,12 +7,12 @@ local M = {
 }
 
 M.config = function()
-  vim.api.nvim_create_autocmd("User", {
-    pattern = "SessionLoadPost",
-    callback = vim.schedule_wrap(function()
-      pcall(require("nvim-tree.api").tree.toggle, false, true)
-    end),
-  })
+  -- vim.api.nvim_create_autocmd("User", {
+  --   pattern = "SessionLoadPost",
+  --   callback = vim.schedule_wrap(function()
+  --     pcall(require("nvim-tree.api").tree.toggle, false, true)
+  --   end),
+  -- })
 
   require("session_manager").setup {
     autoload_mode = require("session_manager.config").AutoloadMode.Disabled,

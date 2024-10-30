@@ -38,7 +38,6 @@ end
 --}}}
 
 -- <leader>: normal mode{{{
-map("n", "<leader>e", "<cmd>NvimTreeToggle<cr>", "Explorer")
 map("n", "<leader>w", "<cmd>up<cr>", "Save")
 map("n", "<leader>q", "<cmd>q<cr>", "Quit")
 map("n", "<leader>y", function() yank() end, "copy to clipboard")

@@ -257,4 +257,25 @@ return {
     event = { "BufRead Cargo.toml" },
     opts = {},
   },
+
+  {
+    "echasnovski/mini.files",
+    keys = {
+      {
+        "<leader>e",
+        function()
+          if not MiniFiles.close() then
+            MiniFiles.open()
+          end
+        end,
+        desc = "File Explorer",
+      },
+    },
+    opts = {
+      mappings = {
+        synchronize = "<leader>w",
+        go_in_plus = "<CR>",
+      },
+    },
+  },
 }
