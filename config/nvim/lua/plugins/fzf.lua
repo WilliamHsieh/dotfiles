@@ -2,6 +2,9 @@
 local M = {
   "ibhagwan/fzf-lua",
   cmd = "FzfLua",
+  keys = {
+    { "<leader>ft", "<cmd>TodoFzfLua<cr>", desc = "TODOs" },
+  },
 }
 
 M.opts = {
