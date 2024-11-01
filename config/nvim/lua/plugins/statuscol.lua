@@ -1,6 +1,7 @@
 local M = {
   "luukvbaal/statuscol.nvim",
-  event = "LazyFile",
+  dependencies = "nvim-ufo",
+  event = { "VeryLazy", "LazyFile" },
 }
 
 function M.config()
@@ -19,7 +20,8 @@ function M.config()
         click = "v:lua.ScLa",
       },
       {
-        text = { builtin.foldfunc }, click = "v:lua.ScFa"
+        text = { builtin.foldfunc },
+        click = "v:lua.ScFa",
       },
     },
   }
