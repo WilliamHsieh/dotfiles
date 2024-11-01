@@ -1,3 +1,5 @@
+---@module "noice"
+
 local M = {
   "folke/noice.nvim",
   event = "VeryLazy",
@@ -7,9 +9,11 @@ local M = {
   },
 }
 
+---@type NoiceConfig
 M.opts = {
   messages = {
     view_search = false,
+    view = "mini",
     view_error = "mini",
     view_warn = "mini",
   },
