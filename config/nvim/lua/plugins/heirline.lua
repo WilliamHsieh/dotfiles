@@ -233,13 +233,11 @@ function M.config()
   local Diagnostics = {
     condition = conditions.has_diagnostics,
     static = {
-      icons = require("core.icons").diagnostics
+      icons = { Error = "󰅙", Warning = "" },
     },
     init = function(self)
       self.errors = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
       self.warnings = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
-      self.hints = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT })
-      self.info = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
     end,
     {
       provider = function(self)

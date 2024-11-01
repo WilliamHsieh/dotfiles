@@ -1,21 +1,21 @@
 local M = {
   "goolord/alpha-nvim",
-  priority = 500
+  priority = 500,
 }
 
 local function setup()
-  local dashboard = require "alpha.themes.dashboard"
+  local dashboard = require("alpha.themes.dashboard")
 
   local function get_buttons()
-    local icons = require "core.icons"
+    local icons = require("mini.icons")
     return {
-      dashboard.button("i", icons.ui.NewFile .. "  New file", ":ene <BAR> startinsert<CR>"),
-      dashboard.button("r", icons.ui.History .. "  Recent files", ":FzfLua oldfiles<CR>"),
-      dashboard.button("p", icons.git.Repo .. "  Find project", ":Telescope projects theme=dropdown<CR>"),
-      dashboard.button("s", icons.misc.Watch .. "  Find session", ":SessionManager load_session<CR>"),
-      dashboard.button("l", icons.ui.Fire .. "  Leetcode", ":Leet<CR>"),
-      dashboard.button("c", icons.ui.Gear .. "  Config", ":e ~/dotfiles<CR>"),
-      dashboard.button("q", icons.diagnostics.Error .. "  Quit", ":qa<CR>"),
+      dashboard.button("i", icons.get("default", "file") .. "  New file", ":ene <BAR> startinsert<CR>"),
+      dashboard.button("r", "  Recent files", ":FzfLua oldfiles<CR>"),
+      dashboard.button("p", icons.get("filetype", "git") .. "  Find project", ":Telescope projects theme=dropdown<CR>"),
+      dashboard.button("s", icons.get("directory", ".git") .. "  Find session", ":SessionManager load_session<CR>"),
+      dashboard.button("l", "  Leetcode", ":Leet<CR>"),
+      dashboard.button("c", icons.get("filetype", "config") .. "  Config", ":e ~/dotfiles<CR>"),
+      dashboard.button("q", "  Quit", ":qa<CR>"),
     }
   end
 

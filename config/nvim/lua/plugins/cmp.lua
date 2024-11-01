@@ -99,11 +99,13 @@ function M.config()
     },
     sorting = sorting,
     mapping = mappings,
+    ---@diagnostic disable-next-line: missing-fields
     formatting = {
-      format = function(_, vim_item)
-        vim_item.kind = string.format("%s %s", require("core.icons").kind[vim_item.kind], vim_item.kind)
-        vim_item.abbr = remove_leading_chr(vim_item.abbr)
-        return vim_item
+      format = function(_, item)
+        local icon = require("mini.icons").get("lsp", item.kind)
+        item.kind = string.format("%s %s", icon, item.kind)
+        item.abbr = remove_leading_chr(item.abbr)
+        return item
       end,
     },
     sources = cmp.config.sources({

@@ -9,7 +9,6 @@ local M = {
 function M.config()
   local telescope = require("telescope")
   local actions = require("telescope.actions")
-  local icons = require("core.icons")
 
   telescope.setup {
     defaults = {
@@ -18,7 +17,7 @@ function M.config()
         ".min.js",
       },
 
-      prompt_prefix = icons.ui.Telescope .. " ",
+      prompt_prefix = " ",
       selection_caret = " ",
       path_display = { "smart" },
 
