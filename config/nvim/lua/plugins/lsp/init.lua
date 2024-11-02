@@ -59,7 +59,7 @@ function M.config()
   require("plugins.lsp.utils").setup_auto_detach()
 
   -- settings
-  local signs = { Error = "󰅙", Info = "󰋼", Hint = "󰌵", Warn = "" }
+  local signs = { Error = "", Info = "󰋼", Hint = "󰌵", Warn = "" }
   for name, icon in pairs(signs) do
     local hl = "DiagnosticSign" .. name
     vim.fn.sign_define(hl, { text = icon, numhl = hl, texthl = hl })

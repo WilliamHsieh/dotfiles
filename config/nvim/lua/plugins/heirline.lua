@@ -233,7 +233,7 @@ function M.config()
   local Diagnostics = {
     condition = conditions.has_diagnostics,
     static = {
-      icons = { Error = "󰅙", Warning = "" },
+      icons = { Error = "", Warning = "" },
     },
     init = function(self)
       self.errors = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
