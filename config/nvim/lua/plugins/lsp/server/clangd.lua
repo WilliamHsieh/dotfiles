@@ -2,10 +2,18 @@
 return {
   root_dir = function(...)
     local util = require("lspconfig.util")
+
+    local clang_format_not_home = function(...)
+      local path = util.root_pattern(".clang-format")(...)
+      if path and path ~= vim.uv.os_homedir() then
+        return path
+      end
+    end
+
     return util.root_pattern("CMakeLists.txt", "Makefile", "configure.ac")(...)
-        or util.root_pattern("compile_commands.json", "compile_flags.txt")(...)
-        or util.root_pattern(".clang-format", ".clang-tidy")(...)
-        or util.find_git_ancestor(...)
+      or util.root_pattern("compile_commands.json", "compile_flags.txt", ".clang-tidy")(...)
+      or clang_format_not_home(...)
+      or util.find_git_ancestor(...)
   end,
   capabilities = {
     offsetEncoding = { "utf-16" },
