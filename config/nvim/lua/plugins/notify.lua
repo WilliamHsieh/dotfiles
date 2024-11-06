@@ -7,6 +7,7 @@ local M = {
         require("notify").dismiss { silent = true, pending = true }
         ---@diagnostic disable-next-line: param-type-mismatch
         pcall(vim.cmd, "nohlsearch | diffupdate | mode")
+        pcall(require("focus").focus_autoresize)
       end,
       desc = "Dismiss all Notifications and refresh",
     },
@@ -16,10 +17,8 @@ local M = {
 function M.init()
   ---@diagnostic disable-next-line: duplicate-set-field
   vim.notify = function(...)
-    vim.notify = require("notify")
-
     ---@diagnostic disable-next-line: missing-fields
-    vim.notify.setup {
+    require("notify").setup {
       stages = "fade_in_slide_out",
       minimum_width = 10,
       on_open = function(win)
@@ -27,6 +26,7 @@ function M.init()
       end,
     }
 
+    vim.notify = require("notify")
     vim.notify(...)
   end
 end
