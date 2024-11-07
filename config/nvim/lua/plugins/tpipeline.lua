@@ -18,52 +18,104 @@ function M.setup()
 end
 
 function M.config()
-  -- update statusline
-  vim.api.nvim_create_autocmd({ 'DiagnosticChanged', "RecordingEnter" }, {
-    desc = "update tpipeline",
-    command = "call tpipeline#update()"
-  })
+  local augroup = vim.api.nvim_create_augroup("dotfiles_tpipeline_integration", { clear = true })
+
+  -- cache status-bg
+  local neovim_status_style = nil
+  local function update_status_bg()
+    local bg = require("core.utils").get_hl("Normal").bg
+    neovim_status_style = string.format("bg=%s,fg=%s", bg, bg)
+  end
+  vim.schedule(update_status_bg)
+
+  -- cache tmux status-style
+  local tmux_status_style = nil
+  vim.system({ "tmux", "show-options", "-gv", "status-style" }, { text = true }, function(obj)
+    tmux_status_style = obj.stdout:match("([^\n]*)")
+  end)
 
   -- update tmux status style based on current colorscheme
-  local function set_tmux_style(style)
-    vim.fn.system { "tmux", "set", "status-style", style }
+  local function set_tmux_status_style(style)
+    -- default to set session option
+    vim.system { "tmux", "set-option", "status-style", style }
   end
 
-  local utils = require("core.utils")
+  -- unset tmux option to the one set in tmux.conf
+  local function unset_tmux_option(opt)
+    vim.system { "tmux", "set-option", "-u", opt }
+  end
 
-  vim.api.nvim_create_augroup("Heirline", { clear = true })
-  vim.api.nvim_create_autocmd({ "ColorScheme", "VimEnter", "FocusGained" }, {
-    callback = function()
-      if not vim.g.tmux_status_style then
-        vim.g.tmux_status_style = utils.get_tmux_option("status-style")
-      end
-      vim.defer_fn(function()
-        vim.fn["tpipeline#forceupdate"]()
-        local bg = utils.get_hl("Normal").bg
-        set_tmux_style(("bg=%s,fg=%s"):format(bg, bg))
-      end, 50)
-    end,
-    group = "Heirline",
+  -- set window name to current directory
+  local function set_tmux_window_name_to_cwd()
+    local ok, cwd = pcall(vim.fn.fnamemodify, vim.uv.cwd(), ":t")
+    if ok and cwd then
+      vim.system { "tmux", "rename-window", cwd }
+    end
+  end
+
+  -- update tmux status by neovim statusline
+  vim.api.nvim_create_autocmd({ "DiagnosticChanged", "RecordingEnter" }, {
+    desc = "update tpipeline",
+    command = "call tpipeline#update()",
+    group = augroup,
   })
-  vim.api.nvim_create_autocmd({ "FocusLost", "VimLeave" }, {
+
+  -- update tmux status style cache based on current colorscheme
+  vim.api.nvim_create_autocmd("ColorScheme", {
     callback = function()
-      set_tmux_style(vim.g.tmux_status_style)
+      update_status_bg()
     end,
-    group = "Heirline",
+    group = augroup,
+  })
+
+  -- matched tmux status style and statusline
+  vim.api.nvim_create_autocmd({ "ColorScheme", "FocusGained" }, {
+    callback = function()
+      vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+        once = true,
+        group = vim.api.nvim_create_augroup("dotfiles_force_update_tpipeline", { clear = true }),
+        callback = function()
+          -- color
+          if tmux_status_style ~= neovim_status_style then
+            set_tmux_status_style(neovim_status_style)
+          end
+
+          -- window name
+          set_tmux_window_name_to_cwd()
+
+          -- statusline
+          vim.fn["tpipeline#forceupdate"]()
+        end,
+      })
+    end,
+    group = augroup,
+  })
+
+  -- reset tmux status style
+  vim.api.nvim_create_autocmd("FocusLost", {
+    callback = function()
+      if tmux_status_style ~= neovim_status_style then
+        unset_tmux_option("status-style")
+      end
+    end,
+    group = augroup,
   })
 
   -- rename tmux window with CWD
-  vim.api.nvim_create_autocmd({ "DirChanged", "FocusGained" }, {
-    callback = function()
-      vim.fn.system { "tmux", "rename-window", vim.fn.fnamemodify(vim.fn.getcwd(), ":t") }
-    end,
-    group = "Heirline",
+  vim.api.nvim_create_autocmd("DirChanged", {
+    callback = set_tmux_window_name_to_cwd,
+    group = augroup,
   })
+
+  -- reset tmux options set by neovim
   vim.api.nvim_create_autocmd("VimLeavePre", {
     callback = function()
-      vim.fn.system { "tmux", "setw", "automatic-rename", "on" }
+      vim.system { "tmux", "setw", "automatic-rename", "on" }
+      unset_tmux_option("status-left")
+      unset_tmux_option("status-right")
+      unset_tmux_option("status-style")
     end,
-    group = "Heirline",
+    group = augroup,
   })
 end
 
