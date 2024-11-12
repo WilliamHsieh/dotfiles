@@ -102,7 +102,7 @@ function M.config()
   })
 
   -- rename tmux window with CWD
-  vim.api.nvim_create_autocmd("DirChanged", {
+  vim.api.nvim_create_autocmd({ "DirChanged", "LspAttach" }, {
     callback = set_tmux_window_name_to_cwd,
     group = augroup,
   })
