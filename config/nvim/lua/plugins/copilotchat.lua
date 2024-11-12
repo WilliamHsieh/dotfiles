@@ -9,6 +9,7 @@ local M = {
 
 ---@type CopilotChat.config
 M.opts = {
+  insert_at_end = true,
   auto_follow_cursor = false,
   prompts = {
     Explain = {
