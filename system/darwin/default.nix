@@ -84,7 +84,7 @@ in
       trackpad = {
         Dragging = true;
       };
-      finder.FXPreferredViewStyle = "icnv";
+      finder.FXPreferredViewStyle = "clmv";
       universalaccess = {
         # NOTE: require permission for alacritty: System Preferences > Security & Privacy > Privacy > Full Disk Access
         closeViewScrollWheelToggle = true;
