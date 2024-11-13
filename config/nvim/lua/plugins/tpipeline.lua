@@ -19,6 +19,7 @@ end
 
 function M.config()
   local augroup = vim.api.nvim_create_augroup("dotfiles_tpipeline_integration", { clear = true })
+  local focused = true
 
   -- cache status-bg
   local neovim_status_style = nil
@@ -70,11 +71,20 @@ function M.config()
 
   -- matched tmux status style and statusline
   vim.api.nvim_create_autocmd({ "ColorScheme", "FocusGained" }, {
-    callback = function()
+    callback = function(e)
+      if e.event == "FocusGained" then
+        focused = true
+      end
+
       vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
         once = true,
         group = vim.api.nvim_create_augroup("dotfiles_force_update_tpipeline", { clear = true }),
         callback = function()
+          -- check if neovim is still focused
+          if not focused then
+            return
+          end
+
           -- color
           if tmux_status_style ~= neovim_status_style then
             set_tmux_status_style(neovim_status_style)
@@ -93,7 +103,10 @@ function M.config()
 
   -- reset tmux status style
   vim.api.nvim_create_autocmd("FocusLost", {
-    callback = function()
+    callback = function(e)
+      if e.event == "FocusLost" then
+        focused = false
+      end
       if tmux_status_style ~= neovim_status_style then
         unset_tmux_option("status-style")
       end
