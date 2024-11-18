@@ -16,7 +16,7 @@ M.opts = {
     "lua-language-server",
     "nil",
     "pyright",
-    "ruff-lsp",
+    "ruff",
     "typescript-language-server",
 
     -- formatter / linter
