@@ -107,10 +107,10 @@ return {
 
   {
     "ahmedkhalf/project.nvim",
-    event = "LazyFile",
+    cmd = "ProjectRoot",
     config = function()
       require("project_nvim").setup {
-        -- manual_mode = true,
+        manual_mode = true,
         ignore_lsp = { "null-ls", "copilot" },
       }
       require("core.utils").on_load("telescope.nvim", function()
