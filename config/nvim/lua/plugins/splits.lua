@@ -26,6 +26,7 @@ return {
     "levouh/tint.nvim",
     event = "WinNew",
     opts = {
+      tint = -75,
       window_ignore_function = function(winid)
         local bufid = vim.api.nvim_win_get_buf(winid)
         local buftype = vim.bo[bufid].buftype
@@ -36,8 +37,8 @@ return {
         local buftype_blacklist = { "terminal" }
         local filetype_blacklist = { "NvimTree", "undotree", "trouble" }
         return floating
-            or vim.tbl_contains(buftype_blacklist, buftype)
-            or vim.tbl_contains(filetype_blacklist, filetype)
+          or vim.tbl_contains(buftype_blacklist, buftype)
+          or vim.tbl_contains(filetype_blacklist, filetype)
       end,
     },
   },
@@ -46,6 +47,10 @@ return {
     "nvim-focus/focus.nvim",
     event = "WinNew",
     opts = {
+      autoresize = {
+        minwidth = 4,
+        minheight = 1,
+      },
       ui = {
         cursorline = false,
         signcolumn = false,
@@ -56,7 +61,7 @@ return {
 
       -- https://github.com/nvim-focus/focus.nvim?tab=readme-ov-file#disabling-focus
       local ignore_filetypes = { "NvimTree", "qf", "toggleterm", "trouble" }
-      local ignore_buftypes = { "nofile", "prompt", "popup" }
+      local ignore_buftypes = { "prompt", "popup" }
       local augroup = vim.api.nvim_create_augroup("FocusDisable", { clear = true })
 
       vim.api.nvim_create_autocmd("WinEnter", {
