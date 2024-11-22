@@ -1,20 +1,29 @@
 return {
   ---------- lib ----------
-  {
-    "nvim-lua/popup.nvim",
-    lazy = true,
-  },
+  { "nvim-lua/popup.nvim", lazy = true },
+  { "nvim-tree/nvim-web-devicons", lazy = true },
+  { "echasnovski/mini.icons", lazy = true },
   {
     "nvim-lua/plenary.nvim",
-    lazy = true,
-  },
-  {
-    "echasnovski/mini.icons",
-    lazy = true,
-  },
-  {
-    "nvim-tree/nvim-web-devicons",
-    lazy = true,
+    keys = {
+      {
+        -- NOTE: A flamegraph can be created using https://github.com/jonhoo/inferno
+        -- $ inferno-flamegraph profile.log > flame.svg
+        "<f3>",
+        function()
+          vim.notify("start recording")
+          ---@diagnostic disable-next-line: param-type-mismatch
+          require("plenary.profile").start("profile.log", { flame = true })
+        end,
+      },
+      {
+        "<f4>",
+        function()
+          vim.notify("stop recording")
+          require("plenary.profile").stop()
+        end,
+      },
+    },
   },
 
   ---------- Treesitter ----------
