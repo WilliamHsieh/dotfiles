@@ -56,7 +56,7 @@
     enable = true;
     extensions = with pkgs; [
       gh-dash
-      unstable.gh-copilot
+      gh-copilot
     ];
   };
 }
