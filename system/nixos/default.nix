@@ -111,7 +111,7 @@
   # for running nearly every binaries
   programs.nix-ld = {
     enable = true;
-    libraries = pkgs.steam-run.fhsenv.args.multiPkgs pkgs;
+    libraries = pkgs.steam-run.args.multiPkgs pkgs;
   };
 
   # AppImage files can be invoked directly as if they were normal programs
