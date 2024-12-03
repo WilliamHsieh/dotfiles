@@ -73,8 +73,6 @@
   services.printing.enable = true;
 
   # Enable sound with pipewire.
-  sound.enable = true;
-  hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -111,7 +109,7 @@
   # for running nearly every binaries
   programs.nix-ld = {
     enable = true;
-    libraries = pkgs.steam-run.fhsenv.args.multiPkgs pkgs;
+    libraries = pkgs.steam-run.args.multiPkgs pkgs;
   };
 
   # AppImage files can be invoked directly as if they were normal programs

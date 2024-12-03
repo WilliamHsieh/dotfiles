@@ -95,7 +95,7 @@ in
       # plugins
       source ${zsh-autosuggestions}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
       source ${zsh-fast-syntax-highlighting}/share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh
-      source ${unstable.zsh-abbr}/share/zsh/zsh-abbr/abbr.plugin.zsh
+      source ${zsh-abbr}/share/zsh/zsh-abbr/zsh-abbr.plugin.zsh
       source ${zsh-autopair}/share/zsh/zsh-autopair/autopair.zsh
       source ${zsh-nix-shell}/share/zsh-nix-shell/nix-shell.plugin.zsh
       source ${oh-my-zsh}/share/oh-my-zsh/plugins/extract/extract.plugin.zsh

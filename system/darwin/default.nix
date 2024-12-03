@@ -7,7 +7,7 @@ in
     [
       pkgs.spotify
       pkgs.discord
-      pkgs.xquartz
+      # pkgs.xquartz
     ];
 
   nixpkgs.hostPlatform = "aarch64-darwin";
