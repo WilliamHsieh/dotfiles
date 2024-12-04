@@ -14,7 +14,7 @@ in
       warn-dirty = false;
       max-jobs = "auto";
       use-xdg-base-directories = true;
-      auto-optimise-store = true;
+      auto-optimise-store = !pkgs.stdenv.isDarwin;
 
       # add these to global /etc/nix/nix.conf when using home manager, and restart nix-daemon by `systemctl restart nix-daemon`
       trusted-users = [
