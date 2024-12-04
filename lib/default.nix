@@ -37,6 +37,7 @@ in
       };
       modules = [
         ../home
+        ./nix.nix
       ];
     };
 
@@ -57,6 +58,7 @@ in
         {
           specialArgs = { inherit inputs pkgs dotfiles; };
           modules = [
+            ./nix.nix
             osConfig
             hmModules.home-manager
             {

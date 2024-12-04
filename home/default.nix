@@ -146,23 +146,6 @@ in
     "vim".source = link "vim";
   };
 
-  nix = {
-    package = lib.mkDefault pkgs.nixVersions.latest;
-    nixPath = [
-      "nixpkgs=${inputs.nixpkgs}"
-      "dotfiles=$HOME/${dotfiles.home.dotDir}"
-    ];
-    registry.nixpkgs.flake = inputs.nixpkgs;
-    registry.nixpkgs-unstable.flake = inputs.nixpkgs-unstable;
-    settings = {
-      experimental-features = [ "nix-command" "flakes" ];
-      warn-dirty = false;
-      max-jobs = "auto";
-      use-xdg-base-directories = true;
-      auto-optimise-store = true;
-    };
-  };
-
   home.activation = {
     updateNeovimPlugins = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       PATH="${config.home.path}/bin:$PATH" run --quiet nvim --headless "+Lazy! restore | qa"
