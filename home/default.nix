@@ -122,7 +122,6 @@ in
     ]);
 
     sessionVariables = rec {
-      NIX_PATH = "nixpkgs=${inputs.nixpkgs}";
       COLORTERM = "truecolor";
       LANG = "en_US.UTF-8";
       LC_CTYPE = "en_US.UTF-8";
@@ -149,6 +148,10 @@ in
 
   nix = {
     package = lib.mkDefault pkgs.nixVersions.latest;
+    nixPath = [
+      "nixpkgs=${inputs.nixpkgs}"
+      "dotfiles=$HOME/${dotfiles.home.dotDir}"
+    ];
     registry.nixpkgs.flake = inputs.nixpkgs;
     registry.nixpkgs-unstable.flake = inputs.nixpkgs-unstable;
     settings = {
