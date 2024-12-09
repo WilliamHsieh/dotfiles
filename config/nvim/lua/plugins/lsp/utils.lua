@@ -27,6 +27,10 @@ M.setup_auto_detach = function()
         callback = function()
           if not timer:is_active() then
             pcall(vim.cmd.LspStart)
+            vim.cmd("Lazy reload lazydev.nvim")
+            if not vim.g.copilot_disabled then
+              require("copilot.command").enable()
+            end
           end
           timer:stop()
         end,
