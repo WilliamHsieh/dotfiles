@@ -69,34 +69,39 @@ function M.config()
     group = augroup,
   })
 
+  -- sync status style on CursorHold
+  local function sync_tmux_status_style()
+    vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+      once = true,
+      group = vim.api.nvim_create_augroup("dotfiles_force_update_tpipeline", { clear = true }),
+      callback = function()
+        -- check if neovim is still focused
+        if not focused then
+          return
+        end
+
+        -- color
+        if tmux_status_style ~= neovim_status_style then
+          set_tmux_status_style(neovim_status_style)
+        end
+
+        -- window name
+        set_tmux_window_name_to_cwd()
+
+        -- statusline
+        vim.fn["tpipeline#forceupdate"]()
+      end,
+    })
+  end
+  sync_tmux_status_style()
+
   -- matched tmux status style and statusline
   vim.api.nvim_create_autocmd({ "ColorScheme", "FocusGained" }, {
     callback = function(e)
       if e.event == "FocusGained" then
         focused = true
       end
-
-      vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-        once = true,
-        group = vim.api.nvim_create_augroup("dotfiles_force_update_tpipeline", { clear = true }),
-        callback = function()
-          -- check if neovim is still focused
-          if not focused then
-            return
-          end
-
-          -- color
-          if tmux_status_style ~= neovim_status_style then
-            set_tmux_status_style(neovim_status_style)
-          end
-
-          -- window name
-          set_tmux_window_name_to_cwd()
-
-          -- statusline
-          vim.fn["tpipeline#forceupdate"]()
-        end,
-      })
+      sync_tmux_status_style()
     end,
     group = augroup,
   })
