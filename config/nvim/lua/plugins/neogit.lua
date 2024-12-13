@@ -19,6 +19,7 @@ local M = {
   },
 }
 
+---@type NeogitConfig
 M.opts = {
   disable_commit_confirmation = true,
   disable_insert_on_commit = false,
@@ -31,17 +32,6 @@ M.opts = {
   },
   integrations = {
     diffview = true
-  },
-  sections = {
-    unpulled_pushRemote = {
-      folded = false
-    },
-    unmerged_upstream = {
-      folded = false
-    },
-    recent = {
-      folded = false
-    },
   },
 }
 
