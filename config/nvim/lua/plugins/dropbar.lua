@@ -1,6 +1,8 @@
 return {
   "Bekaboo/dropbar.nvim",
   event = "LazyFile",
+
+  ---@type dropbar_configs_t
   opts = {
     bar = {
       enable = function(buf, win, _)
@@ -15,9 +17,16 @@ return {
         pivots = "asdfghjkl;qwertyuiopzxcvbnm",
       },
       sources = function()
-        local sources = require("dropbar.sources")
         return {
-          sources.path,
+          {
+            get_symbols = function(buff, win, cursor)
+              local symbols = require("dropbar.sources").path.get_symbols(buff, win, cursor)
+              if vim.bo[buff].modified then
+                symbols[#symbols].name = symbols[#symbols].name .. " [+]"
+              end
+              return symbols
+            end,
+          },
         }
       end,
     },
