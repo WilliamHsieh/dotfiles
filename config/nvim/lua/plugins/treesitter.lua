@@ -26,7 +26,9 @@ local M = {
 }
 
 function M.config()
-  vim.g.matchup_matchparen_offscreen = { method = "popup" }
+  -- disable if ts-context is enable in current buffer
+  vim.g.matchup_matchparen_offscreen = { method = "status_manual" }
+  vim.g.bigfile_size = 1.5 * 1024 * 1024
 
   ---@diagnostic disable-next-line: missing-fields
   require("nvim-treesitter.configs").setup {

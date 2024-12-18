@@ -5,6 +5,7 @@ return {
 
   ---@type snacks.config
   opts = {
+    bigfile = { enabled = true },
     quickfile = { enabled = true },
     statuscolumn = { enabled = true },
     scroll = {
