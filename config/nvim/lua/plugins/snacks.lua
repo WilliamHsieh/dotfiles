@@ -6,6 +6,7 @@ return {
   ---@type snacks.config
   opts = {
     quickfile = { enabled = true },
+    statuscolumn = { enabled = true },
     input = { enabled = true },
   },
 }
