@@ -232,18 +232,6 @@ return {
   },
 
   {
-    "Bekaboo/dropbar.nvim",
-    event = "LazyFile",
-    opts = {
-      bar = {
-        pick = {
-          pivots = "asdfghjkl;qwertyuiopzxcvbnm",
-        },
-      },
-    },
-  },
-
-  {
     "akinsho/git-conflict.nvim",
     opts = {},
     keys = {
