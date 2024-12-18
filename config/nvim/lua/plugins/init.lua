@@ -129,16 +129,6 @@ return {
   },
 
   {
-    "declancm/cinnamon.nvim",
-    event = "VeryLazy",
-    opts = {
-      keymaps = {
-        basic = true,
-      },
-    },
-  },
-
-  {
     "kevinhwang91/nvim-fundo",
     event = "BufReadPre",
     dependencies = { "kevinhwang91/promise-async" },
