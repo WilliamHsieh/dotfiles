@@ -15,6 +15,17 @@ return {
       },
     },
     input = { enabled = true },
+    indent = {
+      indent = {
+        enabled = true,
+        char = "▏",
+        hl = "IblIndent",
+      },
+      scope = {
+        char = "▏",
+        hl = "IblScope",
+      },
+    },
   },
 
   init = function()
