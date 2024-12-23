@@ -46,6 +46,17 @@ return {
   {
     "nvim-focus/focus.nvim",
     event = "WinNew",
+    keys = {
+      {
+        "<C-L>",
+        function()
+          ---@diagnostic disable-next-line: param-type-mismatch
+          pcall(vim.cmd, "nohlsearch | diffupdate | mode")
+          pcall(require("focus").focus_autoresize)
+        end,
+        desc = "Resize splits and refresh",
+      },
+    },
     opts = {
       autoresize = {
         minwidth = 4,
