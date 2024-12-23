@@ -4,8 +4,9 @@ return {
     ft = "lua",
     opts = {
       library = {
-        -- TODO: change to vim.uv
+        { path = "luvit-meta/library", words = { "vim%.uv" } },
         { path = "luvit-meta/library", words = { "vim%.loop" } },
+        { path = "snacks.nvim", words = { "Snacks" } },
       },
     },
   },
@@ -13,6 +14,6 @@ return {
   -- optional `vim.uv` typings
   {
     "Bilal2453/luvit-meta",
-    lazy = true
+    lazy = true,
   },
 }
