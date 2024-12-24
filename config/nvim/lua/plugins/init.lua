@@ -36,24 +36,6 @@ return {
   },
 
   {
-    "folke/zen-mode.nvim",
-    cmd = "ZenMode",
-    opts = {
-      plugins = {
-        tmux = {
-          enabled = true,
-        },
-      },
-    },
-    dependencies = {
-      {
-        "folke/twilight.nvim",
-        config = true,
-      },
-    },
-  },
-
-  {
     "simrat39/symbols-outline.nvim",
     cmd = "SymbolsOutline",
     config = true,

@@ -26,6 +26,14 @@ return {
         hl = "IblScope",
       },
     },
+    zen = {
+      on_open = function()
+        vim.system { "tmux", "set", "status", "off" }
+      end,
+      on_close = function()
+        vim.system { "tmux", "set", "status", "on" }
+      end,
+    },
   },
 
   init = function()
