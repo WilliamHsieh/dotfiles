@@ -13,12 +13,14 @@ M.init = function()
 end
 
 M.config = function()
-  -- vim.api.nvim_create_autocmd("User", {
-  --   pattern = "SessionLoadPost",
-  --   callback = vim.schedule_wrap(function()
-  --     pcall(require("nvim-tree.api").tree.toggle, false, true)
-  --   end),
-  -- })
+  vim.api.nvim_create_autocmd("User", {
+    pattern = "SessionLoadPost",
+    callback = vim.schedule_wrap(function()
+      -- HACK: this is a workaround for a race condition from `focus` plugin (resizer.lua)
+      -- it will set `cmdheight` to 1, when loading a session
+      vim.o.cmdheight = 0
+    end),
+  })
 
   require("session_manager").setup {
     autoload_mode = require("session_manager.config").AutoloadMode.Disabled,
