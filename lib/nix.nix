@@ -17,6 +17,7 @@ in
       auto-optimise-store = !pkgs.stdenv.isDarwin;
 
       # add these to global /etc/nix/nix.conf when using home manager, and restart nix-daemon by `systemctl restart nix-daemon`
+      # nix-daemon doesn't watch the nix.conf file: https://github.com/NixOS/nix/issues/8939
       trusted-users = [
         "root"
         "@wheel"

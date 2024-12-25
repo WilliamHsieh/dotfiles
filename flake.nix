@@ -77,6 +77,10 @@
       };
 
       darwinConfigurations = mkSystem {
+        # NOTE: home manager activation is showing following error
+        # error: profile '/Users/william/.local/state/nix/profiles/profile' is incompatible with 'nix-env'; please use 'nix profile' instead
+        # temporary workaround is to synlink ~/.local/state/nix/profile to ~/.nix-profile
+        # ref: https://discourse.nixos.org/t/home-manager-insists-on-using-nix-profile/57708
         isDarwin = true;
       };
 
