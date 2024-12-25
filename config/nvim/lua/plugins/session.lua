@@ -19,6 +19,7 @@ M.config = function()
       -- HACK: this is a workaround for a race condition from `focus` plugin (resizer.lua)
       -- it will set `cmdheight` to 1, when loading a session
       vim.o.cmdheight = 0
+      require("plugins.lsp.utils").restart_lsp()
     end),
   })
 

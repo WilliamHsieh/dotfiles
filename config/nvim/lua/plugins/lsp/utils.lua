@@ -16,7 +16,7 @@ M.setup_auto_detach = function()
             timeout,
             0,
             vim.schedule_wrap(function()
-              pcall(vim.cmd.LspStop)
+              M.stop_lsp()
             end)
           )
         end,
@@ -26,8 +26,7 @@ M.setup_auto_detach = function()
         group = lsp_detach_group,
         callback = function()
           if not timer:is_active() then
-            pcall(vim.cmd.LspStart)
-            vim.cmd("Lazy reload lazydev.nvim")
+            M.start_lsp()
             if not vim.g.copilot_disabled then
               require("copilot.command").enable()
             end
@@ -37,6 +36,22 @@ M.setup_auto_detach = function()
       })
     end,
   })
+end
+
+M.start_lsp = function()
+  pcall(vim.cmd.LspStart)
+  vim.cmd("Lazy reload lazydev.nvim")
+  vim.cmd("Lazy reload none-ls.nvim")
+  vim.cmd("Lazy reload mason-null-ls.nvim")
+end
+
+M.stop_lsp = function()
+  pcall(vim.cmd.LspStop)
+end
+
+M.restart_lsp = function()
+  vim.schedule(M.stop_lsp)
+  vim.defer_fn(M.start_lsp, 2000)
 end
 
 return M
