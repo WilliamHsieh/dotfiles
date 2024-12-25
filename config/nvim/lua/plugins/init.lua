@@ -36,24 +36,6 @@ return {
   },
 
   {
-    "folke/zen-mode.nvim",
-    cmd = "ZenMode",
-    opts = {
-      plugins = {
-        tmux = {
-          enabled = true,
-        },
-      },
-    },
-    dependencies = {
-      {
-        "folke/twilight.nvim",
-        config = true,
-      },
-    },
-  },
-
-  {
     "simrat39/symbols-outline.nvim",
     cmd = "SymbolsOutline",
     config = true,
@@ -126,16 +108,6 @@ return {
         require("telescope").load_extension("projects")
       end)
     end,
-  },
-
-  {
-    "declancm/cinnamon.nvim",
-    event = "VeryLazy",
-    opts = {
-      keymaps = {
-        basic = true,
-      },
-    },
   },
 
   {

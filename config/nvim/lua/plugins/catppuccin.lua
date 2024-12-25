@@ -23,7 +23,6 @@ function M.config()
       cmp = true,
       gitsigns = true,
       hop = true,
-      illuminate = true,
       leap = true,
       lsp_saga = true,
       lsp_trouble = true,
