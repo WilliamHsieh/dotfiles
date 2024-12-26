@@ -192,6 +192,12 @@ return {
   },
 
   {
+    "MeanderingProgrammer/render-markdown.nvim",
+    ft = { "markdown", "codecompanion", "copilot-chat" },
+    opts = {},
+  },
+
+  {
     "smjonas/live-command.nvim",
     cmd = { "Norm", "G", "Preview" },
     main = "live-command",

@@ -114,12 +114,10 @@ function M.config()
       { name = "copilot" },
       { name = "nvim_lsp" },
       { name = "path" },
+      { name = "rg", keyword_length = 3 },
+      { name = "render-markdown" },
       { name = "luasnip" },
       { name = "emoji" },
-    }, {
-      { name = "rg", keyword_length = 3 },
-    }, {
-      { name = "buffer" }, -- for keyword_length < 3
     }),
     preselect = cmp.PreselectMode.None,
     confirm_opts = {
@@ -147,9 +145,11 @@ function M.config()
 
   cmp.setup.cmdline({ '/', '?' }, {
     mapping = mappings,
-    sources = {
-      { name = "buffer" },
-    },
+    sources = cmp.config.sources({
+      { name = "rg", keyword_length = 3 },
+    }, {
+      { name = "buffer" }, -- for keyword_length < 3
+    }),
   })
 end
 
