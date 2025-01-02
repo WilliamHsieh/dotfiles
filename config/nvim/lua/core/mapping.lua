@@ -121,6 +121,7 @@ map("n", "<leader>fk", "<cmd>FzfLua keymaps<cr>", "Keymaps")
 map("n", "<leader>fp", "<cmd>Telescope projects<cr>", "Projects")
 map("n", "<leader>f/", "<cmd>FzfLua grep_curbuf<cr>", "Search in current buffer")
 map("n", "<leader>fs", "<cmd>SessionManager load_session<cr>", "Load session")
+map("v", "<leader>fw", "<cmd>FzfLua grep_visual<cr>", "grep visual")
 map("n", "<leader>fw", "<cmd>FzfLua grep_cword<cr>", "grep cword")
 map("n", "<leader>fW", "<cmd>FzfLua grep_cWORD<cr>", "grep cWORD")
 --}}}
