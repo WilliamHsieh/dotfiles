@@ -11,7 +11,6 @@ local function setup()
     return {
       dashboard.button("i", icons.get("default", "file") .. "  New file", ":ene <BAR> startinsert<CR>"),
       dashboard.button("r", "  Recent files", ":FzfLua oldfiles<CR>"),
-      dashboard.button("p", icons.get("filetype", "git") .. "  Find project", ":Telescope projects theme=dropdown<CR>"),
       dashboard.button("s", icons.get("directory", ".git") .. "  Find session", ":SessionManager load_session<CR>"),
       dashboard.button("l", "  Leetcode", ":Leet<CR>"),
       dashboard.button("c", icons.get("filetype", "config") .. "  Config", ":e ~/dotfiles<CR>"),
