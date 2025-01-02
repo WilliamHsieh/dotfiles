@@ -61,6 +61,13 @@ vim.api.nvim_create_autocmd("InsertLeave", {
   end,
 })
 
+vim.api.nvim_create_autocmd({ "BufEnter", "LspAttach" }, {
+  group = augroup("project_root"),
+  callback = vim.schedule_wrap(function()
+    vim.cmd.ProjectRoot()
+  end),
+})
+
 -- Auto create dir when saving a file, in case some intermediate directory does not exist
 vim.api.nvim_create_autocmd("BufWritePre", {
   group = augroup("create_parent_dir"),
