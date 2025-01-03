@@ -3,6 +3,7 @@ return {
   priority = 1000,
 
   ---@type snacks.config
+  ---@diagnostic disable-next-line: missing-fields
   opts = {
     words = {
       enabled = true,
@@ -17,6 +18,9 @@ return {
       animate = {
         duration = { step = 12, total = 210 },
       },
+    },
+    scope = {
+      enabled = true,
     },
     input = { enabled = true },
     indent = {
