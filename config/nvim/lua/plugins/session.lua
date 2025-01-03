@@ -3,7 +3,6 @@
 
 local M = {
   "Shatur/neovim-session-manager",
-  dependencies = "scope.nvim",
   cmd = "SessionManager",
   event = "LazyFile",
 }
@@ -34,7 +33,6 @@ M.config = function()
     group = group,
     callback = function()
       vim.cmd.ProjectRoot()
-      vim.cmd.ScopeSaveState()
       require("session_manager").save_current_session()
     end,
   })
