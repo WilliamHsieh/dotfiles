@@ -212,7 +212,7 @@ in
     };
   };
 
-  programs.glamour.catppuccin.enable = true;
+  catppuccin.glamour.enable = true;
 
   programs.man.generateCaches = true;
 }

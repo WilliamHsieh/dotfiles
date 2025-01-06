@@ -2,6 +2,8 @@
 let
   dotfiles = import ../config;
   lockfile = builtins.fromJSON (builtins.readFile ../flake.lock);
+  input_name = lockfile.nodes.root.inputs.home-manager;
+
   inherit (inputs.nixpkgs) lib;
 
   systems = [ "x86_64-linux" "aarch64-darwin" ];
@@ -26,7 +28,7 @@ in
 {
   inherit foreachSystem pkgsBySystem dotfiles systems;
 
-  stateVersion = "${builtins.elemAt (lib.splitString "-" lockfile.nodes.home-manager.original.ref) 1}";
+  stateVersion = "${builtins.elemAt (lib.splitString "-" lockfile.nodes.${input_name}.original.ref) 1}";
 
   mkHome = { system }:
     inputs.home-manager.lib.homeManagerConfiguration {

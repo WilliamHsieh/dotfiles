@@ -4,13 +4,14 @@ let
   dataHome = "${config.xdg.dataHome}/tmux";
 in
 {
+  catppuccin.tmux.enable = false;
+
   programs.tmux = {
     enable = true;
     package = pkgs.unstable.tmux;
     sensibleOnTop = false;
     terminal = "xterm-256color";
     shell = "${pkgs.zsh}/bin/zsh";
-    catppuccin.enable = false;
     plugins = with pkgs.tmuxPlugins; [
       {
         plugin = prefix-highlight;
