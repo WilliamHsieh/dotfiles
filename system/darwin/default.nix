@@ -1,23 +1,20 @@
-{ inputs, config, pkgs, dotfiles, ... }:
+{ pkgs, dotfiles, ... }:
 let
   inherit (dotfiles.home) username;
 in
 {
-  environment.systemPackages =
-    [
-      pkgs.spotify
-      pkgs.discord
-      # pkgs.xquartz
-    ];
+  environment.systemPackages = [
+    pkgs.xquartz
+  ];
 
   nixpkgs.hostPlatform = "aarch64-darwin";
 
   networking.hostName = dotfiles.darwin.hostname;
 
-  services.karabiner-elements.enable = true;
+  # services.karabiner-elements.enable = true;
 
   users.users."${username}" = {
-    description = username;
+    description = dotfiles.home.fullname;
     home = "/Users/${username}";
     shell = pkgs.zsh;
   };
@@ -37,13 +34,18 @@ in
     casks = [
       "arc"
       "google-chrome"
+
       "google-drive"
       "raycast"
       "heptabase"
       "logi-options+"
+      "hammerspoon"
+      "spotify"
+      "discord"
+      "todoist"
+
       "vmware-fusion"
       "utm"
-      "hammerspoon"
     ];
     # only work if the app is already acquired by your apple id
     masApps = {
@@ -73,6 +75,7 @@ in
         "com.apple.keyboard.fnState" = true;
       };
       dock = {
+        tilesize = 56;
         largesize = 100;
         magnification = true;
         mru-spaces = false;
