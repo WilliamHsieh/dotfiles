@@ -13,12 +13,12 @@ local M = {
 }
 
 function M.config()
-  local on_attach = function(client, bufnr)
+  local on_attach = function(bufnr)
     local function opts(desc)
       return { buffer = bufnr, desc = desc }
     end
     vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help, opts("signature_help"))
-    vim.keymap.set("n", "K", vim.lsp.buf.hover, opts("Hover doc"))
+    vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<cr>", opts("Hover doc"))
     vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts("go to definition"))
     vim.keymap.set("n", "gD", vim.lsp.buf.type_definition, opts("go to type definition"))
     vim.keymap.set("n", "gr", "<cmd>FzfLua lsp_references<cr>", opts("go to references"))
@@ -34,10 +34,10 @@ function M.config()
     end, opts("toggle inlay hists"))
   end
 
-  local capabilities = require('cmp_nvim_lsp').default_capabilities()
+  local capabilities = require("cmp_nvim_lsp").default_capabilities()
   capabilities.textDocument.foldingRange = {
     dynamicRegistration = false,
-    lineFoldingOnly = true
+    lineFoldingOnly = true,
   }
 
   require("mason-lspconfig").setup_handlers {
