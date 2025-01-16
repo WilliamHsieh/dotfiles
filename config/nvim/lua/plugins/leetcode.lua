@@ -4,12 +4,14 @@ return {
   cmd = "Leet",
   opts = {
     keys = {
+      quit = "q",
       reset_testcases = "R",
     },
     injector = {
       ["cpp"] = {
         before = {
           "#include <bits/stdc++.h>",
+          "#include <ranges>", -- leetcode didn't include this by default
           "using namespace std;",
         },
       },
