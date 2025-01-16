@@ -59,7 +59,8 @@ return {
     },
     opts = {
       autoresize = {
-        minwidth = 4,
+        -- XXX: focus does not account for consecutive splits more than 2, the middle splits are jammed together
+        minwidth = 20,
         minheight = 1,
       },
       ui = {
