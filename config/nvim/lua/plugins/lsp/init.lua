@@ -13,7 +13,7 @@ local M = {
 }
 
 function M.config()
-  local on_attach = function(bufnr)
+  local on_attach = function(_client, bufnr)
     local function opts(desc)
       return { buffer = bufnr, desc = desc }
     end
