@@ -210,14 +210,6 @@ return {
   },
 
   {
-    "akinsho/git-conflict.nvim",
-    opts = {},
-    keys = {
-      { "cr", "<cmd>GitConflictRefresh<cr>", desc = "Refresh conflict marks" },
-    },
-  },
-
-  {
     "seandewar/killersheep.nvim",
     cmd = "KillKillKill",
   },
