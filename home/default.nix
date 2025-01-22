@@ -5,11 +5,15 @@ let
 
   glow-without-completion = pkgs.glow.overrideAttrs
     (oldAttrs: {
+      # glow with completion can't complete file path
+      # solution: remove the completion file
       postFixup = ''
-        # Remove the completion file
         rm $out/share/zsh/site-functions/_glow
       '';
     });
+
+  # NOTE: impure
+  # isWSL = lib.strings.hasInfix "Microsoft" (builtins.readFile /proc/version);
 in
 {
   imports = [
@@ -67,7 +71,6 @@ in
       tldr
       dua
       just
-      pueue
       mprocs
 
       # images
@@ -110,6 +113,7 @@ in
       glow-without-completion
       csvlens
       litecli
+      nix-tree
 
       # misc
       nix-search-cli
@@ -123,6 +127,8 @@ in
 
     sessionVariables = rec {
       COLORTERM = "truecolor";
+      # FIX: should i change both of these to C.UTF-8?
+      # feels like it's causing p10k to not display correctly
       LANG = "en_US.UTF-8";
       LC_CTYPE = "en_US.UTF-8";
       EDITOR = "${pkgs.unstable.neovim}/bin/nvim";
@@ -134,6 +140,16 @@ in
       # LIBRARY_PATH = "${pkgs.iconv}/lib";
       LIBRARY_PATH = "${config.home.profileDirectory}/lib";
     };
+
+    activation = {
+      updateNeovimPlugins = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        PATH="${config.home.path}/bin:$PATH" run --quiet nvim --headless "+Lazy! restore | qa"
+      '';
+
+      linkHomeManagerPath = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        ln -sfn ${config.home-files} ${config.home.homeDirectory}/.local/share/home-files
+      '';
+    };
   };
 
   xdg.enable = true;
@@ -144,12 +160,6 @@ in
     "glow".source = link "glow";
     "zsh/.p10k.zsh".source = link "zsh/.p10k.zsh";
     "vim".source = link "vim";
-  };
-
-  home.activation = {
-    updateNeovimPlugins = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      PATH="${config.home.path}/bin:$PATH" run --quiet nvim --headless "+Lazy! restore | qa"
-    '';
   };
 
   programs.home-manager.enable = true;
@@ -214,5 +224,17 @@ in
 
   catppuccin.glamour.enable = true;
 
+  # for fast-syntax-highlighting
   programs.man.generateCaches = true;
+
+  systemd.user.startServices = "sd-switch";
+
+  services.pueue = {
+    enable = pkgs.stdenv.isLinux;
+    settings = {
+      daemon = {
+        default_parallel_tasks = 1;
+      };
+    };
+  };
 }

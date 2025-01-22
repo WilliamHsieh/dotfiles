@@ -1,4 +1,4 @@
-{ pkgs, config, dotfiles, ... }:
+{ pkgs, dotfiles, ... }:
 {
   home.packages = with pkgs; [
     glab
@@ -14,12 +14,17 @@
       pushf = "push --force-with-lease";
       review = /* bash */ ''!f() { nvim +"DiffviewFileHistory --range=''${1:-master}.."; }; f'';
     };
+
+    # FIX: zsh completion still not working
+    # consider overwriting scss completion or prioritize user nix profile over root profile
     delta = {
       enable = true;
       options = {
         true-color = "always";
         line-numbers = true;
         diff-so-fancy = true;
+        # NOTE: toggle side-by-side view: `export DELTA_FEATURES="side-by-side"`
+        # ref: https://github.com/dandavison/delta/issues/359#issuecomment-751447333
       };
     };
     ignores = [

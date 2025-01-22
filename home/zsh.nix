@@ -1,4 +1,4 @@
-{ inputs, pkgs, config, lib, dotfiles, isSystemConfig, ... }:
+{ pkgs, config, dotfiles, isSystemConfig, ... }:
 let
   dotDir = "${config.home.homeDirectory}/${dotfiles.home.dotDir}";
   aliases = {
@@ -15,6 +15,7 @@ let
     mv = "mv -i";
     cp = "cp -i";
     rm = "trash";
+    diff = "delta";
 
     sudo = ''sudo -E env "PATH=$PATH" '';
     pythonServer = "python3 -m http.server";
@@ -68,6 +69,7 @@ in
         echo ""
         ${sourceIfExists "${instantPrompt}"}
 
+        # TODO: is this necessary? isn't the same thing already done in /etc/zshrc?
         # source nix profile
         ${sourceIfExists "${nixProfile}"}
       '';
@@ -113,11 +115,15 @@ in
     '';
   };
 
+  # TODO: fix abbr completion and man page
+  # https://github.com/NixOS/nixpkgs/blob/master/pkgs/shells/zsh/zsh-abbr/default.nix
+  # https://github.com/olets/zsh-abbr
   xdg.configFile = {
     "zsh/abbreviations".text = /* bash */ ''
       abbr "s"="sudo"
       abbr "b"="bat"
       abbr "n"="nvim"
+      abbr "p"="python3"
       abbr "g"="git"
       abbr "gf"="git forgit"
       abbr -g "-h"="--help"
