@@ -27,9 +27,6 @@ in
     inputs.catppuccin.homeManagerModules.catppuccin
   ];
 
-  catppuccin.flavor = "macchiato";
-  catppuccin.enable = true;
-
   home = rec {
     inherit (import ../lib { inherit inputs; }) stateVersion;
 
@@ -160,6 +157,11 @@ in
     "glow".source = link "glow";
     "zsh/.p10k.zsh".source = link "zsh/.p10k.zsh";
     "vim".source = link "vim";
+  };
+
+  catppuccin = {
+    enable = true;
+    flavor = "mocha";
   };
 
   programs.home-manager.enable = true;

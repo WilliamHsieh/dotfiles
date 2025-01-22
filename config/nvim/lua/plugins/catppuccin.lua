@@ -6,10 +6,6 @@ local M = {
 
 function M.config()
   require("catppuccin").setup {
-    flavour = "macchiato",
-    background = {
-      dark = "macchiato"
-    },
     custom_highlights = function(colors)
       return {
         NormalFloat = { bg = colors.base },
@@ -22,6 +18,7 @@ function M.config()
     integrations = {
       cmp = true,
       gitsigns = true,
+      diffview = true,
       hop = true,
       leap = true,
       lsp_saga = true,
@@ -29,7 +26,6 @@ function M.config()
       markdown = true,
       mason = true,
       neogit = true,
-      notify = true,
       nvimtree = true,
       telescope = {
         enabled = true,
@@ -39,16 +35,12 @@ function M.config()
       treesitter_context = true,
       which_key = true,
       symbols_outline = true,
-      indent_blankline = {
-        enabled = true,
-        colored_indent_levels = false,
-      },
       native_lsp = {
         enabled = true,
       },
-    }
+    },
   }
-  vim.cmd.colorscheme "catppuccin"
+  vim.cmd.colorscheme("catppuccin")
 end
 
 -- "folke/tokyonight.nvim",
