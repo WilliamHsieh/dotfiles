@@ -66,10 +66,16 @@ in
       ];
     })
   ];
+  # TODO: change the font weight on mac, it's way too thick
 
   system = {
     defaults = {
       NSGlobalDomain = {
+        # FIX: these are not working
+        NSWindowShouldDragOnGesture = true;
+        # InitialKeyRepeat = 2;
+        # KeyRepeat = 2; # normal minimum is 2 (30 ms)
+
         AppleInterfaceStyle = "Dark";
         NSAutomaticCapitalizationEnabled = false;
         "com.apple.keyboard.fnState" = true;
@@ -79,6 +85,7 @@ in
         largesize = 100;
         magnification = true;
         mru-spaces = false;
+        scroll-to-open = true;
         persistent-others = [
           "/Users/${username}/Documents"
           "/Users/${username}/Downloads"
