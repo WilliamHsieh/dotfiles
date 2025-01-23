@@ -10,8 +10,10 @@
     # load platform specific settings
     [[ -e ~/.local.zsh ]] && source ~/.local.zsh
     [[ -d ~/.local/bin ]] && export PATH=~/.local/bin:$PATH
+    [[ -d ~/.cargo/bin ]] && export PATH=~/.cargo/bin:$PATH
 
     # auto attach to tmux
+    # FIX: add condition to determine when TMUX is disabled through F10
     tmux_can_attach=$( [ -n "$PS1" ] && [ -z "$TMUX" ] && [ $SHLVL = 1 ] && echo 1 || echo 0 )
     tmux_has_session=$(tmux has-session 2> /dev/null && echo 1 || echo 0)
     (( $tmux_can_attach )) && (( $tmux_has_session )) && tmux a
@@ -32,11 +34,23 @@
       autopair-init
     }
 
+    function zvm_config() {
+      ZVM_KEYTIMEOUT=0.05
+    }
+
+    # TODO: shlvl ❯❯❯❯❯
+    # https://github.com/romkatv/powerlevel10k/issues/2178
+
     typeset -g POWERLEVEL9K_VCS_BRANCH_ICON='\UE0A0 '
     typeset -g POWERLEVEL9K_DIR_ANCHOR_BOLD=true
     typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
     typeset -g POWERLEVEL9K_NIX_SHELL_INFER_FROM_PATH=true
     # typeset -g POWERLEVEL9K_TRANSIENT_PROMPT=same-dir
+
+    # NOTE: temporary fix for
+    # https://github.com/romkatv/powerlevel10k/issues/2584, https://github.com/romkatv/powerlevel10k/issues/1554
+    # waiting for https://github.com/zsh-users/zsh-autosuggestions/pull/753
+    unset ZSH_AUTOSUGGEST_USE_ASYNC
 
     setopt auto_cd
     setopt auto_pushd
@@ -52,8 +66,6 @@
 
     }
     compdef _dirs d
-
-    _git-review() { _git-checkout }
 # }}}
 
 
@@ -74,7 +86,7 @@
     fi
 
     function tmux_mark_pane() {
-        (( $tmux_has_session )) || return
+        [[ -v TMUX_PANE ]] || return
 
         if (( ! $(tmux display-message -p '#{session_attached}') )); then
             tmux display-message -N -d 2000 "[#S] job finished."
