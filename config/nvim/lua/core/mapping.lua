@@ -81,6 +81,7 @@ local function compile_and_run()
   if ft == "python" then
     run = "python %"
   elseif ft == "cpp" then
+    -- TODO: -Wnrvo (gcc 14)
     if need_compile("./a.out") then
       compile = "g++ --std=c++23 -O2 -g3 -Wall -Wextra -Wshadow -fsanitize=address,leak,undefined -DLOCAL %"
     end
