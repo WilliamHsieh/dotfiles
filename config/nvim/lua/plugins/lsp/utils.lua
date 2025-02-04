@@ -51,7 +51,13 @@ end
 
 M.restart_lsp = function()
   vim.schedule(M.stop_lsp)
-  vim.defer_fn(M.start_lsp, 2000)
+
+  vim.api.nvim_create_autocmd("LspDetach", {
+    once = true,
+    callback = function()
+      vim.schedule(M.start_lsp)
+    end,
+  })
 end
 
 return M
