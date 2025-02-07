@@ -68,13 +68,17 @@ in
   ];
   # TODO: change the font weight on mac, it's way too thick
 
+  # NOTE: some of the value are not reflected instantly
+  # check the value by 'defaults read NSGlobalDomain InitialKeyRepeat'
+  # re-login to apply config https://github.com/LnL7/nix-darwin/issues/1207
   system = {
     defaults = {
       NSGlobalDomain = {
-        # FIX: these are not working
+        # hold 'ctrl+command' to activate, additional 'option' to tile the window
         NSWindowShouldDragOnGesture = true;
-        # InitialKeyRepeat = 2;
-        # KeyRepeat = 2; # normal minimum is 2 (30 ms)
+
+        KeyRepeat = 2;
+        InitialKeyRepeat = 15;
 
         AppleInterfaceStyle = "Dark";
         NSAutomaticCapitalizationEnabled = false;
@@ -93,8 +97,14 @@ in
       };
       trackpad = {
         Dragging = true;
+        Clicking = true;
+        TrackpadThreeFingerDrag = true;
+        TrackpadThreeFingerTapGesture = 2;
       };
-      finder.FXPreferredViewStyle = "clmv";
+      finder = {
+        FXPreferredViewStyle = "clmv";
+        NewWindowTarget = "Home";
+      };
       universalaccess = {
         # NOTE: require permission for alacritty: System Preferences > Security & Privacy > Privacy > Full Disk Access
         closeViewScrollWheelToggle = true;
