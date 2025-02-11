@@ -45,20 +45,26 @@ in
       # manage itself
       nix
 
+      # lib
+      zlib
+      iconv
+
       # basic tools
       coreutils-full
       util-linux
+      xdg-utils
       gnugrep
-      gnumake
       file
       findutils
       gawk
       less
       procps
-      zlib
-      iconv
       wget
       curl
+
+      # build tools
+      gnumake
+      ninja
 
       # useful tools
       fd
