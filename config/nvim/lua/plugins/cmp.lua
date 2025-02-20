@@ -145,11 +145,9 @@ function M.config()
 
   cmp.setup.cmdline({ '/', '?' }, {
     mapping = mappings,
-    sources = cmp.config.sources({
-      { name = "rg", keyword_length = 3 },
-    }, {
-      { name = "buffer" }, -- for keyword_length < 3
-    }),
+    sources = {
+      { name = "buffer" },
+    },
   })
 end
 
