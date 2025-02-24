@@ -34,9 +34,7 @@
 
     catppuccin = {
       url = "github:catppuccin/nix";
-      inputs.nixpkgs-stable.follows = "nixpkgs";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
-      inputs.home-manager-stable.follows = "home-manager";
     };
 
     git-hooks = {
