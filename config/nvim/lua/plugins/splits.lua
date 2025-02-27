@@ -87,7 +87,9 @@ return {
       vim.api.nvim_create_autocmd("FileType", {
         group = augroup,
         callback = function(_)
-          vim.b.focus_disable = vim.tbl_contains(ignore_filetypes, vim.bo.filetype)
+          local blocklist = vim.tbl_contains(ignore_filetypes, vim.bo.filetype)
+          local dap_related = vim.bo.filetype:match("^dap")
+          vim.b.focus_disable = blocklist or dap_related
         end,
         desc = "Disable focus autoresize for FileType",
       })
