@@ -15,7 +15,7 @@ let
     mv = "mv -i";
     cp = "cp -i";
     rm = "trash";
-    diff = "delta";
+    diff = "${pkgs.riffdiff}/bin/riff";
 
     sudo = ''sudo -E env "PATH=$PATH" '';
     pythonServer = "python3 -m http.server";
