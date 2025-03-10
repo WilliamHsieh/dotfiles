@@ -11,8 +11,6 @@ in
 
   networking.hostName = dotfiles.darwin.hostname;
 
-  # services.karabiner-elements.enable = true;
-
   users.users."${username}" = {
     description = dotfiles.home.fullname;
     home = "/Users/${username}";
@@ -39,10 +37,10 @@ in
       "raycast"
       "heptabase"
       "logi-options+"
-      "hammerspoon"
+      "mcbopomofo"
       "spotify"
       "discord"
-      "todoist"
+      "karabiner-elements"
 
       "vmware-fusion"
       "utm"
@@ -59,7 +57,7 @@ in
       fonts = [
         "Iosevka"
         "JetBrainsMono"
-        "CodeNewRoman"
+        "CommitMono"
         "Meslo"
         "FiraCode"
         "DroidSansMono"
