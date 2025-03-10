@@ -18,6 +18,9 @@
       font = {
         normal.family = "MesloLGLDZ Nerd Font Mono";
         size = 14;
+        offset = {
+          y = 1;
+        };
       };
       window = {
         dynamic_padding = true;
