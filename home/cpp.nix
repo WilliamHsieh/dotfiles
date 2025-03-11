@@ -23,7 +23,7 @@ in
   # https://clangd.llvm.org/config#files
   home.activation = lib.optionalAttrs pkgs.stdenv.isDarwin {
     linkClangdConfigPath = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      ln -sfn ${config.xdg.configHome}/${clangdConfig} ${config.home.homeDirectory}/Library/Preferences/${clangdConfig}
+      ln -sfn ${config.xdg.configHome}/clangd ${config.home.homeDirectory}/Library/Preferences/clangd
     '';
   };
 
