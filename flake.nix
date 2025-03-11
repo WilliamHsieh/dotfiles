@@ -68,9 +68,6 @@
         ${dotfiles.home.username} = mkHome {
           inherit (dotfiles.home) system;
         };
-        "${dotfiles.home.username}-alt" = mkHome {
-          system = builtins.elemAt (builtins.filter (s: s != dotfiles.home.system) systems) 0;
-        };
       };
 
       nixosConfigurations = mkSystem {
