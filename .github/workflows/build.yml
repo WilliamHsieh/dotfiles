@@ -24,9 +24,6 @@ jobs:
             target: nixos-rebuild
             name: nixos-local
           - os: macos-latest
-            target: home-manager
-            name: william-alt
-          - os: macos-latest
             target: darwin-rebuild
             name: macos-local
     runs-on: ${{ matrix.os }}

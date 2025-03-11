@@ -23,8 +23,6 @@ jobs:
           - os: ubuntu-latest
             target: nixos-local
           - os: macos-latest
-            target: william-alt
-          - os: macos-latest
             target: macos-local
 
     steps:
