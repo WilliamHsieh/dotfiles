@@ -122,6 +122,10 @@ in
     activationScripts.postActivation.text = ''
       # Disable the sound effects on boot
       sudo nvram SystemAudioVolume=" "
+
+      # set `AppleFontSmoothing` to 0
+      # ref: https://github.com/alacritty/alacritty/commit/2a676dfad837d1784ed0911d314bc263804ef4ef
+      defaults write -g AppleFontSmoothing -int 0
     '';
   };
 
