@@ -81,6 +81,8 @@ in
         AppleInterfaceStyle = "Dark";
         NSAutomaticCapitalizationEnabled = false;
         "com.apple.keyboard.fnState" = true;
+        "com.apple.trackpad.scaling" = 2.5;
+        "com.apple.mouse.tapBehavior" = 1;
       };
       dock = {
         tilesize = 56;
