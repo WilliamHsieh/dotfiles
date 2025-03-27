@@ -33,7 +33,7 @@ jobs:
       - name: Insall nix
         uses: cachix/install-nix-action@v30
         with:
-          install_url: https://releases.nixos.org/nix/nix-2.18.2/install
+          # install_url: https://releases.nixos.org/nix/nix-2.18.2/install
           extra_nix_config: |
             accept-flake-config = true
 
