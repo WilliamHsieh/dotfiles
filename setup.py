@@ -95,7 +95,7 @@ def get_command():
         "switch",
         "--show-trace",
         "--flake",
-        f'{args.dir}#"{derivation}"',
+        f'{args.dir}#["{derivation}"]',
     ]
 
     if args.type == "home":
