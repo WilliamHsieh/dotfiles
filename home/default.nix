@@ -1,7 +1,6 @@
 { inputs, pkgs, config, lib, dotfiles, ... }:
 let
-  dotDir = "${config.home.homeDirectory}/${dotfiles.home.dotDir}";
-  link = path: config.lib.file.mkOutOfStoreSymlink "${dotDir}/config/${path}";
+  link = path: config.lib.file.mkOutOfStoreSymlink "${dotfiles.directory}/config/${path}";
 
   glow-without-completion = pkgs.glow.overrideAttrs
     (oldAttrs: {
@@ -30,7 +29,7 @@ in
   home = rec {
     inherit (import ../lib { inherit inputs; }) stateVersion;
 
-    inherit (dotfiles.home) username;
+    inherit (dotfiles) username;
 
     homeDirectory = with pkgs.stdenv;
       if isDarwin then

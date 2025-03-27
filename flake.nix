@@ -55,21 +55,25 @@
 
       packages = foreachSystem (system:
         {
-          default = self.packages.${system}.home-manager;
+          default = self.packages.${system}.bootstrap;
+          bootstrap =
+            let
+              pkgs = self.lib.pkgsBySystem.${system};
+            in
+            pkgs.writeShellScriptBin "profile" ''
+              ${pkgs.python3}/bin/python3 ${./setup.py} --system ${system} $@
+            '';
           inherit (inputs.home-manager.packages.${system}) home-manager;
-        } // (optionalAttrs (system == dotfiles.nixos.system) {
+        } // (optionalAttrs (dotfiles.type == "nixos") {
           inherit (pkgsBySystem.${system}) nixos-rebuild;
-        }) // (optionalAttrs (system == dotfiles.darwin.system) {
+        }) // (optionalAttrs (dotfiles.type == "darwin") {
           inherit (inputs.darwin.packages.${system}) darwin-rebuild;
         })
       );
 
       homeConfigurations = {
-        ${dotfiles.home.username} = mkHome {
-          inherit (dotfiles.home) system;
-        };
-        "${dotfiles.home.username}-alt" = mkHome {
-          system = builtins.elemAt (builtins.filter (s: s != dotfiles.home.system) systems) 0;
+        ${dotfiles.username} = mkHome {
+          inherit (dotfiles) system;
         };
       };
 
