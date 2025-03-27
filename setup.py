@@ -63,7 +63,7 @@ def get_command():
 
     config = {
         "system": args.system,
-        "type": args.type or "home",
+        "type": args.type,
         "directory": args.dir,
         "username": args.username,
         "hostname": args.hostname,
@@ -84,7 +84,7 @@ def get_command():
     else:
         cmd = "home-manager"
 
-    derivation = args.type and args.hostname or args.username
+    derivation = args.type == "home" and args.username or args.hostname
 
     # exec nix command
     return f"nix run {args.dir}#{cmd} --show-trace -- switch --show-trace --flake {args.dir}#{derivation}"
