@@ -94,6 +94,8 @@ def get_command():
         "--",
         "switch",
         "--show-trace",
+        "-b",
+        "backup",
         "--flake",
         f"{args.dir}#{derivation}",
     ]
