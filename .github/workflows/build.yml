@@ -55,6 +55,10 @@ jobs:
           set -o pipefail
           nix run .#bootstrap -- --type '${{ matrix.type }}'
 
+      - name: show config
+        run: |
+          cat ./config/default.nix
+
       - name: Output build failure
         if: failure()
         run: |
