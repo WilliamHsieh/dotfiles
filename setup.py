@@ -86,7 +86,7 @@ def get_command():
 
     derivation = args.type == "home" and args.username or args.hostname
 
-    return [
+    res = [
         "nix",
         "run",
         f"{args.dir}#{cmd}",
@@ -94,11 +94,14 @@ def get_command():
         "--",
         "switch",
         "--show-trace",
-        "-b",
-        "backup",
         "--flake",
         f"{args.dir}#{derivation}",
     ]
+
+    if args.type == "home":
+        res += ["-b", "backup"]
+
+    return res
 
 
 def main():
