@@ -86,16 +86,25 @@ def get_command():
 
     derivation = args.type == "home" and args.username or args.hostname
 
-    # exec nix command
-    return f"nix run {args.dir}#{cmd} --show-trace -- switch --show-trace --flake {args.dir}#{derivation}"
+    return [
+        "nix",
+        "run",
+        f"{args.dir}#{cmd}",
+        "--show-trace",
+        "--",
+        "switch",
+        "--show-trace",
+        "--flake",
+        f"{args.dir}#{derivation}",
+    ]
 
 
 def main():
-    import subprocess
+    import os
 
     cmd = get_command()
     print(cmd)
-    subprocess.run(cmd, shell=True)
+    os.execvp(cmd[0], cmd)
 
 
 if __name__ == "__main__":
