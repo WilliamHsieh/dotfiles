@@ -21,12 +21,12 @@ jobs:
             type: home
           - os: ubuntu-latest
             type: nixos
-            args: --build --hostname github-action-env
+            args: --build
           - os: macos-latest
             type: home
           - os: macos-latest
             type: darwin
-            args: --build --hostname github-action-env
+            args: --build
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
