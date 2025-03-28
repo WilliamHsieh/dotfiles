@@ -40,6 +40,7 @@ def parse_args():
         type=str,
         choices=["home", "darwin", "nixos"],
         help="profile type (default to home)",
+        default="home",
     )
 
     parser.add_argument(
