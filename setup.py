@@ -44,6 +44,12 @@ def parse_args():
     )
 
     parser.add_argument(
+        "--build",
+        type=bool,
+        help="build profile without switch (default to switch)",
+        default=False,
+    )
+    parser.add_argument(
         "--fullname",
         type=str,
         help="display name (for git config, default to ${username})",
@@ -93,7 +99,7 @@ def get_command():
         f"{args.dir}#{cmd}",
         "--show-trace",
         "--",
-        "switch",
+        "build" if args.build else "switch",
         "--show-trace",
         "--flake",
         f"{args.dir}#{derivation}",
