@@ -54,18 +54,20 @@
       lib = inputs.nixpkgs.lib // import ./lib { inherit inputs; };
 
       packages = foreachSystem (system:
+        let
+          pkgs = pkgsBySystem.${system};
+          profileScript = args:
+            pkgs.writeShellScriptBin "profile" ''
+              ${pkgs.python3}/bin/python3 ${./setup.py} ${args} $@
+            '';
+        in
         {
           default = self.packages.${system}.profile;
-          profile =
-            let
-              pkgs = self.lib.pkgsBySystem.${system};
-            in
-            pkgs.writeShellScriptBin "profile" ''
-              ${pkgs.python3}/bin/python3 ${./setup.py} --system ${system} $@
-            '';
+          bootstrap = profileScript "--bootstrap --system ${system}";
+          profile = profileScript "--dir ${builtins.toString ./.} --type ${dotfiles.type}";
           inherit (inputs.home-manager.packages.${system}) home-manager;
         } // (optionalAttrs (dotfiles.type == "nixos") {
-          inherit (pkgsBySystem.${system}) nixos-rebuild;
+          inherit (pkgs) nixos-rebuild;
         }) // (optionalAttrs (dotfiles.type == "darwin") {
           inherit (inputs.darwin.packages.${system}) darwin-rebuild;
         })

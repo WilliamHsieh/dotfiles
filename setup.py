@@ -1,3 +1,8 @@
+#!/usr/bin/env python3
+
+import os
+
+
 def command_output(command):
     import subprocess
 
@@ -7,27 +12,25 @@ def command_output(command):
 def parse_args():
     import argparse
 
-    # required arguments
     parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--build",
+        action="store_true",
+        help="build profile without switch (default to switch)",
+        default=False,
+    )
+
+    # bootstrap related arguments
+    parser.add_argument(
+        "--bootstrap",
+        action="store_true",
+        help="generate bootstrap configuration (config/default.nix)",
+        default=False,
+    )
     parser.add_argument(
         "--system",
         type=str,
         help="system architecture",
-        required=True,
-    )
-
-    # optional arguments with default values
-    parser.add_argument(
-        "--username",
-        type=str,
-        help="unix user name (default to ${whoami})",
-        default=command_output("whoami"),
-    )
-    parser.add_argument(
-        "--hostname",
-        type=str,
-        help="unix host name (default to ${hostname})",
-        default=command_output("hostname"),
     )
     parser.add_argument(
         "--dir",
@@ -43,11 +46,18 @@ def parse_args():
         default="home",
     )
 
+    # following arguments will be ignored when --bootstrap is not set
     parser.add_argument(
-        "--build",
-        action="store_true",
-        help="build profile without switch (default to switch)",
-        default=False,
+        "--username",
+        type=str,
+        help="unix user name (default to ${whoami})",
+        default=command_output("whoami"),
+    )
+    parser.add_argument(
+        "--hostname",
+        type=str,
+        help="unix host name (default to ${hostname})",
+        default=command_output("hostname"),
     )
     parser.add_argument(
         "--fullname",
@@ -60,14 +70,21 @@ def parse_args():
         help="email address (for git config, default to ${username}@${hostname})",
     )
 
-    return parser.parse_args()
-
-
-def get_command():
-    args = parse_args()
+    args = parser.parse_args()
     args.fullname = args.fullname or args.username
     args.email = args.email or f"{args.username}@{args.hostname}"
 
+    if args.bootstrap:
+        if not args.system:
+            parser.error("--system is required when --bootstrap is set")
+    else:
+        if not args.type:
+            parser.error("--type is required when --bootstrap is not set")
+
+    return args
+
+
+def write_config(args):
     config = {
         "system": args.system,
         "type": args.type,
@@ -77,13 +94,13 @@ def get_command():
         "fullname": args.fullname,
         "email": args.email,
     }
-    print(config)
 
-    # config to nix
     with open("config/default.nix", "w") as f:
-        config_str = "\n".join([f'\t{k} = "{v}";' for k, v in config.items()])
-        f.write("{\n" + config_str + "\n}")
+        config_str = "\n".join([f'  {k} = "{v}";' for k, v in config.items()])
+        f.write("{\n" + config_str + "\n}\n")
 
+
+def bootstrap(args):
     if args.type == "darwin":
         cmd = "darwin-rebuild"
     elif args.type == "nixos":
@@ -93,7 +110,7 @@ def get_command():
 
     derivation = args.type == "home" and args.username or args.hostname
 
-    res = [
+    return [
         "nix",
         "run",
         f"{args.dir}#{cmd}",
@@ -105,6 +122,34 @@ def get_command():
         f"{args.dir}#{derivation}",
     ]
 
+
+def switch_profile(args):
+    if args.type == "darwin":
+        cmd = "darwin-rebuild"
+    elif args.type == "nixos":
+        cmd = "nixos-rebuild"
+    else:
+        cmd = "home-manager"
+
+    derivation = args.type == "home" and args.username or args.hostname
+
+    return [
+        cmd,
+        "build" if args.build else "switch",
+        "--show-trace",
+        "--flake",
+        f"{args.dir}#{derivation}",
+    ]
+
+
+def get_command():
+    args = parse_args()
+    if args.bootstrap:
+        write_config(args)
+        res = bootstrap(args)
+    else:
+        res = switch_profile(args)
+
     if args.type == "home":
         res += ["-b", "backup"]
 
@@ -112,8 +157,6 @@ def get_command():
 
 
 def main():
-    import os
-
     cmd = get_command()
     print(cmd)
     os.execvp(cmd[0], cmd)
@@ -121,5 +164,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-    # 1. ci: nix build or nix run .#bootstrap
-    # 2. local: nix run .#bootstrap --system darwin, switch
