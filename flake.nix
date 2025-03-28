@@ -62,6 +62,7 @@
             '';
         in
         {
+          # use link to get realpath of dotfiles
           default = self.packages.${system}.profile;
           bootstrap = profileScript "--bootstrap --system ${system}";
           profile = profileScript "--dir ${builtins.toString ./.} --type ${dotfiles.type}";

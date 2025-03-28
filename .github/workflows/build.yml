@@ -55,7 +55,7 @@ jobs:
       - name: Build target
         run: |
           set -o pipefail
-          nix run . -- --type '${{ matrix.type }}' '${{ matrix.args }}'
+          nix run .#bootstrap -- --type '${{ matrix.type }}' '${{ matrix.args }}'
 
       - name: show config
         if: always()
