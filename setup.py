@@ -45,7 +45,7 @@ def parse_args():
 
     parser.add_argument(
         "--build",
-        type=bool,
+        action="store_true",
         help="build profile without switch (default to switch)",
         default=False,
     )
