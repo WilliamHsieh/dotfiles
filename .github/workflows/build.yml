@@ -19,11 +19,13 @@ jobs:
         include:
           - os: ubuntu-latest
             type: home
+            args:
           - os: ubuntu-latest
             type: nixos
             args: --build --hostname github-action-env
           - os: macos-latest
             type: home
+            args:
           - os: macos-latest
             type: darwin
             args: --build --hostname github-action-env
