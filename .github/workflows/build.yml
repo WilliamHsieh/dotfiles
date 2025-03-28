@@ -19,13 +19,11 @@ jobs:
         include:
           - os: ubuntu-latest
             type: home
-            args: ""
           - os: ubuntu-latest
             type: nixos
             args: --build --hostname github-action-env
           - os: macos-latest
             type: home
-            args: ""
           - os: macos-latest
             type: darwin
             args: --build --hostname github-action-env
@@ -57,7 +55,7 @@ jobs:
       - name: Build target
         run: |
           set -o pipefail
-          nix run .#bootstrap -- --type ${{ matrix.type }} ${{args}}
+          nix run .#bootstrap -- --type '${{ matrix.type }}' '${{ matrix.args }}'
 
       - name: show config
         if: always()
