@@ -55,8 +55,8 @@
 
       packages = foreachSystem (system:
         {
-          default = self.packages.${system}.bootstrap;
-          bootstrap =
+          default = self.packages.${system}.profile;
+          profile =
             let
               pkgs = self.lib.pkgsBySystem.${system};
             in
