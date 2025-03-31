@@ -24,7 +24,7 @@ in
     ./alacritty.nix
     ./cpp.nix
     inputs.nix-index-database.hmModules.nix-index
-    inputs.catppuccin.homeManagerModules.catppuccin
+    inputs.catppuccin.homeModules.catppuccin
   ];
 
   home = rec {
