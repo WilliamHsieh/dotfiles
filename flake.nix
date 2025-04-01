@@ -63,15 +63,19 @@
         in
         {
           # use link to get realpath of dotfiles
-          default = self.packages.${system}.profile;
+          default =
+            if dotfiles.type == "home" then
+              inputs.home-manager.packages.${system}.home-manager
+            else if dotfiles.type == "darwin" then
+              inputs.darwin.packages.${system}.darwin-rebuild
+            else if dotfiles.type == "nixos" then
+              pkgs.nixos-rebuild
+            else
+              self.packages.${system}.bootstrap;
+
           bootstrap = profileScript "--bootstrap --system ${system}";
           profile = profileScript "--dir ${builtins.toString ./.} --type ${dotfiles.type}";
-          inherit (inputs.home-manager.packages.${system}) home-manager;
-        } // (optionalAttrs (dotfiles.type == "nixos") {
-          inherit (pkgs) nixos-rebuild;
-        }) // (optionalAttrs (dotfiles.type == "darwin") {
-          inherit (inputs.darwin.packages.${system}) darwin-rebuild;
-        })
+        }
       );
 
       homeConfigurations = mkHome;

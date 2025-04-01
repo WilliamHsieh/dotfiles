@@ -101,19 +101,12 @@ def write_config(args):
 
 
 def bootstrap(args):
-    if args.type == "darwin":
-        cmd = "darwin-rebuild"
-    elif args.type == "nixos":
-        cmd = "nixos-rebuild"
-    else:
-        cmd = "home-manager"
-
     derivation = args.type == "home" and args.username or args.hostname
 
     return [
         "nix",
         "run",
-        f"{args.dir}#{cmd}",
+        f"{args.dir}",
         "--show-trace",
         "--",
         "build" if args.build else "switch",
