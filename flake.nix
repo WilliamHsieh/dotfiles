@@ -74,11 +74,7 @@
         })
       );
 
-      homeConfigurations = {
-        ${dotfiles.username} = mkHome {
-          inherit (dotfiles) system;
-        };
-      };
+      homeConfigurations = mkHome;
 
       nixosConfigurations = mkSystem {
         isDarwin = false;

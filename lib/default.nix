@@ -30,9 +30,9 @@ in
 
   stateVersion = "${builtins.elemAt (lib.splitString "-" lockfile.nodes.${input_name}.original.ref) 1}";
 
-  mkHome = { system }:
-    inputs.home-manager.lib.homeManagerConfiguration {
-      pkgs = pkgsBySystem.${system};
+  mkHome = {
+    ${dotfiles.username} = inputs.home-manager.lib.homeManagerConfiguration {
+      pkgs = pkgsBySystem.${dotfiles.system};
       extraSpecialArgs = {
         inherit inputs dotfiles;
         isSystemConfig = false;
@@ -42,6 +42,7 @@ in
         ./nix.nix
       ];
     };
+  };
 
   mkSystem = { isDarwin }:
     let
