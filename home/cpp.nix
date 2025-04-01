@@ -1,7 +1,6 @@
 { lib, pkgs, config, dotfiles, ... }:
 let
-  dotDir = "${config.home.homeDirectory}/${dotfiles.home.dotDir}";
-  link = path: config.lib.file.mkOutOfStoreSymlink "${dotDir}/config/${path}";
+  link = path: config.lib.file.mkOutOfStoreSymlink "${dotfiles.directory}/config/${path}";
   yamlFormat = pkgs.formats.yaml { };
   clangdConfig = "clangd/config.yaml";
 in

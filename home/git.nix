@@ -6,8 +6,8 @@
 
   programs.git = {
     enable = true;
-    userName = dotfiles.home.fullname;
-    userEmail = dotfiles.home.email;
+    userName = dotfiles.fullname;
+    userEmail = dotfiles.email;
     aliases = {
       undo = "reset HEAD@{1}";
       lg = "log --pretty=format:'%C(red)%h %C(blue)<%an> %C(green)%cs (%cr)  %C(reset)%s %C(auto)%d' --abbrev-commit --graph";

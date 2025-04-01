@@ -54,24 +54,31 @@
       lib = inputs.nixpkgs.lib // import ./lib { inherit inputs; };
 
       packages = foreachSystem (system:
+        let
+          pkgs = pkgsBySystem.${system};
+          profileScript = args:
+            pkgs.writeShellScriptBin "profile" ''
+              ${pkgs.python3}/bin/python3 ${./setup.py} ${args} $@
+            '';
+        in
         {
-          default = self.packages.${system}.home-manager;
-          inherit (inputs.home-manager.packages.${system}) home-manager;
-        } // (optionalAttrs (system == dotfiles.nixos.system) {
-          inherit (pkgsBySystem.${system}) nixos-rebuild;
-        }) // (optionalAttrs (system == dotfiles.darwin.system) {
-          inherit (inputs.darwin.packages.${system}) darwin-rebuild;
-        })
+          # use link to get realpath of dotfiles
+          default =
+            if dotfiles.type == "home" then
+              inputs.home-manager.packages.${system}.home-manager
+            else if dotfiles.type == "darwin" then
+              inputs.darwin.packages.${system}.darwin-rebuild
+            else if dotfiles.type == "nixos" then
+              pkgs.nixos-rebuild
+            else
+              self.packages.${system}.bootstrap;
+
+          bootstrap = profileScript "--bootstrap --system ${system}";
+          profile = profileScript "--dir ${builtins.toString ./.} --type ${dotfiles.type}";
+        }
       );
 
-      homeConfigurations = {
-        ${dotfiles.home.username} = mkHome {
-          inherit (dotfiles.home) system;
-        };
-        "${dotfiles.home.username}-alt" = mkHome {
-          system = builtins.elemAt (builtins.filter (s: s != dotfiles.home.system) systems) 0;
-        };
-      };
+      homeConfigurations = mkHome;
 
       nixosConfigurations = mkSystem {
         isDarwin = false;
