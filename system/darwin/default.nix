@@ -55,16 +55,14 @@ in
   fonts.packages = with pkgs; [
     (nerdfonts.override {
       fonts = [
-        "Iosevka"
         "JetBrainsMono"
         "CommitMono"
         "Meslo"
-        "FiraCode"
-        "DroidSansMono"
       ];
     })
+    unstable.maple-mono.Normal-NF-CN-unhinted
+    unstable.maple-mono.NF-CN-unhinted
   ];
-  # TODO: change the font weight on mac, it's way too thick
 
   # NOTE: some of the value are not reflected instantly
   # check the value by 'defaults read NSGlobalDomain InitialKeyRepeat'
