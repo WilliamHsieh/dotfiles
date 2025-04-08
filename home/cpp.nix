@@ -8,7 +8,12 @@ in
 {
   home.packages = with pkgs; [
     gcc
-  ];
+    gnumake
+    ninja
+    mold
+  ] ++ (pkgs.lib.optionals pkgs.stdenv.isLinux [
+    gdb
+  ]);
 
   xdg.configFile = {
     # https://clangd.llvm.org/config.html

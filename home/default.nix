@@ -62,10 +62,6 @@ in
       wget
       curl
 
-      # build tools
-      gnumake
-      ninja
-
       # useful tools
       fd
       ripgrep
@@ -99,6 +95,7 @@ in
       # language specific
       rustup
       go
+      uv
       poetry
       python3Full
       nixpkgs-fmt
