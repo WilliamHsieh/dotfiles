@@ -1,6 +1,6 @@
 { pkgs, dotfiles, ... }:
 let
-  inherit (dotfiles.home) username;
+  inherit (dotfiles) username;
 in
 {
   environment.systemPackages = [
@@ -9,10 +9,10 @@ in
 
   nixpkgs.hostPlatform = "aarch64-darwin";
 
-  networking.hostName = dotfiles.darwin.hostname;
+  networking.hostName = dotfiles.hostname;
 
   users.users."${username}" = {
-    description = dotfiles.home.fullname;
+    description = dotfiles.fullname;
     home = "/Users/${username}";
     shell = pkgs.zsh;
   };
@@ -23,7 +23,7 @@ in
   nix-homebrew = {
     enable = true;
     enableRosetta = pkgs.stdenv.hostPlatform.isAarch64;
-    user = dotfiles.home.username;
+    user = dotfiles.username;
     autoMigrate = true;
   };
 

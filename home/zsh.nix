@@ -1,6 +1,6 @@
 { pkgs, config, dotfiles, isSystemConfig, ... }:
 let
-  dotDir = "${config.home.homeDirectory}/${dotfiles.home.dotDir}";
+  dotDir = "${dotfiles.directory}";
   aliases = {
     ls = "eza --group-directories-first";
     l = "ls -l";
