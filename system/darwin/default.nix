@@ -41,6 +41,10 @@ in
       "spotify"
       "discord"
       "karabiner-elements"
+      "chatgpt"
+      "jordanbaird-ice"
+      "itsycal"
+      "battery"
 
       "vmware-fusion"
       "utm"
@@ -79,8 +83,12 @@ in
         AppleInterfaceStyle = "Dark";
         NSAutomaticCapitalizationEnabled = false;
         "com.apple.keyboard.fnState" = true;
-        "com.apple.trackpad.scaling" = 2.5;
+        "com.apple.trackpad.scaling" = 2.8;
         "com.apple.mouse.tapBehavior" = 1;
+      };
+      controlcenter = {
+        Bluetooth = true;
+        # Weather = true;
       };
       dock = {
         tilesize = 56;
