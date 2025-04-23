@@ -1,3 +1,20 @@
+local custom_path = {
+  get_symbols = function(buff, win, cursor)
+    local sources = require("dropbar.sources")
+    local symbols = sources.path.get_symbols(buff, win, cursor)
+    local tail = symbols[#symbols]
+
+    tail.name_hl = "DropBarFileName"
+    if vim.bo[buff].modified then
+      tail.name = tail.name .. " [+]"
+      tail.icon = " "
+      tail.icon_hl = "diffNewFile"
+    end
+
+    return symbols
+  end,
+}
+
 return {
   "Bekaboo/dropbar.nvim",
   event = "LazyFile",
@@ -16,16 +33,29 @@ return {
       pick = {
         pivots = "asdfghjkl;qwertyuiopzxcvbnm",
       },
-      sources = function()
+
+      ---@type dropbar_source_t[]|fun(buf: integer, win: integer): dropbar_source_t[]
+      sources = function(buf, _)
+        local sources = require("dropbar.sources")
+        local utils = require("dropbar.utils")
+
+        if vim.bo[buf].buftype == "terminal" then
+          return {
+            sources.terminal,
+          }
+        end
+
+        if vim.bo[buf].ft == "markdown" then
+          return {
+            custom_path,
+            sources.markdown,
+          }
+        end
         return {
-          {
-            get_symbols = function(buff, win, cursor)
-              local symbols = require("dropbar.sources").path.get_symbols(buff, win, cursor)
-              if vim.bo[buff].modified then
-                symbols[#symbols].name = symbols[#symbols].name .. " [+]"
-              end
-              return symbols
-            end,
+          custom_path,
+          utils.source.fallback {
+            sources.lsp,
+            sources.treesitter,
           },
         }
       end,
