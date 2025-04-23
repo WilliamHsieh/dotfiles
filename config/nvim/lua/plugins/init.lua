@@ -194,7 +194,11 @@ return {
   {
     "MeanderingProgrammer/render-markdown.nvim",
     ft = { "markdown", "codecompanion", "copilot-chat" },
-    opts = {},
+    opts = {
+      code = {
+        border = "thin",
+      }
+    },
   },
 
   {
