@@ -4,6 +4,8 @@ let
   flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
 in
 {
+  # FIX: profileDirectory is messed up
+  # https://github.com/nix-community/home-manager/issues/5805
   nix = {
     package = lib.mkDefault pkgs.nixVersions.latest;
     registry = lib.mapAttrs (_: flake: { inherit flake; }) flakeInputs;

@@ -61,6 +61,7 @@ in
     initExtraFirst =
       let
         instantPrompt = "${config.xdg.cacheHome}/p10k-instant-prompt-\${(%):-%n}.zsh";
+        # TODO: this is pointing to .nix-profile
         nixProfile = "${config.home.profileDirectory}/etc/profile.d/nix.sh";
         sourceIfExists = file: "[[ -r ${file} ]] && source ${file}";
       in
