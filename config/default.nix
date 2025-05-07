@@ -1,6 +1,6 @@
 {
   system = "";
-  type = "";
+  profile = "";
   directory = "";
   username = "";
   hostname = "";

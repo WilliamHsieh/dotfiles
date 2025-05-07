@@ -64,17 +64,17 @@
         {
           # use link to get realpath of dotfiles
           default =
-            if dotfiles.type == "home" then
+            if dotfiles.profile == "home" then
               inputs.home-manager.packages.${system}.home-manager
-            else if dotfiles.type == "darwin" then
+            else if dotfiles.profile == "darwin" then
               inputs.darwin.packages.${system}.darwin-rebuild
-            else if dotfiles.type == "nixos" then
+            else if dotfiles.profile == "nixos" then
               pkgs.nixos-rebuild
             else
               self.packages.${system}.bootstrap;
 
           bootstrap = profileScript "--bootstrap --system ${system}";
-          profile = profileScript "--dir ${builtins.toString ./.} --type ${dotfiles.type}";
+          profile = profileScript "--dir ${builtins.toString ./.} --profile ${dotfiles.profile}";
         }
       );
 

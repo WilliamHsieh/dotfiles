@@ -39,7 +39,7 @@ def parse_args():
         default=command_output("pwd"),
     )
     parser.add_argument(
-        "--type",
+        "--profile",
         type=str,
         choices=["home", "darwin", "nixos"],
         help="profile type (default to home)",
@@ -78,8 +78,8 @@ def parse_args():
         if not args.system:
             parser.error("--system is required when --bootstrap is set")
     else:
-        if not args.type:
-            parser.error("--type is required when --bootstrap is not set")
+        if not args.profile:
+            parser.error("--profile is required when --bootstrap is not set")
 
     return args
 
@@ -87,7 +87,7 @@ def parse_args():
 def write_config(args):
     config = {
         "system": args.system,
-        "type": args.type,
+        "profile": args.profile,
         "directory": args.dir,
         "username": args.username,
         "hostname": args.hostname,
@@ -101,7 +101,7 @@ def write_config(args):
 
 
 def bootstrap(args):
-    derivation = args.type == "home" and args.username or args.hostname
+    derivation = args.profile == "home" and args.username or args.hostname
 
     return [
         "nix",
@@ -117,14 +117,14 @@ def bootstrap(args):
 
 
 def switch_profile(args):
-    if args.type == "darwin":
+    if args.profile == "darwin":
         cmd = "darwin-rebuild"
-    elif args.type == "nixos":
+    elif args.profile == "nixos":
         cmd = "nixos-rebuild"
     else:
         cmd = "home-manager"
 
-    derivation = args.type == "home" and args.username or args.hostname
+    derivation = args.profile == "home" and args.username or args.hostname
 
     return [
         cmd,
@@ -143,7 +143,7 @@ def get_command():
     else:
         res = switch_profile(args)
 
-    if args.type == "home":
+    if not args.build and args.profile == "home":
         res += ["-b", "backup"]
 
     return res

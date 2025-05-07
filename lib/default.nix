@@ -58,7 +58,7 @@ in
           specialArgs = { inherit inputs pkgs dotfiles; };
           modules = [
             ./nix.nix
-            ../system/${dotfiles.type}
+            ../system/${dotfiles.profile}
             hmModules.home-manager
             {
               home-manager.useGlobalPkgs = true;

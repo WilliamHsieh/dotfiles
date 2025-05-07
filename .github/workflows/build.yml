@@ -18,14 +18,14 @@ jobs:
         # https://github.com/actions/runner-images?tab=readme-ov-file#available-images
         include:
           - os: ubuntu-latest
-            type: home
+            profile: home
           - os: ubuntu-latest
-            type: nixos
+            profile: nixos
             args: --build
           - os: macos-latest
-            type: home
+            profile: home
           - os: macos-latest
-            type: darwin
+            profile: darwin
             args: --build --hostname hack-local-suffix
     runs-on: ${{ matrix.os }}
     steps:
@@ -55,7 +55,7 @@ jobs:
       - name: Build target
         run: |
           set -o pipefail
-          nix run .#bootstrap -- --type '${{ matrix.type }}' '${{ matrix.args }}'
+          nix run .#bootstrap -- --profile '${{ matrix.profile }}' '${{ matrix.args }}'
 
       - name: show config
         if: always()
