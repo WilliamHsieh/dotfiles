@@ -70,11 +70,11 @@
               inputs.darwin.packages.${system}.darwin-rebuild
             else if dotfiles.profile == "nixos" then
               pkgs.nixos-rebuild
-            else
+            else # empty value (default)
               self.packages.${system}.bootstrap;
 
           bootstrap = profileScript "--bootstrap --system ${system}";
-          profile = profileScript "--dir ${builtins.toString ./.} --profile ${dotfiles.profile}";
+          # profile = profileScript "--dir ${builtins.toString ./.} --profile ${dotfiles.profile}";
         }
       );
 

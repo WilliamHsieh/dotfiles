@@ -35,8 +35,8 @@ def parse_args():
     parser.add_argument(
         "--dir",
         type=str,
-        help="path to dotfiles directory (default to ${pwd})",
-        default=command_output("pwd"),
+        help="path to dotfiles directory (default to ${dirname __file__})",
+        default=command_output("dirname " + __file__),
     )
     parser.add_argument(
         "--profile",
@@ -124,14 +124,12 @@ def switch_profile(args):
     else:
         cmd = "home-manager"
 
-    derivation = args.profile == "home" and args.username or args.hostname
-
     return [
         cmd,
         "build" if args.build else "switch",
         "--show-trace",
         "--flake",
-        f"{args.dir}#{derivation}",
+        f"{args.dir}",
     ]
 
 
