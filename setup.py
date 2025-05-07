@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
 
-import os
-
 
 def command_output(command):
     import subprocess
@@ -100,10 +98,14 @@ def write_config(args):
         f.write("{\n" + config_str + "\n}\n")
 
 
-def bootstrap(args):
+def get_command():
+    args = parse_args()
+    if args.bootstrap:
+        write_config(args)
+
     derivation = args.profile == "home" and args.username or args.hostname
 
-    return [
+    cmd = [
         "nix",
         "run",
         f"{args.dir}",
@@ -115,39 +117,15 @@ def bootstrap(args):
         f"{args.dir}#{derivation}",
     ]
 
-
-def switch_profile(args):
-    if args.profile == "darwin":
-        cmd = "darwin-rebuild"
-    elif args.profile == "nixos":
-        cmd = "nixos-rebuild"
-    else:
-        cmd = "home-manager"
-
-    return [
-        cmd,
-        "build" if args.build else "switch",
-        "--show-trace",
-        "--flake",
-        f"{args.dir}",
-    ]
-
-
-def get_command():
-    args = parse_args()
-    if args.bootstrap:
-        write_config(args)
-        res = bootstrap(args)
-    else:
-        res = switch_profile(args)
-
     if not args.build and args.profile == "home":
-        res += ["-b", "backup"]
+        cmd += ["-b", "backup"]
 
-    return res
+    return cmd
 
 
 def main():
+    import os
+
     cmd = get_command()
     print(cmd)
     os.execvp(cmd[0], cmd)
