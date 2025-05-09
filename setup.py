@@ -17,6 +17,12 @@ def parse_args():
         help="build profile without switch (default to switch)",
         default=False,
     )
+    parser.add_argument(
+        "--dry",
+        action="store_true",
+        help="dry run (do not execute the command)",
+        default=False,
+    )
 
     # bootstrap related arguments
     parser.add_argument(
@@ -103,6 +109,9 @@ def get_command():
     if not args.build and args.profile == "home":
         cmd += ["-b", "backup"]
 
+    if args.dry:
+        cmd = ["echo"] + cmd
+
     return cmd
 
 
@@ -110,7 +119,6 @@ def main():
     import os
 
     cmd = get_command()
-    print(cmd)
     os.execvp(cmd[0], cmd)
 
 
