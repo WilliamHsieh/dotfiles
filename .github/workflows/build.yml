@@ -55,7 +55,7 @@ jobs:
       - name: Build target
         run: |
           set -o pipefail
-          ./setup.py --bootstrap --profile '${{ matrix.profile }}' '${{ matrix.args }}'
+          ./setup.py --bootstrap --profile ${{ matrix.profile }} ${{ matrix.args }}
 
       - name: show config
         if: always()
