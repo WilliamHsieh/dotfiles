@@ -54,27 +54,17 @@
       lib = inputs.nixpkgs.lib // import ./lib { inherit inputs; };
 
       packages = foreachSystem (system:
-        let
-          pkgs = pkgsBySystem.${system};
-          profileScript = args:
-            pkgs.writeShellScriptBin "profile" ''
-              ${pkgs.python3}/bin/python3 ${./setup.py} ${args} $@
-            '';
-        in
         {
-          # use link to get realpath of dotfiles
           default =
             if dotfiles.profile == "home" then
               inputs.home-manager.packages.${system}.home-manager
             else if dotfiles.profile == "darwin" then
               inputs.darwin.packages.${system}.darwin-rebuild
             else if dotfiles.profile == "nixos" then
-              pkgs.nixos-rebuild
-            else # empty value (default)
-              self.packages.${system}.bootstrap;
-
-          bootstrap = profileScript "--bootstrap --system ${system}";
-          # profile = profileScript "--dir ${builtins.toString ./.} --profile ${dotfiles.profile}";
+              pkgsBySystem.${system}.nixos-rebuild
+            else
+              builtins.abort "Unknown profile type: '${dotfiles.profile}'"
+          ;
         }
       );
 

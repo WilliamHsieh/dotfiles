@@ -4,7 +4,7 @@
 def command_output(command):
     import subprocess
 
-    return subprocess.check_output(command, shell=True).decode().strip()
+    return subprocess.check_output(command, shell=True).decode().strip().strip('"')
 
 
 def parse_args():
@@ -24,16 +24,6 @@ def parse_args():
         action="store_true",
         help="generate bootstrap configuration (config/default.nix)",
         default=False,
-    )
-    parser.add_argument(
-        "--system",
-        type=str,
-        help="system architecture",
-    )
-    parser.add_argument(
-        "--dir",
-        type=str,
-        help="path to dotfiles directory",
     )
     parser.add_argument(
         "--profile",
@@ -70,21 +60,14 @@ def parse_args():
     args = parser.parse_args()
     args.fullname = args.fullname or args.username
     args.email = args.email or f"{args.username}@{args.hostname}"
-    args.dir = command_output("pwd" if args.bootstrap else "dirname " + __file__)
-
-    if args.bootstrap:
-        if not args.system:
-            parser.error("--system is required when --bootstrap is set")
-    else:
-        if not args.profile:
-            parser.error("--profile is required when --bootstrap is not set")
+    args.dir = command_output("dirname " + __file__)
 
     return args
 
 
 def write_config(args):
     config = {
-        "system": args.system,
+        "system": command_output("nix eval --impure --expr 'builtins.currentSystem'"),
         "profile": args.profile,
         "directory": args.dir,
         "username": args.username,
