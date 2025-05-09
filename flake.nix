@@ -55,23 +55,20 @@
 
       packages = foreachSystem (system:
         {
-          default = self.packages.${system}.home-manager;
-          inherit (inputs.home-manager.packages.${system}) home-manager;
-        } // (optionalAttrs (system == dotfiles.nixos.system) {
-          inherit (pkgsBySystem.${system}) nixos-rebuild;
-        }) // (optionalAttrs (system == dotfiles.darwin.system) {
-          inherit (inputs.darwin.packages.${system}) darwin-rebuild;
-        })
+          default =
+            if dotfiles.profile == "home" then
+              inputs.home-manager.packages.${system}.home-manager
+            else if dotfiles.profile == "darwin" then
+              inputs.darwin.packages.${system}.darwin-rebuild
+            else if dotfiles.profile == "nixos" then
+              pkgsBySystem.${system}.nixos-rebuild
+            else
+              builtins.abort "Unknown profile type: '${dotfiles.profile}'"
+          ;
+        }
       );
 
-      homeConfigurations = {
-        ${dotfiles.home.username} = mkHome {
-          inherit (dotfiles.home) system;
-        };
-        "${dotfiles.home.username}-alt" = mkHome {
-          system = builtins.elemAt (builtins.filter (s: s != dotfiles.home.system) systems) 0;
-        };
-      };
+      homeConfigurations = mkHome;
 
       nixosConfigurations = mkSystem {
         isDarwin = false;

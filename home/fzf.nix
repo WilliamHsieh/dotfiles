@@ -1,12 +1,10 @@
 { pkgs, config, dotfiles, ... }:
 let
-  dotDir = "${config.home.homeDirectory}/${dotfiles.home.dotDir}";
-
   filePreview = "bat --color=always {}";
   dirPreview = "eza --color always --tree --level 1 {} | less";
 
   yankField = field:
-    "ctrl-y:execute-silent(echo -n {${toString field}..} | ${dotDir}/config/zsh/autoload/yank)+abort";
+    "ctrl-y:execute-silent(echo -n {${toString field}..} | ${dotfiles.directory}/config/zsh/autoload/yank)+abort";
 in
 {
   home.sessionVariables = {

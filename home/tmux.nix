@@ -1,6 +1,6 @@
 { pkgs, config, dotfiles, ... }:
 let
-  dotDir = "${config.home.homeDirectory}/${dotfiles.home.dotDir}";
+  dotDir = "${dotfiles.directory}";
   dataHome = "${config.xdg.dataHome}/tmux";
 in
 {
