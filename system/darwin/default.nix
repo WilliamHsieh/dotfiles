@@ -42,6 +42,7 @@ in
       "discord"
       "karabiner-elements"
       "chatgpt"
+
       "jordanbaird-ice"
       "itsycal"
       "battery"
@@ -53,6 +54,7 @@ in
     masApps = {
       "Dropover - Easier Drag & Drop" = 1355679052;
       "Hand Mirror" = 1502839586;
+      "RunCat" = 1429033973;
     };
   };
 
