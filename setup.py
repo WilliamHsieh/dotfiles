@@ -111,6 +111,8 @@ def get_command():
 
     if args.dry:
         cmd = ["echo"] + cmd
+    else:
+        print(cmd)
 
     return cmd
 
