@@ -62,6 +62,7 @@ def parse_args():
         type=str,
         help="email address (for git config, default to ${username}@${hostname})",
     )
+    parser.add_argument("remainder", nargs="*")
 
     args = parser.parse_args()
     args.fullname = args.fullname or args.username
@@ -82,7 +83,7 @@ def write_config(args):
         "email": args.email,
     }
 
-    with open("config/default.nix", "w") as f:
+    with open(args.dir + "/config/default.nix", "w") as f:
         config_str = "\n".join([f'  {k} = "{v}";' for k, v in config.items()])
         f.write("{\n" + config_str + "\n}\n")
 
@@ -94,17 +95,22 @@ def get_command():
 
     derivation = args.profile == "home" and args.username or args.hostname
 
-    cmd = [
-        "nix",
-        "run",
-        f"{args.dir}",
-        "--show-trace",
-        "--",
-        "build" if args.build else "switch",
-        "--show-trace",
-        "--flake",
-        f"{args.dir}#{derivation}",
-    ]
+    if args.build:
+        cmd = ["nix", "build", "--show-trace", f"{args.dir}#top.{derivation}"]
+    else:
+        cmd = [
+            "nix",
+            "run",
+            f"{args.dir}",
+            "--show-trace",
+            "--",
+            "switch",
+            "--show-trace",
+            "--flake",
+            f"{args.dir}#{derivation}",
+        ]
+
+    cmd += args.remainder
 
     if not args.build and args.profile == "home":
         cmd += ["-b", "backup"]
