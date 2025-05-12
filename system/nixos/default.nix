@@ -98,7 +98,6 @@
     shell = pkgs.zsh;
     packages = with pkgs; [
       discord
-      skypeforlinux
       spotify
     ];
   };
