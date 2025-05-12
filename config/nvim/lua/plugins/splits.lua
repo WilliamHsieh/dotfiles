@@ -89,7 +89,8 @@ return {
         callback = function(_)
           local blocklist = vim.tbl_contains(ignore_filetypes, vim.bo.filetype)
           local dap_related = vim.bo.filetype:match("^dap")
-          vim.b.focus_disable = blocklist or dap_related
+          local diffview_related = vim.bo.filetype:match("^Diffview")
+          vim.b.focus_disable = blocklist or dap_related or diffview_related
         end,
         desc = "Disable focus autoresize for FileType",
       })
