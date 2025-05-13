@@ -43,8 +43,8 @@ def parse_args():
     parser.add_argument(
         "--username",
         type=str,
-        help="unix user name (default to ${whoami})",
-        default=command_output("whoami"),
+        help="unix user name (default to $USER)",
+        default=command_output("printenv USER"),
     )
     parser.add_argument(
         "--hostname",

@@ -9,6 +9,7 @@ on:
       - ".github/**"
       - "**.nix"
       - "flake.lock"
+      - "setup.py"
 
 jobs:
   build:
