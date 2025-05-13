@@ -95,20 +95,17 @@ def get_command():
 
     derivation = args.profile == "home" and args.username or args.hostname
 
-    if args.build:
-        cmd = ["nix", "build", "--show-trace", f"{args.dir}#top.{derivation}"]
-    else:
-        cmd = [
-            "nix",
-            "run",
-            f"{args.dir}",
-            "--show-trace",
-            "--",
-            "switch",
-            "--show-trace",
-            "--flake",
-            f"{args.dir}#{derivation}",
-        ]
+    cmd = [
+        "nix",
+        "run",
+        f"{args.dir}",
+        "--show-trace",
+        "--",
+        "build" if args.build else "switch",
+        "--show-trace",
+        "--flake",
+        f"{args.dir}#{derivation}",
+    ]
 
     cmd += args.remainder
 
