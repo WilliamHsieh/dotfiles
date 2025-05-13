@@ -35,8 +35,7 @@ def parse_args():
         "--profile",
         type=str,
         choices=["home", "darwin", "nixos"],
-        help="profile type (default to home)",
-        default="home",
+        help="profile type",
     )
 
     # following arguments will be ignored when --bootstrap is not set
@@ -69,6 +68,9 @@ def parse_args():
     args.email = args.email or f"{args.username}@{args.hostname}"
     args.dir = command_output("dirname " + __file__)
 
+    if args.bootstrap and not args.profile:
+        parser.error("--profile is required when --bootstrap is set")
+
     return args
 
 
@@ -93,7 +95,14 @@ def get_command():
     if args.bootstrap:
         write_config(args)
 
-    derivation = args.profile == "home" and args.username or args.hostname
+    def get_derivation():
+        if not args.profile:
+            return ""
+
+        if args.profile == "home":
+            return f"#{args.username}"
+        else:
+            return f"#{args.hostname}"
 
     cmd = [
         "nix",
@@ -104,7 +113,7 @@ def get_command():
         "build" if args.build else "switch",
         "--show-trace",
         "--flake",
-        f"{args.dir}#{derivation}",
+        args.dir + get_derivation(),
     ]
 
     cmd += args.remainder
