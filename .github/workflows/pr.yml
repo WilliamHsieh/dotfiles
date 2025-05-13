@@ -59,18 +59,20 @@ jobs:
       - name: Build new profile
         run: |
           set -o pipefail
-          ./setup.py --build --bootstrap --profile ${{ matrix.profile }} ${{ matrix.args }} -- --profile ./new-profile --fallback -v --log-format raw > >(tee stdout.log) 2> >(tee /tmp/nix-build-err.log >&2)
+          ./setup.py --build --bootstrap --profile ${{ matrix.profile }} ${{ matrix.args }} -- -v > >(tee stdout.log) 2> >(tee /tmp/nix-build-err.log >&2)
+          mv result new-profile
 
       - name: show config
         if: always()
         run: |
           cat ./config/default.nix
 
-      - name: Fetch old system profile
+      - name: Fetch old profile
         run: |
           set -o pipefail
           git clone https://github.com/WilliamHsieh/dotfiles
-          ./dotfiles/setup.py --build --bootstrap --profile ${{ matrix.profile }} ${{ matrix.args }} -- --profile ./old-profile
+          ./dotfiles/setup.py --build --bootstrap --profile ${{ matrix.profile }} ${{ matrix.args }}
+          mv result old-profile
 
       - name: Output build failure
         if: failure()
@@ -94,8 +96,8 @@ jobs:
         with:
           hide_and_recreate: true
           hide_classify: "OUTDATED"
+          header: "${{ matrix.os }}-${{ matrix.profile }}"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          header: ".#top.${{ matrix.target }}"
           message: |
             ### Report for `${{ matrix.os }}` `${{ matrix.profile }}`
 
