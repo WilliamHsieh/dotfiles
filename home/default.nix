@@ -238,12 +238,12 @@ in
       (bar "LeftCPUs2")
       (bar "Memory")
       (bar "Swap")
-      (text "Uptime")
     ]) // (with config.lib.htop; rightMeters [
       (bar "RightCPUs2")
       (text "Tasks")
       (text "LoadAverage")
       (text "DiskIO")
+      (text "Uptime")
     ]);
   };
 
