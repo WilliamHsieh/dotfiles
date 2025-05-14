@@ -20,6 +20,7 @@ let
     sudo = ''sudo -E env "PATH=$PATH" '';
     pythonServer = "python3 -m http.server";
     cpcmd = "fc -ln -1 | awk '{$1=$1}1' | tee /dev/fd/2 | yank";
+    gdbrun = "gdb -ex=run --args";
 
     dotswitch =
       let
