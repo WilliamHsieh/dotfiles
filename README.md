@@ -7,31 +7,21 @@ These are my configuration for `neovim`, `zsh`, and `tmux` using [nix](https://n
 
 ## Getting Started
 
-1. install [nix](https://nixos.org/download.html)
+1. install [nix](https://nixos.org/download.html) with the recommended installer provided by [`determinate systems`](https://determinate.systems/)
 
 ```bash
-# the official installer
-sh <(curl -L https://nixos.org/nix/install)
-
-# or the installer provided by `determinate systems`
-curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
+curl -fsSL https://install.determinate.systems/nix | sh -s -- install
 ```
 
-2. clone this repo and modify the personal info in `config/default.nix`
+2. clone this repo and apply the selected profile
 
 ```bash
-nix-shell -p git vim
-git clone http://github.com/williamhsieh/dotfiles ~/dotfiles && cd ~/dotfiles
-vim ./config/default.nix
+nix-shell -p git # optional, only if git is not available
+git clone http://github.com/williamhsieh/dotfiles
+./dotfiles/setup.py # show available flags with `--help`
 ```
 
-3. apply home-manager settings
-
-```bash
-NIX_CONFIG="experimental-features = flakes nix-command" nix run . switch -- -b bak --flake .
-```
-
-4. (optional) download [nerd fonts](https://www.nerdfonts.com/) for the terminal emulator
+3. (optional) download [nerd fonts](https://www.nerdfonts.com/) for the terminal emulator, if home profile is selected
 
 ## Feedback
 

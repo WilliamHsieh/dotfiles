@@ -48,18 +48,18 @@ def parse_args():
     parser.add_argument(
         "--hostname",
         type=str,
-        help="unix host name (default to ${hostname})",
+        help="unix host name (default to $(hostname))",
         default=command_output("hostname"),
     )
     parser.add_argument(
         "--fullname",
         type=str,
-        help="display name (for git config, default to ${username})",
+        help="display name (for git config, default to USERNAME)",
     )
     parser.add_argument(
         "--email",
         type=str,
-        help="email address (for git config, default to ${username}@${hostname})",
+        help="email address (for git config, default to USERNAME@HOSTNAME)",
     )
     parser.add_argument("remainder", nargs="*")
 
