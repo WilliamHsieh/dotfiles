@@ -135,10 +135,6 @@
     gnome-shell-extensions
   ];
 
-  fonts.packages = with pkgs; [
-    (nerdfonts.override { fonts = [ "Iosevka" "JetBrainsMono" "CodeNewRoman" "Meslo" "FiraCode" "DroidSansMono" ]; })
-  ];
-
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
