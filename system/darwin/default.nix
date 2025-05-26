@@ -138,8 +138,8 @@ in
     '';
   };
 
-  # Auto upgrade nix package and the daemon service.
-  services.nix-daemon.enable = true;
+  # TODO: move this setting to `nix.nix`
+  nix.enable = true;
 
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog
