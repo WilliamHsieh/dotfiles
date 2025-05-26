@@ -58,22 +58,11 @@ in
     };
   };
 
-  fonts.packages = with pkgs; [
-    (nerdfonts.override {
-      fonts = [
-        "JetBrainsMono"
-        "CommitMono"
-        "Meslo"
-      ];
-    })
-    unstable.maple-mono.Normal-NF-CN-unhinted
-    unstable.maple-mono.NF-CN-unhinted
-  ];
-
   # NOTE: some of the value are not reflected instantly
   # check the value by 'defaults read NSGlobalDomain InitialKeyRepeat'
   # re-login to apply config https://github.com/LnL7/nix-darwin/issues/1207
   system = {
+    primaryUser = username;
     defaults = {
       NSGlobalDomain = {
         # hold 'ctrl+command' to activate, additional 'option' to tile the window
@@ -137,8 +126,8 @@ in
     '';
   };
 
-  # Auto upgrade nix package and the daemon service.
-  services.nix-daemon.enable = true;
+  # TODO: move this setting to `nix.nix`
+  nix.enable = true;
 
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog

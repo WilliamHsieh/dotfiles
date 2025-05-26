@@ -131,12 +131,8 @@
     thunderbird
     xwayland
 
-    gnome.gnome-tweaks
-    gnome.gnome-shell-extensions
-  ];
-
-  fonts.packages = with pkgs; [
-    (nerdfonts.override { fonts = [ "Iosevka" "JetBrainsMono" "CodeNewRoman" "Meslo" "FiraCode" "DroidSansMono" ]; })
+    gnome-tweaks
+    gnome-shell-extensions
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

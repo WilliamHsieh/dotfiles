@@ -3,16 +3,12 @@ permissions:
   pull-requests: write
 on:
   workflow_dispatch:
-  pull_request:
-    paths:
-      - .github/workflows/**
-      - "**.nix"
-      - "flake.lock"
+  push:
+    branches:
+      - update_flake_lock_action
 
 jobs:
   build:
-    if: github.head_ref == 'update_flake_lock_action'
-    # name: "Build ${{ matrix.target }}"
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -91,9 +87,13 @@ jobs:
           nix run nixpkgs#nvd diff ./old-profile ./new-profile >> "${GITHUB_OUTPUT}"
           echo "EOF" >> "${GITHUB_OUTPUT}"
 
+      - uses: jwalton/gh-find-current-pr@v1
+        id: finder
+
       - name: Comment report in pr
         uses: marocchino/sticky-pull-request-comment@v2
         with:
+          number: ${{ steps.finder.outputs.pr }}
           hide_and_recreate: true
           hide_classify: "OUTDATED"
           header: "${{ matrix.os }}-${{ matrix.profile }}"

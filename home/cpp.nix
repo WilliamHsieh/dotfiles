@@ -9,9 +9,9 @@ in
     gcc
     gnumake
     ninja
-    mold
   ] ++ (pkgs.lib.optionals pkgs.stdenv.isLinux [
     gdb
+    mold
   ]);
 
   xdg.configFile = {

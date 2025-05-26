@@ -24,15 +24,25 @@ let
       };
     }
   );
+
+  fonts = pkgs: with pkgs; [
+    maple-mono.Normal-NF-CN-unhinted
+    maple-mono.NF-CN-unhinted
+  ] ++ (with nerd-fonts; [
+    fira-code
+    jetbrains-mono
+    meslo-lg
+    commit-mono
+  ]);
 in
 {
   inherit foreachSystem pkgsBySystem dotfiles systems;
 
   stateVersion = "${builtins.elemAt (lib.splitString "-" lockfile.nodes.${input_name}.original.ref) 1}";
 
-  mkHome = {
+  mkHome = let pkgs = pkgsBySystem.${dotfiles.system}; in {
     ${dotfiles.username} = inputs.home-manager.lib.homeManagerConfiguration {
-      pkgs = pkgsBySystem.${dotfiles.system};
+      inherit pkgs;
       extraSpecialArgs = {
         inherit inputs dotfiles;
         isSystemConfig = false;
@@ -40,6 +50,10 @@ in
       modules = [
         ../home
         ./nix.nix
+        {
+          fonts.fontconfig.enable = true;
+          home.packages = fonts pkgs;
+        }
       ];
     };
   };
@@ -68,6 +82,8 @@ in
                 isSystemConfig = true;
               };
               home-manager.users.${dotfiles.username} = import ../home;
+
+              fonts.packages = fonts pkgs;
             }
           ] ++ (pkgs.lib.optionals pkgs.stdenv.isDarwin [
             inputs.homebrew.darwinModules.nix-homebrew
