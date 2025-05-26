@@ -3,16 +3,12 @@ permissions:
   pull-requests: write
 on:
   workflow_dispatch:
-  pull_request:
-    paths:
-      - .github/workflows/**
-      - "**.nix"
-      - "flake.lock"
+  push:
+    branches:
+      - update_flake_lock_action
 
 jobs:
   build:
-    if: github.head_ref == 'update_flake_lock_action'
-    # name: "Build ${{ matrix.target }}"
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
