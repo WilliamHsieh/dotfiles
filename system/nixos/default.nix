@@ -131,8 +131,8 @@
     thunderbird
     xwayland
 
-    gnome.gnome-tweaks
-    gnome.gnome-shell-extensions
+    gnome-tweaks
+    gnome-shell-extensions
   ];
 
   fonts.packages = with pkgs; [
