@@ -69,6 +69,9 @@ let
     # completion
     source ${oh-my-zsh}/share/oh-my-zsh/lib/completion.zsh
     zstyle ":completion:*" list-colors "''${(s.:.)LS_COLORS}"
+
+    # https://github.com/Aloxaf/fzf-tab/pull/479
+    zstyle ':fzf-tab:*' use-fzf-default-opts yes
     source ${zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh
 
     # plugins
