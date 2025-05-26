@@ -28,8 +28,6 @@
 
     homebrew = {
       url = "github:zhaofengli/nix-homebrew";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.nix-darwin.follows = "darwin";
     };
 
     catppuccin = {
