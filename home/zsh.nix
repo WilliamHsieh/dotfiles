@@ -1,4 +1,4 @@
-{ pkgs, config, dotfiles, isSystemConfig, ... }:
+{ lib, pkgs, config, dotfiles, isSystemConfig, ... }:
 let
   dotDir = "${dotfiles.directory}";
   aliases = {
@@ -33,6 +33,63 @@ let
       in
       "${cmd} switch --flake ${dotDir} --show-trace";
   };
+
+  initExtraFirst =
+    let
+      instantPrompt = "${config.xdg.cacheHome}/p10k-instant-prompt-\${(%):-%n}.zsh";
+      nixProfile = "${config.home.profileDirectory}/etc/profile.d/nix.sh";
+      sourceIfExists = file: "[[ -r ${file} ]] && source ${file}";
+    in
+    lib.mkBefore
+      /* bash */ ''
+      # p10k instant prompt
+      echo ""
+      ${sourceIfExists "${instantPrompt}"}
+
+      # TODO: is this necessary? isn't the same thing already done in /etc/zshrc?
+      # source nix profile
+      ${sourceIfExists "${nixProfile}"}
+    '';
+
+  initExtraBeforeCompInit = lib.mkOrder 550 /* bash */ ''
+    fpath+=${pkgs.zsh-completions}/share/zsh/site-functions
+    fpath+=${pkgs.oh-my-zsh}/share/oh-my-zsh/plugins/extract
+    fpath+=${dotDir}/config/zsh/autoload
+    autoload -Uz true_colors
+    autoload -Uz yank
+    autoload -Uz live_grep
+    zle -N live_grep
+
+    # HACK: https://github.com/zsh-users/zsh-syntax-highlighting/issues/67#issuecomment-1728953
+    autoload -Uz select-word-style
+    select-word-style bash
+  '';
+
+  initExtra = with pkgs; /* bash */ ''
+    # completion
+    source ${oh-my-zsh}/share/oh-my-zsh/lib/completion.zsh
+    zstyle ":completion:*" list-colors "''${(s.:.)LS_COLORS}"
+    source ${zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh
+
+    # plugins
+    source ${zsh-autosuggestions}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+    source ${zsh-fast-syntax-highlighting}/share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh
+    source ${zsh-abbr}/share/zsh/zsh-abbr/zsh-abbr.plugin.zsh
+    source ${zsh-autopair}/share/zsh/zsh-autopair/autopair.zsh
+    source ${zsh-nix-shell}/share/zsh-nix-shell/nix-shell.plugin.zsh
+    source ${oh-my-zsh}/share/oh-my-zsh/plugins/extract/extract.plugin.zsh
+
+    # vi-mode
+    ZVM_VI_ESCAPE_BINDKEY=kj
+    source ${zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+
+    # theme
+    source ${zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
+    source ~/${config.programs.zsh.dotDir}/.p10k.zsh
+
+    # other settings
+    source ${dotDir}/config/zsh/.zshrc
+  '';
 in
 {
   home.shellAliases = pkgs.lib.mkMerge [
@@ -59,61 +116,10 @@ in
     autocd = true;
     defaultKeymap = "emacs";
     dotDir = ".config/zsh";
-    initExtraFirst =
-      let
-        instantPrompt = "${config.xdg.cacheHome}/p10k-instant-prompt-\${(%):-%n}.zsh";
-        nixProfile = "${config.home.profileDirectory}/etc/profile.d/nix.sh";
-        sourceIfExists = file: "[[ -r ${file} ]] && source ${file}";
-      in
-        /* bash */ ''
-        # p10k instant prompt
-        echo ""
-        ${sourceIfExists "${instantPrompt}"}
+    initContent = lib.mkMerge [ initExtraFirst initExtraBeforeCompInit initExtra ];
 
-        # TODO: is this necessary? isn't the same thing already done in /etc/zshrc?
-        # source nix profile
-        ${sourceIfExists "${nixProfile}"}
-      '';
-    initExtraBeforeCompInit = /* bash */ ''
-      fpath+=${pkgs.zsh-completions}/share/zsh/site-functions
-      fpath+=${pkgs.oh-my-zsh}/share/oh-my-zsh/plugins/extract
-      fpath+=${dotDir}/config/zsh/autoload
-      autoload -Uz true_colors
-      autoload -Uz yank
-      autoload -Uz live_grep
-      zle -N live_grep
-
-      # HACK: https://github.com/zsh-users/zsh-syntax-highlighting/issues/67#issuecomment-1728953
-      autoload -Uz select-word-style
-      select-word-style bash
-    '';
     # TODO: change to -i?
     completionInit = "autoload -Uz compinit && compinit -u";
-    initExtra = with pkgs; /* bash */ ''
-      # completion
-      source ${oh-my-zsh}/share/oh-my-zsh/lib/completion.zsh
-      zstyle ":completion:*" list-colors "''${(s.:.)LS_COLORS}"
-      source ${zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh
-
-      # plugins
-      source ${zsh-autosuggestions}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-      source ${zsh-fast-syntax-highlighting}/share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh
-      source ${zsh-abbr}/share/zsh/zsh-abbr/zsh-abbr.plugin.zsh
-      source ${zsh-autopair}/share/zsh/zsh-autopair/autopair.zsh
-      source ${zsh-nix-shell}/share/zsh-nix-shell/nix-shell.plugin.zsh
-      source ${oh-my-zsh}/share/oh-my-zsh/plugins/extract/extract.plugin.zsh
-
-      # vi-mode
-      ZVM_VI_ESCAPE_BINDKEY=kj
-      source ${zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
-
-      # theme
-      source ${zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
-      source ~/${config.programs.zsh.dotDir}/.p10k.zsh
-
-      # other settings
-      source ${dotDir}/config/zsh/.zshrc
-    '';
   };
 
   # TODO: fix abbr completion and man page
