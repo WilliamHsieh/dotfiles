@@ -87,9 +87,13 @@ jobs:
           nix run nixpkgs#nvd diff ./old-profile ./new-profile >> "${GITHUB_OUTPUT}"
           echo "EOF" >> "${GITHUB_OUTPUT}"
 
+      - uses: jwalton/gh-find-current-pr@v1
+        id: finder
+
       - name: Comment report in pr
         uses: marocchino/sticky-pull-request-comment@v2
         with:
+          number: ${{ steps.finder.outputs.pr }}
           hide_and_recreate: true
           hide_classify: "OUTDATED"
           header: "${{ matrix.os }}-${{ matrix.profile }}"
