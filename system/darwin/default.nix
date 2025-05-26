@@ -74,6 +74,7 @@ in
   # check the value by 'defaults read NSGlobalDomain InitialKeyRepeat'
   # re-login to apply config https://github.com/LnL7/nix-darwin/issues/1207
   system = {
+    primaryUser = username;
     defaults = {
       NSGlobalDomain = {
         # hold 'ctrl+command' to activate, additional 'option' to tile the window
