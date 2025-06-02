@@ -43,9 +43,6 @@ jobs:
       - name: Check Nix flake inputs
         uses: DeterminateSystems/flake-checker-action@v9
 
-      - name: Github actions built-in cache
-        uses: DeterminateSystems/magic-nix-cache-action@v9
-
       - name: Setup cachix
         uses: cachix/cachix-action@v16
         with:
