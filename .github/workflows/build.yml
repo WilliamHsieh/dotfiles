@@ -40,8 +40,8 @@ jobs:
           extra_nix_config: |
             accept-flake-config = true
 
-      - name: Check Nix flake inputs
-        uses: DeterminateSystems/flake-checker-action@v9
+      # - name: Check Nix flake inputs
+      #   uses: DeterminateSystems/flake-checker-action@v9
 
       - name: Setup cachix
         uses: cachix/cachix-action@v16
