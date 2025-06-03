@@ -53,6 +53,7 @@ return {
           ---@diagnostic disable-next-line: param-type-mismatch
           pcall(vim.cmd, "nohlsearch | diffupdate | mode")
           pcall(require("focus").focus_autoresize)
+          pcall(require("snacks").notifier.hide)
         end,
         desc = "Resize splits and refresh",
       },
