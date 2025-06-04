@@ -197,7 +197,13 @@ return {
     opts = {
       code = {
         border = "thin",
-      }
+      },
+      win_options = {
+        conceallevel = {
+          default = 1,
+          rendered = 1,
+        },
+      },
     },
   },
 
