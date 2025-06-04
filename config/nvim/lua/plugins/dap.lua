@@ -1,3 +1,8 @@
+local function tabedit(config)
+  vim.cmd("tabedit " .. vim.fn.expand("%"))
+  return config
+end
+
 ---@param config {type?:string, args?:string[]|fun():string[]?}
 local function get_args(config)
   local args = type(config.args) == "function" and (config.args() or {}) or config.args or {} --[[@as string[] | string ]]
@@ -13,7 +18,7 @@ local function get_args(config)
     end
     return require("dap.utils").splitstr(new_args)
   end
-  return config
+  return tabedit(config)
 end
 
 return {
@@ -35,7 +40,7 @@ return {
     keys = {
       { "<leader>dB", function() require("dap").set_breakpoint(vim.fn.input('Breakpoint condition: ')) end, desc = "Breakpoint Condition" },
       { "<leader>db", function() require("dap").toggle_breakpoint() end, desc = "Toggle Breakpoint" },
-      { "<leader>dd", function() require("dap").continue() end, desc = "Run/Continue" },
+      { "<leader>dd", function() require("dap").continue({ before = tabedit }) end, desc = "Run/Continue" },
       { "<leader>da", function() require("dap").continue({ before = get_args }) end, desc = "Run with Args" },
       { "<leader>dc", function() require("dap").run_to_cursor() end, desc = "Run to Cursor" },
       { "<leader>dg", function() require("dap").goto_() end, desc = "Go to Line (No Execute)" },
@@ -89,7 +94,16 @@ return {
       { "<leader>du", function() require("dapui").toggle({ }) end, desc = "Dap UI" },
       { "<leader>de", function() require("dapui").eval() end, desc = "Eval", mode = {"n", "v"} },
     },
-    opts = {},
+    opts = {
+      mappings = {
+        expand = "<tab>",
+        open = { "<CR>", "<2-LeftMouse>" },
+        edit = "e",
+        remove = "d",
+        repl = "r",
+        toggle = "t",
+      },
+    },
     config = function(_, opts)
       local dap = require("dap")
       local dapui = require("dapui")
