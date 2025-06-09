@@ -254,6 +254,14 @@ in
 
   systemd.user.startServices = "sd-switch";
 
+  services.home-manager.autoExpire = {
+    enable = true;
+    store = {
+      cleanup = true;
+      options = "--delete-older-than 30d";
+    };
+  };
+
   services.pueue = {
     enable = pkgs.stdenv.isLinux;
     settings = {
