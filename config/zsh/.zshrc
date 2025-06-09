@@ -17,6 +17,12 @@
     tmux_can_attach=$( [ -n "$PS1" ] && [ -z "$TMUX" ] && [ $SHLVL = 1 ] && echo 1 || echo 0 )
     tmux_has_session=$(tmux has-session 2> /dev/null && echo 1 || echo 0)
     (( $tmux_can_attach )) && (( $tmux_has_session )) && tmux a
+
+    # HACK: https://github.com/chisui/zsh-nix-shell/issues/19
+    if [[ -n $IN_NIX_SHELL && -n $VIRTUAL_ENV ]]; then
+      typeset -U PATH
+      export PATH="$VIRTUAL_ENV/bin:$PATH"
+    fi
 # }}}
 
 

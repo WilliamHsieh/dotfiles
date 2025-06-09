@@ -1,6 +1,3 @@
-# NOTE: Running Python packages which requires compilation and/or contains libraries precompiled without nix
-# https://wiki.nixos.org/wiki/Python
-
 { pkgs ? import <nixpkgs> { } }:
 (
   let
