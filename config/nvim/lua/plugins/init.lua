@@ -234,4 +234,9 @@ return {
     event = { "BufRead Cargo.toml" },
     opts = {},
   },
+
+  {
+    "sphamba/smear-cursor.nvim",
+    opts = {},
+  },
 }
