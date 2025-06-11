@@ -122,8 +122,11 @@ def get_command():
 
     cmd += args.remainder
 
-    if not args.build and args.profile == "home":
-        cmd += ["-b", "backup"]
+    if not args.build:
+        if args.profile == "home":
+            cmd += ["-b", "backup"]
+        else:
+            cmd = ["sudo"] + cmd
 
     if args.dry:
         cmd = ["echo"] + cmd
