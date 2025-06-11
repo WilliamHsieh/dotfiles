@@ -75,7 +75,7 @@ def parse_args():
 
 
 def write_config(args):
-    if args.profile == "nixos":
+    if args.profile == "nixos" and command_output("command -v nixos-generate-config") != "":
         with open(args.dir + "/system/nixos/hardware.nix", "w") as f:
             f.write(command_output("nixos-generate-config --show-hardware-config"))
 
