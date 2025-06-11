@@ -75,9 +75,13 @@ def parse_args():
 
 
 def write_config(args):
-    if args.profile == "nixos" and command_output("command -v nixos-generate-config") != "":
-        with open(args.dir + "/system/nixos/hardware.nix", "w") as f:
-            f.write(command_output("nixos-generate-config --show-hardware-config"))
+    if args.profile == "nixos":
+        hardware_config = command_output(
+            "nixos-generate-config --show-hardware-config || true"
+        )
+        if hardware_config != "":
+            with open(args.dir + "/system/nixos/hardware.nix", "w") as f:
+                f.write(hardware_config)
 
     config = {
         "system": command_output("nix eval --impure --expr 'builtins.currentSystem'"),
