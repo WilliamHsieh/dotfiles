@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
 
+import subprocess
+import os
+
 
 def command_output(command):
-    import subprocess
-
-    return subprocess.check_output(command, shell=True).decode().strip().strip('"')
+    env = os.environ.copy()
+    env["NIX_CONFIG"] = "experimental-features = flakes nix-command"
+    return subprocess.check_output(command, shell=True, env=env).decode().strip()
 
 
 def parse_args():
@@ -84,7 +87,9 @@ def write_config(args):
                 f.write(hardware_config)
 
     config = {
-        "system": command_output("nix eval --impure --expr 'builtins.currentSystem'"),
+        "system": command_output(
+            "nix eval --impure --expr 'builtins.currentSystem'"
+        ).strip('"'),
         "profile": args.profile,
         "directory": args.dir,
         "username": args.username,
@@ -141,8 +146,6 @@ def get_command():
 
 
 def main():
-    import os
-
     cmd = get_command()
     os.execvp(cmd[0], cmd)
 
