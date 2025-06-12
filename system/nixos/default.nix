@@ -19,7 +19,6 @@
     };
   };
 
-  networking.hostName = dotfiles.hostname;
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -102,9 +101,6 @@
       spotify
     ];
   };
-
-  # for default login shell
-  programs.zsh.enable = true;
 
   # for running nearly every binaries
   programs.nix-ld = {

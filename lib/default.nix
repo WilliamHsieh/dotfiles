@@ -72,17 +72,10 @@ in
           specialArgs = { inherit inputs pkgs dotfiles; };
           modules = [
             ./nix.nix
+            ../system/common
             ../system/${dotfiles.profile}
             hmModules.home-manager
             {
-              home-manager.useGlobalPkgs = true;
-              # home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = {
-                inherit inputs dotfiles;
-                isSystemConfig = true;
-              };
-              home-manager.users.${dotfiles.username} = import ../home;
-
               fonts.packages = fonts pkgs;
             }
           ] ++ (pkgs.lib.optionals pkgs.stdenv.isDarwin [

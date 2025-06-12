@@ -7,18 +7,11 @@ in
     pkgs.xquartz
   ];
 
-  nixpkgs.hostPlatform = "aarch64-darwin";
-
-  networking.hostName = dotfiles.hostname;
-
   users.users."${username}" = {
     description = dotfiles.fullname;
     home = "/Users/${username}";
     shell = pkgs.zsh;
   };
-
-  # for login shell
-  programs.zsh.enable = true; # default shell on catalina
 
   nix-homebrew = {
     enable = true;
