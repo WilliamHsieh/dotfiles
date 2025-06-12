@@ -105,7 +105,7 @@ def write_config(args):
 
 def get_command():
     args = parse_args()
-    if args.bootstrap:
+    if args.bootstrap and not args.dry:
         write_config(args)
 
     def get_derivation():
