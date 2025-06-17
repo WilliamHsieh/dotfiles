@@ -9,6 +9,11 @@ in
     registry = lib.mapAttrs (_: flake: { inherit flake; }) flakeInputs;
     nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
 
+    gc = {
+      automatic = true;
+      options = "--delete-older-than 30d";
+    };
+
     settings = {
       experimental-features = [ "nix-command" "flakes" ];
       warn-dirty = false;
