@@ -14,7 +14,10 @@
     kernelPackages = pkgs.linuxPackages_zen;
 
     loader = {
-      systemd-boot.enable = true;
+      systemd-boot = {
+        enable = true;
+        configurationLimit = 5; # Limit the number of boot entries
+      };
       efi.canTouchEfiVariables = true;
     };
   };
