@@ -34,25 +34,23 @@ def parse_args():
         help="generate bootstrap configuration (config/default.nix)",
         default=False,
     )
+
+    # following arguments will be ignored when --bootstrap is not set
     parser.add_argument(
         "--profile",
         type=str,
         choices=["home", "darwin", "nixos"],
         help="profile type",
     )
-
-    # following arguments will be ignored when --bootstrap is not set
     parser.add_argument(
         "--username",
         type=str,
         help="unix user name (default to $USER)",
-        default=command_output("printenv USER"),
     )
     parser.add_argument(
         "--hostname",
         type=str,
         help="unix host name (default to $(hostname))",
-        default=command_output("hostname"),
     )
     parser.add_argument(
         "--fullname",
@@ -67,12 +65,25 @@ def parse_args():
     parser.add_argument("remainder", nargs="*")
 
     args = parser.parse_args()
+    if not args.bootstrap and (
+        args.profile or args.username or args.hostname or args.fullname or args.email
+    ):
+        print(
+            "Warning: The following arguments require --bootstrap to be enabled to be effective:\n"
+            "  * --profile\n"
+            "  * --username\n"
+            "  * --hostname\n"
+            "  * --fullname\n"
+            "  * --email\n"
+        )
+        args.profile = args.username = args.hostname = args.fullname = args.email = None
+
+    args.profile = args.profile or "home"
+    args.username = args.username or command_output("printenv USER")
+    args.hostname = args.hostname or command_output("hostname")
     args.fullname = args.fullname or args.username
     args.email = args.email or f"{args.username}@{args.hostname}"
     args.dir = command_output("dirname " + __file__)
-
-    if args.bootstrap and not args.profile:
-        parser.error("--profile is required when --bootstrap is set")
 
     return args
 
@@ -109,9 +120,6 @@ def get_command():
         write_config(args)
 
     def get_derivation():
-        if not args.profile:
-            return ""
-
         if args.profile == "home":
             return f"#{args.username}"
         else:

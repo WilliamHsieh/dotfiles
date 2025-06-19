@@ -18,7 +18,7 @@ curl -fsSL https://install.determinate.systems/nix | sh -s -- install
 ```bash
 nix-shell -p git # optional, only if git is not available
 git clone http://github.com/williamhsieh/dotfiles
-./dotfiles/setup.py # show available flags with `--help`
+./dotfiles/setup.py --bootstrap # show available flags with `--help`
 ```
 
 3. (optional) download [nerd fonts](https://www.nerdfonts.com/) for the terminal emulator, if home profile is selected
