@@ -60,6 +60,8 @@
               inputs.darwin.packages.${system}.darwin-rebuild
             else if dotfiles.profile == "nixos" then
               pkgsBySystem.${system}.nixos-rebuild
+            else if dotfiles.profile == "" then
+              builtins.abort "Empty profile type, please run setup.py with `--bootstrap`"
             else
               builtins.abort "Unknown profile type: '${dotfiles.profile}'"
           ;

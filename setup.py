@@ -15,7 +15,9 @@ def command_output(command):
 def get_value_by_key(nix_content, key):
     pattern = f'  {re.escape(key)} = "([^"]+)";'
     match = re.search(pattern, nix_content)
-    assert match is not None, f"Key '{key}' not found in the provided Nix content."
+    assert match is not None, (
+        f"Key '{key}' not found, please run setup.py with '--bootstrap'"
+    )
     return match.group(1)
 
 
