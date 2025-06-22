@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 
-import subprocess
+import argparse
 import os
+import re
+import subprocess
 
 
 def command_output(command):
@@ -10,9 +12,14 @@ def command_output(command):
     return subprocess.check_output(command, shell=True, env=env).decode().strip()
 
 
-def parse_args():
-    import argparse
+def get_value_by_key(nix_content, key):
+    pattern = f'  {re.escape(key)} = "([^"]+)";'
+    match = re.search(pattern, nix_content)
+    assert match is not None, f"Key '{key}' not found in the provided Nix content."
+    return match.group(1)
 
+
+def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--build",
@@ -65,9 +72,15 @@ def parse_args():
     parser.add_argument("remainder", nargs="*")
 
     args = parser.parse_args()
-    if not args.bootstrap and (
-        args.profile or args.username or args.hostname or args.fullname or args.email
-    ):
+    args.dir = command_output("dirname " + __file__)
+
+    if args.bootstrap:
+        args.profile = args.profile or "home"
+        args.username = args.username or command_output("printenv USER")
+        args.hostname = args.hostname or command_output("hostname")
+        return args
+
+    if args.profile or args.username or args.hostname or args.fullname or args.email:
         print(
             "Warning: The following arguments require --bootstrap to be enabled to be effective:\n"
             "  * --profile\n"
@@ -76,14 +89,11 @@ def parse_args():
             "  * --fullname\n"
             "  * --email\n"
         )
-        args.profile = args.username = args.hostname = args.fullname = args.email = None
 
-    args.profile = args.profile or "home"
-    args.username = args.username or command_output("printenv USER")
-    args.hostname = args.hostname or command_output("hostname")
-    args.fullname = args.fullname or args.username
-    args.email = args.email or f"{args.username}@{args.hostname}"
-    args.dir = command_output("dirname " + __file__)
+    config = open(args.dir + "/config/default.nix").read()
+    args.profile = get_value_by_key(config, "profile")
+    args.username = get_value_by_key(config, "username")
+    args.hostname = get_value_by_key(config, "hostname")
 
     return args
 
@@ -105,8 +115,8 @@ def write_config(args):
         "directory": args.dir,
         "username": args.username,
         "hostname": args.hostname,
-        "fullname": args.fullname,
-        "email": args.email,
+        "fullname": args.fullname or args.username,
+        "email": args.email or f"{args.username}@{args.hostname}",
     }
 
     with open(args.dir + "/config/default.nix", "w") as f:
@@ -135,9 +145,8 @@ def get_command():
         "--show-trace",
         "--flake",
         args.dir + get_derivation(),
+        *args.remainder,
     ]
-
-    cmd += args.remainder
 
     if not args.build:
         if args.profile == "home":
