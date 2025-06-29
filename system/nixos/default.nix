@@ -8,6 +8,7 @@
   imports = [
     ./hardware.nix
     ./logiops.nix
+    inputs.niri.nixosModules.niri
   ];
 
   boot = {
@@ -123,6 +124,13 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
+  programs.waybar.enable = true;
+
+  programs.niri = {
+    enable = true;
+    package = pkgs.niri-unstable;
+  };
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -136,6 +144,12 @@
 
     gnome-tweaks
     gnome-shell-extensions
+    gnomeExtensions.paperwm
+
+    # window managers (niri)
+    fuzzel
+    xwayland-satellite
+    networkmanagerapplet
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
