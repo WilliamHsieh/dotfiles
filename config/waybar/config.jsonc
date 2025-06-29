@@ -1,0 +1,117 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 45,
+  "spacing": 0,
+  "modules-left": [
+    "niri/workspaces",
+    "custom/lock",
+    "custom/reboot",
+    "custom/power",
+    "battery"
+  ],
+  "modules-center": ["niri/window"],
+  "modules-right": [
+    "temperature",
+    "tray",
+    "pulseaudio",
+    "bluetooth",
+    "network",
+    "clock"
+  ],
+  "niri/workspaces": {
+    "disable-scroll": false,
+    "on-click": "activate",
+    "format": "{icon}",
+    "format-icons": {
+      "urgent": "",
+      "active": "",
+      "default": ""
+    }
+  },
+  "custom/lock": {
+  "format": "  ",
+  "on-click": "hyprlock",
+  "tooltip": true,
+  "tooltip-format": "hyprlock"
+  },
+  "custom/reboot": {
+    "format": "  ",
+    "on-click": "systemctl reboot",
+    "tooltip": true,
+    "tooltip-format": "reboot"
+  },
+  "custom/power": {
+    "format": "  ",
+    "on-click": "systemctl poweroff",
+    "tooltip": true,
+    "tooltip-format": "poweroff"
+  },
+  "network": {
+    "format-wifi": " 󰤨 {essid} ",
+    "format-ethernet": " Wired ",
+    "tooltip-format": "<span color='#FF1493'> 󰅧 </span>{bandwidthUpBytes}  <span color='#00BFFF'> 󰅢 </span>{bandwidthDownBytes}",
+    "format-linked": " 󱘖 {ifname} (No IP) ",
+    "format-disconnected": "  Disconnected ",
+    "format-alt": " 󰤨 {signalStrength}% ",
+    "interval": 1
+  },
+  "battery": {
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": " {icon} {capacity}% ",
+    "format-charging": " 󱐋{capacity}%",
+	  "interval": 1,
+    "format-icons": ["󰂎", "󰁼", "󰁿", "󰂁", "󰁹"],
+    "tooltip": true
+  },
+  // TODO: add microphone support
+  "pulseaudio": {
+    "format": "{icon}{volume}% ",
+    "format-muted": " 󰖁 0% ",
+    "format-icons": {
+      "headphone": "  ",
+      "hands-free": "  ",
+      "headset": "  ",
+      "phone": "  ",
+      "portable": "  ",
+      "car": "  ",
+      "default": [
+        "  ",
+        "  ",
+        "  "
+      ]
+    },
+    "on-click-right": "pavucontrol -t 3",
+    "on-click": "pactl -- set-sink-mute 0 toggle",
+    "tooltip": true,
+  },
+  "temperature": {
+    "format": " {}°C ",
+    "interval": 5,
+    "tooltip": true,
+    "tooltip-format": "CPU temperature: {}°C"
+  },
+  "clock": {
+    "interval": 1,
+    "timezone": "Asia/Taipei",
+    "format": "  {:%H:%M} ",
+    "tooltip": true,
+    "tooltip-format": "{:L%Y 年 %m 月 %d 日, %A}"
+  },
+  "tray": {
+    "icon-size": 17,
+    "spacing": 7
+  },
+  "bluetooth": {
+    "format": "  {status} ",
+    "format-connected": "  {device_alias} ",
+    "format-connected-battery": "  {device_alias}{device_battery_percentage}% ",
+    "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+    "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+    "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+    "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%"
+  }
+}

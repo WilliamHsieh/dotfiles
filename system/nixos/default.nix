@@ -124,7 +124,10 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  programs.waybar.enable = true;
+  programs.waybar = {
+    enable = true;
+    package = pkgs.unstable.waybar;
+  };
 
   programs.niri = {
     enable = true;
@@ -150,6 +153,8 @@
     fuzzel
     xwayland-satellite
     networkmanagerapplet
+    pulseaudio
+    pavucontrol
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
