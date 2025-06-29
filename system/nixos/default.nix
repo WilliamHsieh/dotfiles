@@ -147,7 +147,6 @@
 
     gnome-tweaks
     gnome-shell-extensions
-    gnomeExtensions.paperwm
 
     # window managers (niri)
     fuzzel
