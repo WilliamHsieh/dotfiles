@@ -165,6 +165,9 @@ in
   catppuccin = {
     enable = true;
     flavor = "mocha";
+
+    glamour.enable = true;
+    fuzzel.accent = "lavender";
   };
 
   programs.home-manager.enable = true;
@@ -249,7 +252,22 @@ in
     ]);
   };
 
-  catppuccin.glamour.enable = true;
+  programs.fuzzel = {
+    enable = true;
+    settings = {
+      main = {
+        terminal = "${pkgs.alacritty}/bin/alacritty";
+        layer = "overlay";
+      };
+      border = {
+        width = 2;
+      };
+      # TODO: how to overwrite the default config?
+      colors = {
+        background = "#1E1E2Eff";
+      };
+    };
+  };
 
   # for fast-syntax-highlighting
   programs.man.generateCaches = true;
