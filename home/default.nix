@@ -253,7 +253,7 @@ in
   };
 
   programs.fuzzel = {
-    enable = true;
+    enable = pkgs.stdenv.isLinux;
     settings = {
       main = {
         terminal = "${pkgs.alacritty}/bin/alacritty";
@@ -273,7 +273,7 @@ in
   programs.man.generateCaches = true;
 
   home.pointerCursor = {
-    enable = true;
+    enable = pkgs.stdenv.isLinux;
     package = pkgs.xcursor-pro;
     name = "XCursor-Pro-Dark";
     size = 16;
