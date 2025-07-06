@@ -126,6 +126,7 @@
 
   programs.waybar = {
     enable = true;
+    # using unstable for niri support
     package = pkgs.unstable.waybar;
   };
 
