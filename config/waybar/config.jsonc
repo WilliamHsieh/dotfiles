@@ -24,8 +24,8 @@
   // left
   "custom/launcher": {
     "format": " ",
-    "on-click": "rofi -show drun",
-    "on-click-right": "pkill rofi",
+    "on-click": "fuzzel",
+    "on-click-right": "pkill fuzzel",
     "tooltip": false,
   },
 
