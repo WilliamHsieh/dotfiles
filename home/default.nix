@@ -254,6 +254,15 @@ in
   # for fast-syntax-highlighting
   programs.man.generateCaches = true;
 
+  home.pointerCursor = {
+    enable = true;
+    package = pkgs.xcursor-pro;
+    name = "XCursor-Pro-Dark";
+    size = 16;
+    gtk.enable = true;
+    x11.enable = true;
+  };
+
   systemd.user.startServices = "sd-switch";
 
   services.home-manager.autoExpire = {

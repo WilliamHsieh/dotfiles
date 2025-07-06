@@ -18,6 +18,15 @@ output "eDP-1" {
   scale 1.25
 }
 
+cursor {
+    hide-when-typing
+    hide-after-inactive-ms 5000
+}
+
+hotkey-overlay {
+    skip-at-startup
+    hide-not-bound
+}
 
 // This config is in the KDL format: https://kdl.dev
 // "/-" comments out the following node.
