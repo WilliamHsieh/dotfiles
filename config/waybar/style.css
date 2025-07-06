@@ -1,131 +1,137 @@
 * {
-  font-family: "CaskaydiaCove Nerd Font", "Font Awesome 6 Free", "Font Awesome 6 Free Solid";
-  font-size: 13px;
-  border-radius: 0;
+  font-family: "Maple Mono Normal NF CN";
+  font-size: 14px;
   min-height: 0;
   border: none;
   font-weight: bold;
 }
 
-#workspaces{
-  background-color: rgba(24,24,37,1.0);
-  border: none;
-  box-shadow: none;
+window#waybar {
+  background: transparent;
 }
 
-#tray{
-  margin: 4px 2px;
-  background-color: rgba(36, 36, 52, 1.0);
-  padding: 5px 10px; /* 保持内部间距 */
-  border-radius: 4px;
-  border-width: 0px;
-}
-
-#waybar {
-  background-color: #181825;
-  transition-property: background-color;
-  transition-duration: 0.5s;
-}
-
-#window,
-#clock,
-#custom-power,
-#custom-reboot,
+/* Base style for most widgets */
+#keyboard-state,
+#network,
 #bluetooth,
+#custom-keybinds,
+#cava,
 #battery,
-#pulseaudio,
 #backlight,
-#custom-temperature,
+#language,
+#pulseaudio,
+#clock,
+#disk,
+#privacy,
+#idle_inhibitor,
 #memory,
 #cpu,
-#network,
-#custom-lock{
-  border-radius: 4px;
-  margin: 6px 3px;
-  padding: 6px 12px;
-  background-color: #1e1e2e;
-  color: #181825;
+#custom-launcher,
+#custom-power,
+#workspaces,
+#tray,
+#tray menu {
+  margin-top: 7px;
+  margin-bottom: 2px;
+  margin-left: 3px;
+  margin-right: 3px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 10px;
+  background: #1e1d2f;
+  color: #b4befe;
+  border-bottom: 3px solid #b4befe;
+  transition: 0.3s;
 }
 
-#clock {
-  background-color: #89b4fa;
-}
-#custom-power{
-  background-color: #f38ba8;
-}
-#custom-reboot{
-  background-color: #a6e3a1;
-}
-#bluetooth{
-  background-color: #f9e2af;
-}
-#battery{
-  background-color: #cba6f7;
-}
-#pulseaudio{
-  background-color: #89dceb;
-}
-#backlight{
-  background-color: #a6a3a1;
-}
-#custom-temperature{
-  background-color: #74c7ec;
-}
-#memory{
-  background-color: #f7768e;
-}
-#cpu{
-  background-color: #f38ba8;
-}
-#network{
-  background-color: #fab387;
-}
-#custom-lock{
-  background-color: #94e2d5;
-}
-#window{
-  background-color: #74c7ec;
+/* Hover style for most widgets */
+#keyboard-state:hover,
+#network:hover,
+#bluetooth:hover,
+#custom-keybinds:hover,
+#cava:hover,
+#battery:hover,
+#backlight:hover,
+#language:hover,
+#pulseaudio:hover,
+#clock:hover,
+#disk:hover,
+#privacy:hover,
+#memory:hover,
+#cpu:hover,
+#tray:hover,
+#custom-launcher:hover,
+#workspaces button:hover {
+  background: #b4befe;
+  color: #1e1d2f;
 }
 
-#waybar.hidden {
-  opacity: 0.5;
+/* Specific overrides or unique styles */
+#custom-launcher {
+  font-size: 17px;
+  margin-left: 10px;
+  padding-right: 5px;
+}
+
+#custom-power {
+  font-size: 15px;
+  margin-right: 10px;
+  padding-right: 5px;
+}
+
+#custom-power:hover {
+  background: #f38ba8;
+  color: #1e1d2f;
+  border-color: #f38ba8;
+}
+
+#pulseaudio.input.source-muted,
+#pulseaudio.output.muted,
+#network.disconnected {
+  color: #f38ba8;
+  border-color: #f38ba8;
+}
+
+#pulseaudio.input.source-muted:hover,
+#pulseaudio.output.muted:hover,
+#network.disconnected:hover {
+  background: #f38ba8;
+  color: #1e1d2f;
+}
+
+#idle_inhibitor {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+#idle_inhibitor.activated {
+  color: #f5bde6;
+  border-color: #f5bde6;
+}
+
+#idle_inhibitor.activated:hover {
+  background: #f5bde6;
+  color: #1e1d2f;
+  border-color: #f5bde6;
+}
+
+#idle_inhibitor.deactivated {
+  color: #b4befe;
+}
+
+#idle_inhibitor.deactivated:hover {
+  color: #1e1d2f;
+  background: #b4befe;
+}
+
+#workspaces {
+  padding-left: 3px;
+  padding-right: 3px;
 }
 
 #workspaces button {
-  all: initial;
-  /* Remove GTK theme values (waybar #1351) */
-  min-width: 0;
-  /* Fix weird spacing in materia (waybar #450) */
-  box-shadow: inset 0 -3px transparent;
-  /* Use box-shadow instead of border so the text isn't offset */
-  padding: 6px 18px;
-  margin: 6px 3px;
-  border-radius: 4px;
-  background-color: rgba(36, 36, 52, 1.0);
-  color: #cdd6f4;
-}
-
-#workspaces button.active {
-  color: #1e1e2e;
-  background-color: #cdd6f4;
-}
-
-#workspaces button:hover {
-  box-shadow: inherit;
-  text-shadow: inherit;
-  color: #1e1e2e;
-  background-color: #cdd6f4;
-}
-
-tooltip {
-  border-radius: 8px;
-  padding: 16px;
-  background-color: #131822;
-  color: #C0C0C0;
-}
-
-tooltip label {
-  padding: 5px;
-  background-color: #131822;
-  color: #C0C0C0;
+  color: #b4befe;
+  transition: 0.3s;
 }
