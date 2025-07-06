@@ -26,18 +26,18 @@ in
     inputs.catppuccin.homeModules.catppuccin
   ];
 
-  home = rec {
+  home = {
     inherit (import ../lib { inherit inputs; }) stateVersion;
 
     inherit (dotfiles) username;
 
     homeDirectory = with pkgs.stdenv;
       if isDarwin then
-        "/Users/${username}"
-      else if "${username}" == "root" then
+        "/Users/${dotfiles.username}"
+      else if "${dotfiles.username}" == "root" then
         "/root"
       else if isLinux then
-        "/home/${username}"
+        "/home/${dotfiles.username}"
       else "";
 
     packages = with pkgs; [
