@@ -149,6 +149,7 @@
     gnome-shell-extensions
 
     # window managers (niri)
+    cava
     fuzzel
     xwayland-satellite
     networkmanagerapplet
