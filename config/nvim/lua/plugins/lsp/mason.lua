@@ -25,6 +25,7 @@ M.opts = {
     "shfmt",
     "sqlfluff",
     "stylua",
+    "prettier",
   },
 }
 
