@@ -13,6 +13,10 @@ let
     # https://github.com/nix-community/home-manager/issues/2942#issuecomment-1378627909
     import inputs.nixpkgs {
       inherit system;
+      overlays = [
+        # TODO: this should be local to system specific home-manager module, and loaded conditionally
+        inputs.niri.overlays.niri
+      ];
       config = {
         allowUnfree = true;
         allowUnfreePredicate = (_: true);

@@ -158,6 +158,8 @@ in
     "glow".source = link "glow";
     "zsh/.p10k.zsh".source = link "zsh/.p10k.zsh";
     "vim".source = link "vim";
+    "niri".source = link "niri";
+    "waybar".source = link "waybar";
   };
 
   catppuccin = {

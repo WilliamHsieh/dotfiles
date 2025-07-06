@@ -1,0 +1,183 @@
+{
+  "layer": "top",
+
+  "modules-left": [
+    "custom/launcher",
+    "niri/workspaces",
+    "battery",
+    "backlight",
+    "idle_inhibitor",
+    "cava",
+    "privacy",
+    "keyboard-state",
+  ],
+  "modules-center": ["clock"],
+  "modules-right": [
+    "tray",
+    "pulseaudio#output",
+    "pulseaudio#input",
+    "bluetooth",
+    "network",
+    "custom/power",
+  ],
+
+  // left
+  "custom/launcher": {
+    "format": " ",
+    "on-click": "fuzzel",
+    "on-click-right": "pkill fuzzel",
+    "tooltip": false,
+  },
+
+  "niri/workspaces": {
+    "format": "{icon}",
+    "tooltip": false,
+    "format-icons": {
+      "urgent": "",
+      "active": "",
+      "default": "",
+    },
+  },
+
+  "battery": {
+    "bat": "BAT0",
+    "interval": 60,
+    "states": {
+      "warning": 30,
+      "critical": 15,
+    },
+    "format": "{icon}  {capacity}%",
+    "format-charging": " 󱐋{capacity}%",
+    "format-icons": ["", "", "", "", ""],
+    // "format-icons": ["󰂎", "󰁼", "󰁿", "󰂁", "󰁹"],
+    "max-length": 25,
+  },
+
+  "backlight": {
+    "device": "intel_backlight",
+    "format": "{icon}  {percent}%",
+    "format-icons": ["", ""],
+  },
+
+  "cava": {
+    "framerate": 240,
+    "autosens": 1,
+    "sensitivity": 5,
+    "bars": 7,
+    "lower_cutoff_freq": 50,
+    "higher_cutoff_freq": 10000,
+    "method": "pulse",
+    "source": "auto",
+    "stereo": false,
+    "reverse": false,
+    "bar_delimiter": 0,
+    "monstercat": true,
+    "waves": true,
+    "noise_reduction": 0.77,
+    "input_delay": 0,
+    "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"],
+  },
+
+  "privacy": {
+    "icon-spacing": 10,
+    "icon-size": 18,
+    "transition-duration": 250,
+    "tooltip": false,
+    "modules": [
+      {
+        "type": "screenshare",
+        "tooltip": true,
+        "tooltip-icon-size": 24,
+      },
+      {
+        "type": "audio-out",
+        "tooltip": true,
+        "tooltip-icon-size": 24,
+      },
+      {
+        "type": "audio-in",
+        "tooltip": true,
+        "tooltip-icon-size": 24,
+      },
+    ],
+  },
+
+  "keyboard-state": {
+    "numlock": false,
+    "capslock": true,
+    "format": "{icon} {name}",
+    "format-icons": {
+      "locked": "",
+      "unlocked": "",
+    },
+  },
+
+  // center
+  "clock": {
+    "interval": 1,
+    "format": " {:%A - %B %d, %Y -  %R}",
+    "tooltip": false,
+  },
+
+  // right
+  "tray": {
+    "icon-size": 18,
+    "spacing": 12,
+  },
+
+  "pulseaudio#output": {
+    "tooltip": false,
+    "scroll-step": 5,
+    "format": "{icon}  {volume}%",
+    "format-muted": "󰖁  0%",
+    "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+    "on-click-middle": "pavucontrol -t 3",
+    "format-icons": {
+      "headphone": "  ",
+      "hands-free": "  ",
+      "headset": "  ",
+      "phone": "  ",
+      "portable": "  ",
+      "car": "  ",
+      "default": ["", "", ""],
+    },
+  },
+
+  "pulseaudio#input": {
+    "format-source": " {volume}%",
+    "format-source-muted": "  off",
+    "format": "{format_source}",
+    "scroll-step": 1,
+    "smooth-scrolling-threshold": 1,
+    "max-volume": 100,
+    "on-click": "pactl set-source-mute @DEFAULT_SOURCE@ toggle",
+    "on-click-middle": "pavucontrol -t 4",
+    "on-scroll-up": "pactl set-source-volume @DEFAULT_SOURCE@ +1%",
+    "on-scroll-down": "pactl set-source-volume @DEFAULT_SOURCE@ -1%",
+  },
+
+  "bluetooth": {
+    "format": " {status}",
+    "format-connected": " {device_alias}",
+    "format-connected-battery": " {device_alias}{device_battery_percentage}%",
+    "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+    "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+    "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+    "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
+  },
+
+  "network": {
+    "format-wifi": "󰤨 {essid}",
+    "format-ethernet": " Wired",
+    "tooltip-format": "<span color='#FF1493'> 󰅧 </span>{bandwidthUpBytes}  <span color='#00BFFF'> 󰅢 </span>{bandwidthDownBytes}",
+    "format-linked": "󱘖 {ifname} (No IP)",
+    "format-disconnected": " Disconnected",
+    "format-alt": "󰤨 {signalStrength}%",
+    "interval": 1,
+  },
+
+  "custom/power": {
+    "format": "⏻ ",
+    "tooltip": false,
+  },
+}

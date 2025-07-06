@@ -1,0 +1,137 @@
+* {
+  font-family: "Maple Mono Normal NF CN";
+  font-size: 14px;
+  min-height: 0;
+  border: none;
+  font-weight: bold;
+}
+
+window#waybar {
+  background: transparent;
+}
+
+/* Base style for most widgets */
+#keyboard-state,
+#network,
+#bluetooth,
+#custom-keybinds,
+#cava,
+#battery,
+#backlight,
+#language,
+#pulseaudio,
+#clock,
+#disk,
+#privacy,
+#idle_inhibitor,
+#memory,
+#cpu,
+#custom-launcher,
+#custom-power,
+#workspaces,
+#tray,
+#tray menu {
+  margin-top: 7px;
+  margin-bottom: 2px;
+  margin-left: 3px;
+  margin-right: 3px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 10px;
+  background: #1e1d2f;
+  color: #b4befe;
+  border-bottom: 3px solid #b4befe;
+  transition: 0.3s;
+}
+
+/* Hover style for most widgets */
+#keyboard-state:hover,
+#network:hover,
+#bluetooth:hover,
+#custom-keybinds:hover,
+#cava:hover,
+#battery:hover,
+#backlight:hover,
+#language:hover,
+#pulseaudio:hover,
+#clock:hover,
+#disk:hover,
+#privacy:hover,
+#memory:hover,
+#cpu:hover,
+#tray:hover,
+#custom-launcher:hover,
+#workspaces button:hover {
+  background: #b4befe;
+  color: #1e1d2f;
+}
+
+/* Specific overrides or unique styles */
+#custom-launcher {
+  font-size: 17px;
+  margin-left: 10px;
+  padding-right: 5px;
+}
+
+#custom-power {
+  font-size: 15px;
+  margin-right: 10px;
+  padding-right: 5px;
+}
+
+#custom-power:hover {
+  background: #f38ba8;
+  color: #1e1d2f;
+  border-color: #f38ba8;
+}
+
+#pulseaudio.input.source-muted,
+#pulseaudio.output.muted,
+#network.disconnected {
+  color: #f38ba8;
+  border-color: #f38ba8;
+}
+
+#pulseaudio.input.source-muted:hover,
+#pulseaudio.output.muted:hover,
+#network.disconnected:hover {
+  background: #f38ba8;
+  color: #1e1d2f;
+}
+
+#idle_inhibitor {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+#idle_inhibitor.activated {
+  color: #f5bde6;
+  border-color: #f5bde6;
+}
+
+#idle_inhibitor.activated:hover {
+  background: #f5bde6;
+  color: #1e1d2f;
+  border-color: #f5bde6;
+}
+
+#idle_inhibitor.deactivated {
+  color: #b4befe;
+}
+
+#idle_inhibitor.deactivated:hover {
+  color: #1e1d2f;
+  background: #b4befe;
+}
+
+#workspaces {
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
+#workspaces button {
+  color: #b4befe;
+  transition: 0.3s;
+}

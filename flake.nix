@@ -44,6 +44,10 @@
       url = "github:Mic92/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    niri = {
+      url = "github:sodiboo/niri-flake";
+    };
   };
 
   outputs = inputs @ { self, ... }:
