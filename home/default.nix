@@ -291,6 +291,13 @@ in
     };
   };
 
+  services.mako = {
+    enable = pkgs.stdenv.isLinux;
+    settings = {
+      default-timeout = 10000;
+    };
+  };
+
   services.pueue = {
     enable = pkgs.stdenv.isLinux;
     settings = {

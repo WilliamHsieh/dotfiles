@@ -155,8 +155,9 @@
     gnome-shell-extensions
 
     # window managers (niri)
-    cava
-    fuzzel
+    cava # console audio visualizer
+    fuzzel # fuzzy launcher
+    libnotify # notification library
     xwayland-satellite
     networkmanagerapplet
     pulseaudio
