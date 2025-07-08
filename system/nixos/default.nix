@@ -101,7 +101,12 @@
   users.users.${dotfiles.username} = {
     isNormalUser = true;
     description = dotfiles.fullname;
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [
+      "wheel" # For sudo access
+      "networkmanager" # For network management
+      "video" # For display/graphics access
+      "input" # For keyboard/mouse access from waybar
+    ];
     shell = pkgs.zsh;
     packages = with pkgs; [
       discord
