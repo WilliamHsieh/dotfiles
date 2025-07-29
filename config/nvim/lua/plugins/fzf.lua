@@ -19,6 +19,10 @@ M.opts = {
   actions = {
     files = {
       true,
+      ["alt-p"] = function(...)
+        require("overlook.api").peek_cursor()
+        require("fzf-lua.actions").file_edit(...)
+      end,
       ["ctrl-h"] = function(...)
         require("fzf-lua.actions").toggle_hidden(...)
       end,
