@@ -48,6 +48,10 @@
     niri = {
       url = "github:sodiboo/niri-flake";
     };
+
+    nixos-hardware = {
+      url = "github:NixOS/nixos-hardware";
+    };
   };
 
   outputs = inputs @ { self, ... }:

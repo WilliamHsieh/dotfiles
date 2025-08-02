@@ -9,6 +9,7 @@
     ./hardware.nix
     ./logiops.nix
     inputs.niri.nixosModules.niri
+    inputs.nixos-hardware.nixosModules.asus-zephyrus-ga401
   ];
 
   boot = {
