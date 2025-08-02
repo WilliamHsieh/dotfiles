@@ -3,13 +3,9 @@
 
   "modules-left": [
     "custom/launcher",
-    "niri/workspaces",
     "battery",
-    "backlight",
-    "idle_inhibitor",
-    "cava",
+    "niri/workspaces",
     "privacy",
-    "keyboard-state",
   ],
   "modules-center": ["clock"],
   "modules-right": [
@@ -47,7 +43,7 @@
       "critical": 15,
     },
     "format": "{icon}  {capacity}%",
-    "format-charging": " 󱐋{capacity}%",
+    "format-charging": " 󱐋 {capacity}%",
     "format-icons": ["", "", "", "", ""],
     // "format-icons": ["󰂎", "󰁼", "󰁿", "󰂁", "󰁹"],
     "max-length": 25,
@@ -100,16 +96,6 @@
         "tooltip-icon-size": 24,
       },
     ],
-  },
-
-  "keyboard-state": {
-    "numlock": false,
-    "capslock": true,
-    "format": "{icon} {name}",
-    "format-icons": {
-      "locked": "",
-      "unlocked": "",
-    },
   },
 
   // center

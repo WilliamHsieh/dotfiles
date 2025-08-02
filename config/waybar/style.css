@@ -11,7 +11,6 @@ window#waybar {
 }
 
 /* Base style for most widgets */
-#keyboard-state,
 #network,
 #bluetooth,
 #custom-keybinds,
@@ -47,7 +46,6 @@ window#waybar {
 }
 
 /* Hover style for most widgets */
-#keyboard-state:hover,
 #network:hover,
 #bluetooth:hover,
 #custom-keybinds:hover,
