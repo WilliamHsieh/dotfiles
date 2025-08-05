@@ -33,22 +33,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Insall nix
-        uses: cachix/install-nix-action@v31
+      - name: Setup nix
+        uses: ./.github/workflows/nix-setup
         with:
-          # install_url: https://releases.nixos.org/nix/nix-2.18.2/install
-          extra_nix_config: |
-            accept-flake-config = true
-
-      # - name: Check Nix flake inputs
-      #   uses: DeterminateSystems/flake-checker-action@v9
-
-      - name: Setup cachix
-        uses: cachix/cachix-action@v16
-        with:
-          name: williamhsieh
-          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-          skipPush: ${{ github.ref != 'refs/heads/master' }}
+          free_disk_space: ${{ matrix.os == 'ubuntu-latest' }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          cachix_auth_token: ${{ secrets.CACHIX_AUTH_TOKEN }}
 
       - name: Build target
         run: |

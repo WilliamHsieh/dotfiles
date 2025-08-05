@@ -1,0 +1,47 @@
+name: Setup nix
+description: 'Installs Nix and configures it for use in a workflow.'
+
+inputs:
+  install_url:
+    description: 'The version of Nix to install'
+    required: false
+    # Example: install_url: https://releases.nixos.org/nix/nix-2.18.2/install
+  free_disk_space:
+    description: 'Whether to run the free-disk-space action'
+    required: false
+    default: 'false' # Default values for inputs should be strings
+  github_token:
+    description: 'The GITHUB_TOKEN for accessing private repos'
+    required: true
+  cachix_auth_token:
+    description: 'The auth token for Cachix'
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Install nix
+      uses: cachix/install-nix-action@v31
+      with:
+        install_url: ${{ inputs.install_url }}
+        extra_nix_config: |
+          experimental-features = nix-command flakes
+          access-tokens = github.com=${{ inputs.github_token }}
+          accept-flake-config = true
+          trusted-users = root runner
+
+    - name: Configure Cachix
+      uses: cachix/cachix-action@v16
+      with:
+        name: williamhsieh
+        extraPullNames: nix-community,niri
+        skipPush: true
+        authToken: '${{ inputs.cachix_auth_token }}'
+
+    - name: Free Disk Space (Ubuntu)
+      if: inputs.free_disk_space == 'true' # Conditionals on inputs also use the 'inputs' context
+      uses: jlumbroso/free-disk-space@main
+
+    - name: Garbage collect build dependencies
+      run: nix-collect-garbage
+      shell: bash # <-- FIX: Added the required shell
