@@ -39,9 +39,9 @@ runs:
         authToken: '${{ inputs.cachix_auth_token }}'
 
     - name: Free Disk Space (Ubuntu)
-      if: inputs.free_disk_space == 'true' # Conditionals on inputs also use the 'inputs' context
+      if: inputs.free_disk_space == 'true'
       uses: jlumbroso/free-disk-space@main
 
     - name: Garbage collect build dependencies
       run: nix-collect-garbage
-      shell: bash # <-- FIX: Added the required shell
+      shell: bash

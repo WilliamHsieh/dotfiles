@@ -29,28 +29,12 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Install nix
-        uses: cachix/install-nix-action@v31
+      - name: Setup nix
+        uses: ./.github/workflows/nix-setup
         with:
-          # install_url: https://releases.nixos.org/nix/nix-2.18.2/install
-          extra_nix_config: |
-            experimental-features = nix-command flakes
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-            accept-flake-config = true
-
-      - uses: cachix/cachix-action@v16
-        with:
-          name: williamhsieh
-          extraPullNames: nix-community
-          skipPush: true
-          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-
-      - name: Free Disk Space (Ubuntu)
-        if: ${{ matrix.os == 'ubuntu-latest' }}
-        uses: jlumbroso/free-disk-space@main
-
-      - name: Garbage collect build dependencies
-        run: nix-collect-garbage
+          free_disk_space: ${{ matrix.os == 'ubuntu-latest' }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          cachix_auth_token: ${{ secrets.CACHIX_AUTH_TOKEN }}
 
       - name: Build new profile
         run: |
