@@ -31,6 +31,13 @@ return {
       desc = "Overlook close all popups",
     },
     {
+      "<leader>pf",
+      function()
+        require("overlook.api").switch_focus()
+      end,
+      desc = "Overlook switch focus",
+    },
+    {
       "<leader>pv",
       function()
         require("overlook.api").open_in_vsplit()
