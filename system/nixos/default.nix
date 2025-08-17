@@ -148,6 +148,9 @@
     "${pkgs.pavucontrol}"
   ];
 
+  # HACK: seems like 2060 max-q does not support Dynamic Boost
+  systemd.services.nvidia-powerd.enable = false;
+
   programs.niri = {
     enable = true;
     package = pkgs.niri-unstable;
