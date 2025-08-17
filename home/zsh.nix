@@ -88,7 +88,7 @@ let
 
     # theme
     source ${zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
-    source ~/${config.programs.zsh.dotDir}/.p10k.zsh
+    source ${dotDir}/config/zsh/.p10k.zsh
 
     # other settings
     source ${dotDir}/config/zsh/.zshrc
