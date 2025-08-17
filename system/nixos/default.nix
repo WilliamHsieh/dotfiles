@@ -140,6 +140,13 @@
     # using unstable for niri support
     package = pkgs.unstable.waybar;
   };
+  # check waybar service log with: `journalctl --user --follow -u waybar`
+  # check waybar service status with: `systemctl --user status waybar`
+  systemd.user.services.waybar.path = [
+    "${pkgs.fuzzel}"
+    "${pkgs.pulseaudio}"
+    "${pkgs.pavucontrol}"
+  ];
 
   programs.niri = {
     enable = true;
