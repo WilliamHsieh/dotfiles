@@ -10,6 +10,7 @@
     ./logiops.nix
     inputs.niri.nixosModules.niri
     inputs.nixos-hardware.nixosModules.asus-zephyrus-ga401
+    inputs.flatpak.nixosModules.nix-flatpak
   ];
 
   boot = {
@@ -156,19 +157,11 @@
     package = pkgs.niri-unstable;
   };
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
   environment.systemPackages = with pkgs; [
+    # essentials
     kitty
-    wezterm
-
     firefox
-    google-chrome
-    thunderbird
     xwayland
-
-    gnome-tweaks
-    gnome-shell-extensions
 
     # window managers (niri)
     cava # console audio visualizer
@@ -179,6 +172,17 @@
     pulseaudio
     pavucontrol
   ];
+
+  services.flatpak = {
+    enable = true;
+    packages = [
+      "com.google.Chrome"
+      "net.blix.BlueMail"
+      "com.obsproject.Studio"
+      "dev.vencord.Vesktop"
+      "com.usebottles.bottles"
+    ];
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

@@ -52,6 +52,10 @@
     nixos-hardware = {
       url = "github:NixOS/nixos-hardware";
     };
+
+    flatpak = {
+      url = "github:gmodena/nix-flatpak/?ref=latest";
+    };
   };
 
   outputs = inputs @ { self, ... }:
