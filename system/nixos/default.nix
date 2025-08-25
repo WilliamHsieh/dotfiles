@@ -14,7 +14,9 @@
   ];
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_zen;
+    # FIX: new nvidia drivers are not backported to stable branches, the driver build might fail when kernel is updated to newer version
+    # https://github.com/NixOS/nixpkgs/issues/429624
+    # kernelPackages = pkgs.linuxPackages_zen;
 
     loader = {
       systemd-boot = {
