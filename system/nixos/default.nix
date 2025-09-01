@@ -165,6 +165,9 @@
     firefox
     xwayland
 
+    # tools
+    localsend
+
     # window managers (niri)
     cava # console audio visualizer
     fuzzel # fuzzy launcher
@@ -199,11 +202,17 @@
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
 
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+  # show firewall status by
+  # sudo nixos-firewall-tool show
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [
+      53317 # localsend
+    ];
+    allowedUDPPorts = [
+      53317 # localsend
+    ];
+  };
 
   system.stateVersion = (import ../../lib { inherit inputs; }).stateVersion;
 }
