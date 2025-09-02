@@ -1,10 +1,6 @@
 spawn-at-startup "nm-applet"
 spawn-at-startup "xwayland-satellite"
 
-environment {
-    DISPLAY ":0"
-}
-
 xwayland-satellite {
     path "/run/current-system/sw/bin/xwayland-satellite"
 }
