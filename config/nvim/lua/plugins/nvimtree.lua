@@ -3,23 +3,6 @@ local M = {
   cmd = "NvimTreeToggle",
 }
 
-function M.init()
-  vim.api.nvim_create_autocmd("BufEnter", {
-    callback = function(data)
-      if vim.fn.isdirectory(data.file) == 1 then
-        vim.cmd.cd(data.file)
-        require("nvim-tree.api").tree.open()
-        return true
-      end
-
-      local plugin = require("lazy.core.config").plugins["nvim-tree.lua"]
-      if plugin and plugin._.loaded then
-        return true
-      end
-    end
-  })
-end
-
 M.opts = {
   sync_root_with_cwd = true,
   respect_buf_cwd = true,

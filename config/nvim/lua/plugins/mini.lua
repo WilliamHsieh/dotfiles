@@ -45,6 +45,7 @@ return {
 
   {
     "echasnovski/mini.files",
+    lazy = false,
     keys = {
       {
         "<leader>e",
@@ -57,6 +58,7 @@ return {
       },
     },
     opts = {
+      use_as_default_explorer = true,
       mappings = {
         synchronize = "<leader>w",
         go_in_plus = "<CR>",
@@ -89,8 +91,8 @@ return {
         pattern = "MiniFilesBufferCreate",
         callback = function(args)
           local buf_id = args.data.buf_id
-          map_split(buf_id, "<C-s>", "belowright horizontal")
-          map_split(buf_id, "<C-v>", "belowright vertical")
+          map_split(buf_id, "gs", "belowright horizontal")
+          map_split(buf_id, "gv", "belowright vertical")
         end,
       })
 
@@ -119,6 +121,6 @@ return {
           vim.keymap.set("n", "g.", toggle_dotfiles, { buffer = buf_id })
         end,
       })
-    end
+    end,
   },
 }
