@@ -60,6 +60,7 @@ in
       procps
       wget
       curl
+      gzip # for zcat
 
       # useful tools
       fd
@@ -90,6 +91,7 @@ in
       jq
       jqp
       sq
+      lnav # log viewer
 
       # language specific
       rustup
