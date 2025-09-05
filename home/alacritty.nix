@@ -8,8 +8,6 @@
       };
       env = {
         TERM = "xterm-256color";
-        LANG = "C.UTF-8";
-        CC = "gcc";
       } // (lib.optionalAttrs pkgs.stdenv.isDarwin {
         # NOTE: ssh with `-Y` to setup remote DISPLAY properly
         # remember to start xquartz
