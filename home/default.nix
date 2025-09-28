@@ -135,6 +135,7 @@ in
       VISUAL = EDITOR;
       MANPAGER = "nvim +Man!";
       LESSUTFCHARDEF = "E000-F8FF:p,F0000-FFFFD:p,100000-10FFFD:p"; # HACK: https://github.com/sharkdp/bat/issues/2578
+      DOTFILES_DIR = "${dotfiles.directory}";
 
       # NOTE: https://github.com/NixOS/nixpkgs/issues/206242
       # LIBRARY_PATH = "${pkgs.iconv}/lib";
