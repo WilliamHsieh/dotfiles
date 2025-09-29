@@ -3,6 +3,9 @@
 let
   lockScreenTimeout = 600; # seconds
   powerOffMonitorTimeout = lockScreenTimeout + 1; # seconds
+
+  powerOffMonitorCmd = "niri msg action power-off-monitors";
+  lockCmd = "pidof hyprlock || hyprlock";
 in
 {
   programs.hyprlock.enable = true;
@@ -20,7 +23,7 @@ in
 
     serviceConfig = {
       ExecStart = ''
-        ${pkgs.swayidle}/bin/swayidle -w timeout ${toString powerOffMonitorTimeout} 'niri msg action power-off-monitors' timeout ${toString lockScreenTimeout} 'hyprlock' before-sleep 'hyprlock'
+        ${pkgs.swayidle}/bin/swayidle -w timeout ${toString powerOffMonitorTimeout} '${powerOffMonitorCmd}' timeout ${toString lockScreenTimeout} '${lockCmd}' before-sleep '${lockCmd}'
       '';
       Restart = "on-failure";
     };
