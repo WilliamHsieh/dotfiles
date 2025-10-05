@@ -32,7 +32,7 @@ function M.config()
 
   ---@diagnostic disable-next-line: missing-fields
   require("nvim-treesitter.configs").setup {
-    ensure_installed = { "lua", "vim", "markdown", "markdown_inline" },
+    ensure_installed = { "lua", "vim", "markdown", "markdown_inline", "doxygen" },
     auto_install = true,
     highlight = {
       enable = true,
@@ -46,7 +46,7 @@ function M.config()
     },
     indent = {
       enable = true,
-      disable = { "python", "css" }
+      disable = { "python", "css" },
     },
     matchup = {
       enable = true,
@@ -69,10 +69,10 @@ function M.config()
       swap = {
         enable = true,
         swap_next = {
-          ['<leader>>a'] = '@parameter.inner',
+          ["<leader>>a"] = "@parameter.inner",
         },
         swap_previous = {
-          ['<leader><a'] = '@parameter.inner',
+          ["<leader><a"] = "@parameter.inner",
         },
       },
     },
