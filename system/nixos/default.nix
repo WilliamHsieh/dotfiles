@@ -178,6 +178,7 @@
     networkmanagerapplet
     pulseaudio
     pavucontrol
+    brightnessctl
   ];
 
   services.flatpak = {
