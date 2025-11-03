@@ -1,6 +1,6 @@
 { inputs, pkgs, config, lib, dotfiles, ... }:
 let
-  link = path: config.lib.file.mkOutOfStoreSymlink "${dotfiles.directory}/config/${path}";
+  symlinkDotfiles = path: config.lib.file.mkOutOfStoreSymlink "${dotfiles.directory}/${path}";
 
   glow-without-completion = pkgs.glow.overrideAttrs
     (oldAttrs: {
@@ -156,12 +156,12 @@ in
   xdg.enable = true;
 
   xdg.configFile = {
-    "nvim".source = link "nvim";
-    "home-manager".source = link "..";
-    "glow".source = link "glow";
-    "vim".source = link "vim";
-    "niri".source = link "niri";
-    "waybar".source = link "waybar";
+    "dotfiles".source = symlinkDotfiles ".";
+    "nvim".source = symlinkDotfiles "config/nvim";
+    "glow".source = symlinkDotfiles "config/glow";
+    "vim".source = symlinkDotfiles "config/vim";
+    "niri".source = symlinkDotfiles "config/niri";
+    "waybar".source = symlinkDotfiles "config/waybar";
   };
 
   catppuccin = {

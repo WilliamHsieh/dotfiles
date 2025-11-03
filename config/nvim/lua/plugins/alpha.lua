@@ -13,7 +13,7 @@ local function setup()
       dashboard.button("r", "  Recent files", ":FzfLua oldfiles<CR>"),
       dashboard.button("s", icons.get("directory", ".git") .. "  Find session", ":SessionManager load_session<CR>"),
       dashboard.button("l", "  Leetcode", ":Leet<CR>"),
-      dashboard.button("c", icons.get("filetype", "config") .. "  Config", ":e ~/dotfiles<CR>"),
+      dashboard.button("c", icons.get("filetype", "config") .. "  Config", ":e ~/.config/dotfiles<CR>"),
       dashboard.button("q", "  Quit", ":qa<CR>"),
     }
   end
