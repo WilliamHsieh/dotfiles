@@ -26,6 +26,52 @@ return {
     },
   },
 
+  {
+    "stevearc/profile.nvim",
+    init = function()
+      local should_profile = os.getenv("NVIM_PROFILE")
+      if should_profile then
+        require("profile").instrument_autocmds()
+        if should_profile:lower():match("^start") then
+          require("profile").start("*")
+        else
+          require("profile").instrument("*")
+        end
+      end
+    end,
+    keys = {
+      {
+        "<f1>",
+        function()
+          vim.notify("start profiling")
+          require("profile").start("*")
+        end,
+      },
+      {
+        "<f2>",
+        function()
+          local prof = require("profile")
+          if not prof.is_recording() then
+            vim.notify("No profile is being recorded")
+          end
+
+          prof.stop()
+
+          vim.ui.input(
+            { prompt = "Save profile to:", completion = "file", default = "profile.json" },
+            function(filename)
+              if filename then
+                prof.export(filename)
+                vim.notify(string.format("Wrote %s", filename))
+                vim.notify("View the trace at https://ui.perfetto.dev/")
+              end
+            end
+          )
+        end,
+      },
+    },
+  },
+
   ---------- Treesitter ----------
   {
     "folke/todo-comments.nvim",
