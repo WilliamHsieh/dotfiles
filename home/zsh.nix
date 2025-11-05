@@ -46,9 +46,9 @@ let
       echo ""
       ${sourceIfExists "${instantPrompt}"}
 
-      # TODO: is this necessary? isn't the same thing already done in /etc/zshrc?
+      # no longer necessary. the same thing is already done in /etc/zshrc.
       # source nix profile
-      ${sourceIfExists "${nixProfile}"}
+      # ${sourceIfExists "${nixProfile}"}
     '';
 
   initExtraBeforeCompInit = lib.mkOrder 550 /* bash */ ''
