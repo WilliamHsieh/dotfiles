@@ -28,6 +28,11 @@ local M = {
 function M.config()
   -- disable if ts-context is enable in current buffer
   vim.g.matchup_matchparen_offscreen = { method = "status_manual" }
+  vim.g.matchup_delim_stopline = 200
+  vim.g.matchup_matchparen_timeout = 100
+  vim.g.matchup_matchparen_deferred = true
+  vim.g.matchup_matchparen_deferred_show_delay = 100
+
   vim.g.bigfile_size = 1.5 * 1024 * 1024
 
   ---@diagnostic disable-next-line: missing-fields
@@ -49,7 +54,7 @@ function M.config()
       disable = { "python", "css" },
     },
     matchup = {
-      enable = true,
+      enable = false,
     },
     autotag = {
       enable = true,
