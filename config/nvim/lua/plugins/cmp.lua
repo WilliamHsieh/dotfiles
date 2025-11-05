@@ -114,7 +114,7 @@ function M.config()
       { name = "copilot" },
       { name = "nvim_lsp" },
       { name = "path" },
-      { name = "rg", keyword_length = 3 },
+      -- { name = "rg", keyword_length = 3 },
       { name = "render-markdown" },
       { name = "luasnip" },
       { name = "emoji" },
