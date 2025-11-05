@@ -20,6 +20,7 @@ M.opts = {
   preview_config = {
     border = "rounded",
   },
+  update_debounce = 1000,
 }
 
 return M
