@@ -92,9 +92,10 @@ local function compile_and_run()
   if ft == "python" then
     run = "python %"
   elseif ft == "cpp" then
-    -- TODO: -Wnrvo (gcc 14)
     if need_compile("./a.out") then
-      compile = "g++ --std=c++23 -O2 -g3 -Wall -Wextra -Wshadow -fsanitize=address,leak,undefined -DLOCAL %"
+      local is_darwin = vim.loop.os_uname().sysname == "Darwin"
+      local extra_args = not is_darwin and " -g3 -fsanitize=address,leak,undefined" or ""
+      compile = "g++ --std=c++23 -Wall -Wextra -Wshadow -Wnrvo -DLOCAL" .. extra_args .. " %"
     end
     run = "./a.out" .. (vim.loop.fs_stat("./in") and " < in" or "")
   elseif ft == "lua" then
