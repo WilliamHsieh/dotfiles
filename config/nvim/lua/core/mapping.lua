@@ -39,10 +39,6 @@ local function yank()
   end)
 end
 
-local function terminal(cmd)
-  local Terminal = require("toggleterm.terminal").Terminal
-  Terminal:new({ cmd = cmd, hidden = true }):toggle()
-end
 --}}}
 
 -- <leader>: normal mode{{{
@@ -62,58 +58,6 @@ map("n", "<leader>bz", function()
 end, "Zen mode")
 map("n", "<leader>br", "<cmd>%s/.*/mv & &/<cr>", "bulk rename")
 map("n", "<leader>bf", "<cmd>FSToggle<cr>", "Flow state reading toggle")
---}}}
-
--- <leader>c: compile{{{
----@param cmd {compile:string?, run:string}
-local function termexec(cmd)
-  -- NOTE: open=0 won't open terminal
-  vim.cmd.update()
-  local c = (cmd.compile and cmd.compile .. " && " or "") .. cmd.run
-  vim.cmd('TermExec cmd="' .. c .. '"')
-end
-
----@param fname string
-local function need_compile(fname)
-  vim.cmd.update()
-  local src = vim.loop.fs_stat(vim.fn.expand("%"))
-  local bin = vim.loop.fs_stat(fname)
-
-  return not src
-    or not bin
-    or src.mtime.sec > bin.mtime.sec
-    or (src.mtime.sec == bin.mtime.sec and src.mtime.nsec > bin.mtime.nsec)
-end
-
-local function compile_and_run()
-  local ft = vim.bo.filetype
-  local compile = nil
-  local run = nil
-  if ft == "python" then
-    run = "python %"
-  elseif ft == "cpp" then
-    if need_compile("./a.out") then
-      local is_darwin = vim.loop.os_uname().sysname == "Darwin"
-      local extra_args = not is_darwin and " -g3 -fsanitize=address,leak,undefined" or ""
-      compile = "g++ --std=c++23 -Wall -Wextra -Wshadow -Wnrvo -DLOCAL" .. extra_args .. " %"
-    end
-    run = "./a.out" .. (vim.loop.fs_stat("./in") and " < in" or "")
-  elseif ft == "lua" then
-    run = "nvim -l %"
-  else
-    vim.notify(ft .. " filetype not supported")
-    return
-  end
-  termexec { compile = compile, run = run }
-end
-
-local function make()
-  termexec { run = "make -j$(nproc)" }
-end
-
-map("n", "<leader>cc", compile_and_run, "Compile and run")
-map("n", "<leader>cm", make, "Make")
-map("n", "<leader>cp", function() termexec { run = "" } end, "Previous command")
 --}}}
 
 -- <leader>p: plugin{{{
@@ -151,8 +95,8 @@ map("n", "<leader>gB", "<cmd>Gitsigns toggle_current_line_blame<cr>", "Blame")
 map("n", "<leader>gp", "<cmd>Gitsigns preview_hunk<cr>", "Preview Hunk")
 map("n", "<leader>gS", "<cmd>Gitsigns stage_buffer<cr>", "Stage Buffer")
 map("n", "<leader>gR", "<cmd>Gitsigns reset_buffer<cr>", "Reset Buffer")
-map({'n', 'v'}, "<leader>gs", ":Gitsigns stage_hunk<cr>", "Stage hunk")
-map({'n', 'v'}, "<leader>gr", ":Gitsigns reset_hunk<cr>", "Reset hunk")
+map({ "n", "v" }, "<leader>gs", ":Gitsigns stage_hunk<cr>", "Stage hunk")
+map({ "n", "v" }, "<leader>gr", ":Gitsigns reset_hunk<cr>", "Reset hunk")
 map("n", "<leader>gu", "<cmd>Gitsigns undo_stage_hunk<cr>", "Undo staged hunk")
 map("n", "<leader>go", "<cmd>FzfLua git_status<cr>", "git status")
 map("n", "<leader>gc", "<cmd>FzfLua git_commits<cr>", "Checkout commit")
@@ -195,9 +139,6 @@ end, "Float terminal for each buffer")
 map("n", [[<leader>tf]], "<cmd>ToggleTerm direction=float<cr>", "Float")
 map("n", [[<leader>t-]], "<cmd>ToggleTerm size=10 direction=horizontal<cr>", "Horizontal")
 map("n", [[<leader>t\]], "<cmd>ToggleTerm size=80 direction=vertical<cr>", "Vertical")
-map("n", "<leader>th", function() terminal('htop') end, "Htop")
-map("n", "<leader>tu", function() terminal('ncdu') end, "NCDU")
-map("n", "<leader>tp", function() terminal('python3') end, "Python")
 --}}}
 
 -- <leader>: visual mode{{{
@@ -218,8 +159,8 @@ map("n", "L", "<cmd>BufferLineCycleNext<cr>", "Next buffer")
 map("n", "Q", "<cmd>Bdelete<cr>", "Delete buffer")
 
 -- navigation
-map({"n", "v"}, "<C-j>", "4jzz")
-map({"n", "v"}, "<C-k>", "4kzz")
+map({ "n", "v" }, "<C-j>", "4jzz")
+map({ "n", "v" }, "<C-k>", "4kzz")
 map("!", "<C-A>", "<Home>", {})
 map("!", "<C-E>", "<End>", {})
 map("!", "<Esc>b", "<S-Left>", {})
