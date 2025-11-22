@@ -22,13 +22,21 @@ local function map(mode, lhs, rhs, opt)
 end
 
 local function yank()
-  if vim.fn.mode() == 'n' then
-    vim.cmd('%y')
+  if vim.fn.mode() == "n" then
+    vim.cmd("%y")
   else
-    vim.cmd('normal! y')
+    vim.cmd("normal! y")
   end
-  vim.fn.system("bash ~/.config/dotfiles/config/zsh/autoload/yank", vim.fn.getreg("0"))
-  vim.notify("copied to clipboard")
+
+  local script_path = vim.fn.expand("~/.config/dotfiles/config/zsh/autoload/yank")
+  vim.system({ script_path }, { stdin = vim.fn.getreg("0") }, function(result)
+    if result.code == 0 then
+      vim.notify("copied to clipboard")
+    else
+      local error_msg = result.stderr ~= "" and result.stderr or result.stdout
+      vim.notify("Failed to copy: " .. (error_msg or "unknown error"), vim.log.levels.ERROR)
+    end
+  end)
 end
 
 local function terminal(cmd)
@@ -40,7 +48,7 @@ end
 -- <leader>: normal mode{{{
 map("n", "<leader>w", "<cmd>up<cr>", "Save")
 map("n", "<leader>q", "<cmd>q<cr>", "Quit")
-map("n", "<leader>y", function() yank() end, "copy to clipboard")
+map("n", "<leader>y", yank, "copy to clipboard")
 map("n", "<leader><space>", ":e #<cr>", "swap buffer")
 --}}}
 
@@ -192,7 +200,7 @@ map("n", "<leader>tp", function() terminal('python3') end, "Python")
 --}}}
 
 -- <leader>: visual mode{{{
-map("v", "<leader>y", function() yank() end, "copy to clipboard")
+map("v", "<leader>y", yank, "copy to clipboard")
 --}}}
 
 -- quickfix
