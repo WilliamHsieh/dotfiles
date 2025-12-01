@@ -18,7 +18,7 @@ jobs:
       - name: Check flake
         uses: DeterminateSystems/flake-checker-action@v12
       - name: Update flake.lock
-        uses: DeterminateSystems/update-flake-lock@v27
+        uses: DeterminateSystems/update-flake-lock@v28
         with:
           commit-msg: "chore(nix): update flake.lock"
           nix-options: --accept-flake-config
