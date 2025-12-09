@@ -27,7 +27,7 @@ in
   ];
 
   home = {
-    inherit (import ../lib { inherit inputs; }) stateVersion;
+    stateVersion = "25.05";
 
     inherit (dotfiles) username;
 

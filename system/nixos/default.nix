@@ -217,5 +217,5 @@
     ];
   };
 
-  system.stateVersion = (import ../../lib { inherit inputs; }).stateVersion;
+  system.stateVersion = "25.05";
 }
