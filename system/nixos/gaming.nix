@@ -1,8 +1,8 @@
-{ pkgs, dotfiles,... }:
+{ pkgs, dotfiles, ... }:
 
 {
   environment.systemPackages = with pkgs; [
-    protonup
+    protonup-ng
     # lutris
   ];
 

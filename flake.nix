@@ -23,6 +23,7 @@
 
     darwin = {
       url = "github:LnL7/nix-darwin/nix-darwin-25.11";
+      # inputs.nixpkgs.follows = "nixpkgs"; remove this later
     };
 
     homebrew = {
