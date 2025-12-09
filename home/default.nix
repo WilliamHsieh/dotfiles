@@ -98,7 +98,7 @@ in
       go
       uv
       poetry
-      python3Full
+      python315
       nixpkgs-fmt
 
       # network
