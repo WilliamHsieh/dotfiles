@@ -4,7 +4,7 @@ let
 in
 {
   environment.systemPackages = [
-    pkgs.xquartz
+    # pkgs.xquartz
   ];
 
   users.users."${username}" = {
@@ -26,6 +26,7 @@ in
       "arc"
       "google-chrome"
 
+      "xquartz"
       "google-drive"
       "raycast"
       "heptabase"
