@@ -142,8 +142,7 @@
 
   programs.waybar = {
     enable = true;
-    # using unstable for niri support
-    package = pkgs.unstable.waybar;
+    package = pkgs.waybar;
   };
   # check waybar service log with: `journalctl --user --follow -u waybar`
   # check waybar service status with: `systemctl --user status waybar`
@@ -217,5 +216,5 @@
     ];
   };
 
-  system.stateVersion = (import ../../lib { inherit inputs; }).stateVersion;
+  system.stateVersion = "25.05";
 }

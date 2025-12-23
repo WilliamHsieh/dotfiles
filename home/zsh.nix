@@ -76,7 +76,7 @@ let
 
     # plugins
     source ${zsh-autosuggestions}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-    source ${zsh-fast-syntax-highlighting}/share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh
+    source ${zsh-fast-syntax-highlighting}/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
     source ${zsh-abbr}/share/zsh/zsh-abbr/zsh-abbr.plugin.zsh
     source ${zsh-autopair}/share/zsh/zsh-autopair/autopair.zsh
     source ${zsh-nix-shell}/share/zsh-nix-shell/nix-shell.plugin.zsh
@@ -118,7 +118,7 @@ in
     };
     autocd = true;
     defaultKeymap = "emacs";
-    dotDir = ".config/zsh";
+    dotDir = "${config.xdg.configHome}/zsh";
     initContent = lib.mkMerge [ initExtraFirst initExtraBeforeCompInit initExtra ];
 
     # TODO: change to -i?

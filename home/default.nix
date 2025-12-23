@@ -27,7 +27,7 @@ in
   ];
 
   home = {
-    inherit (import ../lib { inherit inputs; }) stateVersion;
+    stateVersion = "25.05";
 
     inherit (dotfiles) username;
 
@@ -98,7 +98,7 @@ in
       go
       uv
       poetry
-      python3Full
+      python315
       nixpkgs-fmt
 
       # network
