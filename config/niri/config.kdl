@@ -1,4 +1,5 @@
 spawn-at-startup "nm-applet"
+spawn-at-startup "blueman-applet"
 spawn-at-startup "xwayland-satellite"
 
 xwayland-satellite {
