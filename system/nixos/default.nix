@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, inputs, pkgs, dotfiles, ... }:
+{ inputs, pkgs, dotfiles, ... }:
 
 {
   imports = [
@@ -167,10 +167,13 @@
     # essentials
     kitty
     firefox
+    google-chrome
     xwayland
 
     # tools
     localsend
+    bluemail # email client
+    gearlever # for appimage integration
 
     # window managers (niri)
     cava # console audio visualizer
@@ -181,13 +184,17 @@
     pulseaudio
     pavucontrol
     brightnessctl
+
+    # work related
+    openvpn
+    telegram-desktop
+    slack
+    zoom-us
   ];
 
   services.flatpak = {
     enable = true;
     packages = [
-      "com.google.Chrome"
-      "net.blix.BlueMail"
       "com.obsproject.Studio"
       "dev.vencord.Vesktop"
       "com.usebottles.bottles"
