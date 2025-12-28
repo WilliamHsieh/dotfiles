@@ -204,6 +204,10 @@
 
   # List services that you want to enable:
 
+  # not sure who is setting this, nix-hardware?
+  services.power-profiles-daemon.enable = false;
+  services.auto-cpufreq.enable = true;
+
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
 
