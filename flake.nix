@@ -60,34 +60,38 @@
   };
 
   outputs = inputs @ { self, ... }:
-    with self.lib;
+    let
+      inherit (self.lib) dotfiles;
+      inherit (self.lib) pkgs;
+      inherit (dotfiles) system;
+    in
     {
       lib = inputs.nixpkgs.lib // import ./lib { inherit inputs; };
 
-      packages = foreachSystem (system:
-        {
+      packages = {
+        ${system} = {
           default =
             if dotfiles.profile == "home" then
               inputs.home-manager.packages.${system}.home-manager
             else if dotfiles.profile == "darwin" then
               inputs.darwin.packages.${system}.darwin-rebuild
             else if dotfiles.profile == "nixos" then
-              pkgsBySystem.${system}.nixos-rebuild
+              pkgs.nixos-rebuild
             else if dotfiles.profile == "" then
               builtins.abort "Empty profile type, please run setup.py with `--bootstrap`"
             else
               builtins.abort "Unknown profile type: '${dotfiles.profile}'"
           ;
-        }
-      );
+        };
+      };
 
-      homeConfigurations = mkHome;
+      homeConfigurations = self.lib.mkHome { };
 
-      nixosConfigurations = mkSystem {
+      nixosConfigurations = self.lib.mkSystem {
         isDarwin = false;
       };
 
-      darwinConfigurations = mkSystem {
+      darwinConfigurations = self.lib.mkSystem {
         # NOTE: home manager activation is showing following error
         # error: profile '/Users/william/.local/state/nix/profiles/profile' is incompatible with 'nix-env'; please use 'nix profile' instead
         # temporary workaround is to synlink ~/.local/state/nix/profile to ~/.nix-profile
@@ -95,26 +99,26 @@
         isDarwin = true;
       };
 
-      checks = foreachSystem (system: {
+      checks = {
         pre-commit-check = inputs.git-hooks.lib.${system}.run {
-          src = cleanSource ./.;
+          src = self.lib.cleanSource ./.;
           hooks = {
             # TODO: treefmt, selene, shellcheck
             editorconfig-checker.enable = true;
             nixpkgs-fmt.enable = true;
             stylua = {
               enable = true;
-              entry = "${pkgsBySystem.${system}.stylua}/bin/stylua --config-path ./config/nvim/stylua.toml";
+              entry = "${pkgs.stylua}/bin/stylua --config-path ${dotfiles.directory}/config/nvim/stylua.toml";
             };
           };
         };
-      });
+      };
 
-      devShells = foreachSystem (system: {
-        default = pkgsBySystem.${system}.mkShell {
+      devShells = {
+        default = pkgs.mkShell {
           inherit (self.checks.${system}.pre-commit-check) shellHook;
           buildInputs = self.checks.${system}.pre-commit-check.enabledPackages;
         };
-      });
+      };
     };
 }
