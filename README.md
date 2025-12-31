@@ -10,13 +10,15 @@ These are my configuration for `neovim`, `zsh`, and `tmux` using [nix](https://n
 1. install [nix](https://nixos.org/download.html) with the recommended installer provided by [`determinate systems`](https://determinate.systems/)
 
 ```bash
-curl -fsSL https://install.determinate.systems/nix | sh -s -- install
+curl -fsSL https://install.determinate.systems/nix | sh -s -- install --prefer-upstream-nix
 ```
 
 2. clone this repo and apply the selected profile
 
 ```bash
-nix-shell -p git # optional, only if git is not available
+# only required if git is not present
+nix-shell -p git
+
 git clone http://github.com/williamhsieh/dotfiles
 ./dotfiles/setup.py --bootstrap # show available flags with `--help`
 ```
