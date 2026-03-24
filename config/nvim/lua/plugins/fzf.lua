@@ -9,6 +9,7 @@ local M = {
 
 M.opts = {
   "default-title",
+  fzf_bin = "sk",
   keymap = {
     builtin = {
       true,
