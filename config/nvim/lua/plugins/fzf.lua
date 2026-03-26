@@ -9,6 +9,8 @@ local M = {
 
 M.opts = {
   "default-title",
+  fzf_bin = "sk",
+  fzf_opts = { ["--algo"] = "frizbee" },
   keymap = {
     builtin = {
       true,
