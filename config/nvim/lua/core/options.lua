@@ -40,6 +40,7 @@ local options = {
   grepprg = "rg --vimgrep --smart-case",
   splitkeep = "cursor",
   showcmdloc = "statusline",
+  winborder = "rounded",
 }
 
 for k, v in pairs(options) do
