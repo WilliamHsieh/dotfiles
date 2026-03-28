@@ -18,6 +18,10 @@ M.config = function()
       -- HACK: this is a workaround for a race condition from `focus` plugin (resizer.lua)
       -- it will set `cmdheight` to 1, when loading a session
       vim.o.cmdheight = 0
+
+      -- HACK: force redetect for filetype related plugins (e.g. treesitter, lsp) when loading a session
+      -- https://github.com/Shatur/neovim-session-manager/issues/137#issuecomment-4065723046
+      vim.cmd.filetype("detect")
     end),
   })
   vim.api.nvim_create_autocmd("User", {
