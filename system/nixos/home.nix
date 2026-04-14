@@ -8,6 +8,32 @@ in
     "waybar".source = symlinkDotfiles "config/waybar";
   };
 
+  programs.hyprlock.enable = true;
+  services.hypridle = {
+    enable = true;
+    settings =
+      let
+        sendLockSignal = "${pkgs.systemd}/bin/loginctl lock-session";
+      in
+      {
+        general = {
+          lock_cmd = "pidof hyprlock || ${pkgs.hyprlock}/bin/hyprlock";
+          before_sleep_cmd = "${sendLockSignal}";
+        };
+
+        listener = [
+          {
+            timeout = 600;
+            on-timeout = "${sendLockSignal}";
+          }
+          {
+            timeout = 630;
+            on-timeout = "${pkgs.niri-unstable}/bin/niri msg action power-off-monitors";
+          }
+        ];
+      };
+  };
+
   programs.fuzzel = {
     enable = pkgs.stdenv.isLinux;
     settings = {
