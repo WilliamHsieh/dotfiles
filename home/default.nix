@@ -24,7 +24,9 @@ in
     ./cpp.nix
     inputs.nix-index-database.homeModules.nix-index
     inputs.catppuccin.homeModules.catppuccin
-  ];
+  ] ++ (lib.optionals (dotfiles.profile == "nixos") [
+    ../system/nixos/home.nix
+  ]);
 
   home = {
     stateVersion = "25.05";
@@ -162,8 +164,6 @@ in
     "nvim".source = symlinkDotfiles "config/nvim";
     "glow".source = symlinkDotfiles "config/glow";
     "vim".source = symlinkDotfiles "config/vim";
-    "niri".source = symlinkDotfiles "config/niri";
-    "waybar".source = symlinkDotfiles "config/waybar";
   };
 
   catppuccin = {
@@ -256,34 +256,8 @@ in
     ]);
   };
 
-  programs.fuzzel = {
-    enable = pkgs.stdenv.isLinux;
-    settings = {
-      main = {
-        terminal = "${pkgs.alacritty}/bin/alacritty";
-        layer = "overlay";
-      };
-      border = {
-        width = 2;
-      };
-      # TODO: how to overwrite the default config?
-      colors = {
-        background = "#1E1E2Eff";
-      };
-    };
-  };
-
   # for fast-syntax-highlighting
   programs.man.generateCaches = true;
-
-  home.pointerCursor = {
-    enable = pkgs.stdenv.isLinux;
-    package = pkgs.xcursor-pro;
-    name = "XCursor-Pro-Dark";
-    size = 16;
-    gtk.enable = true;
-    x11.enable = true;
-  };
 
   systemd.user.startServices = "sd-switch";
 
@@ -294,16 +268,6 @@ in
       options = "--delete-older-than 30d";
     };
   };
-
-  services.mako = {
-    enable = pkgs.stdenv.isLinux;
-    settings = {
-      default-timeout = 10000;
-      anchor = "top-center";
-    };
-  };
-
-  services.swayosd.enable = dotfiles.profile == "nixos";
 
   services.pueue = {
     enable = pkgs.stdenv.isLinux;
