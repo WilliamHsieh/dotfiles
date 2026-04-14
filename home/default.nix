@@ -2,15 +2,6 @@
 let
   symlinkDotfiles = path: config.lib.file.mkOutOfStoreSymlink "${dotfiles.directory}/${path}";
 
-  glow-without-completion = pkgs.glow.overrideAttrs
-    (oldAttrs: {
-      # glow with completion can't complete file path
-      # solution: remove the completion file
-      postFixup = ''
-        rm $out/share/zsh/site-functions/_glow
-      '';
-    });
-
   # NOTE: impure
   # isWSL = lib.strings.hasInfix "Microsoft" (builtins.readFile /proc/version);
 in
@@ -114,7 +105,6 @@ in
       smassh
 
       # pretty stuff
-      glow-without-completion
       csvlens
       litecli
       nix-tree
@@ -162,7 +152,6 @@ in
   xdg.configFile = {
     "dotfiles".source = symlinkDotfiles ".";
     "nvim".source = symlinkDotfiles "config/nvim";
-    "glow".source = symlinkDotfiles "config/glow";
     "vim".source = symlinkDotfiles "config/vim";
   };
 
@@ -170,7 +159,6 @@ in
     enable = true;
     flavor = "mocha";
 
-    glamour.enable = true;
     fuzzel.accent = "lavender";
   };
 
