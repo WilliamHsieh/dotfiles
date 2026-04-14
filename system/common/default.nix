@@ -14,6 +14,7 @@
     backupFileExtension = "nix-generated-backup";
   };
 
+  nixpkgs.hostPlatform = dotfiles.system;
   networking.hostName = dotfiles.hostname;
 
   # for default login shell
