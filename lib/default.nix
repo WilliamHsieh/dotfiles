@@ -6,23 +6,28 @@ let
 
   inherit (inputs.nixpkgs) lib;
 
+  nixpkgsOverlays = [
+    # TODO: this should be local to system specific home-manager module, and loaded conditionally
+    inputs.niri.overlays.niri
+  ];
+
+  nixpkgsConfig = {
+    allowUnfree = true;
+    allowUnfreePredicate = (_: true);
+    packageOverrides = pkgs: {
+      unstable = import inputs.nixpkgs-unstable {
+        inherit (dotfiles) system;
+        inherit (pkgs) config;
+      };
+    };
+  };
+
   pkgs =
     # https://github.com/nix-community/home-manager/issues/2942#issuecomment-1378627909
     import inputs.nixpkgs {
       inherit (dotfiles) system;
-      overlays = [
-        # TODO: this should be local to system specific home-manager module, and loaded conditionally
-        inputs.niri.overlays.niri
-      ];
-      config = {
-        allowUnfree = true;
-        allowUnfreePredicate = (_: true);
-        packageOverrides = pkgs: {
-          unstable = import inputs.nixpkgs-unstable {
-            inherit (pkgs) system config;
-          };
-        };
-      };
+      overlays = nixpkgsOverlays;
+      config = nixpkgsConfig;
     };
 
   fontPkgs = with pkgs; [
@@ -69,7 +74,7 @@ in
     {
       ${dotfiles.hostname} = systemFunc
         {
-          specialArgs = { inherit inputs pkgs dotfiles; };
+          specialArgs = { inherit inputs dotfiles; };
           modules = [
             ./nix.nix
             ../system/common
@@ -77,6 +82,8 @@ in
             hmModules.home-manager
             {
               fonts.packages = fontPkgs;
+              nixpkgs.overlays = nixpkgsOverlays;
+              nixpkgs.config = nixpkgsConfig;
             }
           ] ++ (pkgs.lib.optionals pkgs.stdenv.isDarwin [
             inputs.homebrew.darwinModules.nix-homebrew

@@ -140,9 +140,6 @@
     binfmt = true;
   };
 
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
-
   programs.waybar = {
     enable = true;
     package = pkgs.waybar;
