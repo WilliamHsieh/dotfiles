@@ -51,10 +51,15 @@ function M.config()
   })
 
   require("mason-lspconfig").setup()
-  local installed_servers = require("mason-lspconfig").get_installed_servers()
-  for _, server in ipairs(installed_servers) do
-    vim.lsp.enable(server)
-  end
+
+  -- enable all lsp by default
+  vim.schedule(function()
+    local servers = vim.fs.dir(vim.fs.joinpath(vim.fn.stdpath("config"), "after", "lsp"))
+    for name, _ in servers do
+      local server_name = name:gsub("%.lua$", "")
+      vim.lsp.enable(server_name)
+    end
+  end)
 
   require("plugins.lsp.utils").setup_auto_detach()
 
