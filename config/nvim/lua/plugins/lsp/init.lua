@@ -1,7 +1,7 @@
 local M = {
   "neovim/nvim-lspconfig",
   cmd = { "Mason", "LspInfo" },
-  event = "LazyFile",
+  event = "VeryLazy",
   dependencies = {
     "williamboman/mason-lspconfig.nvim",
     "ray-x/lsp_signature.nvim",
