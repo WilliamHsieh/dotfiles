@@ -1,5 +1,5 @@
 local M = {
-  "phaazon/hop.nvim",
+  "smoka7/hop.nvim",
   cmd = { 'HopChar2MW', 'HopWord' },
 }
 
