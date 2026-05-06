@@ -65,6 +65,9 @@ in
         KeyRepeat = 2;
         InitialKeyRepeat = 15;
 
+        # ref: https://github.com/alacritty/alacritty/commit/2a676dfad837d1784ed0911d314bc263804ef4ef
+        AppleFontSmoothing = 0;
+
         AppleInterfaceStyle = "Dark";
         NSAutomaticCapitalizationEnabled = false;
         "com.apple.keyboard.fnState" = true;
@@ -114,9 +117,8 @@ in
       # Disable the sound effects on boot
       sudo nvram SystemAudioVolume=" "
 
-      # set `AppleFontSmoothing` to 0
-      # ref: https://github.com/alacritty/alacritty/commit/2a676dfad837d1784ed0911d314bc263804ef4ef
-      defaults write -g AppleFontSmoothing -int 0
+      # disable capslock delay for changing input
+      sudo hidutil property --set '{"CapsLockDelayOverride":0}'
     '';
   };
 
