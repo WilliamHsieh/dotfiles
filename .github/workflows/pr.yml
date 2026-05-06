@@ -75,7 +75,7 @@ jobs:
         id: finder
 
       - name: Comment report in pr
-        uses: marocchino/sticky-pull-request-comment@v2
+        uses: marocchino/sticky-pull-request-comment@v3
         with:
           number: ${{ steps.finder.outputs.pr }}
           hide_and_recreate: true
