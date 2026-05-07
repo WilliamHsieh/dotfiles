@@ -2,6 +2,29 @@
 return {
   -- 只讓 clangd 處理 C/C++ 相關的檔案，不包含 "proto"
   filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
+  root_dir = function(bufnr, on_dir)
+    local root = vim.fs.root(bufnr, { ".clang-format" })
+    if root and root ~= vim.env.HOME then
+      on_dir(root)
+      return
+    end
+
+    root = vim.fs.root(bufnr, {
+      {
+        ".clangd",
+        ".clang-tidy",
+        "compile_commands.json",
+        "compile_flags.txt",
+        "configure.ac",
+      },
+      {
+        ".git",
+      },
+    })
+    if root then
+      on_dir(root)
+    end
+  end,
   cmd = {
     "clangd",
     "--background-index",
