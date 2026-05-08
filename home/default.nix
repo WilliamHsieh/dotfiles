@@ -13,6 +13,7 @@ in
     ./git.nix
     ./alacritty.nix
     ./cpp.nix
+    ./nixd.nix
     inputs.nix-index-database.homeModules.nix-index
     inputs.catppuccin.homeModules.catppuccin
   ] ++ (lib.optionals (dotfiles.profile == "nixos") [
@@ -94,7 +95,8 @@ in
       uv
       poetry
       python315
-      nixpkgs-fmt
+      nixfmt
+      unstable.nixd
 
       # network
       httpie
