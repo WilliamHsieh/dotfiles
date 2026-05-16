@@ -63,17 +63,21 @@ function M.config()
 
   require("plugins.lsp.utils").setup_auto_detach()
 
-  -- settings
-  local signs = { Error = "", Info = "󰋼", Hint = "󰌵", Warn = "" }
-  for name, icon in pairs(signs) do
-    local hl = "DiagnosticSign" .. name
-    vim.fn.sign_define(hl, { text = icon, numhl = hl, texthl = hl })
-  end
-
   vim.diagnostic.config {
     virtual_text = false,
     signs = {
-      active = signs,
+      text = {
+        [vim.diagnostic.severity.ERROR] = "",
+        [vim.diagnostic.severity.WARN] = "",
+        [vim.diagnostic.severity.INFO] = "󰋼",
+        [vim.diagnostic.severity.HINT] = "󰌵",
+      },
+      numhl = {
+        [vim.diagnostic.severity.ERROR] = "DiagnosticSignError",
+        [vim.diagnostic.severity.WARN] = "DiagnosticSignWarn",
+        [vim.diagnostic.severity.INFO] = "DiagnosticSignInfo",
+        [vim.diagnostic.severity.HINT] = "DiagnosticSignHint",
+      },
     },
     update_in_insert = true,
     underline = true,
