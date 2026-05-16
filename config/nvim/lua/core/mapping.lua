@@ -108,7 +108,7 @@ map("n", "<leader>gn", "<cmd>NvimTreeRefresh<cr>", "refresh nvim-tree")
 -- <leader>l: lsp{{{
 map("n", "<leader>la", "<cmd>Lspsaga code_action<cr>", "Code Action")
 map("n", "<leader>ld", "<cmd>Trouble diagnostics<cr>", "Diagnostics")
-map("n", "<leader>li", "<cmd>LspInfo<cr>", "LSP info")
+map("n", "<leader>li", "<cmd>checkhealth lsp<cr>", "LSP info")
 map("n", "<leader>lI", "<cmd>Mason<cr>", "LSP installer Info")
 map("n", "<leader>ll", "<cmd>Lspsaga show_line_diagnostics<cr>", "Hover diagnostics")
 map("n", "]d", vim.diagnostic.goto_next, "next diagnostic")
