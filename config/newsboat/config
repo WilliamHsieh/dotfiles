@@ -1,0 +1,12 @@
+include "~/.config/newsboat/themes/catppuccin"
+
+show-read-feeds no
+browser "xdg-open %u"
+notify-program "notify-send"
+
+bind-key UP up
+bind-key DOWN down
+bind-key J next-feed
+bind-key K prev-feed
+bind-key g home
+bind-key G end
