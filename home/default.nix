@@ -144,6 +144,7 @@ in
       # feels like it's causing p10k to not display correctly
       LANG = "en_US.UTF-8";
       LC_CTYPE = "en_US.UTF-8";
+      LANGUAGE = "en_US";
       EDITOR = "nvim";
       VISUAL = EDITOR;
       MANPAGER = "nvim +Man!";
