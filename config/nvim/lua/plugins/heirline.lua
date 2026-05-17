@@ -226,7 +226,7 @@ function M.config()
 
   local Treesitter = {
     condition = function()
-      return package.loaded["nvim-treesitter"] and require("nvim-treesitter.parsers").has_parser()
+      return vim.treesitter.highlighter.active[vim.api.nvim_get_current_buf()] ~= nil
     end,
     provider = assets.tree,
     hl = { fg = "green", bg = "bg" },
@@ -236,7 +236,7 @@ function M.config()
     condition = conditions.lsp_attached,
     provider = function()
       local names = {}
-      for _, server in pairs(vim.lsp.get_active_clients { bufnr = 0 }) do
+      for _, server in pairs(vim.lsp.get_clients { bufnr = 0 }) do
         table.insert(names, server.name)
       end
       return assets.lsp .. table.concat(names, " ")

@@ -144,7 +144,7 @@
         export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0
         export LIBGL_ALWAYS_INDIRECT=1
     elif uname | grep -i -q 'Linux'; then
-        alias pbcopy="bash ~/dotfiles/config/zsh/autoload/yank"
+        alias pbcopy="bash ~/.config/dotfiles/config/zsh/autoload/yank"
         alias open="xdg-open"
     fi
 

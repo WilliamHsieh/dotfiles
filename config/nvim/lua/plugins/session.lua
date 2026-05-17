@@ -51,7 +51,7 @@ M.config = function()
     group = group,
     callback = function()
       -- so switching between projects doesn't mess up lsp related stuff (e.g. semantic tokens)
-      pcall(vim.cmd.LspStop)
+      require("plugins.lsp.utils").stop_lsp()
     end,
   })
 end

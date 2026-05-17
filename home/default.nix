@@ -16,6 +16,7 @@ in
     ./ghostty.nix
     ./desktop.nix
     ./cpp.nix
+    ./nixd.nix
     inputs.nix-index-database.homeModules.nix-index
     inputs.catppuccin.homeModules.catppuccin
   ] ++ (lib.optionals (dotfiles.profile == "nixos") [
@@ -78,7 +79,7 @@ in
 
       # editor
       unstable.neovim
-      tree-sitter
+      unstable.tree-sitter
       unzip
       nodejs
 
@@ -106,7 +107,8 @@ in
       poetry
       python315
       nixpkgs-fmt
-      nixfmt-rfc-style
+      nixfmt
+      unstable.nixd
 
       # network
       httpie

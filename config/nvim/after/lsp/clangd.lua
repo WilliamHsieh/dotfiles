@@ -21,9 +21,7 @@ return {
         ".git",
       },
     })
-    if root then
-      on_dir(root)
-    end
+    on_dir(root or vim.uv.cwd())
   end,
   cmd = {
     "clangd",

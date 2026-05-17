@@ -1,5 +1,6 @@
 .direnv
 .pre-commit-config.yaml
+config/nvim/after/lsp/nixd.lua
 result
 config/navi/navi.log
 .claude/settings.local.json

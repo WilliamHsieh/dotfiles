@@ -15,7 +15,6 @@ M.opts = {
     "clangd",
     "lua-language-server",
     "neocmakelsp",
-    "nil",
     "pyright",
     "rust-analyzer",
     "ruff",
@@ -23,7 +22,6 @@ M.opts = {
     "typescript-language-server",
 
     -- formatter / linter
-    "nixpkgs-fmt",
     "selene",
     "shfmt",
     "sqlfluff",
