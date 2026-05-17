@@ -15,7 +15,10 @@ in
     plugins = with pkgs.tmuxPlugins; [
       {
         plugin = prefix-highlight;
-        extraConfig = "source-file ${dotDir}/config/tmux/tmux.conf";
+        extraConfig = ''
+          source-file ${dotDir}/config/tmux/tmux.conf
+          source-file ${dotDir}/config/tmux/notes.conf
+        '';
       }
       {
         plugin = fingers;
