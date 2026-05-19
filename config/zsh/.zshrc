@@ -43,6 +43,16 @@
       zvm_bindkey viins '^[d' kill-word
       bindkey '^f' live_grep
 
+      # Home / End — terminal sends \e[1~ / \e[4~ (cat -v 確認過)
+      for km in viins vicmd; do
+        zvm_bindkey $km '^[[1~' beginning-of-line
+        zvm_bindkey $km '^[[4~' end-of-line
+        zvm_bindkey $km '^[[H'  beginning-of-line
+        zvm_bindkey $km '^[[F'  end-of-line
+        zvm_bindkey $km '^[OH'  beginning-of-line
+        zvm_bindkey $km '^[OF'  end-of-line
+      done
+
       zvm_bindkey viins '^T' skim-file-widget
       zvm_bindkey viins '^R' skim-history-widget
       zvm_bindkey viins '^[c' skim-cd-widget
