@@ -4,3 +4,14 @@ config/nvim/after/lsp/nixd.lua
 result
 config/navi/navi.log
 .claude/settings.local.json
+
+# get-shit-done-cc: installed/updated per-machine via `npx get-shit-done-cc@latest`.
+# Self-updating tool — not version-controlled. mkOutOfStoreSymlink makes it write
+# into this repo tree, so ignore its files to keep `git status` clean.
+.claude/agents/gsd-*
+.claude/skills/gsd-*
+.claude/get-shit-done/
+.claude/hooks/gsd-*
+.claude/gsd-*.json
+.claude/.gsd-profile
+.claude/gsd-migration-journal/
