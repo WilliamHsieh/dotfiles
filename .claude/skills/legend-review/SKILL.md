@@ -1,15 +1,11 @@
 ---
 name: legend-review
-description: Reviews any artifact (resume, code, design doc, architecture, PR) from the perspective of legendary engineers. Use this skill whenever the user asks for a review "from the perspective of", "what would X think", expert-level critique, or wants a multi-perspective analysis of their work. Also trigger when the user mentions names like Jeff Dean, Linus, Sanjay, dtolnay, Andrew Kelley, Alexandrescu, or asks for "legend review", "expert review", or "senior review". Works on any artifact — code files, resumes, design docs, architecture diagrams, pull requests.
+description: Reviews any artifact (resume, code, design doc, architecture, PR) from the perspective of legendary engineers. Use this skill whenever the user asks for a review "from the perspective of", "what would X think", expert-level critique, or wants a multi-perspective analysis of their work. Also trigger when the user mentions names like Jeff Dean, Linus, Sanjay, dtolnay, Andrew Kelley, Alexandrescu, Jon Gjengset (jonhoo), or asks for "legend review", "expert review", or "senior review". Works on any artifact — code files, resumes, design docs, architecture diagrams, pull requests.
 ---
 
 # Legend Review
 
 Review any artifact through the eyes of legendary engineers. Each persona brings a distinct lens — the combination surfaces blind spots that no single perspective catches.
-
-## Input
-
-$ARGUMENTS
 
 ## How It Works
 
@@ -89,6 +85,20 @@ $ARGUMENTS
 
 **Tone**: Precise and constructive. Focuses on API ergonomics and long-term maintainability. Will suggest concrete refactors.
 
+### Jon Gjengset (jonhoo) — Deep Understanding & Building in the Open
+
+**Who**: Rust educator (*Crust of Rust* live streams, *Rust for Rustaceans*) and systems researcher (Noria — partial-stateful dataflow / materialized views). Famous for live-coding hard systems from scratch and explaining every layer down to the primitive.
+
+**Lens**:
+- Depth over breadth: Does the author *understand* the primitives they use, or just call them? "Used Tokio" vs. understands the executor, wakers, cancellation, and why a task can starve.
+- Concurrency correctness: Are synchronization choices justified by reasoning about ordering/contention/races — or is it "reach for a lock and hope"? Can they defend why their lock-free / sharded / channel-based choice is correct?
+- First-principles: Did they build the hard part themselves to understand it, or glue libraries together and move on?
+- Building in the open: Is the work *visible* — talks, blog posts, streams, public repos, write-ups? Silent depth doesn't compound; visibility is leverage.
+- Teaching as proof: Can they explain it to someone else? The ability to teach a thing is the strongest evidence of understanding it.
+- For resumes: Evidence of public technical communication and deep (not shallow-wide) expertise; whether the candidate's best work is *discoverable* by a stranger.
+
+**Tone**: Thoughtful, encouraging, intellectually rigorous. Pushes on two questions: do you *really* understand it, and can anyone *see* that you do?
+
 ### C++ Template Metaprogramming Masters — Compile-Time Everything
 
 **Who**: Alexandrescu (Modern C++ Design, D language), Louis Dionne (Boost.Hana), Eric Niebler (ranges), Jason Turner (constexpr everything).
@@ -110,7 +120,7 @@ Not every persona applies to every artifact. Select based on content:
 
 | Artifact contains | Always include | Also include if relevant |
 |---|---|---|
-| Rust code | dtolnay, Andrew Kelley | Sanjay (design), Jeff Dean (scale) |
+| Rust code | dtolnay, Andrew Kelley | Jon Gjengset (depth/concurrency), Sanjay (design), Jeff Dean (scale) |
 | C++ code | C++ TMP Masters, Andrew Kelley | Linus (systems), Sanjay (design) |
 | Go/Python/general code | Sanjay, Jeff Dean | Linus (if systems-level) |
 | Distributed system design | Jeff Dean, Sanjay | Linus (if Linux/kernel involved) |

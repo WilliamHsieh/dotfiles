@@ -174,7 +174,10 @@ in
   xdg.enable = true;
 
   home.file."tools".source = symlinkDotfiles "config/tools";
+  home.file.".claude/CLAUDE.md".source = symlinkDotfiles ".claude/CLAUDE.md";
   home.file.".claude/commands".source = symlinkDotfiles ".claude/commands";
+  home.file.".claude/skills".source = symlinkDotfiles ".claude/skills";
+  home.file.".claude/agents".source = symlinkDotfiles ".claude/agents";
 
   xdg.configFile = {
     "dotfiles".source = symlinkDotfiles ".";
