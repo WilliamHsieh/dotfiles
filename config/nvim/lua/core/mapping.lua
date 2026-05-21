@@ -162,6 +162,14 @@ map("n", "L", "<cmd>BufferLineCycleNext<cr>", "Next buffer")
 map("n", "Q", "<cmd>Bdelete<cr>", "Delete buffer")
 map("n", "<leader>Q", "<cmd>tabclose<cr>", "Close tab")
 
+-- registers: keep yank register clean{{{
+-- single-char delete to black hole (never touches the clipboard)
+map({ "n", "v" }, "x", [["_x]], "Delete char (black hole)")
+map({ "n", "v" }, "X", [["_X]], "Delete char back (black hole)")
+-- visual paste without clobbering the register
+map("x", "p", [["_dp]], "Paste (keep register)")
+--}}}
+
 -- navigation
 map({ "n", "v" }, "<C-j>", "4jzz")
 map({ "n", "v" }, "<C-k>", "4kzz")
