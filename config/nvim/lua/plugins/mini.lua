@@ -89,9 +89,12 @@ return {
 
       local map_tab = function(buf_id, lhs)
         vim.keymap.set("n", lhs, function()
-          MiniFiles.go_in { close_on_file = true }
-          -- The file is now open in the target window; move it to a new tab
-          vim.cmd("tab split")
+          local fs_entry = MiniFiles.get_fs_entry()
+          if not fs_entry or fs_entry.fs_type ~= "file" then
+            return
+          end
+          MiniFiles.close()
+          vim.cmd("tabedit " .. vim.fn.fnameescape(fs_entry.path))
         end, { buffer = buf_id, desc = "Open in new tab" })
       end
 
