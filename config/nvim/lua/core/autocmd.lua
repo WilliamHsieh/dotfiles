@@ -96,3 +96,24 @@ vim.api.nvim_create_autocmd("FileType", {
     end)
   end,
 })
+
+-- Tell tmux this pane is running vim so it forwards <M-h/j/k/l> and
+-- <M-S-Up/Down/Left/Right> instead of switching tmux panes itself.
+-- The tmux side uses `if -F "#{@pane-is-vim}"` to gate the keys
+-- (config/tmux/tmux.conf:106-127). Pane-scoped (`-p`) so other panes
+-- running vim are independent.
+if vim.env.TMUX then
+  local group = augroup("tmux_pane_is_vim")
+  vim.api.nvim_create_autocmd({ "VimEnter", "VimResume" }, {
+    group = group,
+    callback = function()
+      vim.fn.system({ "tmux", "set-option", "-p", "@pane-is-vim", "1" })
+    end,
+  })
+  vim.api.nvim_create_autocmd({ "VimLeave", "VimSuspend" }, {
+    group = group,
+    callback = function()
+      vim.fn.system({ "tmux", "set-option", "-p", "-u", "@pane-is-vim" })
+    end,
+  })
+end
