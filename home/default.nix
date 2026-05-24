@@ -168,6 +168,21 @@ in
       linkHomeManagerPath = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
         ln -sfn ${config.home-files} ${config.home.homeDirectory}/.local/share/home-files
       '';
+
+      # Relabel /nix/store after profile changes so SELinux-enforcing distros
+      # (Fedora etc.) can exec nix-installed binaries as login shell entrypoints.
+      # No-op on systems without SELinux or where it's disabled.
+      # Requires: /etc/sudoers.d/nix-restorecon granting NOPASSWD for the exact command.
+      restoreconNixStore = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        if [ -x /usr/sbin/getenforce ] && [ "$(/usr/sbin/getenforce)" != "Disabled" ]; then
+          if /usr/bin/sudo -n /usr/sbin/restorecon -RF /nix/store; then
+            echo "restorecon: /nix/store relabel ok"
+          else
+            echo "WARN: restorecon failed — check /etc/sudoers.d/nix-restorecon" >&2
+            echo "WARN: ssh login via nix-installed shell may break until fixed" >&2
+          fi
+        fi
+      '';
     };
   };
 
