@@ -147,6 +147,10 @@ in
       linkHomeManagerPath = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
         ln -sfn ${config.home-files} ${config.home.homeDirectory}/.local/share/home-files
       '';
+
+      setNpmPrefix = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        PATH="${config.home.path}/bin:$PATH" run npm set prefix ~/.npm-global
+      '';
     };
   };
 

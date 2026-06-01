@@ -11,6 +11,7 @@
     [[ -e ~/.local.zsh ]] && source ~/.local.zsh
     [[ -d ~/.local/bin ]] && export PATH=~/.local/bin:$PATH
     [[ -d ~/.cargo/bin ]] && export PATH=~/.cargo/bin:$PATH
+    export PATH=~/.npm-global/bin:$PATH
 
     # auto attach to tmux
     # FIX: add condition to determine when TMUX is disabled through F10
