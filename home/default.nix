@@ -95,7 +95,7 @@ in
       go
       uv
       poetry
-      python315
+      python313
       nixfmt
       unstable.nixd
 
