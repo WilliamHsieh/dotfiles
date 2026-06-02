@@ -59,49 +59,49 @@
     };
   };
 
-  outputs = inputs @ { self, ... }:
+  outputs =
+    inputs@{ self, ... }:
     let
-      inherit (self.lib) dotfiles;
-      inherit (self.lib) pkgs;
-      inherit (dotfiles) system;
-    in
-    {
-      lib = inputs.nixpkgs.lib // import ./lib { inherit inputs; };
+      inherit (inputs.nixpkgs) lib;
+      inherit (import ./lib { inherit inputs; })
+        dotfiles
+        pkgs
+        homeConfigurations
+        systemConfigurations
+        ;
+      inherit (dotfiles) system profile;
 
-      packages = {
-        ${system} = {
-          default =
-            if dotfiles.profile == "home" then
-              inputs.home-manager.packages.${system}.home-manager
-            else if dotfiles.profile == "darwin" then
-              inputs.darwin.packages.${system}.darwin-rebuild
-            else if dotfiles.profile == "nixos" then
-              pkgs.nixos-rebuild
-            else if dotfiles.profile == "" then
-              builtins.abort "Empty profile type, please run setup.py with `--bootstrap`"
-            else
-              builtins.abort "Unknown profile type: '${dotfiles.profile}'"
-          ;
+      byProfile = {
+        home = {
+          package = inputs.home-manager.packages.${system}.home-manager;
+          configurations = { inherit homeConfigurations; };
+        };
+        darwin = {
+          package = inputs.darwin.packages.${system}.darwin-rebuild;
+          configurations = {
+            darwinConfigurations = systemConfigurations;
+          };
+        };
+        nixos = {
+          package = pkgs.nixos-rebuild;
+          configurations = {
+            nixosConfigurations = systemConfigurations;
+          };
         };
       };
-
-      homeConfigurations = self.lib.mkHome { };
-
-      nixosConfigurations = self.lib.mkSystem {
-        isDarwin = false;
-      };
-
-      darwinConfigurations = self.lib.mkSystem {
-        # NOTE: home manager activation is showing following error
-        # error: profile '/Users/william/.local/state/nix/profiles/profile' is incompatible with 'nix-env'; please use 'nix profile' instead
-        # temporary workaround is to synlink ~/.local/state/nix/profile to ~/.nix-profile
-        # ref: https://discourse.nixos.org/t/home-manager-insists-on-using-nix-profile/57708
-        isDarwin = true;
-      };
+    in
+    {
+      packages.${system}.default =
+        byProfile.${profile}.package or (
+          if profile == "" then
+            abort "Empty profile type, please run setup.py with `--bootstrap`"
+          else
+            abort "Unknown profile type: '${profile}'"
+        );
 
       checks = {
-        pre-commit-check = inputs.git-hooks.lib.${system}.run {
-          src = self.lib.cleanSource ./.;
+        ${system}.pre-commit-check = inputs.git-hooks.lib.${system}.run {
+          src = lib.cleanSource ./.;
           hooks = {
             # TODO: treefmt, selene, shellcheck
             editorconfig-checker.enable = true;
@@ -115,10 +115,11 @@
       };
 
       devShells = {
-        default = pkgs.mkShell {
+        ${system}.default = pkgs.mkShell {
           inherit (self.checks.${system}.pre-commit-check) shellHook;
           buildInputs = self.checks.${system}.pre-commit-check.enabledPackages;
         };
       };
-    };
+    }
+    // (byProfile.${profile}.configurations or { });
 }

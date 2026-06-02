@@ -1,10 +1,6 @@
 { inputs, ... }:
 let
   dotfiles = import ../config;
-  lockfile = builtins.fromJSON (builtins.readFile ../flake.lock);
-  input_name = lockfile.nodes.root.inputs.home-manager;
-
-  inherit (inputs.nixpkgs) lib;
 
   nixpkgsOverlays = [
     # TODO: this should be local to system specific home-manager module, and loaded conditionally
@@ -30,24 +26,25 @@ let
       config = nixpkgsConfig;
     };
 
-  fontPkgs = with pkgs; [
-    noto-fonts-cjk-sans
-    noto-fonts-cjk-serif
-    maple-mono.Normal-NF-CN-unhinted
-    maple-mono.NF-CN-unhinted
-  ] ++ (with nerd-fonts; [
-    fira-code
-    jetbrains-mono
-    meslo-lg
-    commit-mono
-  ]);
+  fontPkgs =
+    with pkgs;
+    [
+      noto-fonts-cjk-sans
+      noto-fonts-cjk-serif
+      maple-mono.Normal-NF-CN-unhinted
+      maple-mono.NF-CN-unhinted
+    ]
+    ++ (with nerd-fonts; [
+      fira-code
+      jetbrains-mono
+      meslo-lg
+      commit-mono
+    ]);
 in
 {
   inherit dotfiles pkgs;
 
-  stateVersion = "${builtins.elemAt (lib.splitString "-" lockfile.nodes.${input_name}.original.ref) 1}";
-
-  mkHome = {}: {
+  homeConfigurations = {
     ${dotfiles.username} = inputs.home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
       extraSpecialArgs = {
@@ -65,29 +62,32 @@ in
     };
   };
 
-  mkSystem = { isDarwin }:
+  systemConfigurations =
     let
+      isDarwin = pkgs.stdenv.isDarwin;
+
       # NixOS vs nix-darwin functionst
       systemFunc = if isDarwin then inputs.darwin.lib.darwinSystem else inputs.nixpkgs.lib.nixosSystem;
-      hmModules = if isDarwin then inputs.home-manager.darwinModules else inputs.home-manager.nixosModules;
+      hmModules =
+        if isDarwin then inputs.home-manager.darwinModules else inputs.home-manager.nixosModules;
     in
     {
-      ${dotfiles.hostname} = systemFunc
-        {
-          specialArgs = { inherit inputs dotfiles; };
-          modules = [
-            ./nix.nix
-            ../system/common
-            ../system/${dotfiles.profile}
-            hmModules.home-manager
-            {
-              fonts.packages = fontPkgs;
-              nixpkgs.overlays = nixpkgsOverlays;
-              nixpkgs.config = nixpkgsConfig;
-            }
-          ] ++ (pkgs.lib.optionals pkgs.stdenv.isDarwin [
-            inputs.homebrew.darwinModules.nix-homebrew
-          ]);
-        };
+      ${dotfiles.hostname} = systemFunc {
+        specialArgs = { inherit inputs dotfiles; };
+        modules = [
+          ./nix.nix
+          ../system/common
+          ../system/${dotfiles.profile}
+          hmModules.home-manager
+          {
+            fonts.packages = fontPkgs;
+            nixpkgs.overlays = nixpkgsOverlays;
+            nixpkgs.config = nixpkgsConfig;
+          }
+        ]
+        ++ (pkgs.lib.optionals pkgs.stdenv.isDarwin [
+          inputs.homebrew.darwinModules.nix-homebrew
+        ]);
+      };
     };
 }
