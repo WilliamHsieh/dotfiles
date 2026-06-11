@@ -52,6 +52,8 @@ in
     };
   };
 
+  security.pam.services.sudo_local.touchIdAuth = true;
+
   # NOTE: some of the value are not reflected instantly
   # check the value by 'defaults read NSGlobalDomain InitialKeyRepeat'
   # re-login to apply config https://github.com/LnL7/nix-darwin/issues/1207
