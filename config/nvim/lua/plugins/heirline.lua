@@ -22,8 +22,8 @@ function M.config()
     host = "󰒋 ",
     session = " ",
     search = " ",
-    search_forward = "",
-    search_backward = "",
+    search_forward = " ",
+    search_backward = " ",
     diag_error = " ",
     diag_warn = " ",
   }
@@ -336,10 +336,6 @@ function M.config()
       return false
     end,
     {
-      condition = conditions.lsp_attached,
-      Divider,
-    },
-    {
       provider = function(self)
         local direction = vim.v.searchforward == 1 and assets.search_forward or assets.search_backward
         local res = self.search
@@ -358,6 +354,13 @@ function M.config()
       end,
       hl = { fg = "mauve" },
     },
+  }
+
+  -- lsp by default; search takes the slot while a search is active (never both)
+  local LspOrSearch = {
+    fallthrough = false,
+    SearchCount,
+    LSPActive,
   }
 
   -- showcmd: standalone (no pill), leftest component in right-status so its changing width
@@ -414,7 +417,7 @@ function M.config()
     pill("pill", { FileBlock, Git, Diagnostics }),
     Align,
     ShowCmd,
-    pill("pill", { LSPActive, SearchCount }, right1_active),
+    pill("pill", { LspOrSearch }, right1_active),
     pill("pill", { SessionOrDir, Host }, nil, true),
   }
 
