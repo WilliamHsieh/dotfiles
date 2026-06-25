@@ -52,7 +52,11 @@ in
     };
   };
 
-  security.pam.services.sudo_local.touchIdAuth = true;
+  security.pam.services.sudo_local = {
+    touchIdAuth = true;
+    watchIdAuth = true;
+    reattach = true; # Touch ID for sudo not working inside tmux
+  };
 
   # NOTE: some of the value are not reflected instantly
   # check the value by 'defaults read NSGlobalDomain InitialKeyRepeat'
