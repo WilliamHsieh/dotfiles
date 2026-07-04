@@ -309,17 +309,27 @@ function M.config()
   -- ── right group 1: lsp · search · showcmd ────────────────────────────────
   -- dividers are gated on a preceding segment being present, so a grouped pill
   -- never starts with a stray "·".
+  -- servers not worth showing (formatters/linters/ai helpers); edit to taste
+  local lsp_skip = { "null-ls", "none-ls", "copilot" }
+  local function visible_lsp()
+    local names = {}
+    for _, c in ipairs(vim.lsp.get_clients { bufnr = 0 }) do
+      if not vim.tbl_contains(lsp_skip, c.name) then
+        names[#names + 1] = c.name
+      end
+    end
+    return names
+  end
+
   local LSPActive = {
-    condition = conditions.lsp_attached,
+    condition = function()
+      return #visible_lsp() > 0
+    end,
     update = { "LspAttach", "LspDetach", "BufEnter" },
     { provider = assets.lsp, hl = { fg = "sapphire" } },
     {
       provider = function()
-        local names = {}
-        for _, server in pairs(vim.lsp.get_clients { bufnr = 0 }) do
-          names[#names + 1] = server.name
-        end
-        return table.concat(names, " ")
+        return table.concat(visible_lsp(), " ")
       end,
     },
   }
@@ -374,7 +384,7 @@ function M.config()
   }
 
   local function right1_active()
-    return conditions.lsp_attached() or vim.v.hlsearch ~= 0
+    return #visible_lsp() > 0 or vim.v.hlsearch ~= 0
   end
 
   -- ── right group 2: session/dir · host ────────────────────────────────────
