@@ -91,8 +91,20 @@ in
         mru-spaces = false;
         scroll-to-open = true;
         persistent-others = [
-          "/Users/${username}/Documents"
-          "/Users/${username}/Downloads"
+          {
+            folder = {
+              path = "/Users/${username}/Documents";
+              arrangement = "date-modified";
+              showas = "fan";
+            };
+          }
+          {
+            folder = {
+              path = "/Users/${username}/Downloads";
+              arrangement = "date-modified";
+              showas = "fan";
+            };
+          }
         ];
       };
       trackpad = {
