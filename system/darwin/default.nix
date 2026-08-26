@@ -7,6 +7,10 @@ in
     # pkgs.xquartz
   ];
 
+  # https://github.com/nix-darwin/nix-darwin/issues/947
+  # 700 排在 ~/.nix-profile（800）之前、/etc/profiles/per-user（預設 1000）之前。
+  environment.profiles = lib.mkOrder 700 [ "$HOME/.local/state/nix/profile" ];
+
   users.users."${username}" = {
     description = dotfiles.fullname;
     home = "/Users/${username}";
