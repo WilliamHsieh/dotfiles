@@ -1,4 +1,9 @@
-{ pkgs, dotfiles, ... }:
+{
+  lib,
+  pkgs,
+  dotfiles,
+  ...
+}:
 let
   inherit (dotfiles) username;
 in
