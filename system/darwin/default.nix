@@ -80,10 +80,10 @@ in
 
         AppleInterfaceStyle = "Dark";
         NSAutomaticCapitalizationEnabled = false;
-        "com.apple.keyboard.fnState" = true;
         "com.apple.trackpad.scaling" = 2.8;
         "com.apple.mouse.tapBehavior" = 1;
       };
+      WindowManager.GloballyEnabled = true;
       controlcenter = {
         Bluetooth = true;
         # Weather = true;
