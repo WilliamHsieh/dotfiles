@@ -1,52 +1,41 @@
-{ pkgs, config, dotfiles, ... }:
+{
+  pkgs,
+  config,
+  dotfiles,
+  ...
+}:
 let
   symlinkDotfiles = path: config.lib.file.mkOutOfStoreSymlink "${dotfiles.directory}/${path}";
 in
 {
+  # Preserve the terminal previously selected in Fuzzel for Terminal=true apps.
+  home.sessionVariables.TERMINAL = "${pkgs.alacritty}/bin/alacritty";
+
   xdg.configFile = {
     "niri".source = symlinkDotfiles "config/niri";
-    "waybar".source = symlinkDotfiles "config/waybar";
-  };
-
-  programs.hyprlock.enable = true;
-  services.hypridle = {
-    enable = true;
-    settings =
-      let
-        sendLockSignal = "${pkgs.systemd}/bin/loginctl lock-session";
-      in
-      {
-        general = {
-          lock_cmd = "pidof hyprlock || ${pkgs.hyprlock}/bin/hyprlock";
-          before_sleep_cmd = "${sendLockSignal}";
+    # GUI changes are kept separately by Noctalia in ~/.local/state/noctalia.
+    "noctalia/config.toml".source = (pkgs.formats.toml { }).generate "noctalia.toml" {
+      shell.polkit_agent = true;
+      theme = {
+        mode = "dark";
+        source = "builtin";
+        builtin = "Catppuccin";
+      };
+      lockscreen = {
+        enabled = true;
+        lock_before_suspend = true;
+      };
+      idle.behavior = {
+        lock = {
+          enabled = true;
+          timeout = 600;
+          action = "lock";
         };
-
-        listener = [
-          {
-            timeout = 600;
-            on-timeout = "${sendLockSignal}";
-          }
-          {
-            timeout = 630;
-            on-timeout = "${pkgs.niri-unstable}/bin/niri msg action power-off-monitors";
-          }
-        ];
-      };
-  };
-
-  programs.fuzzel = {
-    enable = pkgs.stdenv.isLinux;
-    settings = {
-      main = {
-        terminal = "${pkgs.alacritty}/bin/alacritty";
-        layer = "overlay";
-      };
-      border = {
-        width = 2;
-      };
-      # TODO: how to overwrite the default config?
-      colors = {
-        background = "#1E1E2Eff";
+        screen-off = {
+          enabled = true;
+          timeout = 630;
+          action = "screen_off";
+        };
       };
     };
   };
@@ -63,14 +52,4 @@ in
   };
 
   systemd.user.startServices = "sd-switch";
-
-  services.mako = {
-    enable = pkgs.stdenv.isLinux;
-    settings = {
-      default-timeout = 10000;
-      anchor = "top-center";
-    };
-  };
-
-  services.swayosd.enable = true;
 }

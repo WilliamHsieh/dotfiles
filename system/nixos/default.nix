@@ -2,17 +2,21 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ inputs, pkgs, dotfiles, ... }:
+{
+  inputs,
+  pkgs,
+  dotfiles,
+  ...
+}:
 
 {
   imports = [
     ./hardware.nix
     ./logiops.nix
     ./gaming.nix
-    inputs.niri.nixosModules.niri
+    ./desktop.nix
     inputs.nixos-hardware.nixosModules.asus-zephyrus-ga401
     inputs.flatpak.nixosModules.nix-flatpak
-    inputs.catppuccin.nixosModules.catppuccin
   ];
 
   boot = {
@@ -29,16 +33,12 @@
     };
   };
 
-  swapDevices = [{
-    device = "/var/swapfile";
-    size = 16 * 1024; # 16GB
-  }];
-
-  catppuccin = {
-    enable = true;
-    flavor = "mocha";
-    accent = "lavender";
-  };
+  swapDevices = [
+    {
+      device = "/var/swapfile";
+      size = 16 * 1024; # 16GB
+    }
+  ];
 
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -71,30 +71,7 @@
     LC_TIME = "zh_TW.UTF-8";
   };
 
-  i18n.inputMethod = {
-    enable = true;
-    type = "fcitx5";
-    fcitx5.addons = with pkgs; [
-      fcitx5-mcbopomofo
-      fcitx5-material-color
-    ];
-  };
-
   hardware.bluetooth.enable = true;
-  services.blueman.enable = true;
-
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-
-  # Enable the GNOME Desktop Environment.
-  services.desktopManager.gnome.enable = true;
-  services.displayManager.gdm.enable = true;
-
-  # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
-  };
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -146,47 +123,19 @@
     binfmt = true;
   };
 
-  programs.waybar = {
-    enable = true;
-    package = pkgs.waybar;
-  };
-  # check waybar service log with: `journalctl --user --follow -u waybar`
-  # check waybar service status with: `systemctl --user status waybar`
-  systemd.user.services.waybar.path = [
-    "${pkgs.fuzzel}"
-    "${pkgs.pulseaudio}"
-    "${pkgs.pavucontrol}"
-  ];
-
   # HACK: seems like 2060 max-q does not support Dynamic Boost
   systemd.services.nvidia-powerd.enable = false;
-
-  programs.niri = {
-    enable = true;
-    package = pkgs.niri-unstable;
-  };
 
   environment.systemPackages = with pkgs; [
     # essentials
     kitty
     firefox
     google-chrome
-    xwayland
 
     # tools
     localsend
     bluemail # email client
     gearlever # for appimage integration
-
-    # window managers (niri)
-    cava # console audio visualizer
-    fuzzel # fuzzy launcher
-    libnotify # notification library
-    xwayland-satellite
-    networkmanagerapplet
-    pulseaudio
-    pavucontrol
-    brightnessctl
 
     # work related
     openvpn
