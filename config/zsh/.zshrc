@@ -13,12 +13,6 @@
     [[ -d ~/.cargo/bin ]] && export PATH=~/.cargo/bin:$PATH
     export PATH=~/.npm-global/bin:$PATH
 
-    # auto attach to tmux
-    # FIX: add condition to determine when TMUX is disabled through F10
-    tmux_can_attach=$( [ -n "$PS1" ] && [ -z "$TMUX" ] && [ $SHLVL = 1 ] && echo 1 || echo 0 )
-    tmux_has_session=$(tmux has-session 2> /dev/null && echo 1 || echo 0)
-    (( $tmux_can_attach )) && (( $tmux_has_session )) && tmux a
-
     # HACK: https://github.com/chisui/zsh-nix-shell/issues/19
     if [[ -n $IN_NIX_SHELL && -n $VIRTUAL_ENV ]]; then
       typeset -U PATH
