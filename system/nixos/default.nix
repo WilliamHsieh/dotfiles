@@ -123,9 +123,6 @@
     binfmt = true;
   };
 
-  # HACK: seems like 2060 max-q does not support Dynamic Boost
-  systemd.services.nvidia-powerd.enable = false;
-
   environment.systemPackages = with pkgs; [
     # essentials
     kitty
