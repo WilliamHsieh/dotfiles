@@ -28,15 +28,9 @@ local function yank()
     vim.cmd("normal! y")
   end
 
-  local script_path = vim.fn.expand("~/.config/dotfiles/config/zsh/autoload/yank")
-  vim.system({ script_path }, { stdin = vim.fn.getreg("0") }, function(result)
-    if result.code == 0 then
-      vim.notify("copied to clipboard")
-    else
-      local error_msg = result.stderr ~= "" and result.stderr or result.stdout
-      vim.notify("Failed to copy: " .. (error_msg or "unknown error"), vim.log.levels.ERROR)
-    end
-  end)
+  local lines = vim.split(vim.fn.getreg("0"), "\n", { plain = true })
+  require("vim.ui.clipboard.osc52").copy("+")(lines)
+  vim.notify("copy request sent to terminal")
 end
 
 --}}}
