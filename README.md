@@ -25,27 +25,6 @@ git clone http://github.com/williamhsieh/dotfiles
 
 3. (optional) download [nerd fonts](https://www.nerdfonts.com/) for the terminal emulator, if home profile is selected
 
-### NixOS desktop
-
-Niri starts Noctalia, and Noctalia Greeter provides the login screen. Both Noctalia
-packages and their NixOS modules come from the pinned unstable input. Niri uses
-stable nixpkgs and its built-in NixOS module, without a separate niri-flake input.
-Desktop system settings live in `system/nixos/desktop.nix`.
-
-Noctalia's built-in Polkit agent provides administrator authentication dialogs;
-do not start a second authentication agent alongside it. System Polkit remains enabled.
-
-Use `./setup.py --build` to verify the configuration, then `./setup.py --boot`
-to install it for the next boot without ending the current graphical session.
-The default `./setup.py` switches immediately, so use `--boot` when changing display managers.
-
-`Super+Space` opens the launcher, `Super+Alt+L` locks the screen, and media keys
-control Noctalia's audio and brightness. Idle locking starts after 600 seconds;
-monitors turn off after 630 seconds. Base settings live in `system/nixos/home.nix`;
-changes from Noctalia's UI are saved separately in `~/.local/state/noctalia/settings.toml`.
-The existing auto-cpufreq service handles power management, so Noctalia's power-profile
-switcher is unavailable unless a compatible power-profile service replaces it.
-
 ## Feedback
 
 Comments and suggestions are [welcome](https://github.com/WilliamHsieh/dotfiles/issues)!
