@@ -2,11 +2,6 @@
 let
   dotfiles = import ../config;
 
-  nixpkgsOverlays = [
-    # TODO: this should be local to system specific home-manager module, and loaded conditionally
-    inputs.niri.overlays.niri
-  ];
-
   nixpkgsConfig = {
     allowUnfree = true;
     allowUnfreePredicate = (_: true);
@@ -22,7 +17,6 @@ let
     # https://github.com/nix-community/home-manager/issues/2942#issuecomment-1378627909
     import inputs.nixpkgs {
       inherit (dotfiles) system;
-      overlays = nixpkgsOverlays;
       config = nixpkgsConfig;
     };
 
@@ -81,7 +75,6 @@ in
           hmModules.home-manager
           {
             fonts.packages = fontPkgs;
-            nixpkgs.overlays = nixpkgsOverlays;
             nixpkgs.config = nixpkgsConfig;
           }
         ]

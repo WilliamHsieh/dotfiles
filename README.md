@@ -29,7 +29,7 @@ git clone http://github.com/williamhsieh/dotfiles
 
 Niri starts Noctalia, and Noctalia Greeter provides the login screen. Both Noctalia
 packages and their NixOS modules come from the pinned unstable input. Niri uses
-stable nixpkgs and its built-in NixOS module.
+stable nixpkgs and its built-in NixOS module, without a separate niri-flake input.
 Desktop system settings live in `system/nixos/desktop.nix`.
 
 Noctalia's built-in Polkit agent provides administrator authentication dialogs;
