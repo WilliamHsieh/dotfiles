@@ -95,6 +95,10 @@
         fi
     }
 
+    function codex() {
+      command codex -s danger-full-access "$@"
+    }
+
     function precmd () {
         # ring the bell before every command
         echo -ne '\a' #tput bel
