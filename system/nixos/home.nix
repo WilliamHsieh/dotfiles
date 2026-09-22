@@ -38,19 +38,6 @@ in
         };
       };
     };
-    # Keep the standalone Bluetooth manager available without a duplicate tray icon.
-    "autostart/blueman.desktop".text = ''
-      [Desktop Entry]
-      Type=Application
-      Name=Blueman Applet
-      Hidden=true
-    '';
-    "autostart/nm-applet.desktop".text = ''
-      [Desktop Entry]
-      Type=Application
-      Name=NetworkManager Applet
-      Hidden=true
-    '';
   };
 
   # gtk.font
