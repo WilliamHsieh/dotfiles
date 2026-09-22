@@ -100,9 +100,6 @@
     }
 
     function precmd () {
-        # ring the bell before every command
-        echo -ne '\a' #tput bel
-
         tmux_mark_pane
     }
 
