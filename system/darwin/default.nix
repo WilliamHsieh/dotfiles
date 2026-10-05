@@ -32,23 +32,20 @@ in
   homebrew = {
     enable = true;
     casks = [
-      "arc"
       "google-chrome"
 
       "xquartz"
       "google-drive"
       "raycast"
       "heptabase"
-      "logi-options+"
+      "openlogi"
       "mcbopomofo"
       "spotify"
       "discord"
-      "karabiner-elements"
       "chatgpt"
+      "hammerspoon"
 
-      "jordanbaird-ice"
       "itsycal"
-      "battery"
 
       "vmware-fusion"
       "utm"
@@ -57,7 +54,7 @@ in
     masApps = {
       "Dropover - Easier Drag & Drop" = 1355679052;
       "Hand Mirror" = 1502839586;
-      "RunCat" = 1429033973;
+      "RunCat Neo" = 6757801838;
     };
   };
 
