@@ -68,6 +68,7 @@ in
       mprocs
 
       # images
+      imagemagick
       viu
       # super fast
       feh
