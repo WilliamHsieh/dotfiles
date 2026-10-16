@@ -24,6 +24,18 @@
       "*.swp"
       ".DS_Store"
     ];
+    # `git blame` dies with "could not open object name list" when
+    # blame.ignoreRevsFile is missing, so this stays scoped to this checkout.
+    includes = [
+      {
+        condition = "gitdir:${dotfiles.directory}/";
+        contents = {
+          blame = {
+            ignoreRevsFile = ".git-blame-ignore-revs";
+          };
+        };
+      }
+    ];
     settings = {
       safe = {
         directory = [ "/marketdata" ];

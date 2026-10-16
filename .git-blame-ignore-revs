@@ -1,0 +1,4 @@
+# Placeholder sha of the style commit on ci/pre-commit-check (PR #159).
+# TODO: replace with the sha on master after #159 merges.
+# A rebase merge changes the sha; a merge commit keeps c84c74025b0881afd67658e0836b627c9771d803.
+c84c74025b0881afd67658e0836b627c9771d803
