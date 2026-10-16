@@ -6,7 +6,8 @@
     pyproject-nix.url = "github:nix-community/pyproject.nix";
   };
 
-  outputs = { nixpkgs, pyproject-nix, ... }:
+  outputs =
+    { nixpkgs, pyproject-nix, ... }:
     let
       # Load/parse requirements.txt
       project = pyproject-nix.lib.project.loadRequirementsTxt {
@@ -21,18 +22,19 @@
         # In projects that are overly strict about pinning it might be best to remove this assertion entirely.
         # assert project.validators.validateVersionConstraints { inherit python; } == { }; (
         # Render requirements.txt into a Python withPackages environment
-        pkgs.python3.withPackages (project.renderers.withPackages {
-          inherit python;
-        });
+        pkgs.python3.withPackages (
+          project.renderers.withPackages {
+            inherit python;
+          }
+        );
       # );
 
     in
     {
-      devShells.x86_64-linux.default =
-        pkgs.mkShell {
-          packages = [
-            pythonEnv
-          ];
-        };
+      devShells.x86_64-linux.default = pkgs.mkShell {
+        packages = [
+          pythonEnv
+        ];
+      };
     };
 }

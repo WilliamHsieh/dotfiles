@@ -1,4 +1,11 @@
-{ lib, pkgs, config, dotfiles, isSystemConfig, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  dotfiles,
+  isSystemConfig,
+  ...
+}:
 let
   dotDir = "${dotfiles.directory}";
   aliases = {
@@ -40,8 +47,7 @@ let
       nixProfile = "${config.home.profileDirectory}/etc/profile.d/nix.sh";
       sourceIfExists = file: "[[ -r ${file} ]] && source ${file}";
     in
-    lib.mkBefore
-      /* bash */ ''
+    lib.mkBefore /* bash */ ''
       # p10k instant prompt
       echo ""
       ${sourceIfExists "${instantPrompt}"}
@@ -119,7 +125,11 @@ in
     autocd = true;
     defaultKeymap = "emacs";
     dotDir = "${config.xdg.configHome}/zsh";
-    initContent = lib.mkMerge [ initExtraFirst initExtraBeforeCompInit initExtra ];
+    initContent = lib.mkMerge [
+      initExtraFirst
+      initExtraBeforeCompInit
+      initExtra
+    ];
 
     # TODO: change to -i?
     completionInit = "autoload -Uz compinit && compinit -u";

@@ -95,6 +95,8 @@
             abort "Unknown profile type: '${profile}'"
         );
 
+      formatter.${system} = pkgs.nixfmt-tree;
+
       checks = {
         ${system}.pre-commit-check = inputs.git-hooks.lib.${system}.run {
           src = lib.cleanSource ./.;
@@ -104,7 +106,7 @@
             nixfmt.enable = true;
             stylua = {
               enable = true;
-              entry = "${pkgs.stylua}/bin/stylua --config-path ${dotfiles.directory}/config/nvim/stylua.toml";
+              entry = "${pkgs.stylua}/bin/stylua --config-path config/nvim/stylua.toml";
             };
           };
         };

@@ -1,4 +1,9 @@
-{ pkgs, config, dotfiles, ... }:
+{
+  pkgs,
+  config,
+  dotfiles,
+  ...
+}:
 let
   dotDir = "${dotfiles.directory}";
   dataHome = "${config.xdg.dataHome}/tmux";

@@ -2,7 +2,7 @@ vim.opt_local.wrap = true
 vim.opt_local.spell = true
 vim.opt_local.linebreak = true
 vim.opt_local.conceallevel = 1
-vim.g.tex_conceal = 'abdmg'
+vim.g.tex_conceal = "abdmg"
 
 -- mappings
 vim.keymap.set({ "n", "v" }, "j", "gj")
@@ -25,9 +25,9 @@ vim.api.nvim_create_autocmd("User", {
         vim.defer_fn(function()
           vim.cmd.normal("yy")
         end, 100)
-      end
+      end,
     })
-  end
+  end,
 })
 
 vim.cmd.TSContextDisable()

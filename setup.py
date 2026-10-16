@@ -2,6 +2,7 @@
 
 import argparse
 import os
+import sys
 import re
 import subprocess
 
@@ -34,6 +35,12 @@ def parse_args():
         "--boot",
         action="store_true",
         help="install NixOS configuration for next boot without interrupting the session",
+    )
+    parser.add_argument(
+        "--config-only",
+        action="store_true",
+        help="only write config/default.nix and exit (requires --bootstrap)",
+        default=False,
     )
     parser.add_argument(
         "--dry",
@@ -81,6 +88,9 @@ def parse_args():
 
     args = parser.parse_args()
     args.dir = command_output("dirname " + __file__)
+
+    if args.config_only and not args.bootstrap:
+        parser.error("--config-only requires --bootstrap")
 
     if args.bootstrap:
         args.profile = args.profile or "home"
@@ -141,6 +151,8 @@ def get_command():
     args = parse_args()
     if args.bootstrap and not args.dry:
         write_config(args)
+    if args.config_only:
+        sys.exit(0)
 
     def get_derivation():
         if args.profile == "home":
