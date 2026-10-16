@@ -21,14 +21,14 @@ function M.config()
 
   local function has_words_before()
     local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-    return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match "%s" == nil
+    return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
   end
 
   local function remove_leading_chr(s)
     if string.sub(s, 1, 1) == " " then
       s = s:sub(2)
     end
-    return s:gsub('•', '')
+    return s:gsub("•", "")
   end
 
   local luasnip = require("luasnip")
@@ -40,10 +40,10 @@ function M.config()
   vim.schedule(function()
     luasnip.add_snippets("cpp", {
       s("incp", {
-        t({ "#include <bits/stdc++.h>", "" }),
-        t({ "using namespace std;", "", "" }),
-        i(0)
-      })
+        t { "#include <bits/stdc++.h>", "" },
+        t { "using namespace std;", "", "" },
+        i(0),
+      }),
     })
   end)
 
@@ -70,7 +70,7 @@ function M.config()
       else
         fallback()
       end
-    end, { 'i', 'c', 's', }),
+    end, { "i", "c", "s" }),
     ["<S-Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item(cmp_select_opts)
@@ -79,7 +79,7 @@ function M.config()
       else
         fallback()
       end
-    end, { 'i', 'c', 's', }),
+    end, { "i", "c", "s" }),
   }
 
   require("copilot").setup {
@@ -128,14 +128,14 @@ function M.config()
       documentation = cmp.config.window.bordered(),
       completion = cmp.config.window.bordered {
         col_offset = -1,
-      }
+      },
     },
     experimental = {
       ghost_text = true,
     },
   }
 
-  cmp.setup.cmdline(':', {
+  cmp.setup.cmdline(":", {
     mapping = mappings,
     sources = {
       { name = "path" },
@@ -143,7 +143,7 @@ function M.config()
     },
   })
 
-  cmp.setup.cmdline({ '/', '?' }, {
+  cmp.setup.cmdline({ "/", "?" }, {
     mapping = mappings,
     sources = {
       { name = "buffer" },

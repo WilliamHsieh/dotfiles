@@ -1,24 +1,38 @@
-{ lib, pkgs, config, dotfiles, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  dotfiles,
+  ...
+}:
 let
   link = path: config.lib.file.mkOutOfStoreSymlink "${dotfiles.directory}/config/${path}";
   yamlFormat = pkgs.formats.yaml { };
   clangdConfig = "clangd/config.yaml";
 in
 {
-  home.packages = with pkgs; [
-    gcc
-    gnumake
-    ninja
-  ] ++ (pkgs.lib.optionals pkgs.stdenv.isLinux [
-    gdb
-    mold
-  ]);
+  home.packages =
+    with pkgs;
+    [
+      gcc
+      gnumake
+      ninja
+    ]
+    ++ (pkgs.lib.optionals pkgs.stdenv.isLinux [
+      gdb
+      mold
+    ]);
 
   xdg.configFile = {
     # https://clangd.llvm.org/config.html
     ${clangdConfig}.source = yamlFormat.generate "config.yaml" {
       CompileFlags = {
-        Add = [ "-Wall" "-Wextra" "-Wshadow" "-std=c++23" ];
+        Add = [
+          "-Wall"
+          "-Wextra"
+          "-Wshadow"
+          "-std=c++23"
+        ];
         Compiler = "${pkgs.gcc}/bin/g++";
       };
     };

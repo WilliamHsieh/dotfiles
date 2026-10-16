@@ -7,7 +7,7 @@ local M = {}
 function M.get_hl(group)
   local hl = vim.api.nvim_get_hl(0, { name = group, link = true })
   local function to_hex(color)
-    return color and string.format("#%06x", color) or ''
+    return color and string.format("#%06x", color) or ""
   end
   return { fg = to_hex(hl.fg), bg = to_hex(hl.bg) }
 end
