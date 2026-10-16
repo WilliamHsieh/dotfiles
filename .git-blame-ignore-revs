@@ -1,0 +1,6 @@
+# Squash of PR #159, including CI and setup.py --config-only changes.
+# The repo-wide formatting was reverted before the squash.
+# Blame skips the whole commit, including lines it really added. Those lines
+# can show as a ^ boundary or be attributed to an earlier commit.
+# Unassignable lines can retain this SHA (* with blame.markUnblamableLines).
+468215ef1eafe7a1ddf6406211ebcbba1e8881aa
