@@ -1,4 +1,4 @@
-name: gitleaks
+name: check
 on: [pull_request, push, workflow_dispatch]
 jobs:
   scan:
@@ -13,4 +13,20 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # TODO: add nix flake check
+  format:
+    name: pre-commit-check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Setup nix
+        uses: ./.github/workflows/nix-setup
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          cachix_auth_token: ${{ secrets.CACHIX_AUTH_TOKEN }}
+
+      - name: Generate config
+        run: ./setup.py --bootstrap --config-only
+
+      - name: Run pre-commit-check (nixfmt, stylua, editorconfig-checker)
+        run: nix build -L --show-trace .#checks.x86_64-linux.pre-commit-check
