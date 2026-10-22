@@ -1,4 +1,4 @@
-name: gitleaks
+name: check
 on: [pull_request, push, workflow_dispatch]
 jobs:
   scan:
@@ -13,4 +13,45 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # TODO: add nix flake check
+  format:
+    name: pre-commit (changed files)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Setup nix
+        uses: ./.github/workflows/nix-setup
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          cachix_auth_token: ${{ secrets.CACHIX_AUTH_TOKEN }}
+
+      - name: Generate config
+        run: ./setup.py --bootstrap --config-only
+
+      # Only check files changed by this PR/push, so untouched files are not
+      # reformatted (keeps git blame clean). The whole-tree
+      # checks.<system>.pre-commit-check is intentionally not run in CI.
+      - name: Run pre-commit on changed files (nixfmt, stylua, editorconfig-checker)
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          BASE_REF: ${{ github.base_ref }}
+          REF_NAME: ${{ github.ref_name }}
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+          BEFORE: ${{ github.event.before }}
+        run: |
+          if [ "$EVENT_NAME" = pull_request ]; then
+            base="origin/$BASE_REF"
+          elif [ "$REF_NAME" != "$DEFAULT_BRANCH" ]; then
+            # feature branch push: same files as the PR would check
+            base="origin/$DEFAULT_BRANCH"
+          elif [ -n "$BEFORE" ] && [ "$BEFORE" != 0000000000000000000000000000000000000000 ] \
+            && git cat-file -e "$BEFORE^{commit}" 2>/dev/null; then
+            base="$BEFORE"
+          else
+            base="HEAD~1"
+          fi
+          echo "Checking files changed in $base...HEAD:"
+          git diff --name-only "$base...HEAD"
+          nix develop -c pre-commit run --show-diff-on-failure --from-ref "$base" --to-ref HEAD
