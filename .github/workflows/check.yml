@@ -37,16 +37,21 @@ jobs:
         env:
           EVENT_NAME: ${{ github.event_name }}
           BASE_REF: ${{ github.base_ref }}
+          REF_NAME: ${{ github.ref_name }}
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
           BEFORE: ${{ github.event.before }}
         run: |
           if [ "$EVENT_NAME" = pull_request ]; then
             base="origin/$BASE_REF"
+          elif [ "$REF_NAME" != "$DEFAULT_BRANCH" ]; then
+            # feature branch push: same files as the PR would check
+            base="origin/$DEFAULT_BRANCH"
           elif [ -n "$BEFORE" ] && [ "$BEFORE" != 0000000000000000000000000000000000000000 ] \
             && git cat-file -e "$BEFORE^{commit}" 2>/dev/null; then
             base="$BEFORE"
           else
             base="HEAD~1"
           fi
-          echo "Checking files changed in $base..HEAD"
+          echo "Checking files changed in $base...HEAD:"
           git diff --name-only "$base...HEAD"
           nix develop -c pre-commit run --show-diff-on-failure --from-ref "$base" --to-ref HEAD
