@@ -1,12 +1,12 @@
 local M = {
   "smoka7/hop.nvim",
-  cmd = { "HopChar2MW", "HopWord" },
+  cmd = { 'HopChar2MW', 'HopWord' },
 }
 
 function M.config()
-  require("hop").setup {
+  require('hop').setup {
     -- keys = 'asdghklqwertyuiopzxcvbnmfj' -- default
-    keys = "awefjio;sdghklqrtyupvbn",
+    keys = 'awefjio;sdghklqrtyupvbn'
   }
 end
 

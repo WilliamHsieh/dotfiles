@@ -1,15 +1,9 @@
-{
-  pkgs,
-  config,
-  dotfiles,
-  ...
-}:
+{ pkgs, config, dotfiles, ... }:
 let
   filePreview = "bat --color=always {}";
   dirPreview = "eza --color always --tree --level 1 {} | less";
 
-  yankField =
-    field:
+  yankField = field:
     "ctrl-y:execute-silent(echo -n {${toString field}..} | ${dotfiles.directory}/config/zsh/autoload/yank)+abort";
 in
 {

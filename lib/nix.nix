@@ -1,9 +1,4 @@
-{
-  inputs,
-  pkgs,
-  lib,
-  ...
-}:
+{ inputs, pkgs, lib, ... }:
 let
   # https://github.com/Misterio77/nix-config/blob/8bb813869ea740fd7bcca1a033ecb53cc2bf77de/hosts/common/global/nix.nix#L7
   flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
@@ -20,10 +15,7 @@ in
     };
 
     settings = {
-      experimental-features = [
-        "nix-command"
-        "flakes"
-      ];
+      experimental-features = [ "nix-command" "flakes" ];
       warn-dirty = false;
       max-jobs = "auto";
       use-xdg-base-directories = true;

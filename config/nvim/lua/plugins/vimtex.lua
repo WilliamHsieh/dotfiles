@@ -1,10 +1,10 @@
 local M = {
-  "lervag/vimtex",
+  'lervag/vimtex',
 }
 
 function M.config()
   -- NOTE: skim config: nvim --headless -c "VimtexInverseSearch %line '%file'"
-  vim.g.vimtex_view_method = "skim"
+  vim.g.vimtex_view_method = 'skim'
   vim.g.vimtex_view_skim_sync = 1
   vim.g.vimtex_view_skim_activate = 1
 
@@ -14,8 +14,8 @@ function M.config()
     indent_levels = 1,
     show_help = 0,
     layers = {
-      "content",
-    },
+      'content',
+    }
   }
 end
 

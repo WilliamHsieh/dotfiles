@@ -4,21 +4,19 @@ local M = {
     {
       "<leader>gb",
       function()
-        local git_root_path = require("plenary.job")
-          :new({
-            command = "git",
-            args = { "rev-parse", "--show-toplevel" },
-          })
-          :sync()[1]
+        local git_root_path = require("plenary.job"):new {
+          command = "git",
+          args = { "rev-parse", "--show-toplevel" }
+        }:sync()[1]
         vim.cmd.cd(git_root_path)
-        require("session_manager").save_current_session()
+        require('session_manager').save_current_session()
         pcall(require("nvim-tree.api").tree.toggle, false, true)
 
         vim.schedule(function()
           vim.cmd("Telescope git_worktree theme=dropdown")
         end)
       end,
-      desc = "Checkout branch (worktree)",
+      desc = "Checkout branch (worktree)"
     },
   },
 }
@@ -33,7 +31,7 @@ function M.config()
     if op == worktree.Operations.Switch then
       vim.cmd("%bdelete")
       vim.cmd.cd(metadata.path)
-      require("session_manager").load_current_dir_session()
+      require('session_manager').load_current_dir_session()
       vim.schedule(function()
         vim.notify("Switched from " .. metadata.prev_path .. " to " .. metadata.path)
       end)

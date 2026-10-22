@@ -3,7 +3,7 @@ local M = {
   cmd = "Telescope",
   dependencies = {
     { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-  },
+  }
 }
 
 function M.config()
@@ -61,27 +61,27 @@ function M.config()
       },
       find_files = {
         -- find_command = { 'fd', '-L', '--type', 'file', '--type', 'symlink', '--hidden', '--exclude', '.git' }
-        find_command = { "rg", "--ignore", "-L", "--hidden", "--files" },
+        find_command = { 'rg', '--ignore', '-L', '--hidden', "--files" }
       },
       live_grep = {
         theme = "ivy",
         glob_pattern = {
-          "!.git/",
+          "!.git/"
         },
         additional_args = function()
           return { "--hidden", "-L" }
-        end,
+        end
       },
       colorscheme = {
         enable_preview = true,
       },
       git_status = {
         initial_mode = "normal",
-      },
+      }
     },
     extensions = {
       ["ui-select"] = {
-        require("telescope.themes").get_dropdown(),
+        require("telescope.themes").get_dropdown()
       },
     },
   }

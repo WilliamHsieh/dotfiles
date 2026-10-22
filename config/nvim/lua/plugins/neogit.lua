@@ -31,7 +31,7 @@ M.opts = {
     kind = "vsplit",
   },
   integrations = {
-    diffview = true,
+    diffview = true
   },
 }
 
