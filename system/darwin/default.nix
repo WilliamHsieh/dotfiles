@@ -1,4 +1,9 @@
-{ pkgs, dotfiles, ... }:
+{
+  lib,
+  pkgs,
+  dotfiles,
+  ...
+}:
 let
   inherit (dotfiles) username;
 in
@@ -6,6 +11,10 @@ in
   environment.systemPackages = [
     # pkgs.xquartz
   ];
+
+  # https://github.com/nix-darwin/nix-darwin/issues/947
+  # 700 排在 ~/.nix-profile（800）之前、/etc/profiles/per-user（預設 1000）之前。
+  environment.profiles = lib.mkOrder 700 [ "$HOME/.local/state/nix/profile" ];
 
   users.users."${username}" = {
     description = dotfiles.fullname;
@@ -23,23 +32,20 @@ in
   homebrew = {
     enable = true;
     casks = [
-      "arc"
       "google-chrome"
 
       "xquartz"
       "google-drive"
       "raycast"
       "heptabase"
-      "logi-options+"
+      "openlogi"
       "mcbopomofo"
       "spotify"
       "discord"
-      "karabiner-elements"
       "chatgpt"
+      "hammerspoon"
 
-      "jordanbaird-ice"
       "itsycal"
-      "battery"
 
       "vmware-fusion"
       "utm"
@@ -48,8 +54,14 @@ in
     masApps = {
       "Dropover - Easier Drag & Drop" = 1355679052;
       "Hand Mirror" = 1502839586;
-      "RunCat" = 1429033973;
+      "RunCat Neo" = 6757801838;
     };
+  };
+
+  security.pam.services.sudo_local = {
+    touchIdAuth = true;
+    watchIdAuth = true;
+    reattach = true; # Touch ID for sudo not working inside tmux
   };
 
   # NOTE: some of the value are not reflected instantly
@@ -65,12 +77,15 @@ in
         KeyRepeat = 2;
         InitialKeyRepeat = 15;
 
+        # ref: https://github.com/alacritty/alacritty/commit/2a676dfad837d1784ed0911d314bc263804ef4ef
+        AppleFontSmoothing = 0;
+
         AppleInterfaceStyle = "Dark";
         NSAutomaticCapitalizationEnabled = false;
-        "com.apple.keyboard.fnState" = true;
         "com.apple.trackpad.scaling" = 2.8;
         "com.apple.mouse.tapBehavior" = 1;
       };
+      WindowManager.GloballyEnabled = true;
       controlcenter = {
         Bluetooth = true;
         # Weather = true;
@@ -82,8 +97,20 @@ in
         mru-spaces = false;
         scroll-to-open = true;
         persistent-others = [
-          "/Users/${username}/Documents"
-          "/Users/${username}/Downloads"
+          {
+            folder = {
+              path = "/Users/${username}/Documents";
+              arrangement = "date-modified";
+              showas = "fan";
+            };
+          }
+          {
+            folder = {
+              path = "/Users/${username}/Downloads";
+              arrangement = "date-modified";
+              showas = "fan";
+            };
+          }
         ];
       };
       trackpad = {
@@ -114,9 +141,8 @@ in
       # Disable the sound effects on boot
       sudo nvram SystemAudioVolume=" "
 
-      # set `AppleFontSmoothing` to 0
-      # ref: https://github.com/alacritty/alacritty/commit/2a676dfad837d1784ed0911d314bc263804ef4ef
-      defaults write -g AppleFontSmoothing -int 0
+      # disable capslock delay for changing input
+      sudo hidutil property --set '{"CapsLockDelayOverride":0}'
     '';
   };
 

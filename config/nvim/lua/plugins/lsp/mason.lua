@@ -14,13 +14,11 @@ M.opts = {
     -- lsp
     "clangd",
     "lua-language-server",
-    "nil",
     "pyright",
     "ruff",
     "typescript-language-server",
 
     -- formatter / linter
-    "nixpkgs-fmt",
     "selene",
     "shfmt",
     "sqlfluff",

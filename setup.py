@@ -23,11 +23,17 @@ def get_value_by_key(nix_content, key):
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument(
+    action = parser.add_mutually_exclusive_group()
+    action.add_argument(
         "--build",
         action="store_true",
         help="build profile without switch (default to switch)",
         default=False,
+    )
+    action.add_argument(
+        "--boot",
+        action="store_true",
+        help="install NixOS configuration for next boot without interrupting the session",
     )
     parser.add_argument(
         "--dry",
@@ -78,6 +84,8 @@ def parse_args():
 
     if args.bootstrap:
         args.profile = args.profile or "home"
+        if args.boot and args.profile != "nixos":
+            parser.error("--boot is only supported for the nixos profile")
         args.username = args.username or command_output("printenv USER")
         args.hostname = args.hostname or command_output("hostname")
         return args
@@ -96,6 +104,9 @@ def parse_args():
     args.profile = get_value_by_key(config, "profile")
     args.username = get_value_by_key(config, "username")
     args.hostname = get_value_by_key(config, "hostname")
+
+    if args.boot and args.profile != "nixos":
+        parser.error("--boot is only supported for the nixos profile")
 
     return args
 
@@ -143,7 +154,7 @@ def get_command():
         f"{args.dir}",
         "--show-trace",
         "--",
-        "build" if args.build else "switch",
+        "build" if args.build else "boot" if args.boot else "switch",
         "--show-trace",
         "--flake",
         args.dir + get_derivation(),
@@ -153,7 +164,7 @@ def get_command():
     if not args.build:
         if args.profile == "home":
             cmd += ["-b", "backup"]
-        else:
+        elif os.geteuid() != 0:
             cmd = ["sudo"] + cmd
 
     if args.dry:

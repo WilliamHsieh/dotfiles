@@ -1,4 +1,4 @@
-{ pkgs, inputs, dotfiles, ... }:
+{ inputs, dotfiles, ... }:
 {
   home-manager = {
     users.${dotfiles.username} = import ../../home;
@@ -19,4 +19,6 @@
 
   # for default login shell
   programs.zsh.enable = true;
+  # compinit only run by home-manager once (home/zsh.nix completionInit)
+  programs.zsh.enableCompletion = false;
 }

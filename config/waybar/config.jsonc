@@ -10,10 +10,8 @@
   "modules-center": ["clock"],
   "modules-right": [
     "tray",
-    "pulseaudio#output",
     "pulseaudio#input",
-    "bluetooth",
-    "network",
+    "pulseaudio#output",
     "custom/power",
   ],
 
@@ -101,7 +99,7 @@
   // center
   "clock": {
     "interval": 1,
-    "format": " {:%A - %B %d, %Y -  %R}",
+    "format": "{:%m/%d %A %R}",
     "tooltip": false,
   },
 
@@ -114,10 +112,12 @@
   "pulseaudio#output": {
     "tooltip": false,
     "scroll-step": 5,
-    "format": "{icon}  {volume}%",
-    "format-muted": "󰖁  0%",
+    "format": "{icon} {volume}%",
+    "format-muted": "󰖁 off",
     "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
     "on-click-middle": "pavucontrol -t 3",
+    "on-scroll-up": "pactl get-sink-mute @DEFAULT_SINK@ | grep -q 'yes' && (pactl set-sink-mute @DEFAULT_SINK@ 0 && pactl set-sink-volume @DEFAULT_SINK@ 0%) || pactl set-sink-volume @DEFAULT_SINK@ +5%",
+    "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -5%",
     "format-icons": {
       "headphone": "  ",
       "hands-free": "  ",
@@ -125,7 +125,7 @@
       "phone": "  ",
       "portable": "  ",
       "car": "  ",
-      "default": ["", "", ""],
+      "default": ["", "", " "],
     },
   },
 
@@ -135,7 +135,6 @@
     "format": "{format_source}",
     "scroll-step": 1,
     "smooth-scrolling-threshold": 1,
-    "max-volume": 100,
     "on-click": "pactl set-source-mute @DEFAULT_SOURCE@ toggle",
     "on-click-middle": "pavucontrol -t 4",
     "on-scroll-up": "pactl set-source-volume @DEFAULT_SOURCE@ +1%",

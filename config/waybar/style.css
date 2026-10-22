@@ -31,7 +31,7 @@ window#waybar {
 #tray,
 #tray menu {
   margin-top: 7px;
-  margin-bottom: 2px;
+  margin-bottom: 0px;
   margin-left: 3px;
   margin-right: 3px;
   padding-top: 2px;
@@ -53,16 +53,13 @@ window#waybar {
 #bluetooth:hover,
 #custom-keybinds:hover,
 #cava:hover,
-#battery:hover,
 #backlight:hover,
 #language:hover,
 #pulseaudio:hover,
-#clock:hover,
 #disk:hover,
 #privacy:hover,
 #memory:hover,
 #cpu:hover,
-#tray:hover,
 #custom-launcher:hover,
 #workspaces button:hover {
   background: #cad3f5;

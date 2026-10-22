@@ -39,14 +39,14 @@ M.setup_auto_detach = function()
 end
 
 M.start_lsp = function()
-  pcall(vim.cmd.LspStart)
+  vim.cmd.lsp("enable")
   vim.cmd("Lazy reload lazydev.nvim")
   vim.cmd("Lazy reload none-ls.nvim")
   vim.cmd("Lazy reload mason-null-ls.nvim")
 end
 
 M.stop_lsp = function()
-  pcall(vim.cmd.LspStop)
+  vim.cmd.lsp("stop")
 end
 
 M.restart_lsp = function()

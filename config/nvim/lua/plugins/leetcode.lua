@@ -2,19 +2,20 @@ return {
   "kawre/leetcode.nvim",
   build = ":TSUpdate html",
   cmd = "Leet",
+  dependencies = {
+    {
+      "3rd/image.nvim",
+      build = false,
+      opts = {
+        backend = "kitty",
+        processor = "magick_cli",
+      },
+    },
+  },
   opts = {
     keys = {
       quit = "q",
       reset_testcases = "R",
-    },
-    injector = {
-      ["cpp"] = {
-        before = {
-          "#include <bits/stdc++.h>",
-          "#include <ranges>", -- leetcode didn't include this by default
-          "using namespace std;",
-        },
-      },
     },
     hooks = {
       ["enter"] = {
@@ -28,5 +29,6 @@ return {
         end,
       },
     },
+    image_support = true,
   },
 }

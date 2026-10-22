@@ -28,15 +28,9 @@ local function yank()
     vim.cmd("normal! y")
   end
 
-  local script_path = vim.fn.expand("~/.config/dotfiles/config/zsh/autoload/yank")
-  vim.system({ script_path }, { stdin = vim.fn.getreg("0") }, function(result)
-    if result.code == 0 then
-      vim.notify("copied to clipboard")
-    else
-      local error_msg = result.stderr ~= "" and result.stderr or result.stdout
-      vim.notify("Failed to copy: " .. (error_msg or "unknown error"), vim.log.levels.ERROR)
-    end
-  end)
+  local lines = vim.split(vim.fn.getreg("0"), "\n", { plain = true })
+  require("vim.ui.clipboard.osc52").copy("+")(lines)
+  vim.notify("copy request sent to terminal")
 end
 
 --}}}
@@ -108,7 +102,7 @@ map("n", "<leader>gn", "<cmd>NvimTreeRefresh<cr>", "refresh nvim-tree")
 -- <leader>l: lsp{{{
 map("n", "<leader>la", "<cmd>Lspsaga code_action<cr>", "Code Action")
 map("n", "<leader>ld", "<cmd>Trouble diagnostics<cr>", "Diagnostics")
-map("n", "<leader>li", "<cmd>LspInfo<cr>", "LSP info")
+map("n", "<leader>li", "<cmd>checkhealth lsp<cr>", "LSP info")
 map("n", "<leader>lI", "<cmd>Mason<cr>", "LSP installer Info")
 map("n", "<leader>ll", "<cmd>Lspsaga show_line_diagnostics<cr>", "Hover diagnostics")
 map("n", "]d", vim.diagnostic.goto_next, "next diagnostic")

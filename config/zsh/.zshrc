@@ -11,12 +11,7 @@
     [[ -e ~/.local.zsh ]] && source ~/.local.zsh
     [[ -d ~/.local/bin ]] && export PATH=~/.local/bin:$PATH
     [[ -d ~/.cargo/bin ]] && export PATH=~/.cargo/bin:$PATH
-
-    # auto attach to tmux
-    # FIX: add condition to determine when TMUX is disabled through F10
-    tmux_can_attach=$( [ -n "$PS1" ] && [ -z "$TMUX" ] && [ $SHLVL = 1 ] && echo 1 || echo 0 )
-    tmux_has_session=$(tmux has-session 2> /dev/null && echo 1 || echo 0)
-    (( $tmux_can_attach )) && (( $tmux_has_session )) && tmux a
+    export PATH=~/.npm-global/bin:$PATH
 
     # HACK: https://github.com/chisui/zsh-nix-shell/issues/19
     if [[ -n $IN_NIX_SHELL && -n $VIRTUAL_ENV ]]; then
@@ -87,7 +82,7 @@
         export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0
         export LIBGL_ALWAYS_INDIRECT=1
     elif uname | grep -i -q 'Linux'; then
-        alias pbcopy="bash ~/dotfiles/config/zsh/autoload/yank"
+        alias pbcopy="bash ~/.config/dotfiles/config/zsh/autoload/yank"
         alias open="xdg-open"
     fi
 
@@ -100,10 +95,11 @@
         fi
     }
 
-    function precmd () {
-        # ring the bell before every command
-        echo -ne '\a' #tput bel
+    function codex() {
+      command codex -s danger-full-access "$@"
+    }
 
+    function precmd () {
         tmux_mark_pane
     }
 

@@ -2,15 +2,6 @@
 let
   symlinkDotfiles = path: config.lib.file.mkOutOfStoreSymlink "${dotfiles.directory}/${path}";
 
-  glow-without-completion = pkgs.glow.overrideAttrs
-    (oldAttrs: {
-      # glow with completion can't complete file path
-      # solution: remove the completion file
-      postFixup = ''
-        rm $out/share/zsh/site-functions/_glow
-      '';
-    });
-
   # NOTE: impure
   # isWSL = lib.strings.hasInfix "Microsoft" (builtins.readFile /proc/version);
 in
@@ -22,9 +13,12 @@ in
     ./git.nix
     ./alacritty.nix
     ./cpp.nix
+    ./nixd.nix
     inputs.nix-index-database.homeModules.nix-index
     inputs.catppuccin.homeModules.catppuccin
-  ];
+  ] ++ (lib.optionals (dotfiles.profile == "nixos") [
+    ../system/nixos/home.nix
+  ]);
 
   home = {
     stateVersion = "25.05";
@@ -75,12 +69,14 @@ in
       mprocs
 
       # images
+      imagemagick
       viu
       # super fast
       feh
 
       # editor
       unstable.neovim
+      unstable.tree-sitter
       unzip
       nodejs
 
@@ -101,8 +97,9 @@ in
       go
       uv
       poetry
-      python315
-      nixpkgs-fmt
+      python313
+      nixfmt
+      unstable.nixd
 
       # network
       httpie
@@ -113,7 +110,6 @@ in
       smassh
 
       # pretty stuff
-      glow-without-completion
       csvlens
       litecli
       nix-tree
@@ -153,6 +149,10 @@ in
       linkHomeManagerPath = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
         ln -sfn ${config.home-files} ${config.home.homeDirectory}/.local/share/home-files
       '';
+
+      setNpmPrefix = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        PATH="${config.home.path}/bin:$PATH" run npm set prefix ~/.npm-global
+      '';
     };
   };
 
@@ -161,17 +161,13 @@ in
   xdg.configFile = {
     "dotfiles".source = symlinkDotfiles ".";
     "nvim".source = symlinkDotfiles "config/nvim";
-    "glow".source = symlinkDotfiles "config/glow";
     "vim".source = symlinkDotfiles "config/vim";
-    "niri".source = symlinkDotfiles "config/niri";
-    "waybar".source = symlinkDotfiles "config/waybar";
   };
 
   catppuccin = {
     enable = true;
     flavor = "mocha";
 
-    glamour.enable = true;
     fuzzel.accent = "lavender";
   };
 
@@ -257,34 +253,8 @@ in
     ]);
   };
 
-  programs.fuzzel = {
-    enable = pkgs.stdenv.isLinux;
-    settings = {
-      main = {
-        terminal = "${pkgs.alacritty}/bin/alacritty";
-        layer = "overlay";
-      };
-      border = {
-        width = 2;
-      };
-      # TODO: how to overwrite the default config?
-      colors = {
-        background = "#1E1E2Eff";
-      };
-    };
-  };
-
   # for fast-syntax-highlighting
   programs.man.generateCaches = true;
-
-  home.pointerCursor = {
-    enable = pkgs.stdenv.isLinux;
-    package = pkgs.xcursor-pro;
-    name = "XCursor-Pro-Dark";
-    size = 16;
-    gtk.enable = true;
-    x11.enable = true;
-  };
 
   systemd.user.startServices = "sd-switch";
 
@@ -295,16 +265,6 @@ in
       options = "--delete-older-than 30d";
     };
   };
-
-  services.mako = {
-    enable = pkgs.stdenv.isLinux;
-    settings = {
-      default-timeout = 10000;
-      anchor = "top-center";
-    };
-  };
-
-  services.swayosd.enable = dotfiles.profile == "nixos";
 
   services.pueue = {
     enable = pkgs.stdenv.isLinux;

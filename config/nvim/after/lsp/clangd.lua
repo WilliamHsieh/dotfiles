@@ -1,23 +1,26 @@
 -- NOTE: https://clangd.llvm.org/guides/system-headers#query-driver
 return {
-  root_dir = function(...)
-    local util = require("lspconfig.util")
-
-    local clang_format_not_home = function(...)
-      local path = util.root_pattern(".clang-format")(...)
-      if path and path ~= vim.uv.os_homedir() then
-        return path
-      end
+  root_dir = function(bufnr, on_dir)
+    local root = vim.fs.root(bufnr, { ".clang-format" })
+    if root and root ~= vim.env.HOME then
+      on_dir(root)
+      return
     end
 
-    return util.root_pattern("CMakeLists.txt", "Makefile", "configure.ac")(...)
-      or util.root_pattern("compile_commands.json", "compile_flags.txt", ".clang-tidy")(...)
-      or clang_format_not_home(...)
-      or util.find_git_ancestor(...)
+    root = vim.fs.root(bufnr, {
+      {
+        ".clangd",
+        ".clang-tidy",
+        "compile_commands.json",
+        "compile_flags.txt",
+        "configure.ac",
+      },
+      {
+        ".git",
+      },
+    })
+    on_dir(root or vim.uv.cwd())
   end,
-  capabilities = {
-    offsetEncoding = { "utf-16" },
-  },
   cmd = {
     "clangd",
     "--background-index",

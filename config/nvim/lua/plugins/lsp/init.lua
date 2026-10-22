@@ -1,7 +1,7 @@
 local M = {
   "neovim/nvim-lspconfig",
   cmd = { "Mason", "LspInfo" },
-  event = "LazyFile",
+  event = "VeryLazy",
   dependencies = {
     "williamboman/mason-lspconfig.nvim",
     "ray-x/lsp_signature.nvim",
@@ -13,12 +13,13 @@ local M = {
 }
 
 function M.config()
-  local on_attach = function(_client, bufnr)
+  local cb = function(ev)
+    local bufnr = ev.buf
     local function opts(desc)
       return { buffer = bufnr, desc = desc }
     end
     vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help, opts("signature_help"))
-    vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<cr>", opts("Hover doc"))
+    vim.keymap.set("n", "K", vim.lsp.buf.hover, opts("Hover doc"))
     vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts("go to definition"))
     vim.keymap.set("n", "gD", vim.lsp.buf.type_definition, opts("go to type definition"))
     vim.keymap.set("n", "gr", "<cmd>FzfLua lsp_references<cr>", opts("go to references"))
@@ -28,11 +29,16 @@ function M.config()
     end, { buffer = bufnr, expr = true, desc = "Rename (with cword)" })
 
     vim.keymap.set("n", "<leader>lh", function()
-      local enabled = vim.lsp.inlay_hint.is_enabled()
-      vim.lsp.inlay_hint.enable(not enabled)
+      local enabled = vim.lsp.inlay_hint.is_enabled { bufnr = bufnr }
+      vim.lsp.inlay_hint.enable(not enabled, { bufnr = bufnr })
       vim.notify("LSP inlay hint: " .. (not enabled and "on" or "off"))
-    end, opts("toggle inlay hists"))
+    end, opts("toggle inlay hints"))
   end
+
+  vim.api.nvim_create_autocmd("LspAttach", {
+    group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+    callback = cb,
+  })
 
   local capabilities = require("cmp_nvim_lsp").default_capabilities()
   capabilities.textDocument.foldingRange = {
@@ -40,35 +46,38 @@ function M.config()
     lineFoldingOnly = true,
   }
 
-  require("mason-lspconfig").setup_handlers {
-    function(server)
-      local opts = {
-        on_attach = on_attach,
-        capabilities = capabilities,
-      }
+  vim.lsp.config("*", {
+    capabilities = capabilities,
+  })
 
-      local have_config, lsp_config = pcall(require, "plugins.lsp.server." .. server)
-      if have_config then
-        opts = vim.tbl_deep_extend("force", lsp_config, opts)
-      end
+  require("mason-lspconfig").setup()
 
-      require("lspconfig")[server].setup(opts)
-    end,
-  }
+  -- enable all lsp by default
+  vim.schedule(function()
+    local servers = vim.fs.dir(vim.fs.joinpath(vim.fn.stdpath("config"), "after", "lsp"))
+    for name, _ in servers do
+      local server_name = name:gsub("%.lua$", "")
+      vim.lsp.enable(server_name)
+    end
+  end)
 
   require("plugins.lsp.utils").setup_auto_detach()
-
-  -- settings
-  local signs = { Error = "", Info = "󰋼", Hint = "󰌵", Warn = "" }
-  for name, icon in pairs(signs) do
-    local hl = "DiagnosticSign" .. name
-    vim.fn.sign_define(hl, { text = icon, numhl = hl, texthl = hl })
-  end
 
   vim.diagnostic.config {
     virtual_text = false,
     signs = {
-      active = signs,
+      text = {
+        [vim.diagnostic.severity.ERROR] = "",
+        [vim.diagnostic.severity.WARN] = "",
+        [vim.diagnostic.severity.INFO] = "󰋼",
+        [vim.diagnostic.severity.HINT] = "󰌵",
+      },
+      numhl = {
+        [vim.diagnostic.severity.ERROR] = "DiagnosticSignError",
+        [vim.diagnostic.severity.WARN] = "DiagnosticSignWarn",
+        [vim.diagnostic.severity.INFO] = "DiagnosticSignInfo",
+        [vim.diagnostic.severity.HINT] = "DiagnosticSignHint",
+      },
     },
     update_in_insert = true,
     underline = true,
@@ -79,14 +88,6 @@ function M.config()
       source = "if_many",
     },
   }
-
-  -- set rounded border
-  local rounded_border = {
-    border = "rounded",
-  }
-  require("lspconfig.ui.windows").default_options = rounded_border
-  vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, rounded_border)
-  vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, rounded_border)
 end
 
 return M
