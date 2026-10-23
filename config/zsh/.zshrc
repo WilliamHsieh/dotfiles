@@ -39,6 +39,35 @@
       ZVM_KEYTIMEOUT=0.05
     }
 
+    # HACK: zsh-vi-mode 0.12.0 ships a raw NUL byte in this function, which
+    # breaks the Grok Bot client's shell snapshot (`(eval):12: unmatched '`).
+    # Copied from upstream with only the NUL replaced by $'\0'.
+    # Re-sync or drop this when zsh-vi-mode is upgraded.
+    function zvm_escape_non_printed_characters() {
+      local str= i=
+      for ((i=0;i<$#1;i++)); do
+        local c=${1:$i:1}
+        if [[ "$c" < ' ' ]]; then
+          local ord=$(($(printf '%d' "'$c")+64))
+          c=$(printf \\$(printf '%03o' $ord))
+          str="${str}^${c}"
+        elif [[ "$c" == '' ]]; then
+          str="${str}^?"
+        elif [[ "$c" == $'\0' ]]; then
+          str="${str}^@"
+        else
+          str="${str}${c}"
+        fi
+      done
+
+      # Escape the newline and space characters, otherwise, we can't
+      # get the output from subshell correctly.
+      str=${str// /$ZVM_ESCAPE_SPACE}
+      str=${str//$'\n'/$ZVM_ESCAPE_NEWLINE}
+
+      echo -n $str
+    }
+
     # TODO: shlvl ❯❯❯❯❯
     # https://github.com/romkatv/powerlevel10k/issues/2178
 
